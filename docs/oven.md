@@ -64,6 +64,34 @@ surface cooking. These JSON files are hand-maintained; do not generate duplicate
 files at the same resource paths. Dedicated recipe-viewer integration is not
 included in this first feature.
 
+## KubeJS recipes
+
+KubeJS can add and remove Oven recipes through its standard recipe event; it is
+optional and is not a dependency of this mod. In your Minecraft instance, put
+this script in `kubejs/server_scripts/chocolate_flavored_recipes.js`:
+
+```js
+ServerEvents.recipes(event => {
+  event.remove({ id: 'chocolateflavored:oven_cooking/bread_from_wheat' })
+  event.custom({
+    type: 'chocolateflavored:oven_cooking',
+    ingredient: { item: 'minecraft:wheat' },
+    result: { id: 'minecraft:bread', count: 1 },
+    cookingtime: 400
+  }).id('chocolateflavored:oven_cooking/bread_from_wheat')
+})
+```
+
+Use `/reload` after saving. Food placed afterward uses the updated cooking time;
+food already on the Oven retains its original timer and resolves the current
+recipe output when it finishes. If its recipe has been removed, the uncooked
+input is returned instead.
+
+Removing recipes of type `chocolateflavored:oven_cooking` still leaves campfire
+fallback enabled. Removing a `minecraft:campfire_cooking` recipe also changes
+vanilla campfires. The Cooking Pot recipe type is not registered in the current
+project; its port needs to be added before Cooking Pot scripts can work.
+
 ## Optional ignition compatibility
 
 Extend these item tags in a data pack:
