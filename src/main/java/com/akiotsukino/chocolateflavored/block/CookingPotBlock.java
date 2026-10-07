@@ -1,3 +1,5 @@
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
 package com.akiotsukino.chocolateflavored.block;
 
 import com.mojang.serialization.MapCodec;
@@ -38,9 +40,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import com.akiotsukino.chocolateflavored.block.entity.CookingPotBlockEntity;
 import com.akiotsukino.chocolateflavored.block.state.CookingPotSupport;
-import com.akiotsukino.chocolateflavored.registry.ModBlockEntityTypes;
+import com.akiotsukino.chocolateflavored.registry.ModBlockEntities;
 import com.akiotsukino.chocolateflavored.registry.ModSounds;
-import com.akiotsukino.chocolateflavored.tag.ModTags;
+import com.akiotsukino.chocolateflavored.registry.ModTags;
 import com.akiotsukino.chocolateflavored.utility.MathUtils;
 
 import javax.annotation.Nullable;
@@ -145,7 +147,7 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
 		ItemStack stack = super.getCloneItemStack(level, pos, state);
 
-		Optional<CookingPotBlockEntity> cookingPot = level.getBlockEntity(pos, ModBlockEntityTypes.COOKING_POT.get());
+		Optional<CookingPotBlockEntity> cookingPot = level.getBlockEntity(pos, ModBlockEntities.COOKING_POT.get());
 		if (cookingPot.isPresent()) {
 			stack = cookingPot.get().getAsItem();
 		}
@@ -209,15 +211,15 @@ public class CookingPotBlock extends Block implements SimpleWaterloggedBlock, En
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return ModBlockEntityTypes.COOKING_POT.get().create(pos, state);
+		return ModBlockEntities.COOKING_POT.get().create(pos, state);
 	}
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
 		if (level.isClientSide) {
-			return createTickerHelper(blockEntity, ModBlockEntityTypes.COOKING_POT.get(), CookingPotBlockEntity::animationTick);
+			return createTickerHelper(blockEntity, ModBlockEntities.COOKING_POT.get(), CookingPotBlockEntity::animationTick);
 		}
-		return createTickerHelper(blockEntity, ModBlockEntityTypes.COOKING_POT.get(), CookingPotBlockEntity::cookingTick);
+		return createTickerHelper(blockEntity, ModBlockEntities.COOKING_POT.get(), CookingPotBlockEntity::cookingTick);
 	}
 
 	@Nullable

@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.item.component;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.item.component;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;

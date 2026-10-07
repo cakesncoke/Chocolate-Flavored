@@ -1,23 +1,25 @@
-package vectorwing.farmersdelight.client.recipebook;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.client.recipebook;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import com.akiotsukino.chocolateflavored.recipe.CookingPotRecipe;
+import com.akiotsukino.chocolateflavored.registry.ModRecipes;
 
 public class RecipeCategories
 {
-	public static RecipeBookCategories COOKING_SEARCH = RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_SEARCH");
-	public static RecipeBookCategories COOKING_MEALS = RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_MEALS");
-	public static RecipeBookCategories COOKING_DRINKS = RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_DRINKS");
-	public static RecipeBookCategories COOKING_MISC = RecipeBookCategories.valueOf("FARMERSDELIGHT_COOKING_MISC");
+	public static RecipeBookCategories COOKING_SEARCH = RecipeBookCategories.valueOf("CHOCOLATEFLAVORED_COOKING_SEARCH");
+	public static RecipeBookCategories COOKING_MEALS = RecipeBookCategories.valueOf("CHOCOLATEFLAVORED_COOKING_MEALS");
+	public static RecipeBookCategories COOKING_DRINKS = RecipeBookCategories.valueOf("CHOCOLATEFLAVORED_COOKING_DRINKS");
+	public static RecipeBookCategories COOKING_MISC = RecipeBookCategories.valueOf("CHOCOLATEFLAVORED_COOKING_MISC");
 
 	public static void init(RegisterRecipeBookCategoriesEvent event) {
-		event.registerBookCategories(RecipeBookType.valueOf("FARMERSDELIGHT_COOKING"), ImmutableList.of(COOKING_SEARCH, COOKING_MEALS, COOKING_DRINKS, COOKING_MISC));
+		event.registerBookCategories(RecipeBookType.valueOf("CHOCOLATEFLAVORED_COOKING"), ImmutableList.of(COOKING_SEARCH, COOKING_MEALS, COOKING_DRINKS, COOKING_MISC));
 		event.registerAggregateCategory(COOKING_SEARCH, ImmutableList.of(COOKING_MEALS, COOKING_DRINKS, COOKING_MISC));
-		event.registerRecipeCategoryFinder(ModRecipeTypes.COOKING.get(), recipe ->
+		event.registerRecipeCategoryFinder(ModRecipes.COOKING_TYPE.get(), recipe ->
 		{
 			if (recipe.value() instanceof CookingPotRecipe cookingRecipe) {
 				CookingPotRecipeBookTab tab = cookingRecipe.getRecipeBookTab();

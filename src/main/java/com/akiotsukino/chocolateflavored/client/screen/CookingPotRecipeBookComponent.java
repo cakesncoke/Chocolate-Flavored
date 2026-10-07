@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.client.gui;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.client.screen;
 
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
@@ -8,9 +10,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.utility.TextUtils;
+import com.akiotsukino.chocolateflavored.ChocolateFlavored;
+import com.akiotsukino.chocolateflavored.recipe.CookingPotRecipe;
+import com.akiotsukino.chocolateflavored.utility.TextUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -18,10 +20,10 @@ import java.util.List;
 public class CookingPotRecipeBookComponent extends RecipeBookComponent
 {
 	protected static final WidgetSprites RECIPE_BOOK_BUTTONS = new WidgetSprites(
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_enabled_highlighted"),
-			ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "recipe_book/cooking_pot_disabled_highlighted"));
+			ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "recipe_book/cooking_pot_enabled"),
+			ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "recipe_book/cooking_pot_disabled"),
+			ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "recipe_book/cooking_pot_enabled_highlighted"),
+			ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "recipe_book/cooking_pot_disabled_highlighted"));
 
 	@Override
 	protected void initFilterButtonTextures() {

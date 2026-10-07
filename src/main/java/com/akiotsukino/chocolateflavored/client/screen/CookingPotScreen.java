@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.client.gui;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
@@ -15,10 +17,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.Configuration;
-import vectorwing.farmersdelight.common.block.entity.container.CookingPotMenu;
-import vectorwing.farmersdelight.common.utility.TextUtils;
+import com.akiotsukino.chocolateflavored.ChocolateFlavored;
+import com.akiotsukino.chocolateflavored.Configuration;
+import com.akiotsukino.chocolateflavored.menu.CookingPotMenu;
+import com.akiotsukino.chocolateflavored.utility.TextUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -30,7 +32,7 @@ import java.util.List;
 public class CookingPotScreen extends AbstractContainerScreen<CookingPotMenu> implements RecipeUpdateListener
 {
 	private static final WidgetSprites RECIPE_BUTTON = new WidgetSprites(ResourceLocation.withDefaultNamespace("recipe_book/button"), ResourceLocation.withDefaultNamespace("recipe_book/button"));
-	private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "textures/gui/cooking_pot.png");
+	private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "textures/gui/cooking_pot.png");
 	private static final Rectangle HEAT_ICON = new Rectangle(47, 55, 17, 15);
 	private static final Rectangle PROGRESS_ARROW = new Rectangle(89, 25, 0, 17);
 

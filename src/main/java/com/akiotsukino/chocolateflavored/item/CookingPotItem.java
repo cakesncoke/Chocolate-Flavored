@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.item;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.item;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -8,8 +10,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
-import vectorwing.farmersdelight.client.gui.CookingPotTooltip;
-import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
+import com.akiotsukino.chocolateflavored.client.screen.CookingPotTooltip;
+import com.akiotsukino.chocolateflavored.block.entity.CookingPotBlockEntity;
 
 import java.util.Optional;
 

@@ -4,5 +4,18 @@
   "message.chocolateflavored.oven.needs_fuel": "Oven needs fuel.",
   "message.chocolateflavored.oven.fuel_added": "Fuel: %s",
   "message.chocolateflavored.oven.fuel_full": "Fully Fueled",
-  "message.chocolateflavored.oven.status": "Fuel: %s"
+  "message.chocolateflavored.oven.status": "Fuel: %s",
+  "block.chocolateflavored.cooking_pot": "Cooking Pot",
+  "container.chocolateflavored.recipe_book.cookable": "Showing Cookable",
+  "container.chocolateflavored.cooking_pot": "Cooking Pot",
+  "container.chocolateflavored.cooking_pot.served_on": "Served on: %s",
+  "container.chocolateflavored.cooking_pot.not_heated": "Needs heat from below",
+  "container.chocolateflavored.cooking_pot.heated": "Heated",
+  "tooltip.chocolateflavored.cooking_pot.empty": "Empty",
+  "tooltip.chocolateflavored.cooking_pot.single_serving": "Holds 1 serving of:",
+  "tooltip.chocolateflavored.cooking_pot.many_servings": "Holds %s servings of:",
+  "advancements.chocolateflavored.place_cooking_pot.title": "Dinner's Served!",
+  "advancements.chocolateflavored.place_cooking_pot.description": "Put down a Cooking Pot and start preparing meals!",
+  "subtitles.chocolateflavored.block.cooking_pot.boil": "Cooking Pot boils",
+  "subtitles.chocolateflavored.block.food.take_portion": "Portion served"
 }

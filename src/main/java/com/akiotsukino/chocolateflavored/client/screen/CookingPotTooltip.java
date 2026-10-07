@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.client.gui;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.client.screen;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -10,7 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
-import vectorwing.farmersdelight.common.utility.TextUtils;
+import com.akiotsukino.chocolateflavored.utility.TextUtils;
 
 public class CookingPotTooltip implements ClientTooltipComponent
 {

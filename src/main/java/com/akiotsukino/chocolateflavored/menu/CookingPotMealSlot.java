@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.block.entity.container;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.menu;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

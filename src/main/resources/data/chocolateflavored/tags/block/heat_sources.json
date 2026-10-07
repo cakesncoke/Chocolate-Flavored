@@ -1,0 +1,8 @@
+{
+  "values": [
+    "minecraft:magma_block",
+    "minecraft:lava_cauldron",
+    "chocolateflavored:oven",
+    "#chocolateflavored:tray_heat_sources"
+  ]
+}

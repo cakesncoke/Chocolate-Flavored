@@ -1,10 +1,12 @@
-package vectorwing.farmersdelight.common.block.entity;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import com.akiotsukino.chocolateflavored.registry.ModTags;
 
 /**
  * Blocks that can be heated by the block below them.

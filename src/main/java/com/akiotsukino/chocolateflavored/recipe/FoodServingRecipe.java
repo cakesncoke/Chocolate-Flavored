@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.crafting;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -8,9 +10,9 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
-import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
+import com.akiotsukino.chocolateflavored.block.entity.CookingPotBlockEntity;
+import com.akiotsukino.chocolateflavored.registry.ModItems;
+import com.akiotsukino.chocolateflavored.registry.ModRecipes;
 
 public class FoodServingRecipe extends CustomRecipe
 {
@@ -87,6 +89,6 @@ public class FoodServingRecipe extends CustomRecipe
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeSerializers.FOOD_SERVING.get();
+		return ModRecipes.FOOD_SERVING_SERIALIZER.get();
 	}
 }

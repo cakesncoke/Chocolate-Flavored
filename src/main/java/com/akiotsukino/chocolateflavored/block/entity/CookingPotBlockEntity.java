@@ -1,3 +1,5 @@
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
 package com.akiotsukino.chocolateflavored.block.entity;
 
 import com.google.common.collect.Lists;
@@ -43,9 +45,9 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.block.CookingPotBlock;
-import com.akiotsukino.chocolateflavored.block.entity.container.CookingPotMenu;
+import com.akiotsukino.chocolateflavored.menu.CookingPotMenu;
 import com.akiotsukino.chocolateflavored.block.entity.inventory.CookingPotItemHandler;
-import com.akiotsukino.chocolateflavored.crafting.CookingPotRecipe;
+import com.akiotsukino.chocolateflavored.recipe.CookingPotRecipe;
 import com.akiotsukino.chocolateflavored.item.component.ItemStackWrapper;
 import com.akiotsukino.chocolateflavored.registry.*;
 import com.akiotsukino.chocolateflavored.utility.ItemUtils;
@@ -58,7 +60,7 @@ import java.util.Optional;
 
 import static java.util.Map.entry;
 
-@EventBusSubscriber(MODID = ChocolateFlavored.MOD_ID)
+@EventBusSubscriber(modid = ChocolateFlavored.MOD_ID)
 public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder, Clearable
 {
 	public static final int MEAL_DISPLAY_SLOT = 6;
@@ -98,21 +100,21 @@ public class CookingPotBlockEntity extends SyncedBlockEntity implements MenuProv
 	private final RecipeManager.CachedCheck<RecipeWrapper, CookingPotRecipe> quickCheck;
 
 	public CookingPotBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBlockEntityTypes.COOKING_POT.get(), pos, state);
+		super(ModBlockEntities.COOKING_POT.get(), pos, state);
 		this.inventory = createHandler();
 		this.inputHandler = new CookingPotItemHandler(inventory, Direction.UP);
 		this.outputHandler = new CookingPotItemHandler(inventory, Direction.DOWN);
 		this.mealContainerStack = ItemStack.EMPTY;
 		this.cookingPotData = createIntArray();
 		this.usedRecipeTracker = new Object2IntOpenHashMap<>();
-		this.quickCheck = RecipeManager.createCheck(ModRecipeTypes.COOKING.get());
+		this.quickCheck = RecipeManager.createCheck(ModRecipes.COOKING_TYPE.get());
 	}
 
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK,
-				ModBlockEntityTypes.COOKING_POT.get(),
+				ModBlockEntities.COOKING_POT.get(),
 				(be, context) -> {
 					if (context == Direction.UP) {
 						return be.inputHandler;

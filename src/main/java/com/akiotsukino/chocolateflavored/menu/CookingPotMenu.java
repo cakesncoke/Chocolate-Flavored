@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.block.entity.container;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.menu;
 
 
 import com.mojang.datafixers.util.Pair;
@@ -15,18 +17,18 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import vectorwing.farmersdelight.FarmersDelight;
-import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.registry.ModBlocks;
-import vectorwing.farmersdelight.common.registry.ModMenuTypes;
-import vectorwing.farmersdelight.common.tag.ModTags;
+import com.akiotsukino.chocolateflavored.ChocolateFlavored;
+import com.akiotsukino.chocolateflavored.block.entity.CookingPotBlockEntity;
+import com.akiotsukino.chocolateflavored.recipe.CookingPotRecipe;
+import com.akiotsukino.chocolateflavored.registry.ModBlocks;
+import com.akiotsukino.chocolateflavored.registry.ModMenuTypes;
+import com.akiotsukino.chocolateflavored.registry.ModTags;
 
 import java.util.Objects;
 
 public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotRecipe>
 {
-	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(FarmersDelight.MODID, "item/empty_container_slot_bowl");
+	public static final ResourceLocation EMPTY_CONTAINER_SLOT_BOWL = ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item/empty_container_slot_bowl");
 
 	public static final int INDEX_MEAL = 6;
 	public static final int INDEX_CONTAINER = 7;
@@ -201,7 +203,7 @@ public class CookingPotMenu extends RecipeBookMenu<RecipeWrapper, CookingPotReci
 
 	@Override
 	public RecipeBookType getRecipeBookType() {
-		return RecipeBookType.valueOf("FARMERSDELIGHT_COOKING");
+		return RecipeBookType.valueOf("CHOCOLATEFLAVORED_COOKING");
 	}
 
 	@Override

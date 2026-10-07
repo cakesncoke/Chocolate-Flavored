@@ -3,6 +3,9 @@ package com.akiotsukino.chocolateflavored.registry;
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.block.OvenBlock;
 import net.minecraft.world.level.block.Blocks;
+import com.akiotsukino.chocolateflavored.block.CookingPotBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,6 +19,10 @@ public final class ModBlocks {
     public static final DeferredBlock<OvenBlock> OVEN = BLOCKS.register("oven", () ->
             new OvenBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS)
                     .lightLevel(state -> state.getValue(OvenBlock.LIT) ? 13 : 0)));
+
+    public static final DeferredBlock<CookingPotBlock> COOKING_POT = BLOCKS.register("cooking_pot", () ->
+            new CookingPotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
+                    .strength(0.5F, 6.0F).sound(SoundType.LANTERN)));
 
     private ModBlocks() {
     }

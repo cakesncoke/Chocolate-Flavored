@@ -155,3 +155,10 @@ idea {
         downloadJavadoc = true
     }
 }
+
+// Include project and template attribution alongside the bundled upstream license.
+tasks.named('jar', Jar).configure {
+    from(files('LICENCE.txt', 'TEMPLATE_LICENSE.txt', 'THIRD_PARTY_NOTICES.md')) {
+        into 'META-INF/licenses'
+    }
+}

@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.block.state;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.block.state;
 
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;

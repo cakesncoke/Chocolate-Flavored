@@ -1,4 +1,6 @@
-package vectorwing.farmersdelight.common.crafting;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -15,10 +17,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
-import vectorwing.farmersdelight.client.recipebook.CookingPotRecipeBookTab;
-import vectorwing.farmersdelight.common.registry.ModItems;
-import vectorwing.farmersdelight.common.registry.ModRecipeSerializers;
-import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
+import com.akiotsukino.chocolateflavored.client.recipebook.CookingPotRecipeBookTab;
+import com.akiotsukino.chocolateflavored.registry.ModItems;
+import com.akiotsukino.chocolateflavored.registry.ModRecipes;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -118,12 +119,12 @@ public class CookingPotRecipe implements Recipe<RecipeWrapper>
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeSerializers.COOKING.get();
+		return ModRecipes.COOKING_SERIALIZER.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.COOKING.get();
+		return ModRecipes.COOKING_TYPE.get();
 	}
 
 	@Override

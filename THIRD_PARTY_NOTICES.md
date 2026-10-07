@@ -35,3 +35,20 @@ No Hardcore Torches source code or assets are copied. The optional
 right-click ignition rule (one item consumed on successful ignition). The
 Hardcore Torches hold/release timing, random failure chance, and configuration
 are not replicated or overridden for its own blocks.
+
+## Cooking Pot adaptation
+
+The Cooking Pot's block, block entity, heat checks, inventory/menu/slots, item
+components, cooking and serving recipes, recipe book, tooltip, steam particle,
+synchronization and utility methods are adapted from the same Farmer's Delight
+commit and MIT license listed above. Its models, textures, GUI sprites, steam
+frames and five boiling recordings are copied into this mod's namespace.
+The three included meals (mushroom stew, beetroot soup, rabbit stew) and the
+crafting/loot/recipe-unlock data are adapted from upstream data.
+
+Registrations, resource IDs, translation keys and recipe book enum names use
+Chocolate Flavored's namespace. Its Oven replaces the stove in the heat-source
+tag. Vanilla foods represent the recipe book categories because Farmer's
+Delight's food items are not part of this port. The client recipe-book option
+retains its upstream default of enabled. No Farmer's Delight dependency is
+required, and the two mods can be installed together.

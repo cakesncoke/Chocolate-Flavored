@@ -13,6 +13,13 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> OVEN_CRACKLE = SOUNDS.register("block.oven.crackle", () ->
             SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "block.oven.crackle")));
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> BLOCK_COOKING_POT_BOIL = SOUNDS.register("block.cooking_pot.boil", () ->
+            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "block.cooking_pot.boil")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> BLOCK_COOKING_POT_BOIL_SOUP = SOUNDS.register("block.cooking_pot.boil_soup", () ->
+            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "block.cooking_pot.boil_soup")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> BLOCK_FOOD_TAKE_PORTION = SOUNDS.register("block.food.take_portion", () ->
+            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "block.food.take_portion")));
+
     private ModSounds() {}
 
     public static void register(IEventBus bus) { SOUNDS.register(bus); }

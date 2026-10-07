@@ -1,11 +1,12 @@
-package vectorwing.farmersdelight.client.recipebook;
+// Adapted from Farmer's Delight, Copyright (c) 2020 vectorwing (MIT).
+// See THIRD_PARTY_NOTICES.md and licenses/FarmersDelight-MIT.txt.
+package com.akiotsukino.chocolateflavored.client.recipebook;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.EnumSet;
-import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 public enum CookingPotRecipeBookTab implements StringRepresentable
