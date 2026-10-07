@@ -89,8 +89,8 @@ input is returned instead.
 
 Removing recipes of type `chocolateflavored:oven_cooking` still leaves campfire
 fallback enabled. Removing a `minecraft:campfire_cooking` recipe also changes
-vanilla campfires. The Cooking Pot recipe type is not registered in the current
-project; its port needs to be added before Cooking Pot scripts can work.
+vanilla campfires. For Cooking Pot recipes, use `chocolateflavored:cooking`; see the
+[Cooking Pot guide](cooking-pot.md).
 
 ## Optional ignition compatibility
 

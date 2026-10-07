@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "chocolateflavored:oven"
+    "chocolateflavored:oven",
+    "chocolateflavored:cooking_pot"
   ]
 }

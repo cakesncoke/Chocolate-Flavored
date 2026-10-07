@@ -13,12 +13,16 @@ Features:
   Oven-specific recipes with campfire-recipe fallback. Uses adapted Farmer's
   Delight stove visuals and behavior without requiring Farmer's Delight.
 
-See [the Oven guide](docs/oven.md) for controls, recipes, compatibility and tests,
+- **Cooking Pot:** Farmer's Delight's six-ingredient cooking workstation,
+  serving containers, stored meals, recipe book, and hopper automation.
+  Requires heat from below, including a lit Oven.
+
+See [the Cooking Pot guide](docs/cooking-pot.md) and [the Oven guide](docs/oven.md) for controls, recipes, compatibility and tests,
 and [third-party notices](THIRD_PARTY_NOTICES.md) for upstream credits.
 
 Early Development:
 ============
-The Oven is the first feature and is ready for in-game playtesting.
+The Oven and Cooking Pot are ready for in-game playtesting.
 
 Development:
 ============

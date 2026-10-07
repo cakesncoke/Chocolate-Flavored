@@ -7,5 +7,29 @@
       }
     ],
     "subtitle": "subtitles.chocolateflavored.block.oven.crackle"
+  },
+  "block.cooking_pot.boil": {
+    "sounds": [
+      "chocolateflavored:block/cooking_pot/boil_water1",
+      "chocolateflavored:block/cooking_pot/boil_water2"
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.cooking_pot.boil"
+  },
+  "block.cooking_pot.boil_soup": {
+    "sounds": [
+      "chocolateflavored:block/cooking_pot/boil_soup1",
+      "chocolateflavored:block/cooking_pot/boil_soup2",
+      "chocolateflavored:block/cooking_pot/boil_soup3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.cooking_pot.boil"
+  },
+  "block.food.take_portion": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_generic"
+      }
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.food.take_portion"
   }
 }
