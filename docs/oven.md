@@ -20,7 +20,7 @@ Java 21. No Farmer's Delight or Hardcore Torches dependency.
    slot. For ingredients that are also fuels, click the top for cooking or a
    side for fuel. Six items cook independently and appear on top.
 6. Finished items pop out above the Oven. Right-click empty-handed to retrieve
-   the last uncooked item. Sneak-right-click with both hands empty to recover
+   the last uncooked item (both hands must be empty). Sneak-right-click to recover
    queued fuel. If nothing is retrieved, an action-bar message shows fuel status.
 
 Fuel burns continuously while lit, even with no food, and automatically moves
@@ -86,6 +86,12 @@ mechanics. Mods that intercept and cancel right-click events may need an adapter
 - `THIRD_PARTY_NOTICES.md`: upstream origin and license.
 
 ## Manual test checklist
+
+`gradlew runGameTestServer` runs six automated server-side regression tests for
+manual ignition/relighting, six-slot cooking and recipe loading, queued fuels
+and bucket remainders, save/reload, cooling/covered tops, and drops on removal.
+These tests are also run by the GitHub build workflow. They do not replace the
+client rendering or optional-mod compatibility checks below.
 
 - Run `gradlew build`, then `gradlew runClient` and `gradlew runServer` separately.
 - Test first with only Chocolate Flavored: place unlit, refuse empty ignition,

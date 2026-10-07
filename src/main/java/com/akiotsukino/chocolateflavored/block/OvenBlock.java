@@ -128,11 +128,13 @@ public class OvenBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty()) return InteractionResult.PASS;
         if (!(level.getBlockEntity(pos) instanceof OvenBlockEntity oven) || !player.mayBuild()) return InteractionResult.PASS;
         if (!level.isClientSide) {
             ItemStack removed = player.isShiftKeyDown() ? oven.takeFuel() : oven.takeFood();
+            boolean hadItem = !removed.isEmpty();
             giveToPlayer(player, removed);
-            if (removed.isEmpty()) player.displayClientMessage(Component.translatable("message.chocolateflavored.oven.status",
+            if (!hadItem) player.displayClientMessage(Component.translatable("message.chocolateflavored.oven.status",
                     oven.getFuel().getCount(), (oven.getBurnTime() + 19) / 20), true);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
