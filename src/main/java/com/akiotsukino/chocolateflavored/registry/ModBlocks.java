@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.bus.api.IEventBus;
 
 public final class ModBlocks {
 
@@ -14,7 +15,7 @@ public final class ModBlocks {
     private ModBlocks() {
     }
 
-    public static void register(net.neoforged.bus.api.IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
 }

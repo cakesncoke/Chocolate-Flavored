@@ -5,6 +5,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.bus.api.IEventBus;
 
 public final class ModItems {
 
@@ -14,7 +15,7 @@ public final class ModItems {
     private ModItems() {
     }
 
-    public static void register(net.neoforged.bus.api.IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
 }

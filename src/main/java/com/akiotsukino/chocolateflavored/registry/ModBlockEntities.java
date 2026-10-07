@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.bus.api.IEventBus;
 
 public final class ModBlockEntities {
 
@@ -17,9 +18,7 @@ public final class ModBlockEntities {
     private ModBlockEntities() {
     }
 
-    public static void register(
-            net.neoforged.bus.api.IEventBus eventBus
-    ) {
+    public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
 }
