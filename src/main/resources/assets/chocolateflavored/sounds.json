@@ -1,0 +1,11 @@
+{
+  "block.oven.crackle": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "minecraft:block.campfire.crackle"
+      }
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.oven.crackle"
+  }
+}
