@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:fire_charge",
+    {
+      "id": "hardcore_torches:fire_starter",
+      "required": false
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.akiotsukino.chocolateflavored.registry;
 
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
+import com.akiotsukino.chocolateflavored.block.entity.OvenBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -14,6 +15,9 @@ public final class ModBlockEntities {
                     Registries.BLOCK_ENTITY_TYPE,
                     ChocolateFlavored.MOD_ID
             );
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OvenBlockEntity>> OVEN =
+            BLOCK_ENTITIES.register("oven", () -> BlockEntityType.Builder.of(OvenBlockEntity::new, ModBlocks.OVEN.get()).build(null));
 
     private ModBlockEntities() {
     }
