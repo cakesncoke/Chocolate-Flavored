@@ -10,3 +10,7 @@ players as possible.
 Features:
 ============
 This section will get added over time.
+
+Early Development:
+============
+No completed gameplay features yet.
