@@ -3,5 +3,6 @@
   "container.stonecutter": "Saw",
   "block.minecraft.smoker": "Stove",
   "container.smoker": "Stove",
-  "item.minecraft.leather": "Raw Leather"
+  "item.minecraft.leather": "Raw Leather",
+  "block.minecraft.stone": "Stone Block"
 }
