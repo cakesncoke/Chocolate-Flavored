@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_material": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "chocolateflavored:copper_pickaxe",
+              "chocolateflavored:copper_shovel",
+              "chocolateflavored:copper_axe",
+              "chocolateflavored:copper_hoe",
+              "chocolateflavored:copper_sword"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "chocolateflavored:copper_nugget_from_blasting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_material",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chocolateflavored:copper_nugget_from_blasting"
+    ]
+  }
+}

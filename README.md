@@ -17,7 +17,10 @@ Features:
   serving containers, stored meals, recipe book, and hopper automation.
   Requires heat from below, including a lit Oven.
 
-See [the Cooking Pot guide](docs/cooking-pot.md) and [the Oven guide](docs/oven.md) for controls, recipes, compatibility and tests,
+- **Copper equipment:** the five Copper Age tools and copper nugget, with
+  vanilla copper statistics and iron-level tool durability (250).
+
+See [the copper equipment guide](docs/copper-equipment.md), [the Cooking Pot guide](docs/cooking-pot.md) and [the Oven guide](docs/oven.md) for controls, recipes, compatibility and tests,
 and [third-party notices](THIRD_PARTY_NOTICES.md) for upstream credits.
 
 Early Development:
