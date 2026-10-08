@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "chocolateflavored:copper_pickaxe"
+    "chocolateflavored:copper_pickaxe",
+    "chocolateflavored:rose_gold_pickaxe"
   ]
 }

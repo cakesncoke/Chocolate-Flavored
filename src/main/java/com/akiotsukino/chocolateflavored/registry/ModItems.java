@@ -75,6 +75,39 @@ public final class ModItems {
     public static final java.util.List<DeferredItem<Item>> MATERIALS = java.util.List.of(
             BAT_WING, BREAD_DOUGH, COAL_DUST, COCOA_POWDER, COOKIE_DOUGH, CREEPER_OYSTERS, CUT_TANNED_LEATHER, DEEPSLATE_PEBBLE, DIAMOND_INGOT, DIRT_PILE, FLOUR, GRAVEL_PILE, IRON_ORE_PILE, COPPER_ORE_PILE, COAL_ORE_PILE, PADDING, PLANT_FIBER, PLANT_STRING, SALT, SAND_PILE, STONE_PEBBLE, STRAP, TANNED_LEATHER, UNBAKED_CAKE, UNBAKED_PUMPKIN_PIE, UNFIRED_BRICK, WOOL, RED_SAND_PILE);
 
+    public static final DeferredItem<net.minecraft.world.item.SmithingTemplateItem> ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE = ITEMS.register("rose_gold_upgrade_smithing_template", () ->
+            new net.minecraft.world.item.SmithingTemplateItem(
+                    net.minecraft.network.chat.Component.translatable("item.chocolateflavored.rose_gold_upgrade.applies_to").withStyle(net.minecraft.ChatFormatting.BLUE),
+                    net.minecraft.network.chat.Component.translatable("item.chocolateflavored.rose_gold_upgrade.ingredients").withStyle(net.minecraft.ChatFormatting.BLUE),
+                    net.minecraft.network.chat.Component.translatable("upgrade.chocolateflavored.rose_gold_upgrade").withStyle(net.minecraft.ChatFormatting.GRAY),
+                    net.minecraft.network.chat.Component.translatable("item.chocolateflavored.rose_gold_upgrade.base_slot_description"),
+                    net.minecraft.network.chat.Component.translatable("item.chocolateflavored.rose_gold_upgrade.additions_slot_description"),
+                    java.util.List.of(net.minecraft.resources.ResourceLocation.withDefaultNamespace("item/empty_slot_sword"),
+                            net.minecraft.resources.ResourceLocation.withDefaultNamespace("item/empty_slot_pickaxe")),
+                    java.util.List.of(net.minecraft.resources.ResourceLocation.withDefaultNamespace("item/empty_slot_ingot"))));
+    public static final DeferredItem<SwordItem> ROSE_GOLD_SWORD = ITEMS.register("rose_gold_sword", () ->
+            new SwordItem(ModToolTiers.ROSE_GOLD, new Item.Properties().attributes(
+                    SwordItem.createAttributes(ModToolTiers.ROSE_GOLD, 3F, -2.3F))));
+    public static final DeferredItem<PickaxeItem> ROSE_GOLD_PICKAXE = ITEMS.register("rose_gold_pickaxe", () ->
+            new PickaxeItem(ModToolTiers.ROSE_GOLD, new Item.Properties().attributes(
+                    PickaxeItem.createAttributes(ModToolTiers.ROSE_GOLD, 1F, -2.7F))));
+    public static final DeferredItem<AxeItem> ROSE_GOLD_AXE = ITEMS.register("rose_gold_axe", () ->
+            new AxeItem(ModToolTiers.ROSE_GOLD, new Item.Properties().attributes(
+                    AxeItem.createAttributes(ModToolTiers.ROSE_GOLD, 6F, -3.0F))));
+    public static final DeferredItem<ShovelItem> ROSE_GOLD_SHOVEL = ITEMS.register("rose_gold_shovel", () ->
+            new ShovelItem(ModToolTiers.ROSE_GOLD, new Item.Properties().attributes(
+                    ShovelItem.createAttributes(ModToolTiers.ROSE_GOLD, 1.5F, -2.9F))));
+    public static final DeferredItem<HoeItem> ROSE_GOLD_HOE = ITEMS.register("rose_gold_hoe", () ->
+            new HoeItem(ModToolTiers.ROSE_GOLD, new Item.Properties().attributes(
+                    HoeItem.createAttributes(ModToolTiers.ROSE_GOLD, -2F, -0.9F))));
+    public static final DeferredItem<com.akiotsukino.chocolateflavored.item.SpearItem> IRON_SPEAR = ITEMS.register("iron_spear", () ->
+            new com.akiotsukino.chocolateflavored.item.SpearItem(com.akiotsukino.chocolateflavored.item.SpearItem.Material.IRON));
+    public static final DeferredItem<com.akiotsukino.chocolateflavored.item.SpearItem> DIAMOND_SPEAR = ITEMS.register("diamond_spear", () ->
+            new com.akiotsukino.chocolateflavored.item.SpearItem(com.akiotsukino.chocolateflavored.item.SpearItem.Material.DIAMOND));
+    public static final DeferredItem<com.akiotsukino.chocolateflavored.item.SpearItem> NETHERITE_SPEAR = ITEMS.register("netherite_spear", () ->
+            new com.akiotsukino.chocolateflavored.item.SpearItem(com.akiotsukino.chocolateflavored.item.SpearItem.Material.NETHERITE));
+    public static final DeferredItem<BlockItem> CHOCOLATE_CAKE = ITEMS.registerSimpleBlockItem(ModBlocks.CHOCOLATE_CAKE, new Item.Properties().stacksTo(1));
+
     private ModItems() {
     }
 

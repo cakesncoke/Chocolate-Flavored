@@ -1,4 +1,11 @@
 {
   "replace": false,
-  "values": ["chocolateflavored:copper_sword", "chocolateflavored:flint_knife"]
+  "values": [
+    "chocolateflavored:copper_sword",
+    "chocolateflavored:flint_knife",
+    "chocolateflavored:rose_gold_sword",
+    "chocolateflavored:iron_spear",
+    "chocolateflavored:diamond_spear",
+    "chocolateflavored:netherite_spear"
+  ]
 }

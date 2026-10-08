@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "chocolateflavored:copper_shovel"
+    "chocolateflavored:copper_shovel",
+    "chocolateflavored:rose_gold_shovel"
   ]
 }
