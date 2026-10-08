@@ -132,10 +132,11 @@ public final class SpearGameTests {
         target.setHealth(20);
         target.setDeltaMovement(0, 0, 0);
         target.startRiding(boat, true);
+        target.moveTo(boat.getX(), boat.getY() + .5, boat.getZ(), 0, 0);
         SpearCombat.beginCharge(player);
         SpearCombat.charge(player, stack, 12 + 51);
         helper.assertTrue(target.isPassenger() && target.getHealth() < 20,
-                "Tired charge must still damage the target but must not dismount it");
+                "Tired charge must damage without dismounting; health=" + target.getHealth() + ", riding=" + target.isPassenger());
         helper.succeed();
     }
     private static ServerPlayer player(GameTestHelper helper) {

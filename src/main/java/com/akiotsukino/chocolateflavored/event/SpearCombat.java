@@ -78,7 +78,7 @@ public final class SpearCombat {
         player.awardStat(Stats.ITEM_USED.get(spear));
     }
     public static void beginCharge(Player player) { CONTACTS.put(player, new HashMap<>()); sound(player, "item.spear.use"); }
-    public static void endCharge(Player player) { CONTACTS.remove(player); }
+    public static void endCharge(Player player) { if (!player.level().isClientSide) CONTACTS.remove(player); }
     public static void charge(Player player, ItemStack stack, int useTicks) {
         if (!(player.level() instanceof ServerLevel level) || player.isSpectator() || !(stack.getItem() instanceof SpearItem spear)) return;
         SpearItem.Material material = spear.material();
