@@ -48,6 +48,7 @@ public final class SpearCombat {
     }
     private static Vec3 movement(Entity entity) {
         if (entity instanceof Player player && MOTION.containsKey(player)) return MOTION.get(player).velocity.scale(20);
+        if (entity.isPassenger()) entity = entity.getRootVehicle();
         return entity.getDeltaMovement().scale(20);
     }
     public static void onAttackEntity(AttackEntityEvent event) {

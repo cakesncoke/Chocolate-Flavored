@@ -5,7 +5,7 @@ import com.akiotsukino.chocolateflavored.registry.ModBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.event.tick.ClientTickEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 /** Optional CI startup check, enabled only by -PclientSmokeTest. */
 public final class ClientSmokeTest {

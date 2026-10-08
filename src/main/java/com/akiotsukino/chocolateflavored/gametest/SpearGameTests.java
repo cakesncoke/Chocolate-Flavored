@@ -114,6 +114,30 @@ public final class SpearGameTests {
                 "Netherite spear must use mod durability and netherite repair material");
         helper.succeed();
     }
+    @GameTest(template = "oven_test_empty")
+    public static void engagedChargeDismountsButTiredChargeLeavesRidersMounted(GameTestHelper helper) {
+        var player = player(helper);
+        var stack = new ItemStack(ModItems.IRON_SPEAR.get());
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        Zombie target = target(helper, 3);
+        var boat = EntityType.BOAT.create(helper.getLevel());
+        boat.moveTo(target.getX(), target.getY(), target.getZ(), 0, 0);
+        helper.getLevel().addFreshEntity(boat);
+        target.startRiding(boat, true);
+        player.setDeltaMovement(0, 0, .4);
+        SpearCombat.beginCharge(player);
+        SpearCombat.charge(player, stack, 12);
+        helper.assertTrue(!target.isPassenger(), "Engaged iron charge at eight blocks/second must dismount its target");
+        target.invulnerableTime = 0;
+        target.setHealth(20);
+        target.setDeltaMovement(0, 0, 0);
+        target.startRiding(boat, true);
+        SpearCombat.beginCharge(player);
+        SpearCombat.charge(player, stack, 12 + 51);
+        helper.assertTrue(target.isPassenger() && target.getHealth() < 20,
+                "Tired charge must still damage the target but must not dismount it");
+        helper.succeed();
+    }
     private static ServerPlayer player(GameTestHelper helper) {
         var player = FakePlayerFactory.get(helper.getLevel(), new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "spear-test"));
         player.setGameMode(GameType.SURVIVAL);
