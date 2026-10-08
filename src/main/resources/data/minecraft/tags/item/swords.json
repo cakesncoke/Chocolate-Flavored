@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "chocolateflavored:flint_knife"
-  ]
+  "values": ["chocolateflavored:copper_sword", "chocolateflavored:flint_knife"]
 }

@@ -175,7 +175,8 @@ public final class PrimitiveMiningGameTests {
     }
 
     private static ServerPlayer player(GameTestHelper helper) {
-        var player = helper.makeMockServerPlayerInLevel();
+        var player = net.neoforged.neoforge.common.util.FakePlayerFactory.get(helper.getLevel(),
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "primitive-test"));
         player.setGameMode(GameType.SURVIVAL);
         return player;
     }
