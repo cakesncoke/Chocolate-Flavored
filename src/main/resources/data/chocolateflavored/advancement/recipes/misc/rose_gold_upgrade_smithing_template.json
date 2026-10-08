@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:gold_ingot"
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "chocolateflavored:rose_gold_upgrade_smithing_template"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_gold",
+      "has_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chocolateflavored:rose_gold_upgrade_smithing_template"
+    ]
+  }
+}
