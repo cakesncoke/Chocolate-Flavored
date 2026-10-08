@@ -66,7 +66,7 @@ public final class SpearCombat {
         // Attack the whole unobstructed ray, not a client-provided entity ID.
         boolean hit = false;
         float damage = 1F + spear.material().tier.getAttackDamageBonus();
-        for (LivingEntity target : targets(player)) {
+        for (Entity target : targets(player)) {
             if (stack.isEmpty()) break;
             hit |= impact(player, target, stack, damage, true, true, false, EquipmentSlot.MAINHAND);
         }
@@ -86,7 +86,7 @@ public final class SpearCombat {
         Vec3 look = player.getLookAngle();
         double forwardSpeed = look.dot(movement(player));
         var contacts = CONTACTS.computeIfAbsent(player, unused -> new HashMap<>());
-        for (LivingEntity target : targets(player)) {
+        for (Entity target : targets(player)) {
             if (stack.isEmpty()) break;
             long now = level.getGameTime();
             Long last = contacts.get(target.getUUID());
@@ -103,31 +103,31 @@ public final class SpearCombat {
             if (impact(player, target, stack, amount, damage, knockback, dismount, slot)) sound(player, "item.spear.hit");
         }
     }
-    private static List<LivingEntity> targets(Player player) {
+    private static List<Entity> targets(Player player) {
         Vec3 eye = player.getEyePosition(), look = player.getLookAngle();
         Vec3 start = eye.add(look.scale(2)), end = eye.add(look.scale(player.isCreative() ? 6.5 : 4.5));
         var wall = player.level().clip(new ClipContext(eye, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
         if (eye.distanceToSqr(wall.getLocation()) < eye.distanceToSqr(start)) return List.of();
         end = wall.getLocation();
         final Vec3 rayEnd = end;
-        List<LivingEntity> entities = player.level().getEntitiesOfClass(LivingEntity.class,
+        List<Entity> entities = player.level().getEntities(player,
                 new AABB(start, end).inflate(1), target -> target != player && target.isAlive() && !target.isSpectator()
-                        && target.isAttackable() && !player.isPassengerOfSameVehicle(target)
+                        && target.isPickable() && target.isAttackable() && !player.isPassengerOfSameVehicle(target)
                         && (!(target instanceof Player other) || player.canHarmPlayer(other)));
         entities.removeIf(target -> target.getBoundingBox().inflate(.125).clip(start, rayEnd).isEmpty());
         entities.sort(Comparator.comparingDouble(target -> target.distanceToSqr(player)));
         return entities;
     }
-    private static boolean impact(Player player, LivingEntity target, ItemStack stack, float amount,
+    private static boolean impact(Player player, Entity target, ItemStack stack, float amount,
                                   boolean dealDamage, boolean knockback, boolean dismount, EquipmentSlot slot) {
         ServerLevel level = (ServerLevel) player.level();
         var source = new net.minecraft.world.damagesource.DamageSource(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(DAMAGE), player);
-        float before = target.getHealth();
+        float before = target instanceof LivingEntity living ? living.getHealth() : 0;
         boolean hurt = dealDamage && target.hurt(source, EnchantmentHelper.modifyDamage(level, stack, target, source, amount));
-        boolean pushed = knockback && !target.isInvulnerableTo(source);
+        boolean pushed = knockback && target instanceof LivingEntity && !target.isInvulnerableTo(source);
         if (pushed) {
             float strength = EnchantmentHelper.modifyKnockback(level, stack, target, source, .4F);
-            target.knockback(strength, -player.getLookAngle().x, -player.getLookAngle().z);
+            ((LivingEntity) target).knockback(strength, -player.getLookAngle().x, -player.getLookAngle().z);
         }
         boolean unmounted = dismount && target.isPassenger();
         if (unmounted) target.stopRiding();
@@ -135,7 +135,7 @@ public final class SpearCombat {
         if (hurt) {
             EnchantmentHelper.doPostAttackEffectsWithItemSource(level, target, source, stack);
             player.setLastHurtMob(target);
-            player.awardStat(Stats.DAMAGE_DEALT, Math.round(Math.max(0, before - target.getHealth()) * 10));
+            player.awardStat(Stats.DAMAGE_DEALT, Math.round(Math.max(0, before - (target instanceof LivingEntity living ? living.getHealth() : 0)) * 10));
         }
         net.neoforged.neoforge.network.PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
                 new com.akiotsukino.chocolateflavored.network.SpearNetwork.Hit(player.getId()));

@@ -24,6 +24,9 @@ public final class ChocolateFlavoredClient {
         bus.addListener(ChocolateFlavoredClient::registerScreens);
         bus.addListener(ChocolateFlavoredClient::registerParticles);
         bus.addListener(ChocolateFlavoredClient::registerTooltips);
+        if (Boolean.getBoolean("chocolateflavored.clientSmokeTest")) {
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.akiotsukino.chocolateflavored.gametest.ClientSmokeTest::tick);
+        }
         bus.addListener(SpearClient::registerModels);
         bus.addListener(SpearClient::bakeModels);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(SpearClient::onAttack);
