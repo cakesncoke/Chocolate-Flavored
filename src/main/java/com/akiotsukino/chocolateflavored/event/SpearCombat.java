@@ -135,7 +135,10 @@ public final class SpearCombat {
     private static boolean impact(Player player, Entity target, ItemStack stack, float amount,
                                   boolean dealDamage, boolean knockback, boolean dismount, EquipmentSlot slot) {
         ServerLevel level = (ServerLevel) player.level();
-        var source = new net.minecraft.world.damagesource.DamageSource(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(DAMAGE), player);
+        ItemStack weapon = stack.copy();
+        var source = new net.minecraft.world.damagesource.DamageSource(level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(DAMAGE), player) {
+            @Override public ItemStack getWeaponItem() { return weapon; }
+        };
         float before = target instanceof LivingEntity living ? living.getHealth() : 0;
         boolean hurt = dealDamage && target.hurt(source, EnchantmentHelper.modifyDamage(level, stack, target, source, amount));
         boolean pushed = knockback && target instanceof LivingEntity && !target.isInvulnerableTo(source);

@@ -154,6 +154,23 @@ public final class SpearGameTests {
         helper.assertTrue(target.getHealth() == 14, "Iron jab must deal three plus Strength I's three damage, without borrowing sword damage");
         helper.succeed();
     }
+    @GameTest(template = "oven_test_empty")
+    public static void offhandChargeUsesItsOwnWeaponAndDurability(GameTestHelper helper) {
+        var player = player(helper);
+        var sword = new ItemStack(Items.DIAMOND_SWORD);
+        var spear = new ItemStack(ModItems.IRON_SPEAR.get());
+        player.setItemInHand(InteractionHand.MAIN_HAND, sword);
+        player.setItemInHand(InteractionHand.OFF_HAND, spear);
+        player.startUsingItem(InteractionHand.OFF_HAND);
+        player.setDeltaMovement(0, 0, .6);
+        var target = target(helper, 3);
+        SpearCombat.beginCharge(player);
+        SpearCombat.charge(player, spear, 12);
+        helper.assertTrue(spear.getDamageValue() == 1 && sword.getDamageValue() == 0
+                && target.getLastDamageSource().getWeaponItem().is(ModItems.IRON_SPEAR.get()),
+                "Offhand charge damage, enchantment/loot attribution and wear must use the actual spear");
+        helper.succeed();
+    }
     private static ServerPlayer player(GameTestHelper helper) {
         var player = FakePlayerFactory.get(helper.getLevel(), new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "spear-test"));
         player.setGameMode(GameType.SURVIVAL);
