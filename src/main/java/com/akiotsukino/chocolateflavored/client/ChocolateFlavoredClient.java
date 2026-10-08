@@ -24,12 +24,7 @@ public final class ChocolateFlavoredClient {
         bus.addListener(ChocolateFlavoredClient::registerScreens);
         bus.addListener(ChocolateFlavoredClient::registerParticles);
         bus.addListener(ChocolateFlavoredClient::registerTooltips);
-        bus.addListener(ChocolateFlavoredClient::registerItemColors);
         bus.addListener(RecipeCategories::init);
-    }
-
-    private static void registerItemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
-        event.register((stack, tintIndex) -> 0xFFD27B42, com.akiotsukino.chocolateflavored.registry.ModItems.RED_SAND_PILE.get());
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event) {

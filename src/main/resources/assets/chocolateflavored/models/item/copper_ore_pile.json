@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "chocolateflavored:item/red_sand_pile"
+    "layer0": "chocolateflavored:item/copper_ore_pile"
   }
 }

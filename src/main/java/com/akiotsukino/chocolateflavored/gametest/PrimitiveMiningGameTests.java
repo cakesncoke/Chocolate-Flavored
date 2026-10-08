@@ -67,7 +67,7 @@ public final class PrimitiveMiningGameTests {
         player.gameMode.destroyBlock(helper.absolutePos(pos));
         helper.assertTrue(stack.getDamageValue() == 1, "Non-stone mining must never wear flint");
         var entities = helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds());
-        helper.assertTrue(entities.stream().anyMatch(e -> e.getItem().is(Items.DIRT)), "Held flint must preserve normal dirt drops");
+        helper.assertTrue(entities.stream().filter(e -> e.getItem().is(ModItems.DIRT_PILE.get())).mapToInt(e -> e.getItem().getCount()).sum() == 3, "Held flint must now yield dirt piles");
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
         helper.setBlock(pos, Blocks.STONE);
         player.gameMode.destroyBlock(helper.absolutePos(pos));
@@ -91,7 +91,7 @@ public final class PrimitiveMiningGameTests {
                     "Hand mining must replace the original block loot with exactly three matching piles");
             var toolEvent = drops(helper, block, player, new ItemStack(Items.IRON_SHOVEL));
             helper.assertTrue(count(toolEvent, block.asItem()) == 1 && count(toolEvent, pile) == 0,
-                    "Held tools must preserve normal drops");
+                    "Shovels must preserve normal drops");
             var noPlayer = drops(helper, block, null, ItemStack.EMPTY);
             helper.assertTrue(count(noPlayer, block.asItem()) == 1, "Explosions and automation must keep their loot");
         }
