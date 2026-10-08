@@ -17,5 +17,11 @@
   "advancements.chocolateflavored.place_cooking_pot.title": "Dinner's Served!",
   "advancements.chocolateflavored.place_cooking_pot.description": "Put down a Cooking Pot and start preparing meals!",
   "subtitles.chocolateflavored.block.cooking_pot.boil": "Cooking Pot boils",
-  "subtitles.chocolateflavored.block.food.take_portion": "Portion served"
+  "subtitles.chocolateflavored.block.food.take_portion": "Portion served",
+  "item.chocolateflavored.copper_sword": "Copper Sword",
+  "item.chocolateflavored.copper_axe": "Copper Axe",
+  "item.chocolateflavored.copper_pickaxe": "Copper Pickaxe",
+  "item.chocolateflavored.copper_shovel": "Copper Shovel",
+  "item.chocolateflavored.copper_hoe": "Copper Hoe",
+  "item.chocolateflavored.copper_nugget": "Copper Nugget"
 }

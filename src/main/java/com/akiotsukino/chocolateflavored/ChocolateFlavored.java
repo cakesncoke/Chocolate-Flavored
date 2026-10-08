@@ -40,6 +40,16 @@ public class ChocolateFlavored {
         if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
             event.accept(ModItems.OVEN.get());
             event.accept(ModItems.COOKING_POT.get());
+        } else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+            event.accept(ModItems.COPPER_SHOVEL.get());
+            event.accept(ModItems.COPPER_PICKAXE.get());
+            event.accept(ModItems.COPPER_AXE.get());
+            event.accept(ModItems.COPPER_HOE.get());
+        } else if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
+            event.accept(ModItems.COPPER_SWORD.get());
+            event.accept(ModItems.COPPER_AXE.get());
+        } else if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
+            event.accept(ModItems.COPPER_NUGGET.get());
         }
     }
 }
