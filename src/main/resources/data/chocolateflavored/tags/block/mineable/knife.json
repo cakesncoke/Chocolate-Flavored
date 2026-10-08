@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:short_grass",
+    "minecraft:tall_grass",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "minecraft:cactus",
+    "minecraft:melon",
+    "minecraft:pumpkin",
+    "minecraft:carved_pumpkin",
+    "minecraft:jack_o_lantern",
+    "minecraft:cobweb",
+    "minecraft:cake",
+    "#minecraft:leaves",
+    "#minecraft:wool",
+    "#minecraft:wool_carpets",
+    {
+      "id": "#c:mineable/knife",
+      "required": false
+    }
+  ]
+}
