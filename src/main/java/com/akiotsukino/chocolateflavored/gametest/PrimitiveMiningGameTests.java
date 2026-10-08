@@ -120,6 +120,60 @@ public final class PrimitiveMiningGameTests {
         helper.succeed();
     }
 
+    @GameTest(template = "oven_test_empty")
+    public static void doublePlantsDropFiberOnceFromEitherHalf(GameTestHelper helper) {
+        var player = player(helper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.FLINT_KNIFE.get()));
+        helper.getLevel().random.setSeed(99281L);
+        var lower = new BlockPos(2, 2, 2);
+        helper.setBlock(lower.below(), Blocks.DIRT);
+        for (Block block : new Block[]{Blocks.TALL_GRASS, Blocks.LARGE_FERN}) {
+            for (boolean upper : new boolean[]{false, true}) {
+                int fibers = 0;
+                for (int i = 0; i < 120; i++) {
+                    for (var entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds())) entity.discard();
+                    helper.setBlock(lower, block.defaultBlockState().setValue(net.minecraft.world.level.block.DoublePlantBlock.HALF,
+                            net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER));
+                    helper.setBlock(lower.above(), block.defaultBlockState().setValue(net.minecraft.world.level.block.DoublePlantBlock.HALF,
+                            net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER));
+                    player.gameMode.destroyBlock(helper.absolutePos(upper ? lower.above() : lower));
+                    int drops = helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds()).stream()
+                            .filter(e -> e.getItem().is(ModItems.PLANT_FIBER.get())).mapToInt(e -> e.getItem().getCount()).sum();
+                    helper.assertTrue(drops <= 1, "Breaking either plant half must never roll duplicate fiber drops");
+                    fibers += drops;
+                }
+                helper.assertTrue(fibers > 15 && fibers < 65, "Both halves of both double plants must allow fiber harvesting");
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "oven_test_empty")
+    public static void canceledBreaksAndCreativeDoNotUseFlintCharges(GameTestHelper helper) {
+        var player = player(helper);
+        var stack = new ItemStack(Items.FLINT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        var local = new BlockPos(2, 2, 2);
+        var pos = helper.absolutePos(local);
+        java.util.function.Consumer<net.neoforged.neoforge.event.level.BlockEvent.BreakEvent> protect = event -> {
+            if (event.getPlayer() == player && event.getPos().equals(pos)) event.setCanceled(true);
+        };
+        NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.HIGH, protect);
+        try {
+            helper.setBlock(local, Blocks.STONE);
+            player.gameMode.destroyBlock(pos);
+            helper.assertBlockPresent(Blocks.STONE, local);
+            helper.assertTrue(stack.getDamageValue() == 0, "Canceled breaks must never convert blocks or consume flint");
+        } finally {
+            NeoForge.EVENT_BUS.unregister(protect);
+        }
+        player.setGameMode(GameType.CREATIVE);
+        player.gameMode.destroyBlock(pos);
+        helper.assertBlockPresent(Blocks.AIR, local);
+        helper.assertTrue(stack.getDamageValue() == 0, "Creative mining must keep normal removal and no durability loss");
+        helper.succeed();
+    }
+
     private static ServerPlayer player(GameTestHelper helper) {
         var player = helper.makeMockServerPlayerInLevel();
         player.setGameMode(GameType.SURVIVAL);

@@ -1,23 +1,22 @@
 package com.akiotsukino.chocolateflavored.mixin;
 
 import com.akiotsukino.chocolateflavored.item.FlintItem;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Slice;
 
-/** Replace flint at bootstrap, before any vanilla loot, trades or creative entries reference it. */
+/** Replace the original constructor, avoiding an unregistered intrusive holder for an unused item. */
 @Mixin(Items.class)
 public abstract class ItemsMixin {
-    @Inject(method = "registerItem(Ljava/lang/String;Lnet/minecraft/world/item/Item;)Lnet/minecraft/world/item/Item;",
-            at = @At("HEAD"), cancellable = true)
-    private static void chocolateflavored$replaceFlint(String name, Item item, CallbackInfoReturnable<Item> callback) {
-        if (name.equals("flint")) {
-            // Calling the ResourceLocation overload avoids re-entering this injection.
-            callback.setReturnValue(Items.registerItem(ResourceLocation.fromNamespaceAndPath("minecraft", "flint"), new FlintItem()));
-        }
+    @Redirect(method = "<clinit>", at = @At(value = "NEW", target = "net/minecraft/world/item/Item"),
+            slice = @Slice(
+                    from = @At(value = "FIELD", target = "Lnet/minecraft/world/item/Items;NETHERITE_BOOTS:Lnet/minecraft/world/item/Item;", opcode = Opcodes.PUTSTATIC),
+                    to = @At(value = "FIELD", target = "Lnet/minecraft/world/item/Items;FLINT:Lnet/minecraft/world/item/Item;", opcode = Opcodes.PUTSTATIC)))
+    private static Item chocolateflavored$replaceFlint(Item.Properties properties) {
+        return new FlintItem();
     }
 }
