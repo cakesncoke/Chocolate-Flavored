@@ -25,4 +25,8 @@ jobs:
         run: ./gradlew build
 
       - name: Run dedicated-server GameTests
-        run: ./gradlew runGameTestServer
+        run: |
+          set -o pipefail
+          ./gradlew runGameTestServer | tee gametest.log
+          # Minecraft startup failures can exit zero; require the test server's success summary.
+          grep -Eq 'All [0-9]+ required tests passed' gametest.log

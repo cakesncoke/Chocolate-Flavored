@@ -24,6 +24,10 @@ public class ChocolateFlavored {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ChocolateFlavored(IEventBus modEventBus, ModContainer container) {
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
+                com.akiotsukino.chocolateflavored.event.PrimitiveMining::onBreak);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
+                com.akiotsukino.chocolateflavored.event.PrimitiveMining::onDrops);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
@@ -41,15 +45,18 @@ public class ChocolateFlavored {
             event.accept(ModItems.OVEN.get());
             event.accept(ModItems.COOKING_POT.get());
         } else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
+            event.accept(ModItems.FLINT_KNIFE.get());
             event.accept(ModItems.COPPER_SHOVEL.get());
             event.accept(ModItems.COPPER_PICKAXE.get());
             event.accept(ModItems.COPPER_AXE.get());
             event.accept(ModItems.COPPER_HOE.get());
         } else if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
+            event.accept(ModItems.FLINT_KNIFE.get());
             event.accept(ModItems.COPPER_SWORD.get());
             event.accept(ModItems.COPPER_AXE.get());
         } else if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
             event.accept(ModItems.COPPER_NUGGET.get());
+            ModItems.MATERIALS.forEach(item -> event.accept(item.get()));
         }
     }
 }

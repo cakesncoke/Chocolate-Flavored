@@ -13,6 +13,8 @@ public final class ModTags {
 
     public static final class Blocks {
         public static final TagKey<Block> INCORRECT_FOR_COPPER_TOOL = block("incorrect_for_copper_tool");
+        public static final TagKey<Block> HAND_DUG_DIRT = block("hand_dug_dirt");
+        public static final TagKey<Block> MINEABLE_WITH_KNIFE = block("mineable/knife");
         public static final TagKey<Block> HEAT_SOURCES = block("heat_sources");
         public static final TagKey<Block> HEAT_CONDUCTORS = block("heat_conductors");
         public static final TagKey<Block> TRAY_HEAT_SOURCES = block("tray_heat_sources");
