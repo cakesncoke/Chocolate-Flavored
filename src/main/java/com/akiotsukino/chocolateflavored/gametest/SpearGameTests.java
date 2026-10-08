@@ -139,6 +139,21 @@ public final class SpearGameTests {
                 "Tired charge must damage without dismounting; health=" + target.getHealth() + ", riding=" + target.isPassenger());
         helper.succeed();
     }
+    @GameTest(template = "oven_test_empty")
+    public static void jabUsesStrengthAndCurrentWeaponRatherThanStaleSwordAttributes(GameTestHelper helper) {
+        var player = player(helper);
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DAMAGE_BOOST, 200));
+        // Simulate the stale mainhand modifier from a just-swapped netherite sword.
+        player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE).addTransientModifier(
+                new net.minecraft.world.entity.ai.attributes.AttributeModifier(net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID, 7,
+                        net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+        var stack = new ItemStack(ModItems.IRON_SPEAR.get());
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        var target = target(helper, 3);
+        SpearCombat.jab(player);
+        helper.assertTrue(target.getHealth() == 14, "Iron jab must deal three plus Strength I's three damage, without borrowing sword damage");
+        helper.succeed();
+    }
     private static ServerPlayer player(GameTestHelper helper) {
         var player = FakePlayerFactory.get(helper.getLevel(), new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "spear-test"));
         player.setGameMode(GameType.SURVIVAL);

@@ -12,7 +12,7 @@ Only iron, diamond and netherite spears are added. Player-controlled jab and cha
 | Diamond | 4 | 21 ticks | 10 ticks | 1.075 | 3122 |
 | Netherite | 5 | 23 ticks | 8 ticks | 1.2 | 6093 |
 
-Durability follows this mod's previous material multipliers rather than reverting to unmodified vanilla values. Repair uses the corresponding vanilla material, and netherite is fire resistant. Each successful impact costs one durability. Jab damage receives normal weapon enchantment effects and has no sword sweep.
+Durability follows this mod's previous material multipliers rather than reverting to unmodified vanilla values. Repair uses the corresponding vanilla material, and netherite is fire resistant. Each successful impact costs one durability. Jab damage receives normal weapon enchantment effects and Strength/Weakness attributes, and has no sword sweep. A fresh attribute snapshot prevents a just-swapped sword from lending its damage to a spear.
 
 Charge compares attacker and target motion projected along the view direction, in blocks/second. Damage is the player's base attack damage plus `floor(max(0, relative forward speed) * material multiplier)`. Modern engaged/tired/disengaged timing and own-speed/relative-speed thresholds are preserved. Contact cooldown is ten ticks per entity, including contacts before reaching speed thresholds. Server player motion is sampled from validated positions; teleports do not become charge velocity. Damage uses a dedicated damage type so vanilla's automatic knockback cannot leak into the disengaged phase. Full movement and sprinting are retained while charging through a client-only mixin.
 

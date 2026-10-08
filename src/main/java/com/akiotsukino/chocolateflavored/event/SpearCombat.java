@@ -66,7 +66,7 @@ public final class SpearCombat {
         player.getPersistentData().putLong(key, time + spear.material().jabTicks());
         // Attack the whole unobstructed ray, not a client-provided entity ID.
         boolean hit = false;
-        float damage = 1F + spear.material().tier.getAttackDamageBonus();
+        float damage = jabDamage(player, stack);
         for (Entity target : targets(player)) {
             if (stack.isEmpty()) break;
             hit |= impact(player, target, stack, damage, true, true, false, EquipmentSlot.MAINHAND);
@@ -76,6 +76,19 @@ public final class SpearCombat {
         player.swing(InteractionHand.MAIN_HAND, true);
         sound(player, hit ? "item.spear.hit" : "item.spear.attack");
         player.awardStat(Stats.ITEM_USED.get(spear));
+    }
+    private static float jabDamage(Player player, ItemStack stack) {
+        // Use a fresh snapshot so potions/modifiers work and a just-swapped sword cannot lend its damage.
+        var attack = new net.minecraft.world.entity.ai.attributes.AttributeInstance(Attributes.ATTACK_DAMAGE, unused -> {});
+        attack.replaceFrom(player.getAttribute(Attributes.ATTACK_DAMAGE));
+        attack.removeModifier(net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID);
+        stack.forEachModifier(EquipmentSlot.MAINHAND, (attribute, modifier) -> {
+            if (attribute.equals(Attributes.ATTACK_DAMAGE)) {
+                attack.removeModifier(modifier.id());
+                attack.addTransientModifier(modifier);
+            }
+        });
+        return (float) attack.getValue();
     }
     public static void beginCharge(Player player) { CONTACTS.put(player, new HashMap<>()); sound(player, "item.spear.use"); }
     public static void endCharge(Player player) { if (!player.level().isClientSide) CONTACTS.remove(player); }
