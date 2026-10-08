@@ -20,6 +20,13 @@ public final class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> BLOCK_FOOD_TAKE_PORTION = SOUNDS.register("block.food.take_portion", () ->
             SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "block.food.take_portion")));
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_ATTACK = SOUNDS.register("item.spear.attack", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.attack")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_HIT = SOUNDS.register("item.spear.hit", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.hit")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_LUNGE_1 = SOUNDS.register("item.spear.lunge_1", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.lunge_1")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_LUNGE_2 = SOUNDS.register("item.spear.lunge_2", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.lunge_2")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_LUNGE_3 = SOUNDS.register("item.spear.lunge_3", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.lunge_3")));
+    public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_SPEAR_USE = SOUNDS.register("item.spear.use", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(ChocolateFlavored.MOD_ID, "item.spear.use")));
+
     private ModSounds() {}
 
     public static void register(IEventBus bus) { SOUNDS.register(bus); }

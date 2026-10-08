@@ -52,3 +52,9 @@ tag. Vanilla foods represent the recipe book categories because Farmer's
 Delight's food items are not part of this port. The client recipe-book option
 retains its upstream default of enabled. No Farmer's Delight dependency is
 required, and the two mods can be installed together.
+
+## Minecraft 1.21.11 spear reference and assets
+
+The spear rules are independently implemented for NeoForge 1.21.1 using the official Java 1.21.11 release as a reference. The three spear inventory/in-hand textures, spear hand-model display transforms and spear sound assets originate from Minecraft Java 1.21.11, copyright Mojang AB / Microsoft. They are not covered by the project's MIT license. No Minecraft classes or game jar are bundled.
+
+Reference: https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-11

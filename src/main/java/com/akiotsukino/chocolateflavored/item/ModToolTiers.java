@@ -16,5 +16,10 @@ public final class ModToolTiers {
             13,
             () -> Ingredient.of(ModTags.Items.COPPER_TOOL_MATERIALS));
 
+    public static final Tier ROSE_GOLD = new SimpleTier(
+            net.minecraft.tags.BlockTags.INCORRECT_FOR_IRON_TOOL,
+            Tiers.DIAMOND.getUses() * 2, 7.0F, 3.0F, 15,
+            () -> Ingredient.of(net.minecraft.world.item.Items.GOLD_INGOT));
+
     private ModToolTiers() {}
 }

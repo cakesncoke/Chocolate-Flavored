@@ -31,5 +31,45 @@
       }
     ],
     "subtitle": "subtitles.chocolateflavored.block.food.take_portion"
+  },
+  "item.spear.attack": {
+    "sounds": [
+      "chocolateflavored:item/spear/attack1",
+      "chocolateflavored:item/spear/attack2",
+      "chocolateflavored:item/spear/attack3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.attack"
+  },
+  "item.spear.hit": {
+    "sounds": [
+      "chocolateflavored:item/spear/hit1",
+      "chocolateflavored:item/spear/hit2",
+      "chocolateflavored:item/spear/hit3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.hit"
+  },
+  "item.spear.lunge_1": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge1"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_1"
+  },
+  "item.spear.lunge_2": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge2"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_2"
+  },
+  "item.spear.lunge_3": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_3"
+  },
+  "item.spear.use": {
+    "sounds": [
+      "chocolateflavored:item/spear/use"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.use"
   }
 }

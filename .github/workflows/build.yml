@@ -30,3 +30,12 @@ jobs:
           ./gradlew runGameTestServer | tee gametest.log
           # Minecraft startup failures can exit zero; require the test server's success summary.
           grep -Eq 'All [0-9]+ required tests passed' gametest.log
+
+      - name: Check client startup, spear mixins and artwork
+        timeout-minutes: 5
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "true"
+        run: |
+          set -o pipefail
+          xvfb-run -a ./gradlew runClient -PclientSmokeTest | tee client-smoke.log
+          grep -q 'CHOCOLATE_FLAVORED_CLIENT_SMOKE_PASSED' client-smoke.log

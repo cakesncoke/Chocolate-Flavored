@@ -29,6 +29,9 @@ public class ChocolateFlavored {
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.akiotsukino.chocolateflavored.event.PrimitiveMining::onDrops);
         modEventBus.addListener(com.akiotsukino.chocolateflavored.event.EquipmentDurability::modifyDefaults);
+        modEventBus.addListener(com.akiotsukino.chocolateflavored.network.SpearNetwork::register);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.akiotsukino.chocolateflavored.event.SpearCombat::onAttackEntity);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.akiotsukino.chocolateflavored.event.SpearCombat::onPlayerTick);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
@@ -51,13 +54,25 @@ public class ChocolateFlavored {
             event.accept(ModItems.COPPER_PICKAXE.get());
             event.accept(ModItems.COPPER_AXE.get());
             event.accept(ModItems.COPPER_HOE.get());
+            event.accept(ModItems.ROSE_GOLD_PICKAXE.get());
+            event.accept(ModItems.ROSE_GOLD_AXE.get());
+            event.accept(ModItems.ROSE_GOLD_SHOVEL.get());
+            event.accept(ModItems.ROSE_GOLD_HOE.get());
         } else if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
             event.accept(ModItems.FLINT_KNIFE.get());
             event.accept(ModItems.COPPER_SWORD.get());
             event.accept(ModItems.COPPER_AXE.get());
+            event.accept(ModItems.ROSE_GOLD_SWORD.get());
+            event.accept(ModItems.ROSE_GOLD_AXE.get());
+            event.accept(ModItems.IRON_SPEAR.get());
+            event.accept(ModItems.DIAMOND_SPEAR.get());
+            event.accept(ModItems.NETHERITE_SPEAR.get());
         } else if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
             event.accept(ModItems.COPPER_NUGGET.get());
+            event.accept(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.get());
             ModItems.MATERIALS.forEach(item -> event.accept(item.get()));
+        } else if (event.getTabKey().equals(CreativeModeTabs.FOOD_AND_DRINKS)) {
+            event.accept(ModItems.CHOCOLATE_CAKE.get());
         }
     }
 }

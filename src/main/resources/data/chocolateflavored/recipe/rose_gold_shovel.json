@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "chocolateflavored:rose_gold_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "minecraft:iron_shovel"
+  },
+  "addition": {
+    "item": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "chocolateflavored:rose_gold_shovel",
+    "count": 1
+  }
+}
