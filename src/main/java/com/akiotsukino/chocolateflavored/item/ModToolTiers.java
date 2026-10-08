@@ -6,7 +6,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.SimpleTier;
 
-/** Java 1.21.9 copper statistics, with durability increased to match iron. */
+/** Java 1.21.9 copper statistics, with 250 durability (the original iron tier value). */
 public final class ModToolTiers {
     public static final Tier COPPER = new SimpleTier(
             ModTags.Blocks.INCORRECT_FOR_COPPER_TOOL,

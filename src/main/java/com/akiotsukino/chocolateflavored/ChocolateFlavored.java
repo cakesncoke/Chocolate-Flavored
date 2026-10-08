@@ -28,6 +28,7 @@ public class ChocolateFlavored {
                 com.akiotsukino.chocolateflavored.event.PrimitiveMining::onBreak);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 com.akiotsukino.chocolateflavored.event.PrimitiveMining::onDrops);
+        modEventBus.addListener(com.akiotsukino.chocolateflavored.event.EquipmentDurability::modifyDefaults);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);

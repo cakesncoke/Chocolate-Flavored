@@ -29,7 +29,7 @@ public final class ModItems {
             new SwordItem(ModToolTiers.COPPER, new Item.Properties().attributes(
                     SwordItem.createAttributes(ModToolTiers.COPPER, 3, -2.4F))));
     public static final DeferredItem<PickaxeItem> COPPER_PICKAXE = ITEMS.register("copper_pickaxe", () ->
-            new PickaxeItem(ModToolTiers.COPPER, new Item.Properties().attributes(
+            new com.akiotsukino.chocolateflavored.item.CopperPickaxeItem(new Item.Properties().attributes(
                     PickaxeItem.createAttributes(ModToolTiers.COPPER, 1, -2.8F))));
     public static final DeferredItem<AxeItem> COPPER_AXE = ITEMS.register("copper_axe", () ->
             new AxeItem(ModToolTiers.COPPER, new Item.Properties().attributes(
@@ -53,6 +53,8 @@ public final class ModItems {
     public static final DeferredItem<Item> DIRT_PILE = ITEMS.registerSimpleItem("dirt_pile");
     public static final DeferredItem<Item> FLOUR = ITEMS.registerSimpleItem("flour");
     public static final DeferredItem<Item> GRAVEL_PILE = ITEMS.registerSimpleItem("gravel_pile");
+    public static final DeferredItem<Item> COPPER_ORE_PILE = ITEMS.registerSimpleItem("copper_ore_pile");
+    public static final DeferredItem<Item> COAL_ORE_PILE = ITEMS.registerSimpleItem("coal_ore_pile");
     public static final DeferredItem<Item> IRON_ORE_PILE = ITEMS.registerSimpleItem("iron_ore_pile");
     public static final DeferredItem<Item> PADDING = ITEMS.registerSimpleItem("padding");
     public static final DeferredItem<Item> PLANT_FIBER = ITEMS.registerSimpleItem("plant_fiber");
@@ -71,7 +73,7 @@ public final class ModItems {
             ITEMS.register("flint_knife", com.akiotsukino.chocolateflavored.item.FlintKnifeItem::new);
 
     public static final java.util.List<DeferredItem<Item>> MATERIALS = java.util.List.of(
-            BAT_WING, BREAD_DOUGH, COAL_DUST, COCOA_POWDER, COOKIE_DOUGH, CREEPER_OYSTERS, CUT_TANNED_LEATHER, DEEPSLATE_PEBBLE, DIAMOND_INGOT, DIRT_PILE, FLOUR, GRAVEL_PILE, IRON_ORE_PILE, PADDING, PLANT_FIBER, PLANT_STRING, SALT, SAND_PILE, STONE_PEBBLE, STRAP, TANNED_LEATHER, UNBAKED_CAKE, UNBAKED_PUMPKIN_PIE, UNFIRED_BRICK, WOOL, RED_SAND_PILE);
+            BAT_WING, BREAD_DOUGH, COAL_DUST, COCOA_POWDER, COOKIE_DOUGH, CREEPER_OYSTERS, CUT_TANNED_LEATHER, DEEPSLATE_PEBBLE, DIAMOND_INGOT, DIRT_PILE, FLOUR, GRAVEL_PILE, IRON_ORE_PILE, COPPER_ORE_PILE, COAL_ORE_PILE, PADDING, PLANT_FIBER, PLANT_STRING, SALT, SAND_PILE, STONE_PEBBLE, STRAP, TANNED_LEATHER, UNBAKED_CAKE, UNBAKED_PUMPKIN_PIE, UNFIRED_BRICK, WOOL, RED_SAND_PILE);
 
     private ModItems() {
     }
