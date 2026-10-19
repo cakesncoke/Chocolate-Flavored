@@ -16,6 +16,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,20 +41,26 @@ final class LightingInteractionVerification {
         level.setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState());
         player.setPos(16.5, 161, 0.5); player.setYRot(0); player.setXRot(90);
         var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
-        for (boolean blockClick : new boolean[]{true, false}) {
-            level.setBlockAndUpdate(pos, LightingContent.UNLIT_TORCH.get().defaultBlockState());
-            ItemStack starter = new ItemStack(LightingContent.FIRE_STARTER.get());
-            player.setItemInHand(InteractionHand.MAIN_HAND, starter);
-            var result = blockClick ? player.gameMode.useItemOn(player, level, starter, InteractionHand.MAIN_HAND, hit)
-                    : player.gameMode.useItem(player, level, starter, InteractionHand.MAIN_HAND);
-            check(result.consumesAction() && player.isUsingItem(), "Actual game-mode right click starts the fire starter");
-            player.setItemInHand(InteractionHand.MAIN_HAND, starter.copy());
-            for (int i = 0; i < 199; i++) player.advanceUse();
-            check(level.getBlockState(pos).is(LightingContent.UNLIT_TORCH.get()), "Actual use lifecycle does not light early");
-            player.advanceUse();
-            check(level.getBlockState(pos).is(LightingContent.LIT_TORCH.get()) && player.getMainHandItem().getDamageValue() == 1,
-                    "Actual use lifecycle completes despite equivalent inventory stack replacement");
-            check(!player.isUsingItem(), "Vanilla completes the use action");
+        for (BlockState unlit : new BlockState[]{LightingContent.UNLIT_TORCH.get().defaultBlockState(),
+                Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false),
+                Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false)}) {
+            for (boolean blockClick : new boolean[]{true, false}) {
+                level.setBlockAndUpdate(pos, unlit);
+                ItemStack starter = new ItemStack(LightingContent.FIRE_STARTER.get());
+                player.setItemInHand(InteractionHand.MAIN_HAND, starter);
+                var result = blockClick ? player.gameMode.useItemOn(player, level, starter, InteractionHand.MAIN_HAND, hit)
+                        : player.gameMode.useItem(player, level, starter, InteractionHand.MAIN_HAND);
+                check(result.consumesAction() && player.isUsingItem(), "Actual game-mode right click starts the fire starter");
+                player.setItemInHand(InteractionHand.MAIN_HAND, starter.copy());
+                for (int i = 0; i < 199; i++) player.advanceUse();
+                check(level.getBlockState(pos).equals(unlit), "Actual use lifecycle does not light early");
+                player.advanceUse();
+                BlockState lit = level.getBlockState(pos);
+                check((lit.is(LightingContent.LIT_TORCH.get()) || lit.hasProperty(CampfireBlock.LIT) && lit.getValue(CampfireBlock.LIT))
+                                && player.getMainHandItem().getDamageValue() == 1,
+                        "Actual use lifecycle completes despite equivalent inventory stack replacement");
+                check(!player.isUsingItem(), "Vanilla completes the use action");
+            }
         }
 
         for (boolean wall : new boolean[]{false, true}) {
