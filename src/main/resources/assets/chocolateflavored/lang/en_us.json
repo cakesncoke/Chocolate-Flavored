@@ -28,5 +28,9 @@
   "item.chocolateflavored.rose_gold_upgrade.applies_to": "Iron Equipment",
   "item.chocolateflavored.rose_gold_upgrade.ingredients": "Rose Gold Ingot",
   "item.chocolateflavored.rose_gold_upgrade.base_slot": "Place iron equipment here.",
-  "item.chocolateflavored.rose_gold_upgrade.additions_slot": "Place a rose gold ingot here."
+  "item.chocolateflavored.rose_gold_upgrade.additions_slot": "Place a rose gold ingot here.",
+  "block.chocolateflavored.unlit_torch": "Unlit Torch",
+  "block.chocolateflavored.lit_torch": "Lit Torch",
+  "block.chocolateflavored.unlit_lantern": "Unlit Lantern",
+  "item.chocolateflavored.fire_starter": "Fire Starter"
 }

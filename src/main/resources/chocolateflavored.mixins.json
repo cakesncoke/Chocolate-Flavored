@@ -4,9 +4,13 @@
   "package": "com.akiotsukino.chocolateflavored.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "AbstractVillagerMixin"
+    "AbstractVillagerMixin",
+    "CampfirePlacementMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "FireStarterHandMixin"
+  ]
 }

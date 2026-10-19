@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "chocolateflavored:rose_gold_block"
+    "chocolateflavored:rose_gold_block",
+    "chocolateflavored:unlit_lantern"
   ]
 }
