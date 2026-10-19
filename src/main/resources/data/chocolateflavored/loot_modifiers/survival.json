@@ -1,0 +1,9 @@
+{
+  "type": "chocolateflavored:survival",
+  "conditions": [],
+  "priority": 0,
+  "dirt_flint_chance": 0.15,
+  "gravel_flint_chance": 0.5,
+  "fiber_chance": 0.33,
+  "extra_stick_chance": 0.2
+}

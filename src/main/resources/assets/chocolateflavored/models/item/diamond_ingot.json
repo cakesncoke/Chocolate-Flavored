@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "chocolateflavored:item/diamond_ingot"
+  }
+}

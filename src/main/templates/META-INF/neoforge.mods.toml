@@ -17,8 +17,8 @@ description='''
 Chocolate Flavored is a new take on the vanilla survival experience of Minecraft. The goal of Chocolate Flavored is to stay true to the nature of Minecraft while overhauling underwhelming systems and adding new content to give Minecraft a fresh new coat of paint.
 '''
 
-#[[mixins]]
-#config="${mod_id}.mixins.json"
+[[mixins]]
+config="${mod_id}.mixins.json"
 
 #[[accessTransformers]]
 #file="META-INF/accesstransformer.cfg"
