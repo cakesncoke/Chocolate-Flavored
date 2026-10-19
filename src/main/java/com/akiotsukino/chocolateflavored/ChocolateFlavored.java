@@ -14,5 +14,6 @@ public class ChocolateFlavored {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ChocolateFlavored(IEventBus modEventBus, ModContainer modContainer) {
+        LOGGER.info("Initializing Chocolate Flavored");
     }
 }
