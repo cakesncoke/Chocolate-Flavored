@@ -1,78 +1,18 @@
 package com.akiotsukino.chocolateflavored;
 
 import org.slf4j.Logger;
+
 import com.mojang.logging.LogUtils;
 
-import com.akiotsukino.chocolateflavored.registry.ModBlockEntities;
-import com.akiotsukino.chocolateflavored.registry.ModBlocks;
-import com.akiotsukino.chocolateflavored.registry.ModItems;
-import com.akiotsukino.chocolateflavored.registry.ModRecipes;
-import com.akiotsukino.chocolateflavored.registry.ModSounds;
-import com.akiotsukino.chocolateflavored.registry.ModMenuTypes;
-import com.akiotsukino.chocolateflavored.registry.ModDataComponents;
-import com.akiotsukino.chocolateflavored.registry.ModParticleTypes;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.config.ModConfig;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModContainer;
 
-@Mod(ChocolateFlavored.MOD_ID)
+@Mod(ChocolateFlavored.MODID)
 public class ChocolateFlavored {
-    public static final String MOD_ID = "chocolateflavored";
+    public static final String MODID = "chocolateflavored";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ChocolateFlavored(IEventBus modEventBus, ModContainer container) {
-        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
-                com.akiotsukino.chocolateflavored.event.PrimitiveMining::onBreak);
-        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
-                com.akiotsukino.chocolateflavored.event.PrimitiveMining::onDrops);
-        modEventBus.addListener(com.akiotsukino.chocolateflavored.event.EquipmentDurability::modifyDefaults);
-        modEventBus.addListener(com.akiotsukino.chocolateflavored.network.SpearNetwork::register);
-        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.akiotsukino.chocolateflavored.event.SpearCombat::onAttackEntity);
-        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.akiotsukino.chocolateflavored.event.SpearCombat::onPlayerTick);
-        ModBlocks.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
-        ModItems.register(modEventBus);
-        ModRecipes.register(modEventBus);
-        ModSounds.register(modEventBus);
-        ModMenuTypes.MENU_TYPES.register(modEventBus);
-        ModDataComponents.DATA_COMPONENTS.register(modEventBus);
-        ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
-        container.registerConfig(ModConfig.Type.CLIENT, Configuration.CLIENT_SPEC);
-        modEventBus.addListener(ChocolateFlavored::addCreativeContent);
-    }
-
-    private static void addCreativeContent(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey().equals(CreativeModeTabs.FUNCTIONAL_BLOCKS)) {
-            event.accept(ModItems.OVEN.get());
-            event.accept(ModItems.COOKING_POT.get());
-        } else if (event.getTabKey().equals(CreativeModeTabs.TOOLS_AND_UTILITIES)) {
-            event.accept(ModItems.FLINT_KNIFE.get());
-            event.accept(ModItems.COPPER_SHOVEL.get());
-            event.accept(ModItems.COPPER_PICKAXE.get());
-            event.accept(ModItems.COPPER_AXE.get());
-            event.accept(ModItems.COPPER_HOE.get());
-            event.accept(ModItems.ROSE_GOLD_PICKAXE.get());
-            event.accept(ModItems.ROSE_GOLD_AXE.get());
-            event.accept(ModItems.ROSE_GOLD_SHOVEL.get());
-            event.accept(ModItems.ROSE_GOLD_HOE.get());
-        } else if (event.getTabKey().equals(CreativeModeTabs.COMBAT)) {
-            event.accept(ModItems.FLINT_KNIFE.get());
-            event.accept(ModItems.COPPER_SWORD.get());
-            event.accept(ModItems.COPPER_AXE.get());
-            event.accept(ModItems.ROSE_GOLD_SWORD.get());
-            event.accept(ModItems.ROSE_GOLD_AXE.get());
-            event.accept(ModItems.IRON_SPEAR.get());
-            event.accept(ModItems.DIAMOND_SPEAR.get());
-            event.accept(ModItems.NETHERITE_SPEAR.get());
-        } else if (event.getTabKey().equals(CreativeModeTabs.INGREDIENTS)) {
-            event.accept(ModItems.COPPER_NUGGET.get());
-            event.accept(ModItems.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.get());
-            ModItems.MATERIALS.forEach(item -> event.accept(item.get()));
-        } else if (event.getTabKey().equals(CreativeModeTabs.FOOD_AND_DRINKS)) {
-            event.accept(ModItems.CHOCOLATE_CAKE.get());
-        }
+    public ChocolateFlavored(IEventBus modEventBus, ModContainer modContainer) {
     }
 }
