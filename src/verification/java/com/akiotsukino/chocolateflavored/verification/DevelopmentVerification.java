@@ -140,7 +140,9 @@ public final class DevelopmentVerification {
         var offers = new MerchantOffers();
         offers.add(new MerchantOffer(new ItemCost(Items.EMERALD), new ItemStack(Items.STONE_SWORD), 10, 1, 0.0F));
         offers.add(new MerchantOffer(new ItemCost(Items.EMERALD), new ItemStack(Items.IRON_SWORD), 10, 1, 0.0F));
-        villager.overrideOffers(offers);
+        var loadedOffers = villager.getOffers();
+        loadedOffers.clear();
+        loadedOffers.addAll(offers);
         check(villager.getOffers().size() == 1 && villager.getOffers().getFirst().getResult().is(Items.IRON_SWORD), "Merchant mixin removes forbidden offers only");
         clearItems(level, pos);
         level.removeBlock(pos, false);
