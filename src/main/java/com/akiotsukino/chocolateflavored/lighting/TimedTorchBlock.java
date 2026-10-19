@@ -33,7 +33,7 @@ public final class TimedTorchBlock extends TorchBlock implements EntityBlock {
     }
     @Override public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        if (!level.isClientSide() && lit && level.getBlockEntity(pos) instanceof TorchTimerBlockEntity timer) timer.reset();
+        if (!level.isClientSide() && lit && level.getBlockEntity(pos) instanceof TorchTimerBlockEntity timer) timer.resume(stack);
     }
     @Override protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         return lit ? InteractionResult.PASS : LightingIgnition.useIgniter(stack, level, pos, player, hand, hit);

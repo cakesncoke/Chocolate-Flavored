@@ -1,3 +1,6 @@
 {
-  "parent": "chocolateflavored:block/unlit_lantern"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "chocolateflavored:item/unlit_lantern"
+  }
 }

@@ -11,7 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "chocolateflavored:unlit_torch"
+          "name": "chocolateflavored:lit_torch",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "source": "block_entity",
+              "include": [
+                "chocolateflavored:torch_burn_ticks"
+              ]
+            }
+          ]
         }
       ]
     }

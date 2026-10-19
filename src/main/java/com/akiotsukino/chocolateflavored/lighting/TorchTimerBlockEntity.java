@@ -1,6 +1,8 @@
 package com.akiotsukino.chocolateflavored.lighting;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,6 +24,17 @@ public final class TorchTimerBlockEntity extends BlockEntity {
     public long burnUntil() { return burnUntil; }
     public void reset() {
         if (level != null) { burnUntil = level.getGameTime() + BURN_TICKS; setChanged(); }
+    }
+    public int remainingTicks() {
+        if (level == null || burnUntil == 0) return (int)BURN_TICKS;
+        return (int)Math.max(0L, Math.min(BURN_TICKS, burnUntil - level.getGameTime()));
+    }
+    public void resume(ItemStack stack) {
+        if (level != null) { burnUntil = level.getGameTime() + LitTorchItem.remaining(stack); setChanged(); }
+    }
+    @Override protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        components.set(LightingContent.TORCH_FUEL.get(), remainingTicks());
     }
     @Override protected void loadAdditional(ValueInput input) { super.loadAdditional(input); burnUntil = input.getLongOr("BurnUntil", 0L); }
     @Override protected void saveAdditional(ValueOutput output) { super.saveAdditional(output); output.putLong("BurnUntil", burnUntil); }

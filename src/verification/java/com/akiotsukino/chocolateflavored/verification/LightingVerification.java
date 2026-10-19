@@ -41,7 +41,8 @@ final class LightingVerification {
             var placement = new BlockPlaceContext(new UseOnContext(player, InteractionHand.MAIN_HAND,
                     new BlockHitResult(Vec3.atCenterOf(pos.below()), Direction.UP, pos.below(), false)));
             BlockState state = campfire.getStateForPlacement(placement);
-            check(state != null && !state.getValue(CampfireBlock.LIT), "Campfire placement must be unlit: " + campfire);
+            check(state != null && state.getValue(CampfireBlock.LIT) == (campfire == Blocks.SOUL_CAMPFIRE), "Normal campfire places unlit; soul campfire retains lit placement: " + campfire);
+            if (campfire == Blocks.SOUL_CAMPFIRE) state = state.setValue(CampfireBlock.LIT, false);
             level.setBlockAndUpdate(pos, state);
             ItemStack tool = new ItemStack(starter);
             player.setItemInHand(InteractionHand.MAIN_HAND, tool);
@@ -83,7 +84,7 @@ final class LightingVerification {
 
         for (var block : new net.minecraft.world.level.block.Block[]{LightingContent.UNLIT_TORCH.get(), LightingContent.UNLIT_WALL_TORCH.get(), LightingContent.LIT_TORCH.get(), LightingContent.LIT_WALL_TORCH.get()}) {
             var drops = net.minecraft.world.level.block.Block.getDrops(block.defaultBlockState(), level, pos, null, player, ItemStack.EMPTY);
-            check(drops.size() == 1 && drops.getFirst().is(LightingContent.UNLIT_TORCH_ITEM.get()), "Broken torch drops unlit mod torch: " + block);
+            check(drops.size() == 1 && drops.getFirst().is(TorchTimerBlockEntity.isLit(block.defaultBlockState()) ? LightingContent.LIT_TORCH_ITEM.get() : LightingContent.UNLIT_TORCH_ITEM.get()), "Broken torch retains lit/unlit identity: " + block);
         }
 
         // Save/load the real block entity, including its absolute deadline, then expire it
@@ -129,6 +130,7 @@ final class LightingVerification {
         level.removeBlock(pos.above(), false);
         level.setBlockAndUpdate(pos, LightingContent.UNLIT_LANTERN.get().defaultBlockState().setValue(LanternBlock.WATERLOGGED, true));
         check(!LightingIgnition.canIgnite(level.getBlockState(pos)), "Cannot ignite waterlogged lantern");
+        LightingInteractionVerification.run(level);
         level.removeBlock(pos, false);
         level.removeBlock(pos.west(), false);
         player.stopUsingItem();

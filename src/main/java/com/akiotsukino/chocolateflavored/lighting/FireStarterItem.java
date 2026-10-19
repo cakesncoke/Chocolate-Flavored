@@ -42,7 +42,7 @@ public final class FireStarterItem extends Item {
         Attempt(UseOnContext context) {
             pos = context.getClickedPos().immutable(); face = context.getClickedFace();
             block = context.getLevel().getBlockState(pos).getBlock(); dimension = context.getLevel().dimension();
-            stack = context.getItemInHand(); hand = context.getHand();
+            stack = context.getItemInHand().copy(); hand = context.getHand();
         }
     }
     public FireStarterItem(Properties properties) { super(properties); }
@@ -54,11 +54,16 @@ public final class FireStarterItem extends Item {
         player.startUsingItem(context.getHand());
         return InteractionResult.CONSUME;
     }
+    @Override public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        HitResult sight = player.pick(player.blockInteractionRange(), 1.0F, false);
+        if (!(sight instanceof BlockHitResult hit) || hit.getType() != HitResult.Type.BLOCK) return InteractionResult.PASS;
+        return useOn(new UseOnContext(player, hand, hit));
+    }
     @Override public int getUseDuration(ItemStack stack, LivingEntity user) { return USE_TICKS; }
     @Override public ItemUseAnimation getUseAnimation(ItemStack stack) { return ItemUseAnimation.NONE; }
     private static boolean valid(Player player, ItemStack stack, Attempt attempt) {
-        if (attempt == null || attempt.stack != stack || player.getItemInHand(attempt.hand) != stack
-                || player.level().dimension() != attempt.dimension || !player.level().getBlockState(attempt.pos).is(attempt.block)
+        if (attempt == null || !ItemStack.isSameItemSameComponents(attempt.stack, stack) || !ItemStack.isSameItemSameComponents(player.getItemInHand(attempt.hand), stack)
+                || !player.level().dimension().equals(attempt.dimension) || !player.level().getBlockState(attempt.pos).is(attempt.block)
                 || !LightingIgnition.fireStarterTarget(player.level().getBlockState(attempt.pos))
                 || !LightingIgnition.permitted(player, player.level(), attempt.pos, attempt.face, stack)) return false;
         HitResult sight = player.pick(player.blockInteractionRange(), 1.0F, false);
@@ -90,7 +95,7 @@ public final class FireStarterItem extends Item {
         var hit = new BlockHitResult(Vec3.atCenterOf(attempt.pos), attempt.face, attempt.pos, false);
         var permission = new PlayerInteractEvent.RightClickBlock(player, attempt.hand, attempt.pos, hit);
         NeoForge.EVENT_BUS.post(permission);
-        if (permission.isCanceled() || permission.getUseItem() == TriState.FALSE || permission.getUseBlock() == TriState.FALSE) return stack;
+        if (permission.isCanceled() || permission.getUseItem() == TriState.FALSE || permission.getUseBlock() == TriState.FALSE || !valid(player, stack, attempt)) return stack;
         if (LightingIgnition.ignite(level, attempt.pos, player)) {
             level.playSound(null, attempt.pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             stack.hurtAndBreak(1, player, attempt.hand.asEquipmentSlot());

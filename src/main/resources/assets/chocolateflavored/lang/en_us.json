@@ -32,5 +32,6 @@
   "block.chocolateflavored.unlit_torch": "Unlit Torch",
   "block.chocolateflavored.lit_torch": "Lit Torch",
   "block.chocolateflavored.unlit_lantern": "Unlit Lantern",
-  "item.chocolateflavored.fire_starter": "Fire Starter"
+  "item.chocolateflavored.fire_starter": "Fire Starter",
+  "tooltip.chocolateflavored.torch_time": "Burn time: %s"
 }
