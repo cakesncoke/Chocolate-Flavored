@@ -61,7 +61,7 @@ public final class FireStarterItem extends Item {
                 || player.level().dimension() != attempt.dimension || !player.level().getBlockState(attempt.pos).is(attempt.block)
                 || !LightingIgnition.fireStarterTarget(player.level().getBlockState(attempt.pos))
                 || !LightingIgnition.permitted(player, player.level(), attempt.pos, attempt.face, stack)) return false;
-        HitResult sight = player.pick(player.blockInteractionRange(), 0.0F, false);
+        HitResult sight = player.pick(player.blockInteractionRange(), 1.0F, false);
         return sight instanceof BlockHitResult hit && hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(attempt.pos);
     }
     @Override public void onUseTick(Level level, LivingEntity user, ItemStack stack, int ticksRemaining) {
@@ -77,9 +77,9 @@ public final class FireStarterItem extends Item {
         player.swing(attempt.hand, true);
         if (level instanceof ServerLevel server) {
             server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT,
-                    SoundSource.PLAYERS, 0.5F + 0.5F * server.random.nextInt(2), 1.75F + server.random.nextFloat() * 0.25F);
+                    SoundSource.PLAYERS, 0.5F + 0.5F * server.getRandom().nextInt(2), 1.75F + server.getRandom().nextFloat() * 0.25F);
             Vec3 point = player.getEyePosition().add(player.getLookAngle().scale(0.6)).add(0, -0.3, 0);
-            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), point.x, point.y, point.z, 5, 0.15, 0.15, 0.1, 0.05);
+            server.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack.getItem()), point.x, point.y, point.z, 5, 0.15, 0.15, 0.1, 0.05);
         }
     }
     @Override public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {

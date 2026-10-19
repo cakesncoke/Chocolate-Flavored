@@ -35,7 +35,7 @@ public final class TorchTimerBlockEntity extends BlockEntity {
         BlockState unlit = state.is(LightingContent.LIT_WALL_TORCH.get())
                 ? LightingContent.UNLIT_WALL_TORCH.get().defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING))
                 : LightingContent.UNLIT_TORCH.get().defaultBlockState();
-        server.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + server.random.nextFloat() * 0.8F);
+        server.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + server.getRandom().nextFloat() * 0.8F);
         server.setBlock(pos, unlit, Block.UPDATE_ALL);
         server.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(unlit));
     }

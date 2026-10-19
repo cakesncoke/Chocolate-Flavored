@@ -54,7 +54,7 @@ public final class LightingIgnition {
         if (!ignite(level, pos, player)) return InteractionResult.FAIL;
         boolean charge = stack.is(Items.FIRE_CHARGE);
         level.playSound(null, pos, charge ? SoundEvents.FIRECHARGE_USE : SoundEvents.FLINTANDSTEEL_USE,
-                SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
+                SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.4F + 0.8F);
         if (charge) stack.consume(1, player);
         else stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
         return InteractionResult.SUCCESS;

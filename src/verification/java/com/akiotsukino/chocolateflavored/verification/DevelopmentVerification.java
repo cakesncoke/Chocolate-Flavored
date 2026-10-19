@@ -146,6 +146,7 @@ public final class DevelopmentVerification {
         check(villager.getOffers().size() == 1 && villager.getOffers().getFirst().getResult().is(Items.IRON_SWORD), "Merchant mixin removes forbidden offers only");
         clearItems(level, pos);
         level.removeBlock(pos, false);
+        LightingVerification.run(level, player);
         ChocolateFlavored.LOGGER.info("CHOCOLATE_FLAVORED_VERIFICATION_PASSED: equipment, recipes, trims, loot probabilities, mining conversions, durability and trades");
         event.getServer().halt(false);
     }
