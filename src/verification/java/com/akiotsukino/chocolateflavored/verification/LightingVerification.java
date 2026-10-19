@@ -81,6 +81,11 @@ final class LightingVerification {
         }
         check(tool.isEmpty(), "Fire starter breaks on its second successful ignition");
 
+        for (var block : new net.minecraft.world.level.block.Block[]{LightingContent.UNLIT_TORCH.get(), LightingContent.UNLIT_WALL_TORCH.get(), LightingContent.LIT_TORCH.get(), LightingContent.LIT_WALL_TORCH.get()}) {
+            var drops = net.minecraft.world.level.block.Block.getDrops(block.defaultBlockState(), level, pos, null, player, ItemStack.EMPTY);
+            check(drops.size() == 1 && drops.getFirst().is(LightingContent.UNLIT_TORCH_ITEM.get()), "Broken torch drops unlit mod torch: " + block);
+        }
+
         // Save/load the real block entity, including its absolute deadline, then expire it
         // through the normal server ticker instead of waiting twenty real minutes in CI.
         for (boolean wall : new boolean[]{false, true}) {
