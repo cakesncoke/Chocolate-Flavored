@@ -28,7 +28,7 @@ The JAR is generated in `build/libs/`. Mod metadata is expanded from `src/main/t
 
 CI runs a clean build with Java 25, then launches the development client under a virtual display with software rendering. The startup check requires the mod constructor and texture atlas loading to appear in the log and the client to remain running afterward. Logs and a screenshot are uploaded as `client-startup-evidence`. This is a startup smoke test; it does not verify world creation, interactive gameplay, or compatibility with other mods. Inspect the screenshot to confirm the title screen.
 
-There are no gameplay features or custom registry entries in this foundation. Add modular registration classes on the mod event bus when content is introduced. Only NeoForge and Minecraft are required dependencies. No legacy mappings, mixins, or access transformers are configured.
+Equipment progression, rose gold tools and trims, knives, and early survival mining are implemented. See [equipment and mining](docs/equipment-and-mining.md) for exact behavior and development verification. No new recipes are added. Only NeoForge and Minecraft are required dependencies. One focused mixin filters current data-driven villager offers; no legacy mappings or access transformers are configured.
 
 Custom recipes must support datapacks; KubeJS integration is planned. Seasonal systems must account for Serene Seasons when present, without making it a required dependency. Neither integration has been implemented or tested yet.
 

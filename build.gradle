@@ -27,6 +27,16 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
+// Development-only integration checks are compiled and run, but never packaged in the mod JAR.
+sourceSets {
+    verification {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+tasks.named('check').configure { dependsOn tasks.named('verificationClasses') }
+
 neoForge {
     version = project.neo_version
 
@@ -40,6 +50,13 @@ neoForge {
             server()
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        verificationServer {
+            server()
+            gameDirectory = project.file('run-verification')
+            programArgument '--nogui'
+            systemProperty 'chocolateflavored.verify', 'true'
         }
 
         gameTestServer {
@@ -62,6 +79,7 @@ neoForge {
     mods {
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.verification)
         }
     }
 }

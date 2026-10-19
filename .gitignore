@@ -32,3 +32,6 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+run-verification/
+verification.log
