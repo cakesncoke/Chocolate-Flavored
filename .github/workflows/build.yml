@@ -35,7 +35,11 @@ jobs:
           mkdir -p run-verification
           echo 'eula=true' > run-verification/eula.txt
           printf 'online-mode=false\nlevel-type=minecraft:flat\ngenerate-structures=false\n' > run-verification/server.properties
-          ./gradlew runVerificationServer --no-daemon --console=plain | tee verification.log
+          if ! ./gradlew runVerificationServer --no-daemon --console=plain > verification.log 2>&1; then
+            tail -n 160 verification.log
+            exit 1
+          fi
+          grep VERIFICATION_PASSED verification.log
           grep -q CHOCOLATE_FLAVORED_VERIFICATION_PASSED verification.log
 
       - name: Install client smoke test dependencies

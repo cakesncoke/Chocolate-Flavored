@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import com.akiotsukino.chocolateflavored.lighting.LightingContent;
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import com.akiotsukino.chocolateflavored.gameplay.EquipmentRules;
+import com.akiotsukino.chocolateflavored.gameplay.AnvilRules;
 import com.akiotsukino.chocolateflavored.gameplay.ItemRestrictions;
 import com.akiotsukino.chocolateflavored.gameplay.MiningRules;
 import com.akiotsukino.chocolateflavored.loot.ModLoot;
@@ -51,5 +52,7 @@ public class ChocolateFlavored {
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, MiningRules::breakBlock);
         NeoForge.EVENT_BUS.addListener(MiningRules::speed);
         NeoForge.EVENT_BUS.addListener(MiningRules::harvest);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, AnvilRules::update);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, AnvilRules::repairBlock);
     }
 }

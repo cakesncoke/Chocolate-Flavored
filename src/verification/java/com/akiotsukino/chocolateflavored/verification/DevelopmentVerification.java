@@ -147,6 +147,7 @@ public final class DevelopmentVerification {
         clearItems(level, pos);
         level.removeBlock(pos, false);
         LightingVerification.run(level, player);
+        AnvilVerification.run(level, player);
         ChocolateFlavored.LOGGER.info("CHOCOLATE_FLAVORED_VERIFICATION_PASSED: equipment, recipes, trims, loot probabilities, mining conversions, durability and trades");
         event.getServer().halt(false);
     }
