@@ -1,0 +1,9 @@
+{
+  "type": "chocolateflavored:oven",
+  "ingredient": "minecraft:potato",
+  "result": {
+    "id": "minecraft:baked_potato"
+  },
+  "cookingtime": 200,
+  "experience": 0.35
+}

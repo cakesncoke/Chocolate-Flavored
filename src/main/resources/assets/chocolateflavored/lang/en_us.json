@@ -33,5 +33,13 @@
   "block.chocolateflavored.lit_torch": "Lit Torch",
   "block.chocolateflavored.unlit_lantern": "Unlit Lantern",
   "item.chocolateflavored.fire_starter": "Fire Starter",
-  "tooltip.chocolateflavored.torch_time": "Burn time: %s"
+  "tooltip.chocolateflavored.torch_time": "Burn time: %s",
+  "block.chocolateflavored.oven": "Oven",
+  "block.chocolateflavored.cooking_pot": "Cooking Pot",
+  "container.chocolateflavored.cooking_pot": "Cooking Pot",
+  "container.chocolateflavored.cooking_pot.heated": "Heated",
+  "container.chocolateflavored.cooking_pot.not_heated": "Requires a heat source below",
+  "subtitles.chocolateflavored.block.oven.crackle": "Oven crackles",
+  "subtitles.chocolateflavored.block.cooking_pot.boil": "Cooking pot bubbles",
+  "subtitles.chocolateflavored.block.food.take_portion": "Food served"
 }

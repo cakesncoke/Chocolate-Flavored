@@ -80,7 +80,7 @@ public final class DevelopmentVerification {
             check(event.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,
                     Identifier.withDefaultNamespace(name))).isEmpty(), "Gold equipment crafting " + name);
         }
-        check(event.getServer().getRecipeManager().getRecipes().stream().noneMatch(r -> r.id().identifier().getNamespace().equals(ChocolateFlavored.MODID)), "No mod recipes added");
+        check(event.getServer().getRecipeManager().getRecipes().stream().filter(r -> r.id().identifier().getNamespace().equals(ChocolateFlavored.MODID)).allMatch(r -> r.id().identifier().getPath().startsWith("oven/") || r.id().identifier().getPath().startsWith("cooking_pot/")), "Only requested cooking recipes added");
         var trim = new ItemStack(ModContent.ROSE_GOLD_INGOT.get()).get(DataComponents.PROVIDES_TRIM_MATERIAL);
         check(trim != null && trim.is(ModContent.ROSE_GOLD_TRIM), "Rose gold trim material component");
         check(level.registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL).get(ModContent.ROSE_GOLD_TRIM).isPresent(), "Rose gold trim registry");

@@ -1,0 +1,10 @@
+{
+  "type": "chocolateflavored:oven",
+  "ingredient": "minecraft:wheat",
+  "input_count": 3,
+  "result": {
+    "id": "minecraft:bread"
+  },
+  "cookingtime": 200,
+  "experience": 0.1
+}

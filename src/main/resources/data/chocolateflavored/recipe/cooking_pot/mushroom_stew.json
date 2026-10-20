@@ -1,0 +1,15 @@
+{
+  "type": "chocolateflavored:cooking_pot",
+  "ingredients": [
+    "minecraft:red_mushroom",
+    "minecraft:brown_mushroom"
+  ],
+  "result": {
+    "id": "minecraft:mushroom_stew"
+  },
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "cookingtime": 200,
+  "experience": 0.1
+}

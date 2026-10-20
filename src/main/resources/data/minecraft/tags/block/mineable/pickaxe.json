@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "chocolateflavored:rose_gold_block",
-    "chocolateflavored:unlit_lantern"
+    "chocolateflavored:unlit_lantern",
+    "chocolateflavored:oven",
+    "chocolateflavored:cooking_pot"
   ]
 }
