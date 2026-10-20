@@ -26,7 +26,12 @@ public final class MobClient {
   e.registerEntityRenderer(MobContent.BONE_SHARD.get(),ThrownItemRenderer::new);
  }
  @SubscribeEvent public static void layers(EntityRenderersEvent.RegisterLayerDefinitions e){
-  var baby=new BabyModelTransform(java.util.Set.of("head"));
+  var baby=net.minecraft.client.model.HumanoidModel.BABY_TRANSFORMER;
+  var armor=net.minecraft.client.model.HumanoidModel.createArmorMeshSet(new CubeDeformation(.5F),new CubeDeformation(1));
+  e.registerLayerDefinition(ModModelLayers.BABY_ARMOR.head(),()->net.minecraft.client.model.geom.builders.LayerDefinition.create(armor.head(),64,32).apply(baby));
+  e.registerLayerDefinition(ModModelLayers.BABY_ARMOR.chest(),()->net.minecraft.client.model.geom.builders.LayerDefinition.create(armor.chest(),64,32).apply(baby));
+  e.registerLayerDefinition(ModModelLayers.BABY_ARMOR.legs(),()->net.minecraft.client.model.geom.builders.LayerDefinition.create(armor.legs(),64,32).apply(baby));
+  e.registerLayerDefinition(ModModelLayers.BABY_ARMOR.feet(),()->net.minecraft.client.model.geom.builders.LayerDefinition.create(armor.feet(),64,32).apply(baby));
   e.registerLayerDefinition(ModModelLayers.BOULDERING_ZOMBIE,AbstractBoulderingZombieModel::createBodyLayer);
   e.registerLayerDefinition(ModModelLayers.BOULDERING_ZOMBIE_BABY,()->AbstractBoulderingZombieModel.createBodyLayer().apply(baby));
   e.registerLayerDefinition(ModModelLayers.BOULDERING_DROWNED,()->BoulderingDrownedModel.createBodyLayer(CubeDeformation.NONE));

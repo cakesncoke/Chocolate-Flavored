@@ -16,5 +16,7 @@ public final class ModModelLayers {
  public static final ModelLayerLocation TROPICAL_SLIME=new ModelLayerLocation(MobContent.id("tropical_slime"),"main");
  public static final ModelLayerLocation TROPICAL_SLIME_STABLE=new ModelLayerLocation(MobContent.id("tropical_slime_stable"),"main");
  public static final ModelLayerLocation TROPICAL_SLIME_OUTER=new ModelLayerLocation(MobContent.id("tropical_slime_outer"),"main");
+ public static final net.minecraft.client.renderer.entity.ArmorModelSet<ModelLayerLocation> BABY_ARMOR=new net.minecraft.client.renderer.entity.ArmorModelSet<>(armor("head"),armor("chest"),armor("legs"),armor("feet"));
+ private static ModelLayerLocation armor(String slot){return new ModelLayerLocation(MobContent.id("legacy_baby_armor_"+slot),"main");}
  private ModModelLayers(){}
 }

@@ -14,6 +14,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
+import com.akiotsukino.chocolateflavored.client.mob.render.layer.MobArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
@@ -32,7 +33,7 @@ public class SwampedRenderer<T extends Swamped> extends AgeableMobRenderer<T, Zo
 
 	public SwampedRenderer(EntityRendererProvider.Context p_173964_) {
 		super(p_173964_, new AbstractLobberZombieModel<>(p_173964_.bakeLayer(ModModelLayers.SWAMPED)), new AbstractLobberZombieModel<>(p_173964_.bakeLayer(ModModelLayers.SWAMPED_BABY)), 0.5F);
-        this.addLayer(new HumanoidArmorLayer<>(this, ArmorModelSet.bake(ModelLayers.ZOMBIE_ARMOR, p_173964_.getModelSet(), MobArmorModel::new), ArmorModelSet.bake(ModelLayers.ZOMBIE_BABY_ARMOR, p_173964_.getModelSet(), MobArmorModel::new), p_173964_.getEquipmentRenderer()));
+        this.addLayer(new MobArmorLayer<>(this, p_173964_));
         this.addLayer(new ItemInHandLayer<>(this));
     }
 

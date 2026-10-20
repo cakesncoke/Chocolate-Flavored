@@ -22,10 +22,12 @@ public final class MobClientVerification {
   private final List<Mob> mobs=new ArrayList<>();private int frames;
   Gallery(){super(Component.literal("Chocolate Flavored — Earth monsters"));}
   @Override protected void init(){if(!mobs.isEmpty())return;
+   for(String key:List.of("ambient","growl","hurt","death","pant","whine","step","shake"))if(!net.minecraft.locale.Language.getInstance().has("subtitles.mob.skeleton_wolf."+key))throw new IllegalStateException("Missing wolf subtitle: "+key);
    for(var holder:List.of(MobContent.MELON_GOLEM,MobContent.BOULDERING_ZOMBIE,MobContent.BOULDERING_DROWNED,MobContent.SWAMPED,MobContent.SKELETON_WOLF,MobContent.BONE_SPIDER,MobContent.TROPICAL_SLIME))for(int variant=0;variant<2;variant++){
     Mob mob=(Mob)holder.get().create(minecraft.level,EntitySpawnReason.COMMAND);mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);mob.setAggressive(variant==1);
     if(mob instanceof net.minecraft.world.entity.monster.zombie.Zombie){mob.setBaby(variant==1);mob.setItemSlot(EquipmentSlot.HEAD,new net.minecraft.world.item.ItemStack(Items.IRON_HELMET));mob.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(mob instanceof BoulderingDrowned?Items.TRIDENT:Items.IRON_AXE));}
     if(mob instanceof BoulderingZombie z)z.setClimbing(variant==1);
+    if(mob instanceof SkeletonWolf wolf&&variant==1){wolf.tame(minecraft.player);wolf.setRemainingPersistentAngerTime(400);wolf.setBodyArmorItem(new net.minecraft.world.item.ItemStack(Items.WOLF_ARMOR));}
     if(mob instanceof TropicalSlime slime){slime.setSize(2,true);slime.setHasFish(variant==0);}
     if(mob instanceof BoneSpider spider&&variant==1)spider.setPotionContents(new net.minecraft.world.item.alchemy.PotionContents(net.minecraft.world.item.alchemy.Potions.SLOWNESS));
     mobs.add(mob);
