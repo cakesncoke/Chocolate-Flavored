@@ -1,0 +1,75 @@
+{
+  "block.oven.crackle": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "minecraft:block.campfire.crackle"
+      }
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.oven.crackle"
+  },
+  "block.cooking_pot.boil": {
+    "sounds": [
+      "chocolateflavored:block/cooking_pot/boil_water1",
+      "chocolateflavored:block/cooking_pot/boil_water2"
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.cooking_pot.boil"
+  },
+  "block.cooking_pot.boil_soup": {
+    "sounds": [
+      "chocolateflavored:block/cooking_pot/boil_soup1",
+      "chocolateflavored:block/cooking_pot/boil_soup2",
+      "chocolateflavored:block/cooking_pot/boil_soup3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.cooking_pot.boil"
+  },
+  "block.food.take_portion": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.armor.equip_generic"
+      }
+    ],
+    "subtitle": "subtitles.chocolateflavored.block.food.take_portion"
+  },
+  "item.spear.attack": {
+    "sounds": [
+      "chocolateflavored:item/spear/attack1",
+      "chocolateflavored:item/spear/attack2",
+      "chocolateflavored:item/spear/attack3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.attack"
+  },
+  "item.spear.hit": {
+    "sounds": [
+      "chocolateflavored:item/spear/hit1",
+      "chocolateflavored:item/spear/hit2",
+      "chocolateflavored:item/spear/hit3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.hit"
+  },
+  "item.spear.lunge_1": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge1"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_1"
+  },
+  "item.spear.lunge_2": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge2"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_2"
+  },
+  "item.spear.lunge_3": {
+    "sounds": [
+      "chocolateflavored:item/spear/lunge3"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.lunge_3"
+  },
+  "item.spear.use": {
+    "sounds": [
+      "chocolateflavored:item/spear/use"
+    ],
+    "subtitle": "subtitles.chocolateflavored.item.spear.use"
+  }
+}

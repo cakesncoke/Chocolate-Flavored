@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "chocolateflavored:block/oven_bottom",
+    "front": "chocolateflavored:block/oven_front",
+    "side": "chocolateflavored:block/oven_side",
+    "top": "chocolateflavored:block/oven_top"
+  }
+}
