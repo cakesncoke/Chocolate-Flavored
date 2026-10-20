@@ -94,4 +94,7 @@ public class JumboRabbit extends Rabbit  {
 		return 2.125F;
 	}
 
+    /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
+    @Override
+    public boolean is(EntityType<?> type) { return type == EntityType.RABBIT || super.is(type); }
 }

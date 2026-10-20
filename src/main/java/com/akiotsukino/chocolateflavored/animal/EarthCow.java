@@ -12,4 +12,7 @@ public class EarthCow extends Cow {
         Cow baby = (Cow) getType().create(level, EntitySpawnReason.BREEDING);
         return baby;
     }
+    /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
+    @Override
+    public boolean is(EntityType<?> type) { return type == EntityType.COW || super.is(type); }
 }

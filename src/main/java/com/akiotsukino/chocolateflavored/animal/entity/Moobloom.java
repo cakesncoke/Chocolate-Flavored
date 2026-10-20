@@ -112,4 +112,7 @@ public class Moobloom extends Cow implements IShearable, IFlowerCow, IHasFlower 
 	public boolean hasFlower() {
 		return !this.isBaby();
 	}
+    /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
+    @Override
+    public boolean is(EntityType<?> type) { return type == EntityType.COW || super.is(type); }
 }

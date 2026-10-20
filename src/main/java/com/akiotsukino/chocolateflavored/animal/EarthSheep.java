@@ -13,4 +13,7 @@ public class EarthSheep extends Sheep {
         if (baby != null && partner instanceof Sheep sheep) baby.setColor(net.minecraft.world.item.DyeColor.getMixedColor(level, getColor(), sheep.getColor()));
         return baby;
     }
+    /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
+    @Override
+    public boolean is(EntityType<?> type) { return type == EntityType.SHEEP || super.is(type); }
 }

@@ -28,9 +28,9 @@ Natural wool colors are white except vanilla's rare pink roll (0.164%). Wool dye
 
 - Flower cows retain EarthMobs' adult bone-meal interaction, flower-specific suspicious stew, milk, four-flower shearing into a normal cow, same-species breeding, and nectar-carrying bees' growth/flower spreading. Buttercup stew gives 30 seconds of absorption; Pink Daisy gives 10 seconds of regeneration.
 - Muddy pigs retain randomized flower colors, 1–3 matching vanilla dye drops from shearing, mud regrowth, water washing, shaking and persistent synchronized state. Vanilla mud supplies the coating surface; EarthMobs' separate mud fluid and bucket are not added.
-- Fancy Chickens retain the 6000–12000 tick egg-laying interval, using vanilla eggs instead of the unrequested Fancy Egg.
+- Fancy Chickens retain the 6000–12000 tick egg-laying interval, using vanilla eggs and feathers instead of the unrequested Fancy Egg and Fancy Feather.
 - Horned Sheep retain retaliation, charging, horn-breaking on suitable blocks, hornless fleeing, breeding, and persistent horns. They drop functional vanilla goat horns instead of the unrequested Horn Flute. A native client camera-shake effect replaces the reference library's effect.
-- Jumbo Rabbits retain their larger dimensions, 10 health, 5 attack damage (9 for killer variant), breeding, ground navigation and variable jump power. Native step-height/pathfinding replaces Bagus Lib's navigation helper.
+- Jumbo Rabbits retain their larger dimensions, 10 health, 5 attack damage (9 for killer variant), breeding, ground navigation, variable jump power, 0–4 hide drops, and the 30% player-kill rabbit-foot chance. Native step-height/pathfinding replaces Bagus Lib's navigation helper.
 
 These are explicit adaptations required by the standalone/item constraints; EarthMobs, Earth2Java and Bagus Lib are not required or bundled as mods. Serene Seasons is not directly integrated: climate selection uses biome tags, without changing seasonal systems. No Serene Seasons compatibility claim is made.
 

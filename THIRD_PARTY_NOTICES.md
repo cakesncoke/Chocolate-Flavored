@@ -10,7 +10,7 @@ The standalone implementation uses Chocolate Flavored registrations and Minecraf
 
 ## Earth Mobs
 
-Selected animal behavior, native models, and textures are adapted from [baguchi/EarthMobs](https://github.com/baguchi/EarthMobs), revision `d5acab9846bd3400ac5f093bfec7439351a1bd61` (26.1.x). Copyright Earth Mobs contributors, including baguchi, MCVinnyq, Farcr, Evo_934 and the credited artists. These portions remain **LGPL-3.0-only**, not MIT; their license is included at `META-INF/licenses/EarthMobs-LGPL-3.0.txt`. Adapted Java files carry SPDX notices; imported textures are under `textures/entity/{moobloom,fancy_chicken,horned_sheep,jumbo_rabbit,muddypig}` and the Buttercup/Pink Daisy block textures. Source and modifications are available in this repository. No EarthMobs or Bagus Lib runtime dependency is used.
+Selected animal behavior, native models, textures, and Jumbo Rabbit loot data are adapted from [baguchi/EarthMobs](https://github.com/baguchi/EarthMobs), revision `d5acab9846bd3400ac5f093bfec7439351a1bd61` (26.1.x). Copyright Earth Mobs contributors, including baguchi, MCVinnyq, Farcr, Evo_934 and the credited artists. These portions remain **LGPL-3.0-only**, not MIT; their license is included at `META-INF/licenses/EarthMobs-LGPL-3.0.txt`. Adapted Java files carry SPDX notices; imported textures are under `textures/entity/{moobloom,fancy_chicken,horned_sheep,jumbo_rabbit,muddypig}` and the Buttercup/Pink Daisy block textures. Source and modifications are available in this repository. No EarthMobs or Bagus Lib runtime dependency is used.
 
 ## Earth2Java
 

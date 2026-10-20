@@ -20,6 +20,9 @@ public final class AnimalSpawns {
     public static void join(EntityJoinLevelEvent event) {
         if (!(event.getLevel() instanceof ServerLevel level)
                 || !(event.getEntity() instanceof Mob mob)) return;
+        EntityType<?> originalType = mob.getType();
+        if (originalType != EntityType.COW && originalType != EntityType.PIG && originalType != EntityType.CHICKEN
+                && originalType != EntityType.SHEEP && originalType != EntityType.RABBIT) return;
         if (event.loadedFromDisk() && !mob.getPersistentData().getBooleanOr("chocolateflavored:animal_spawn_pending", false)) return;
         mob.getPersistentData().remove("chocolateflavored:animal_spawn_pending");
         EntitySpawnReason reason = mob.getSpawnType();

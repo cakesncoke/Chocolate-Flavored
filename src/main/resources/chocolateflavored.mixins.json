@@ -15,8 +15,7 @@
     "SheepSpawnColorMixin",
     "AnimalSpawnMarkerMixin",
     "FlowerCowBeeMixin",
-    "BeeAccessor",
-    "VanillaAnimalIdentityMixin"
+    "BeeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
