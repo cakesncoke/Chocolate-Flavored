@@ -82,7 +82,7 @@ jobs:
           echo 'eula=true' > run-kubejs-verification/eula.txt
           printf 'online-mode=false\nlevel-type=minecraft:flat\ngenerate-structures=false\n' > run-kubejs-verification/server.properties
           cp src/verification/resources/cooking-kubejs.js run-kubejs-verification/kubejs/server_scripts/cooking.js
-          if ! ./gradlew runKubejsVerificationServer -PverifyKubeJS=true --no-daemon --console=plain > kubejs-verification.log 2>&1; then
+          if ! timeout 6m ./gradlew runKubejsVerificationServer -PverifyKubeJS=true --no-daemon --console=plain > kubejs-verification.log 2>&1; then
             grep -v '/DEBUG]' kubejs-verification.log | tail -n 180
             exit 1
           fi
