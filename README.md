@@ -1,6 +1,6 @@
 # Chocolate Flavored
 
-A standalone survival overhaul for **Minecraft 26.1.2**, built with **NeoForge 26.1.2.122** and **Java 25**. Mod ID: `chocolateflavored`. Base package: `com.akiotsukino.chocolateflavored`. License: MIT; see [LICENSE](LICENSE). The MDK attribution is preserved in [TEMPLATE_LICENSE.txt](TEMPLATE_LICENSE.txt).
+A standalone survival overhaul for **Minecraft 26.1.2**, built with **NeoForge 26.1.2.122** and **Java 25**. Mod ID: `chocolateflavored`. Base package: `com.akiotsukino.chocolateflavored`. Own code: MIT; see [LICENSE](LICENSE). Bundled third-party portions retain their licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The MDK attribution is preserved in [TEMPLATE_LICENSE.txt](TEMPLATE_LICENSE.txt).
 
 `main` is the active, fresh 26.1.2 project. The previous implementation and reusable assets remain on `archive/1.21.1` and the existing feature branches. Do not copy old Java code without checking the current APIs.
 
@@ -33,3 +33,9 @@ Equipment progression, rose gold tools and trims, knives, and early survival min
 Custom recipes must support datapacks; KubeJS integration is planned. Seasonal systems must account for Serene Seasons when present, without making it a required dependency. Neither integration has been implemented or tested yet.
 
 Before changing vanilla behavior, inspect the exact project's current Minecraft sources through the IDE. Minecraft 26.1 is unobfuscated; do not introduce old mapping configuration.
+
+## Earth animals
+
+Standalone Earth-style animal variants, white/rare-pink natural sheep, Buttercup and Pink Daisy are described in [docs/earth-animals.md](docs/earth-animals.md), including exact spawn percentages, item-limit adaptations and upstream attribution.
+
+The dedicated verification run checks spawn replacement, entity serialization and interactions. The client smoke test opens the real cooking-pot screen and then renders every new adult/baby animal in a CI-only gallery; logs and a screenshot are uploaded in the Actions artifact. Verification classes are excluded from release JARs.

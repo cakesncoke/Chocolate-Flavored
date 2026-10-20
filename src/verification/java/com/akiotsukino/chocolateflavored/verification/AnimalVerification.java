@@ -29,7 +29,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 /** Runs on the exact dedicated-server runtime, including real event dispatch and save/load. */
 public final class AnimalVerification {
     public static void run(ServerLevel level, FakePlayer player) {
-        spawnRules(level); persistenceAndSpawning(level); interactions(level,player);
+        spawnRules(level); persistenceAndSpawning(level); interactions(level,player); loot(level,player);
         ChocolateFlavored.LOGGER.info("ANIMAL_VERIFICATION_PASSED: spawn boundaries, natural/chunk spawns, no reload rerolls, sheep colors, genetics, flower cows, muddy pigs, horns and jumbo rabbits");
     }
     private static void spawnRules(ServerLevel level) {
@@ -78,7 +78,16 @@ public final class AnimalVerification {
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"fillbiome 64 160 64 79 167 79 minecraft:snowy_plains");
         check(level.getBiome(pos).is(Biomes.SNOWY_PLAINS),"Test biome changed");
         level.getEntitiesOfClass(Entity.class,area).forEach(Entity::discard);
+        // At ServerStarted, newly loaded chunks may not yet expose entities to AABB queries.
+        // Observe actual joins and require addFreshEntity's success through cancellation of the original.
+        java.util.List<EarthSheep> joined = new java.util.ArrayList<>();
+        java.util.function.Consumer<EntityJoinLevelEvent> observer = (EntityJoinLevelEvent event) -> {
+            if (event.getEntity() instanceof EarthSheep sheep && event.getLevel() == level) joined.add(sheep);
+        };
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(observer);
+        try {
         for(var reason:java.util.List.of(EntitySpawnReason.NATURAL,EntitySpawnReason.CHUNK_GENERATION)) {
+            joined.clear();
             Sheep original=EntityType.SHEEP.create(level,reason); original.snapTo(72.5,164,72.5,0,0);
             original.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),reason,null);original.setAge(-1234);original.setColor(DyeColor.PINK);
             if(reason==EntitySpawnReason.NATURAL) check(!level.addFreshEntity(original),"Natural original replaced through event bus");
@@ -87,12 +96,13 @@ public final class AnimalVerification {
                 var restored=restore(level,original);var event=new EntityJoinLevelEvent(restored,level,true); AnimalSpawns.join(event);
                 check(event.isCanceled(),"Chunk-generation spawn replacement survives protochunk serialization");
             }
-            var spawned=level.getEntitiesOfClass(EarthSheep.class,area);
-            check(spawned.size()==1,"Exactly one cold sheep replacement");
+            var spawned=joined;
+            check(spawned.size()==1,"Exactly one cold sheep replacement: "+reason+" count="+spawned.size());
             var sheep=spawned.getFirst();check(sheep.getAge()==-1234&&sheep.getColor()==DyeColor.PINK,"Replacement preserves age and rare pink color");
             var loaded=restore(level,sheep);var loadEvent=new EntityJoinLevelEvent(loaded,level,true);AnimalSpawns.join(loadEvent);
             check(!loadEvent.isCanceled()&&loaded.getType()==sheep.getType(),"Saved animals do not reroll");sheep.discard();
         }
+        } finally { net.neoforged.neoforge.common.NeoForge.EVENT_BUS.unregister(observer); }
         var command=EntityType.SHEEP.create(level,EntitySpawnReason.COMMAND);command.snapTo(72.5,164,72.5,0,0);
         command.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),EntitySpawnReason.COMMAND,null);
         check(level.addFreshEntity(command),"Command sheep not randomly replaced");command.discard();
@@ -136,6 +146,37 @@ public final class AnimalVerification {
         check(jumbo.getAttributeValue(Attributes.MAX_HEALTH)==10&&jumbo.getAttributeValue(Attributes.ATTACK_DAMAGE)==5,"Jumbo rabbit retains EarthMobs attributes");
         check(jumbo.getBbWidth()>.6&&jumbo.getBreedOffspring(level,jumbo).getType()==jumbo.getType(),"Jumbo rabbit dimensions and offspring");
         level.getEntitiesOfClass(Entity.class,new AABB(new BlockPos(72,164,72)).inflate(6)).forEach(Entity::discard);
+    }
+    private static void loot(ServerLevel level, FakePlayer player) {
+        var jumbo=AnimalContent.JUMBO_RABBIT.get().create(level,EntitySpawnReason.COMMAND);
+        jumbo.snapTo(72.5,164,72.5,0,0);
+        var params=new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY,jumbo)
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,jumbo.position())
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.DAMAGE_SOURCE,level.damageSources().playerAttack(player))
+                .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.LAST_DAMAGE_PLAYER,player)
+                .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ENTITY);
+        var table=level.getServer().reloadableRegistries().getLootTable(jumbo.getType().getDefaultLootTable().orElseThrow());
+        int feet=0,maxHide=0;
+        var random=new LegacyRandomSource(29817);
+        for(int i=0;i<1000;i++) {
+            var drops=table.getRandomItems(params,random);
+            feet+=drops.stream().filter(stack->stack.is(Items.RABBIT_FOOT)).mapToInt(ItemStack::getCount).sum();
+            maxHide=Math.max(maxHide,drops.stream().filter(stack->stack.is(Items.RABBIT_HIDE)).mapToInt(ItemStack::getCount).sum());
+        }
+        check(feet>240&&feet<360&&maxHide==4,"Jumbo Rabbit retains 30% feet and 0–4 hide drops: "+feet+" feet, "+maxHide+" hide");
+        for(var holder:java.util.List.of(AnimalContent.FUZZY_SHEEP,AnimalContent.LONG_NOSE_SHEEP,AnimalContent.PATCHED_SHEEP,AnimalContent.HORNED_SHEEP)) {
+            Sheep sheep=(Sheep)holder.get().create(level,EntitySpawnReason.COMMAND);sheep.setColor(DyeColor.PINK);
+            var sheepParams=new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY,sheep)
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,sheep.position())
+                    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.DAMAGE_SOURCE,level.damageSources().playerAttack(player))
+                    .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ENTITY);
+            var sheepTable=level.getServer().reloadableRegistries().getLootTable(sheep.getType().getDefaultLootTable().orElseThrow());
+            check(sheepTable.getRandomItems(sheepParams,1L).stream().anyMatch(stack->stack.is(Items.PINK_WOOL)),"Custom sheep death loot honors wool color");
+            sheep.setSheared(true);
+            check(sheepTable.getRandomItems(sheepParams,1L).stream().noneMatch(stack->stack.is(Items.PINK_WOOL)),"Sheared sheep cannot duplicate wool on death");
+        }
     }
     private static Entity restore(ServerLevel level,Entity entity) {
         var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());entity.save(out);
