@@ -24,13 +24,13 @@ bash ./gradlew runClient
 
 The JAR is generated in `build/libs/`. Mod metadata is expanded from `src/main/templates/META-INF/neoforge.mods.toml`; do not edit generated copies under `build/`.
 
-## Foundation verification
+## Verification
 
-CI runs a clean build with Java 25, then launches the development client under a virtual display with software rendering. The startup check requires the mod constructor and texture atlas loading to appear in the log and the client to remain running afterward. Logs and a screenshot are uploaded as `client-startup-evidence`. This is a startup smoke test; it does not verify world creation, interactive gameplay, or compatibility with other mods. Inspect the screenshot to confirm the title screen.
+CI runs a clean build with Java 25 and dedicated-server behavior checks, then launches an integrated development client under a virtual display with software rendering. It verifies the real cooking-pot menu and renders every new adult/baby animal in a CI-only gallery. Logs and a screenshot are uploaded as `client-startup-evidence`; verification classes are excluded from release JARs. These checks do not replace exploratory gameplay testing.
 
 Equipment progression, rose gold tools and trims, knives, and early survival mining are implemented. See [equipment and mining](docs/equipment-and-mining.md) for exact behavior and development verification. Primitive lighting adds timed torches, a fire starter, unlit lanterns, and unlit normal-campfire placement; see [primitive lighting](docs/primitive-lighting.md). Anvils charge three levels only for adding or upgrading enchantments; repairs and naming are free, and iron ingots repair damaged anvils. See [anvil rules](docs/anvil-rules.md). Villages generate abandoned, with persistent residents, revised zombie-villager spawning and longer villager population timers; see [village rules](docs/village-rules.md). Standalone ovens and cooking pots add datapack/KubeJS processing recipes; see [cooking](docs/cooking.md). No crafting recipes are added for these blocks. Only NeoForge and Minecraft are required dependencies. Focused mixins handle current data-driven villager offers, campfire placement, and the fire-starter hand animation; no legacy mappings or access transformers are configured.
 
-Custom recipes must support datapacks; KubeJS integration is planned. Seasonal systems must account for Serene Seasons when present, without making it a required dependency. Neither integration has been implemented or tested yet.
+Custom recipes support datapacks. Oven and cooking-pot recipe compatibility is tested with an optional development-only KubeJS installation. Seasonal systems must account for Serene Seasons when present, without making it a required dependency; Serene Seasons integration remains untested.
 
 Before changing vanilla behavior, inspect the exact project's current Minecraft sources through the IDE. Minecraft 26.1 is unobfuscated; do not introduce old mapping configuration.
 
@@ -38,4 +38,3 @@ Before changing vanilla behavior, inspect the exact project's current Minecraft 
 
 Standalone Earth-style animal variants, white/rare-pink natural sheep, Buttercup and Pink Daisy are described in [docs/earth-animals.md](docs/earth-animals.md), including exact spawn percentages, item-limit adaptations and upstream attribution.
 
-The dedicated verification run checks spawn replacement, entity serialization and interactions. The client smoke test opens the real cooking-pot screen and then renders every new adult/baby animal in a CI-only gallery; logs and a screenshot are uploaded in the Actions artifact. Verification classes are excluded from release JARs.

@@ -75,7 +75,7 @@ public final class AnimalClient {
         state.setRenderData(MuddyPigMudLayer.IS_MUD, pig.chocolateflavored$isMuddy());
         state.setRenderData(MuddyPigMudLayer.IS_SHEARED, pig.chocolateflavored$isSheared());
         state.setRenderData(MuddyPigFlowerLayer.FLOWER_DYE, pig.chocolateflavored$getFlowerColor());
-        state.setRenderData(SHAKE, pig.chocolateflavored$getShakeTicks() / 20F);
+        state.setRenderData(SHAKE, Math.abs(pig.chocolateflavored$getShakeTicks()) / 20F);
     }
     @SubscribeEvent public static void camera(net.neoforged.neoforge.client.event.ViewportEvent.ComputeCameraAngles event) {
         var mc = net.minecraft.client.Minecraft.getInstance();

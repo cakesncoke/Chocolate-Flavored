@@ -32,8 +32,8 @@ public abstract class MuddyPigMixin extends Animal implements MuddyPig, IShearab
     public void chocolateflavored$setSheared(boolean value) { chocolateflavored$bits(2, value ? 2 : 0); }
     public DyeColor chocolateflavored$getFlowerColor() { return DyeColor.byId(chocolateflavored$data() >> 2 & 15); }
     public void chocolateflavored$setFlowerColor(DyeColor value) { chocolateflavored$bits(60, value.getId() << 2); }
-    public int chocolateflavored$getShakeTicks() { return chocolateflavored$data() >> 6 & 63; }
-    public void chocolateflavored$setShakeTicks(int value) { chocolateflavored$bits(4032, value << 6); }
+    public int chocolateflavored$getShakeTicks() { int ticks = chocolateflavored$data() >> 6 & 127; return ticks > 64 ? 64 - ticks : ticks; }
+    public void chocolateflavored$setShakeTicks(int value) { chocolateflavored$bits(8128, (value < 0 ? 64 - value : value) << 6); }
     @Override public boolean isShearable(Player player, ItemStack item, Level level, BlockPos pos) {
         return isAlive() && !isBaby() && chocolateflavored$isMuddy() && !chocolateflavored$isSheared();
     }

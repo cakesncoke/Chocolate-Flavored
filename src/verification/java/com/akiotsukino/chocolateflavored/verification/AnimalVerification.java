@@ -126,7 +126,7 @@ public final class AnimalVerification {
             check(player.getMainHandItem().is(cow.getFlower().asItem()),"Bone meal gives the matching flower");
             player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.BOWL));cow.mobInteract(player,InteractionHand.MAIN_HAND);
             check(player.getMainHandItem().is(Items.SUSPICIOUS_STEW)&&player.getMainHandItem().has(DataComponents.SUSPICIOUS_STEW_EFFECTS),"Flower cow stew has flower effects");
-            cow.setBaby(true);check(!cow.isShearable(player,new ItemStack(Items.SHEARS),level,cow.blockPosition()),"Baby flower cows cannot be sheared");cow.setBaby(false);
+            check(cow.isShearable(player,new ItemStack(Items.SHEARS),level,cow.blockPosition()),"Flower cow retains EarthMobs shearability");
             var drops=cow.onSheared(player,new ItemStack(Items.SHEARS),level,cow.blockPosition());
             check(drops.size()==4&&drops.stream().allMatch(s->s.is(cow.getFlower().asItem())),"Shearing yields four matching flowers");
         }
@@ -138,6 +138,10 @@ public final class AnimalVerification {
         var shear=(net.neoforged.neoforge.common.IShearable)pig;
         var dye=shear.onSheared(player,new ItemStack(Items.SHEARS),level,pig.blockPosition());
         check(dye.size()>=1&&dye.size()<=3&&state.chocolateflavored$isSheared(),"Muddy pig flowers shear into vanilla dye");
+        pig.setNoAi(true);pig.setNoGravity(true);
+        level.setBlockAndUpdate(pig.blockPosition(),Blocks.WATER.defaultBlockState());
+        for(int i=0;i<85;i++) { pig.tick();MuddyPigRules.tick(new EntityTickEvent.Post(pig)); }
+        check(pig.isInWater()&&!state.chocolateflavored$isMuddy(),"Water washes mud off and prevents immediate recoating over mud");
         HornedSheep horned=AnimalContent.HORNED_SHEEP.get().create(level,EntitySpawnReason.COMMAND);
         check(horned.hasHorn()&&horned.createHorn().is(Items.GOAT_HORN)&&horned.createHorn().has(DataComponents.INSTRUMENT),"Horned sheep uses functional vanilla goat horn");
         horned.snapTo(74.5,164,72.5,0,0);check(horned.dropHorn()&&!horned.hasHorn()&&!horned.dropHorn(),"Horns break only once");

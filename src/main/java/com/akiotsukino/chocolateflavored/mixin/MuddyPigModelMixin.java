@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(QuadrupedModel.class)
 public abstract class MuddyPigModelMixin {
-    @Shadow protected ModelPart head;
-    @Shadow protected ModelPart body;
-    @Inject(method = "setupAnim", at = @At("TAIL"))
+    @Shadow @Final protected ModelPart head;
+    @Shadow @Final protected ModelPart body;
+    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)V", at = @At("TAIL"))
     private void chocolateflavored$shake(LivingEntityRenderState state, CallbackInfo ci) {
         float shake = state.getRenderDataOrDefault(AnimalClient.SHAKE, 0F);
         if (shake > 0F) {

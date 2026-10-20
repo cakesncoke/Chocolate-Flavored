@@ -69,7 +69,7 @@ public class Moobloom extends Cow implements IShearable, IFlowerCow, IHasFlower 
 
 	@Override
 	public boolean isShearable(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
-		return isAlive() && !isBaby();
+		return true;
 	}
 
 	@Override
