@@ -53,6 +53,10 @@ final class CookingVerification {
         check(count(level, pos, Items.BREAD) == 6 && oven.items().stream().allMatch(ItemStack::isEmpty), "Six custom recipes finish and output one bread per three wheat");
         clear(level, pos);
         check(oven.recipe(level, new ItemStack(Items.POTATO)).orElseThrow().time() == 200, "Custom oven recipes take precedence over campfire fallback");
+        oven.items().set(0, new ItemStack(Items.POTATO, 3));
+        for (int i = 0; i < 200; i++) OvenBlockEntity.tick(level, pos, state, oven);
+        check(count(level, pos, Items.POTATO) == 2 && count(level, pos, Items.BAKED_POTATO) == 1, "Existing oversized batch returns ingredients beyond current recipe requirements");
+        clear(level, pos);
         check(oven.recipe(level, new ItemStack(Items.BEEF)).orElseThrow().time() == 600, "Campfire recipe fallback remains available");
         check(oven.placeFood(level, player, new ItemStack(Items.BEEF)), "Campfire-compatible food can be placed");
         for (int i = 0; i < 20; i++) OvenBlockEntity.tick(level, pos, state, oven);

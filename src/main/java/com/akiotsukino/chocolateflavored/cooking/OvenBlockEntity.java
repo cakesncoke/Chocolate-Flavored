@@ -65,7 +65,9 @@ public final class OvenBlockEntity extends BlockEntity {
             if (result.result().isEmpty() || !result.result().isItemEnabled(level.enabledFeatures())) continue;
             Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, result.result());
             var remainder = ingredient.getCraftingRemainder();
-            if (remainder != null) for (int i = 0; i < ingredient.getCount(); i++) Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, remainder.create());
+            if (remainder != null) for (int i = 0; i < result.inputCount(); i++) Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, remainder.create());
+            // A datapack reload may reduce the required batch size while food is already placed.
+            if (ingredient.getCount() > result.inputCount()) Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, ingredient.copyWithCount(ingredient.getCount() - result.inputCount()));
             float xp = result.experience(); int whole = (int)xp;
             if (level.getRandom().nextFloat() < xp - whole) whole++;
             if (whole > 0) ExperienceOrb.award(level, Vec3.atCenterOf(pos), whole);

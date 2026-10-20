@@ -3,6 +3,7 @@
 set -euo pipefail
 mkdir -p build/client-smoke run/saves/CookingVerification
 cp -a run-verification/world/. run/saves/CookingVerification/
+printf 'onboardAccessibility:false\nrenderDistance:3\nsimulationDistance:3\nmaxFps:60\nenableVsync:false\n' > run/options.txt
 bash ./gradlew runClient -PverifyCookingClient=true --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
 client_pid=$!
 trap 'kill "$client_pid" 2>/dev/null || true' EXIT
@@ -33,5 +34,6 @@ for ((attempt=0; attempt<120; attempt++)); do
     sleep 5
 done
 cat build/client-smoke/console.log
+import -window root build/client-smoke/failure.png || true
 echo 'Timed out waiting for client initialization.' >&2
 exit 1
