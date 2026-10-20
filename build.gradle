@@ -159,5 +159,6 @@ if (providers.gradleProperty('verifyKubeJS').map { it.toBoolean() }.getOrElse(fa
     dependencies {
         localRuntime('dev.latvian.mods:kubejs-neoforge:26.1.2-8.0.7') { transitive = false }
         localRuntime('dev.latvian.mods:rhino:2101.2.8-build.91') { transitive = false }
+        localRuntime('dev.latvian.mods:better-advanced-tooltips:2601.1.0-build.9') { transitive = false }
     }
 }

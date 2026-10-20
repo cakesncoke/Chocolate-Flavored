@@ -53,7 +53,7 @@ Place recipes under `data/<namespace>/recipe/<name>.json`. Current 26.1 ingredie
 }
 ```
 
-`input_count` defaults to 1 and accepts 1–64. Both recipe types accept `cookingtime` from 1–32767 game ticks (default 200) and nonnegative `experience` (default zero).
+`input_count` defaults to 1 and accepts 1–64. Both recipe types accept `cookingtime` from 1–32767 game ticks (default 200) and `experience` from 0–1000 (default zero).
 
 ```json
 {
@@ -94,7 +94,7 @@ ServerEvents.recipes(event => {
 })
 ```
 
-Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration pins KubeJS `26.1.2-8.0.7` and Rhino `2101.2.8-build.91` for development testing only. The standard build and mod metadata require neither.
+Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration pins KubeJS `26.1.2-8.0.7` , Rhino `2101.2.8-build.91` and Better Advanced Tooltips `2601.1.0-build.9` for development testing only. The standard build and mod metadata require neither.
 
 ## Verification
 
