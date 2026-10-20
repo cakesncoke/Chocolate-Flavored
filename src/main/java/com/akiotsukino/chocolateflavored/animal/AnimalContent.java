@@ -23,6 +23,11 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.*;
 
 public final class AnimalContent {
+    private static final DeferredRegister<net.neoforged.neoforge.attachment.AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, ChocolateFlavored.MODID);
+    /** Immutable bits: muddy, sheared, flower color and current 40-tick shake animation. */
+    public static final DeferredHolder<net.neoforged.neoforge.attachment.AttachmentType<?>, net.neoforged.neoforge.attachment.AttachmentType<Integer>> MUDDY_PIG_STATE = ATTACHMENTS.register("muddy_pig_state", () -> net.neoforged.neoforge.attachment.AttachmentType.builder(() -> 0)
+            .serialize(com.mojang.serialization.Codec.INT.fieldOf("state"))
+            .sync(net.minecraft.network.codec.ByteBufCodecs.VAR_INT).build());
     public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(ChocolateFlavored.MODID);
     public static final DeferredHolder<EntityType<?>, EntityType<EarthCow>> DAIRY_COW = ENTITIES.registerEntityType("dairy_cow", EarthCow::new, MobCategory.CREATURE, b -> b.sized(.9F, 1.4F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Moobloom>> MOOBLOOM = ENTITIES.registerEntityType("moobloom", Moobloom::new, MobCategory.CREATURE, b -> b.sized(.9F, 1.4F).clientTrackingRange(8));
@@ -60,6 +65,7 @@ public final class AnimalContent {
         event.put(JUMBO_RABBIT.get(), JumboRabbit.createAttributes().build());
     }
     public static void register(IEventBus bus) {
+        ATTACHMENTS.register(bus);
         ENTITIES.register(bus);
         bus.addListener(AnimalContent::attributes);
         NeoForge.EVENT_BUS.addListener(AnimalSpawns::join);
