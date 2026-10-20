@@ -31,8 +31,8 @@ public final class MobVerification {
   ChocolateFlavored.LOGGER.info("MOB_VERIFICATION_PASSED: replacement boundaries and state, 1.5% wolf weights, golem shearing/building, climbing, poison, bone payloads, bucket persistence and fish release");
  }
  private static void spawning(ServerLevel level){
-  check(MobContent.MELON_GOLEM.get().is(net.minecraft.tags.EntityTypeTags.FALL_DAMAGE_IMMUNE)&&MobContent.MELON_GOLEM.get().is(net.minecraft.tags.EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES),"Golem retains reference fall/freeze immunity");
-  check(MobContent.BOULDERING_DROWNED.get().is(net.minecraft.tags.EntityTypeTags.BURN_IN_DAYLIGHT)&&MobContent.BOULDERING_DROWNED.get().is(net.minecraft.tags.EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES),"Drowned retains reference daylight and axolotl behavior");
+  check(MobContent.MELON_GOLEM.get().builtInRegistryHolder().is(net.minecraft.tags.EntityTypeTags.FALL_DAMAGE_IMMUNE)&&MobContent.MELON_GOLEM.get().builtInRegistryHolder().is(net.minecraft.tags.EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES),"Golem retains reference fall/freeze immunity");
+  check(MobContent.BOULDERING_DROWNED.get().builtInRegistryHolder().is(net.minecraft.tags.EntityTypeTags.BURN_IN_DAYLIGHT)&&MobContent.BOULDERING_DROWNED.get().builtInRegistryHolder().is(net.minecraft.tags.EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES),"Drowned retains reference daylight and axolotl behavior");
   var registry=level.registryAccess().lookupOrThrow(Registries.BIOME);var plains=registry.getOrThrow(Biomes.PLAINS);var peaks=registry.getOrThrow(Biomes.JAGGED_PEAKS);
   check(MonsterSpawns.select(EntityType.ZOMBIE,-1,plains,new Roll(99))==MobContent.BOULDERING_ZOMBIE.get(),"Every zombie below zero");
   check(MonsterSpawns.select(EntityType.ZOMBIE,0,plains,new Roll(0))==null,"No plains zombies at zero");
