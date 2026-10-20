@@ -15,13 +15,16 @@
     "SheepSpawnColorMixin",
     "AnimalSpawnMarkerMixin",
     "FlowerCowBeeMixin",
-    "BeeAccessor"
+    "BeeAccessor",
+    "MonsterSpawnMarkerMixin",
+    "UndeadBodyMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
     "FireStarterHandMixin",
-    "MuddyPigModelMixin"
+    "MuddyPigModelMixin",
+    "EntityPipelineAccessor"
   ]
 }

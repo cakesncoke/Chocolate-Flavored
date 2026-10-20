@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: LGPL-3.0-only
+// Adapted from baguchi/EarthMobs 26.1.x, d5acab9846bd3400ac5f093bfec7439351a1bd61.
+package com.akiotsukino.chocolateflavored.client.mob.render.layer;
+
+import com.akiotsukino.chocolateflavored.client.mob.render.state.MelonGolemRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.model.animal.golem.SnowGolemModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+
+
+public class MelonGolemHeadLayer extends RenderLayer<MelonGolemRenderState, SnowGolemModel> {
+    public MelonGolemHeadLayer(RenderLayerParent<MelonGolemRenderState, SnowGolemModel> p_234871_) {
+        super(p_234871_);
+    }
+
+    @Override
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, MelonGolemRenderState state, float v, float v1) {
+        if (!state.headBlock.isEmpty()) {
+            poseStack.pushPose();
+            this.getParentModel().getHead().translateAndRotate(poseStack);
+            float f = 0.625F;
+            poseStack.translate(0.0F, -0.34375F, 0.0F);
+            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+            poseStack.scale(0.625F, -0.625F, -0.625F);
+            poseStack.translate(-0.5F, -0.5F, -0.5F);
+            int overlayCoords = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
+            if (state.appearsGlowing() && state.isInvisible) {
+                state.headBlock.submitOnlyOutline(poseStack, submitNodeCollector, lightCoords, overlayCoords, state.outlineColor);
+            } else {
+                state.headBlock.submit(poseStack, submitNodeCollector, lightCoords, overlayCoords, state.outlineColor);
+            }
+            poseStack.popPose();
+        }
+    }
+}

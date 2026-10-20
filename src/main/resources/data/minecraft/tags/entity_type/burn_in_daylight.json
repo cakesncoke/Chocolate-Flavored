@@ -1,6 +1,9 @@
 {
   "replace": false,
-  "values": [],
+  "values": [
+    "chocolateflavored:bouldering_zombie",
+    "chocolateflavored:swamped"
+  ],
   "remove": [
     "minecraft:zombie_villager"
   ]

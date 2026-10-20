@@ -23,6 +23,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 public final class AnimalClientVerification {
     private static int screenTicks;
     private static boolean opened;
+    public static boolean completed;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened) return;
         Minecraft mc=Minecraft.getInstance();
@@ -61,7 +62,7 @@ public final class AnimalClientVerification {
                 int left=x+5+(i%2)*(cellW/2),right=left+cellW/2-10;
                 InventoryScreen.extractEntityInInventoryFollowsMouse(graphics,left,y+15,right,y+cellH-4,28,.025F,(left+right)/2F-120,y+cellH/2F,animal);
             }
-            if(++frames==100) ChocolateFlavored.LOGGER.info("ANIMAL_CLIENT_VERIFICATION_PASSED: all 11 entity types plus muddy pigs submitted with adult/baby models, flowers, wool and mud layers");
+            if(++frames==100) { completed=true; ChocolateFlavored.LOGGER.info("ANIMAL_CLIENT_VERIFICATION_PASSED: all 11 entity types plus muddy pigs submitted with adult/baby models, flowers, wool and mud layers"); }
         }
         @Override public boolean isPauseScreen() { return false; }
     }

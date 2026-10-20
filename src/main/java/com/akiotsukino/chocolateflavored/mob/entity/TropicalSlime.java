@@ -1,0 +1,391 @@
+// SPDX-License-Identifier: LGPL-3.0-only
+// Adapted from baguchi/EarthMobs 26.1.x, d5acab9846bd3400ac5f093bfec7439351a1bd61.
+package com.akiotsukino.chocolateflavored.mob.entity;
+
+import com.akiotsukino.chocolateflavored.mob.MobContent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.animal.fish.TropicalFish;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.fluids.FluidType;
+
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+
+import static net.minecraft.world.entity.monster.Monster.isDarkEnoughToSpawn;
+
+public class TropicalSlime extends Slime implements Bucketable {
+    public static final EntityDataAccessor<Boolean> HAS_FISHS = SynchedEntityData.defineId(TropicalSlime.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TropicalSlime.class, EntityDataSerializers.BOOLEAN);
+
+    public TropicalSlime(EntityType<? extends Slime> p_33588_, Level p_33589_) {
+        super(p_33588_, p_33589_);
+        this.moveControl = new TropicalSlime.SlimeMoveControl(this);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HAS_FISHS, false);
+        builder.define(FROM_BUCKET, false);
+    }
+
+    protected void registerGoals() {
+        this.goalSelector.addGoal(2, new TropicalSlime.SlimeAttackGoal(this));
+        this.goalSelector.addGoal(3, new TropicalSlime.SlimeRandomDirectionGoal(this));
+        this.goalSelector.addGoal(5, new TropicalSlime.SlimeKeepOnJumpingGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (p_33641_, serverLevel) -> {
+            return Math.abs(p_33641_.getY() - this.getY()) <= 4.0D;
+        }));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+    }
+
+    @Override
+    public boolean canDrownInFluidType(FluidType type) {
+        return false;
+    }
+
+    @Nullable
+    public boolean hasFish() {
+        return this.entityData.get(HAS_FISHS);
+    }
+
+    @Override
+    protected ParticleOptions getParticleType() {
+        return MobContent.TROPICAL_SPLASH.get();
+    }
+
+    public void setHasFish(boolean p_36363_) {
+        this.entityData.set(HAS_FISHS, p_36363_);
+    }
+
+    public InteractionResult mobInteract(Player p_28941_, InteractionHand p_28942_) {
+        return this.isTiny() ? Bucketable.bucketMobPickup(p_28941_, p_28942_, this).orElse(super.mobInteract(p_28941_, p_28942_)) : super.mobInteract(p_28941_, p_28942_);
+    }
+
+    @Override
+    public void remove(RemovalReason p_149847_) {
+        if (isRemoved()) return;
+        super.remove(p_149847_);
+
+        if (this.isDeadOrDying() && this.level() instanceof ServerLevel serverLevel && this.hasFish()) {
+            double f1 = 0;
+            double f2 = 0;
+            double f3 = 0;
+            TropicalFish fish = EntityType.TROPICAL_FISH.create(this.level(), EntitySpawnReason.TRIGGERED);
+            if (this.isPersistenceRequired()) {
+                fish.setPersistenceRequired();
+            }
+            fish.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), EntitySpawnReason.EVENT, null);
+            fish.setInvulnerable(this.isInvulnerable());
+            fish.snapTo(this.getX() + (double) f1, this.getY() + f3, this.getZ() + (double) f2, this.random.nextFloat() * 360.0F, 0.0F);
+            this.level().addFreshEntity(fish);
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput p_33619_) {
+        super.addAdditionalSaveData(p_33619_);
+        p_33619_.putBoolean("FromBucket", fromBucket());
+        if (this.hasFish()) {
+            p_33619_.putBoolean("HasFish", this.hasFish());
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput p_33607_) {
+        super.readAdditionalSaveData(p_33607_);
+        this.setFromBucket(p_33607_.getBooleanOr("FromBucket", false));
+        this.setHasFish(p_33607_.getBooleanOr("HasFish", false));
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_30023_, DifficultyInstance p_30024_, EntitySpawnReason p_30025_, @Nullable SpawnGroupData p_30026_) {
+        p_30026_ = super.finalizeSpawn(p_30023_, p_30024_, p_30025_, p_30026_);
+
+        int size = Mth.clamp(this.getSize(), 1, 5);
+        this.setHasFish(true);
+        return p_30026_;
+    }
+
+    public static boolean checkTropicalSpawnRules(EntityType<TropicalSlime> p_32350_, ServerLevelAccessor p_32351_, EntitySpawnReason p_32352_, BlockPos p_32353_, RandomSource p_32354_) {
+        if (!p_32351_.getFluidState(p_32353_.below()).is(FluidTags.WATER)) {
+            return false;
+        } else {
+            Holder<Biome> holder = p_32351_.getBiome(p_32353_);
+            boolean flag = p_32351_.getDifficulty() != Difficulty.PEACEFUL && (EntitySpawnReason.isSpawner(p_32352_) || p_32351_.getFluidState(p_32353_).is(FluidTags.WATER) && isDarkEnoughToSpawn(p_32351_, p_32353_, p_32354_));
+
+            return p_32354_.nextInt(30) == 0 && flag;
+        }
+    }
+
+    public boolean checkSpawnObstruction(LevelReader p_32370_) {
+        return p_32370_.isUnobstructed(this);
+    }
+
+
+    float getSoundPitch() {
+        float f = this.isTiny() ? 1.4F : 0.8F;
+        return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * f;
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    public void setFromBucket(boolean p_149196_) {
+        this.entityData.set(FROM_BUCKET, p_149196_);
+    }
+
+    @Override
+    public void saveToBucketTag(ItemStack p_149187_) {
+        Bucketable.saveDefaultDataToBucketTag(this, p_149187_);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, p_149187_, compoundTag -> {
+
+            if (this.hasFish()) {
+                compoundTag.putBoolean("HasFish", this.hasFish());
+        }
+        });
+
+    }
+
+    @Override
+    public void loadFromBucketTag(CompoundTag p_149163_) {
+        Bucketable.loadDefaultDataFromBucketTag(this, p_149163_);
+        this.setSize(1, true);
+        if (p_149163_.contains("HasFish")) {
+            this.setHasFish(p_149163_.getBooleanOr("HasFish", false));
+        }
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(MobContent.TROPICAL_SLIME_BUCKET.get());
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
+    }
+
+    static class SlimeAttackGoal extends Goal {
+        private final TropicalSlime slime;
+        private int growTiredTimer;
+
+        public SlimeAttackGoal(TropicalSlime p_33648_) {
+            this.slime = p_33648_;
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity livingentity = this.slime.getTarget();
+            if (livingentity == null) {
+                return false;
+            } else {
+                return !this.slime.canAttack(livingentity) ? false : this.slime.getMoveControl() instanceof TropicalSlime.SlimeMoveControl;
+            }
+        }
+
+        public void start() {
+            this.growTiredTimer = reducedTickDelay(300);
+            super.start();
+        }
+
+        public boolean canContinueToUse() {
+            LivingEntity livingentity = this.slime.getTarget();
+            if (livingentity == null) {
+                return false;
+            } else if (!this.slime.canAttack(livingentity)) {
+                return false;
+            } else {
+                return --this.growTiredTimer > 0;
+            }
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            LivingEntity livingentity = this.slime.getTarget();
+            if (livingentity != null) {
+                this.slime.lookAt(livingentity, 10.0F, 10.0F);
+                //add this. because wantedY used in TropicalSlime special case
+                ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setWantedY(livingentity.getY());
+            }
+
+
+            ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setDirection(this.slime.getYRot(), this.slime.isDealsDamage());
+        }
+    }
+
+
+    static class SlimeKeepOnJumpingGoal extends Goal {
+        private final Slime slime;
+
+        public SlimeKeepOnJumpingGoal(Slime p_33660_) {
+            this.slime = p_33660_;
+        }
+
+        public boolean canUse() {
+            return !this.slime.isPassenger();
+        }
+
+        public void tick() {
+            ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setWantedMovement(1.0D);
+        }
+    }
+
+    public void travel(Vec3 p_32394_) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), p_32394_);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        } else {
+            super.travel(p_32394_);
+        }
+
+    }
+
+    static class SlimeMoveControl extends MoveControl {
+        private float yRot;
+        private int jumpDelay;
+        private final TropicalSlime slime;
+        private boolean isAggressive;
+
+        public SlimeMoveControl(TropicalSlime p_33668_) {
+            super(p_33668_);
+            this.slime = p_33668_;
+            this.yRot = 180.0F * p_33668_.getYRot() / (float) Math.PI;
+        }
+
+        public void setDirection(float p_33673_, boolean p_33674_) {
+            this.yRot = p_33673_;
+            this.isAggressive = p_33674_;
+        }
+
+        public void setWantedY(double y) {
+            this.wantedY = y;
+        }
+
+        public void setWantedMovement(double p_33671_) {
+            this.speedModifier = p_33671_;
+            this.operation = MoveControl.Operation.MOVE_TO;
+        }
+
+        public void tick() {
+            this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
+
+
+            this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.yRot, 90.0F));
+            this.mob.yHeadRot = this.mob.getYRot();
+            this.mob.yBodyRot = this.mob.getYRot();
+            if (this.operation != MoveControl.Operation.MOVE_TO) {
+                this.mob.setSpeed(0.0F);
+                this.mob.setZza(0.0F);
+            } else {
+                this.operation = MoveControl.Operation.WAIT;
+                if (this.mob.isInWater() && !this.mob.onGround()) {
+
+
+                    float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+
+                    double d1 = this.wantedY - this.mob.getY();
+                    boolean flag = d1 < 0.0D && this.mob.getTarget() != null;
+                    //add Y movement
+
+                    float f2 = Mth.lerp(0.125F, this.mob.getSpeed(), f1);
+                    this.mob.setSpeed(f2);
+                    if (flag) {
+                        if (Math.abs(d1) > (double) 1.0E-5F) {
+                            this.mob.setYya(f2 * 3F);
+                        }
+                    }
+                } else if (this.mob.onGround()) {
+                    this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+
+                    if (this.jumpDelay-- <= 0) {
+                        this.jumpDelay = this.slime.getJumpDelay();
+                        if (this.isAggressive) {
+                            this.jumpDelay /= 3;
+                        }
+
+                        this.slime.getJumpControl().jump();
+                        if (this.slime.doPlayJumpSound()) {
+                            this.slime.playSound(this.slime.getJumpSound(), this.slime.getSoundVolume(), this.slime.getSoundPitch());
+                        }
+                    } else {
+                        this.slime.xxa = 0.0F;
+                        this.mob.setZza(0.0F);
+                        this.mob.setSpeed(0.0F);
+                    }
+                } else {
+                    this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                }
+            }
+        }
+    }
+
+    static class SlimeRandomDirectionGoal extends Goal {
+        private final TropicalSlime slime;
+        private float chosenDegrees;
+        private int nextRandomizeTime;
+
+        public SlimeRandomDirectionGoal(TropicalSlime p_33679_) {
+            this.slime = p_33679_;
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            return this.slime.getTarget() == null && (this.slime.onGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(MobEffects.LEVITATION)) && this.slime.getMoveControl() instanceof TropicalSlime.SlimeMoveControl;
+        }
+
+        public void tick() {
+            if (--this.nextRandomizeTime <= 0) {
+                this.nextRandomizeTime = this.adjustedTickDelay(40 + this.slime.getRandom().nextInt(60));
+                this.chosenDegrees = (float) this.slime.getRandom().nextInt(360);
+            }
+
+            ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setDirection(this.chosenDegrees, false);
+        }
+    }
+    @Override public boolean requiresCustomPersistence() { return super.requiresCustomPersistence() || fromBucket(); }
+}

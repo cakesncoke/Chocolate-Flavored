@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:bouldering_zombie",
+    "chocolateflavored:bouldering_drowned",
+    "chocolateflavored:swamped",
+    "chocolateflavored:skeleton_wolf",
+    "chocolateflavored:bone_spider"
+  ]
+}

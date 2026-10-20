@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,shooting=false": {
+      "model": "chocolateflavored:block/carved_melon",
+      "y": 0
+    },
+    "facing=north,shooting=true": {
+      "model": "chocolateflavored:block/carved_melon_shoot",
+      "y": 0
+    },
+    "facing=east,shooting=false": {
+      "model": "chocolateflavored:block/carved_melon",
+      "y": 90
+    },
+    "facing=east,shooting=true": {
+      "model": "chocolateflavored:block/carved_melon_shoot",
+      "y": 90
+    },
+    "facing=south,shooting=false": {
+      "model": "chocolateflavored:block/carved_melon",
+      "y": 180
+    },
+    "facing=south,shooting=true": {
+      "model": "chocolateflavored:block/carved_melon_shoot",
+      "y": 180
+    },
+    "facing=west,shooting=false": {
+      "model": "chocolateflavored:block/carved_melon",
+      "y": 270
+    },
+    "facing=west,shooting=true": {
+      "model": "chocolateflavored:block/carved_melon_shoot",
+      "y": 270
+    }
+  }
+}

@@ -31,5 +31,70 @@
       }
     ],
     "subtitle": "subtitles.chocolateflavored.block.food.take_portion"
+  },
+  "entity.skeleton_wolf.ambient": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_bark1",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_bark2",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_bark3"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_bark"
+  },
+  "entity.skeleton_wolf.hurt": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_hurt1",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_hurt2",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_hurt3"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_hurt"
+  },
+  "entity.skeleton_wolf.growl": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_growl1",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_growl2",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_growl3"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_growl"
+  },
+  "entity.skeleton_wolf.step": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_step1",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_step2",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_step3",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_step4",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_step5"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_step"
+  },
+  "entity.skeleton_wolf.howl": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_howl1",
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_howl2"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_howl"
+  },
+  "entity.skeleton_wolf.pant": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_pant"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_pant"
+  },
+  "entity.skeleton_wolf.shake": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_shake"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_shake"
+  },
+  "entity.skeleton_wolf.whine": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_whine"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_whine"
+  },
+  "entity.skeleton_wolf.death": {
+    "sounds": [
+      "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_death"
+    ],
+    "subtitle": "subtitles.mob.skeleton_wolf_death"
   }
 }
