@@ -6,7 +6,11 @@
   "mixins": [
     "AbstractVillagerMixin",
     "CampfirePlacementMixin",
-    "AnvilMenuMixin"
+    "AnvilMenuMixin",
+    "VillagerPopulationMixin",
+    "VillagerBreedingMixin",
+    "VillagerBabyAgeMixin",
+    "ZombieVillagerDaylightMixin"
   ],
   "injectors": {
     "defaultRequire": 1

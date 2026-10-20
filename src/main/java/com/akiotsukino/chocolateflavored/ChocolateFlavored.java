@@ -1,6 +1,7 @@
 package com.akiotsukino.chocolateflavored;
 
 import org.slf4j.Logger;
+import com.akiotsukino.chocolateflavored.worldgen.ZombieVillagerSpawnModifier;
 import com.akiotsukino.chocolateflavored.lighting.LightingContent;
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import com.akiotsukino.chocolateflavored.gameplay.EquipmentRules;
@@ -39,6 +40,7 @@ public class ChocolateFlavored {
     public ChocolateFlavored(IEventBus modEventBus, ModContainer modContainer) {
         LOGGER.info("Initializing Chocolate Flavored");
         LightingContent.register(modEventBus);
+        ZombieVillagerSpawnModifier.register(modEventBus);
         ModContent.register(modEventBus);
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);
