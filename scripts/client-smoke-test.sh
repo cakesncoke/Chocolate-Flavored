@@ -3,7 +3,7 @@
 set -euo pipefail
 mkdir -p build/client-smoke run/saves/CookingVerification
 cp -a run-verification/world/. run/saves/CookingVerification/
-printf 'onboardAccessibility:false\nrenderDistance:3\nsimulationDistance:5\nmaxFps:60\nenableVsync:false\n' > run/options.txt
+printf 'onboardAccessibility:false\nguiScale:2\nrenderDistance:3\nsimulationDistance:5\nmaxFps:60\nenableVsync:false\n' > run/options.txt
 bash ./gradlew runClient -PverifyCookingClient=true --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
 client_pid=$!
 trap 'kill "$client_pid" 2>/dev/null || true' EXIT

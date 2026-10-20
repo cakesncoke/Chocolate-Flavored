@@ -27,7 +27,7 @@ public final class AnimalClientVerification {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened) return;
         Minecraft mc=Minecraft.getInstance();
         if(mc.player==null||mc.level==null||!(mc.screen instanceof CookingPotScreen)||++screenTicks<100) return;
-        opened=true;mc.player.closeContainer();mc.options.guiScale().set(2);mc.resizeDisplay();mc.setScreen(new Gallery());
+        opened=true;mc.player.closeContainer();mc.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {
         private final List<Mob> animals=new ArrayList<>();
