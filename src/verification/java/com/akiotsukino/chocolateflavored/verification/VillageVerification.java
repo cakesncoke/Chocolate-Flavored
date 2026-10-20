@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.random.Weighted;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.behavior.VillagerMakeLove;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.golem.IronGolem;
-import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.monster.zombie.ZombieVillager;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.level.biome.Biomes;
@@ -44,9 +43,8 @@ final class VillageVerification {
     private static void poolsAndResidents(ServerLevel level) throws ReflectiveOperationException {
         var pools = level.registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
         var ops = level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
-        var sunSensitive = Zombie.class.getDeclaredMethod("isSunSensitive"); sunSensitive.setAccessible(true);
         var normal = EntityType.ZOMBIE.create(level, EntitySpawnReason.COMMAND);
-        check((boolean)sunSensitive.invoke(normal), "Normal zombies retain daylight burning");
+        check(normal.is(EntityTypeTags.BURN_IN_DAYLIGHT), "Normal zombies retain daylight burning tag");
         BlockPos pos = new BlockPos(48, 160, 0);
         var bounds = new AABB(pos).inflate(12);
         for (String style : List.of("plains", "desert", "savanna", "snowy", "taiga")) {
@@ -63,7 +61,7 @@ final class VillageVerification {
                 check(residents.size() == 1, "Abandoned template spawns zombie villager: " + style + "/" + profession);
                 var resident = residents.getFirst();
                 check(resident.isPersistenceRequired(), "Abandoned resident cannot naturally despawn");
-                check(!(boolean)sunSensitive.invoke(resident), "Zombie villagers ignore daylight burning");
+                check(!resident.is(EntityTypeTags.BURN_IN_DAYLIGHT), "Zombie villagers excluded from actual daylight burning tag");
                 var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
                 resident.save(output);
                 var restored = EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), output.buildResult()), level, EntitySpawnReason.COMMAND).orElseThrow();
@@ -75,6 +73,12 @@ final class VillageVerification {
         }
         var natural = EntityType.ZOMBIE_VILLAGER.create(level, EntitySpawnReason.NATURAL);
         check(!natural.isPersistenceRequired(), "Natural zombie villagers are not globally made persistent");
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(), "time set 6000");
+        normal.setPos(48.5, 180, 0.5); natural.setPos(48.5, 180, 0.5);
+        normal.setNoAi(true); natural.setNoAi(true);
+        for (int i = 0; i < 1000; i++) { normal.aiStep(); natural.aiStep(); }
+        check(normal.isOnFire(), "Normal zombie actually ignites in daytime control test");
+        check(!natural.isOnFire(), "Zombie villager does not ignite in same daytime exposure");
     }
     private static void spawnWeights(ServerLevel level) {
         var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);

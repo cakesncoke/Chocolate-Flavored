@@ -10,7 +10,7 @@ The ten vanilla abandoned resident templates already contain `PersistenceRequire
 
 ## Zombie villagers
 
-Zombie villagers do not ignite from daylight. Other fire and lava mechanics remain vanilla.
+Zombie villagers are removed from the current `minecraft:burn_in_daylight` entity-type tag using NeoForge's additive tag-removal support; they do not ignite from daylight. Other fire and lava mechanics remain vanilla.
 
 Outside old growth pine taigas, the biome spawn modifier assigns zombie villagers exactly **1% of the combined normal-zombie and zombie-villager selection weight**, with normal zombies receiving the other 99%. It preserves their combined probability and existing group sizes, plus every other monster's relative probability, including husks and zombie horses. These are spawn-table selection weights, not a guarantee about the observed proportion after group spawning and despawning. The modifier runs once when biomes load and does not create zombie entries in biomes that lack the pair.
 
@@ -24,4 +24,4 @@ Successful villager breeding gives both parents a **36,000-tick (30-minute)** co
 
 ## Verification
 
-The development server verifies all five loaded starting pools contain only abandoned starts, places all ten abandoned resident templates, checks persistent entities and entity save/load, and checks zombie-villager versus normal-zombie daylight sensitivity. It verifies the loaded biome weights and pine exception, other-monster probability preservation, actual villager breeding results and ticking age boundaries, failed villager golem summons under otherwise eligible conditions, actual pumpkin/iron-block construction and the vanilla outpost cage template's golem. Client startup runs separately. Full-world exploration, an hour of live play, and other mods' world-generation/seasonal integrations are not automated compatibility tests.
+The development server verifies all five loaded starting pools contain only abandoned starts, places all ten abandoned resident templates, checks persistent entities and entity save/load, and tests actual daytime exposure alongside a normal zombie that must ignite. It verifies the loaded biome weights and pine exception, other-monster probability preservation, actual villager breeding results and ticking age boundaries, failed villager golem summons under otherwise eligible conditions, actual pumpkin/iron-block construction and the vanilla outpost cage template's golem. Client startup runs separately. Full-world exploration, an hour of live play, and other mods' world-generation/seasonal integrations are not automated compatibility tests.

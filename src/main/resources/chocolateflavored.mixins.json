@@ -9,8 +9,7 @@
     "AnvilMenuMixin",
     "VillagerPopulationMixin",
     "VillagerBreedingMixin",
-    "VillagerBabyAgeMixin",
-    "ZombieVillagerDaylightMixin"
+    "VillagerBabyAgeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
