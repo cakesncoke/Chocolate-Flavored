@@ -26,7 +26,8 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import java.util.*;
 public final class MobVerification {
  public static void run(ServerLevel level,FakePlayer player){
-  spawning(level); replacement(level); interactions(level,player); projectilesAndConversion(level,player);
+  spawning(level); replacement(level);
+  FakePlayer combat=new CombatPlayer(level);interactions(level,combat);projectilesAndConversion(level,combat);
   ChocolateFlavored.LOGGER.info("MOB_VERIFICATION_PASSED: replacement boundaries and state, 1.5% wolf weights, golem shearing/building, climbing, poison, bone payloads, bucket persistence and fish release");
  }
  private static void spawning(ServerLevel level){
@@ -106,6 +107,11 @@ public final class MobVerification {
  private static final class PotionRoll extends LegacyRandomSource {private final float roll;private final int index;PotionRoll(float roll,int index){super(0);this.roll=roll;this.index=index;}@Override public float nextFloat(){return roll;}@Override public int nextInt(int bound){return index;}}
  private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Entity can be serialized as passenger/root");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();}
  private static void check(boolean value,String message){if(!value)throw new IllegalStateException(message);}
+ /** FakePlayer intentionally blocks damage and has no loaded client; this fixture enables native combat. */
+ private static final class CombatPlayer extends FakePlayer {
+  CombatPlayer(ServerLevel level){super(level,new com.mojang.authlib.GameProfile(java.util.UUID.fromString("4e9f65ab-cf80-4311-bbdc-612448f06644"),"MobVerification"));setInvulnerable(false);setGameMode(net.minecraft.world.level.GameType.SURVIVAL);}
+  @Override public boolean isInvulnerableTo(ServerLevel level,net.minecraft.world.damagesource.DamageSource source){return false;}
+ }
  private static final class Roll extends LegacyRandomSource {private final int value;Roll(int value){super(0);this.value=value;}@Override public int nextInt(int bound){return value;}}
  private MobVerification(){}
 }
