@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Run inside xvfb-run. This verifies startup, not world/gameplay behavior.
+# Run inside xvfb-run. Verify startup plus a real cooking-pot menu in the saved verification world.
 set -euo pipefail
-mkdir -p build/client-smoke
-bash ./gradlew runClient --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
+mkdir -p build/client-smoke run/saves/CookingVerification
+cp -a run-verification/world/. run/saves/CookingVerification/
+bash ./gradlew runClient -PverifyCookingClient=true --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
 client_pid=$!
 trap 'kill "$client_pid" 2>/dev/null || true' EXIT
 
@@ -15,7 +16,8 @@ for ((attempt=0; attempt<120; attempt++)); do
     fi
     if [[ -f run/logs/latest.log ]] &&
        grep -q 'Initializing Chocolate Flavored' run/logs/latest.log &&
-       grep -q 'Created: .*textures/atlas/' run/logs/latest.log; then
+       grep -q 'Created: .*textures/atlas/' run/logs/latest.log &&
+       grep -q COOKING_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
         # Keep the client alive past resource loading, and capture the display.
         sleep 20
         kill -0 "$client_pid"
@@ -25,7 +27,7 @@ for ((attempt=0; attempt<120; attempt++)); do
         fi
         import -window root build/client-smoke/client.png
         cp run/logs/latest.log build/client-smoke/latest.log
-        echo 'Client remained running after mod initialization and texture atlas loading.'
+        echo 'Client remained running after mod initialization, texture atlas loading and cooking-pot screen verification.'
         exit 0
     fi
     sleep 5

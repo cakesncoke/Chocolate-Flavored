@@ -22,7 +22,7 @@ public final class OvenRenderer implements BlockEntityRenderer<OvenBlockEntity, 
     private final ItemModelResolver resolver;
     public OvenRenderer(BlockEntityRendererProvider.Context context) { resolver = context.itemModelResolver(); }
     @Override public CampfireRenderState createRenderState() { return new CampfireRenderState(); }
-    @Override public void extractRenderState(OvenBlockEntity oven, CampfireRenderState state, float partialTick, Vec3 camera, @Nullable ModelFeatureRenderer.CrumblingOverlay overlay) {
+    @Override public void extractRenderState(OvenBlockEntity oven, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
         BlockEntityRenderer.super.extractRenderState(oven, state, partialTick, camera, overlay);
         state.facing = oven.getBlockState().getValue(OvenBlock.FACING); state.items = new ArrayList<>();
         for (int slot = 0; slot < 6; slot++) {

@@ -22,7 +22,7 @@ public final class SteamParticle extends SingleQuadParticle {
         yd -= gravity; move(xd, yd, zd); setSpriteFromAge(sprites);
         if (age >= lifetime - 60) alpha = Math.max(0, alpha - 0.02F);
     }
-    public static final class Provider implements ParticleProvider.Sprite<SimpleParticleType> {
+    public static final class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
         public Provider(SpriteSet sprites) { this.sprites = sprites; }
         @Override public SingleQuadParticle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double dx, double dy, double dz, RandomSource random) {

@@ -43,6 +43,10 @@ neoForge {
     runs {
         client {
             client()
+            if (providers.gradleProperty('verifyCookingClient').map { it.toBoolean() }.getOrElse(false)) {
+                systemProperty 'chocolateflavored.verify.cooking.client', 'true'
+                programArguments.addAll '--quickPlaySingleplayer', 'CookingVerification'
+            }
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
