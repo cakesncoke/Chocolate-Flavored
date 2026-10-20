@@ -2,7 +2,8 @@
   "replace": false,
   "values": [
     "chocolateflavored:bouldering_zombie",
-    "chocolateflavored:swamped"
+    "chocolateflavored:swamped",
+    "chocolateflavored:bouldering_drowned"
   ],
   "remove": [
     "minecraft:zombie_villager"
