@@ -40,6 +40,7 @@ public class ChocolateFlavored {
 
     public ChocolateFlavored(IEventBus modEventBus, ModContainer modContainer) {
         LOGGER.info("Initializing Chocolate Flavored");
+        com.akiotsukino.chocolateflavored.animal.AnimalContent.register(modEventBus);
         LightingContent.register(modEventBus);
         CookingContent.register(modEventBus);
         ZombieVillagerSpawnModifier.register(modEventBus);

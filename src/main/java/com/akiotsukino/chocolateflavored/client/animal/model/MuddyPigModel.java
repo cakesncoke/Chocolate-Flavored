@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: LGPL-3.0-only
+// Adapted from baguchi/EarthMobs, revision d5acab9846bd3400ac5f093bfec7439351a1bd61 (26.1.2).
+package com.akiotsukino.chocolateflavored.client.animal.model;// Made with Blockbench 4.1.5
+
+import net.minecraft.client.model.QuadrupedModel;
+import net.minecraft.client.model.animal.pig.PigModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+
+public class MuddyPigModel extends PigModel {
+	public MuddyPigModel(ModelPart root) {
+		super(root);
+	}
+
+	public static LayerDefinition createBodyLayer(CubeDeformation p_170801_) {
+		MeshDefinition meshdefinition = QuadrupedModel.createBodyMesh(6, true, false, p_170801_);
+		PartDefinition partdefinition = meshdefinition.getRoot();
+		PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -8.0F, 8.0F, 8.0F, 8.0F, p_170801_).texOffs(16, 16).addBox(-2.0F, 0.0F, -9.0F, 4.0F, 3.0F, 1.0F, p_170801_), PartPose.offset(0.0F, 12.0F, -6.0F));
+
+		PartDefinition mud = head.addOrReplaceChild("mud", CubeListBuilder.create().texOffs(48, 0).addBox(-1.0F, -1.0F, 0.0F, 4.0F, 1.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -4.0F, -7.0F));
+
+		PartDefinition flower = mud.addOrReplaceChild("flower", CubeListBuilder.create().texOffs(20, 0).addBox(-3.0F, 0.0F, 0.0F, 4.0F, 0.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, -1.0F, 2.0F, 1.5708F, 0.0F, 0.0F));
+
+
+		return LayerDefinition.create(meshdefinition, 64, 32);
+	}
+
+	@Override
+	public void setupAnim(LivingEntityRenderState entity) {
+		super.setupAnim(entity);
+	}
+}

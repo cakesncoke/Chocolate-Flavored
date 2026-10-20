@@ -1,0 +1,48 @@
+// SPDX-License-Identifier: LGPL-3.0-only
+// Adapted from baguchi/EarthMobs, revision d5acab9846bd3400ac5f093bfec7439351a1bd61 (26.1.2).
+package com.akiotsukino.chocolateflavored.client.animal.render.layer;
+
+import com.akiotsukino.chocolateflavored.client.animal.model.BabyHornedSheepModel;
+import com.akiotsukino.chocolateflavored.client.animal.model.HornedSheepFurModel;
+import com.akiotsukino.chocolateflavored.client.animal.model.HornedSheepModel;
+import com.akiotsukino.chocolateflavored.client.animal.render.state.HornedSheepRenderState;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.resources.Identifier;
+
+
+public class HornedSheepWoolLayer extends RenderLayer<HornedSheepRenderState, HornedSheepModel<HornedSheepRenderState>> {
+    private static final Identifier SHEEP_FUR_LOCATION = Identifier.withDefaultNamespace("textures/entity/sheep/sheep_wool.png");
+    private static final Identifier SHEEP_FUR_BABY_LOCATION = Identifier.withDefaultNamespace("textures/entity/sheep/sheep_wool_baby.png");
+    private final EntityModel<HornedSheepRenderState> adultModel;
+	private final EntityModel<HornedSheepRenderState> babyModel;
+
+	public HornedSheepWoolLayer(RenderLayerParent<HornedSheepRenderState, HornedSheepModel<HornedSheepRenderState>> p_362577_, EntityModelSet p_362840_) {
+		super(p_362577_);
+		this.adultModel = new HornedSheepFurModel(p_362840_.bakeLayer(ModelLayers.SHEEP_WOOL));
+        this.babyModel = new BabyHornedSheepModel<>(p_362840_.bakeLayer(ModelLayers.SHEEP_BABY_WOOL));
+	}
+
+    @Override
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, HornedSheepRenderState hornedSheepRenderState, float v, float v1) {
+        if (!hornedSheepRenderState.isSheared) {
+            EntityModel<HornedSheepRenderState> entitymodel = hornedSheepRenderState.isBaby ? this.babyModel : this.adultModel;
+            if (hornedSheepRenderState.isInvisible) {
+                if (hornedSheepRenderState.appearsGlowing()) {
+                    submitNodeCollector.submitModel(entitymodel, hornedSheepRenderState, poseStack, RenderTypes.outline(hornedSheepRenderState.isBaby ? SHEEP_FUR_BABY_LOCATION : SHEEP_FUR_LOCATION), i, LivingEntityRenderer.getOverlayCoords(hornedSheepRenderState, 0.0F), -16777216, (TextureAtlasSprite) null, hornedSheepRenderState.outlineColor, (ModelFeatureRenderer.CrumblingOverlay) null);
+                }
+            } else {
+                coloredCutoutModelCopyLayerRender(entitymodel, hornedSheepRenderState.isBaby ? SHEEP_FUR_BABY_LOCATION : SHEEP_FUR_LOCATION, poseStack, submitNodeCollector, i, hornedSheepRenderState, hornedSheepRenderState.getWoolColor(), 0);
+            }
+        }
+    }
+}

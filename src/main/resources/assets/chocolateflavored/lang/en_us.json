@@ -41,5 +41,18 @@
   "container.chocolateflavored.cooking_pot.not_heated": "Requires a heat source below",
   "subtitles.chocolateflavored.block.oven.crackle": "Oven crackles",
   "subtitles.chocolateflavored.block.cooking_pot.boil": "Cooking pot bubbles",
-  "subtitles.chocolateflavored.block.food.take_portion": "Food served"
+  "subtitles.chocolateflavored.block.food.take_portion": "Food served",
+  "entity.chocolateflavored.dairy_cow": "Dairy Cow",
+  "entity.chocolateflavored.moobloom": "Moobloom",
+  "entity.chocolateflavored.moolip": "Moolip",
+  "entity.chocolateflavored.pale_pig": "Pale Pig",
+  "entity.chocolateflavored.bronzed_chicken": "Bronzed Chicken",
+  "entity.chocolateflavored.fancy_chicken": "Fancy Chicken",
+  "entity.chocolateflavored.fuzzy_sheep": "Fuzzy Sheep",
+  "entity.chocolateflavored.long_nose_sheep": "Long Nose Sheep",
+  "entity.chocolateflavored.patched_sheep": "Patched Sheep",
+  "entity.chocolateflavored.horned_sheep": "Horned Sheep",
+  "entity.chocolateflavored.jumbo_rabbit": "Jumbo Rabbit",
+  "block.chocolateflavored.buttercup": "Buttercup",
+  "block.chocolateflavored.pink_daisy": "Pink Daisy"
 }

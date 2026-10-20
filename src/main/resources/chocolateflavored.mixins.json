@@ -9,12 +9,18 @@
     "AnvilMenuMixin",
     "VillagerPopulationMixin",
     "VillagerBreedingMixin",
-    "VillagerBabyAgeMixin"
+    "VillagerBabyAgeMixin",
+    "SheepAccessor",
+    "MuddyPigMixin",
+    "SheepSpawnColorMixin",
+    "AnimalSpawnMarkerMixin",
+    "FlowerCowBeeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "FireStarterHandMixin"
+    "FireStarterHandMixin",
+    "MuddyPigModelMixin"
   ]
 }
