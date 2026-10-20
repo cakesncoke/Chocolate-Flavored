@@ -13,7 +13,7 @@ public final class MelonCarving {
   if(!event.getLevel().isClientSide()){
    event.getLevel().setBlock(event.getPos(),MobContent.CARVED_MELON.get().defaultBlockState().setValue(CarvedMelonBlock.FACING,event.getFace()),3);
    event.getLevel().playSound(null,event.getPos(),SoundEvents.PUMPKIN_CARVE,SoundSource.BLOCKS,1,1);
-   event.getItemStack().hurtAndBreak(1,event.getEntity(),LivingEntity.getSlotForHand(event.getHand()));
+   event.getItemStack().hurtAndBreak(1,event.getEntity(),event.getHand());
   }
   event.setCanceled(true); event.setCancellationResult(InteractionResult.SUCCESS);
  }

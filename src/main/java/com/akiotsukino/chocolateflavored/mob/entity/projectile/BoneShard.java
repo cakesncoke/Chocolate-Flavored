@@ -55,7 +55,7 @@ public class BoneShard extends ThrowableItemProjectile {
 	}
 
 	private ParticleOptions getParticle() {
-		return new ItemParticleOption(ParticleTypes.ITEM, net.minecraft.world.item.Items.BONE.getDefaultInstance());
+		return new ItemParticleOption(ParticleTypes.ITEM, net.minecraft.world.item.Items.BONE);
 	}
 
 	private void updateColor() {

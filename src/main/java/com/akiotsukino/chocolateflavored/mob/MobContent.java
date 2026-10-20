@@ -38,7 +38,7 @@ public final class MobContent {
  public static final DeferredHolder<EntityType<?>,EntityType<BoneShard>> BONE_SHARD = ENTITIES.registerEntityType("bone_shard",BoneShard::new,MobCategory.MISC,b->b.sized(.25F,.25F).clientTrackingRange(4).updateInterval(10));
  public static final DeferredBlock<CarvedMelonBlock> CARVED_MELON = ModContent.BLOCKS.registerBlock("carved_melon",CarvedMelonBlock::new,()->BlockBehaviour.Properties.ofFullCopy(Blocks.MELON).overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE,id("blocks/carved_melon")))));
  public static final DeferredItem<BlockItem> CARVED_MELON_ITEM = ModContent.ITEMS.registerSimpleBlockItem(CARVED_MELON);
- public static final DeferredItem<MobBucketItem> TROPICAL_SLIME_BUCKET = ModContent.ITEMS.registerItem("tropical_slime_bucket",p->new MobBucketItem(TROPICAL_SLIME.get(),Fluids.WATER,SoundEvents.BUCKET_EMPTY_FISH,p),new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET));
+ public static final DeferredItem<MobBucketItem> TROPICAL_SLIME_BUCKET = ModContent.ITEMS.registerItem("tropical_slime_bucket",p->new MobBucketItem(TROPICAL_SLIME.get(),Fluids.WATER,SoundEvents.BUCKET_EMPTY_FISH,p),()->new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET));
  private static final DeferredRegister<EntityDataSerializer<?>> DATA = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS,ChocolateFlavored.MODID);
  public static final DeferredHolder<EntityDataSerializer<?>,EntityDataSerializer<PotionContents>> POTIONS = DATA.register("bone_spider_potions",()->EntityDataSerializer.forValueType(PotionContents.STREAM_CODEC));
  private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT,ChocolateFlavored.MODID);
