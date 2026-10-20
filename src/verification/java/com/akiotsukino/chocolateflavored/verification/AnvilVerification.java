@@ -81,6 +81,7 @@ final class AnvilVerification {
         second = new ItemStack(Items.DIAMOND_PICKAXE); second.setDamageValue(400); second.enchant(efficiency, 1);
         menu = menu(player, first, second);
         check(menu.getCost() == 3 && take(menu, player).getDamageValue() < 400, "Tool repair plus enchantment transfer costs three levels");
+        enchanted.setDamageValue(200);
         menu = menu(player, enchanted, new ItemStack(Items.DIAMOND));
         menu.setItemName("Free enchanted rename");
         check(menu.getCost() == 0, "Existing enchantments alone do not charge XP");
