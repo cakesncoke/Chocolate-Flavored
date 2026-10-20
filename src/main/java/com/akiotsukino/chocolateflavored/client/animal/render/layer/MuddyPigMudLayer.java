@@ -22,7 +22,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
 
 
-public class MuddyPigMudLayer<T extends LivingEntityRenderState, S extends EntityModel<T>> extends RenderLayer<T, S> {
+public class MuddyPigMudLayer<T extends LivingEntityRenderState, S extends EntityModel<? super T>> extends RenderLayer<T, S> {
     private static final Identifier MUD_LOCATION = Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "textures/entity/muddypig/muddy_pig.png");
     private static final Identifier MUD_BABY_LOCATION = Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "textures/entity/muddypig/muddy_pig_baby.png");
     private static final Identifier DRY_MUD_LOCATION = Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "textures/entity/muddypig/dry_muddy_pig.png");

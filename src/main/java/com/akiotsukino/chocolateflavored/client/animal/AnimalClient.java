@@ -21,7 +21,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterRenderStateModifiersEvent;
+import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 
 @EventBusSubscriber(modid = ChocolateFlavored.MODID, value = Dist.CLIENT)
 public final class AnimalClient {
@@ -76,6 +76,17 @@ public final class AnimalClient {
         state.setRenderData(MuddyPigMudLayer.IS_SHEARED, pig.chocolateflavored$isSheared());
         state.setRenderData(MuddyPigFlowerLayer.FLOWER_DYE, pig.chocolateflavored$getFlowerColor());
         state.setRenderData(SHAKE, pig.chocolateflavored$getShakeTicks() / 20F);
+    }
+    @SubscribeEvent public static void camera(net.neoforged.neoforge.client.event.ViewportEvent.ComputeCameraAngles event) {
+        var mc = net.minecraft.client.Minecraft.getInstance();
+        if (mc.level == null || mc.player == null) return;
+        float strength = 0F;
+        for (var sheep : mc.level.getEntitiesOfClass(HornedSheep.class, mc.player.getBoundingBox().inflate(30)))
+            strength = Math.max(strength, sheep.chocolateflavored$cameraShake() * Math.max(0F, 1F - sheep.distanceTo(mc.player) / 30F));
+        if (strength > 0F) {
+            event.setPitch(event.getPitch() + net.minecraft.util.Mth.sin(mc.player.tickCount * 1.9F) * strength * 3F);
+            event.setRoll(event.getRoll() + net.minecraft.util.Mth.sin(mc.player.tickCount * 2.3F) * strength * 2F);
+        }
     }
     private AnimalClient() {}
 }

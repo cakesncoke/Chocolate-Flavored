@@ -59,7 +59,7 @@ public abstract class MuddyPigMixin extends Animal implements MuddyPig, IShearab
         gameEvent(GameEvent.SHEAR, player);
         if (!level.isClientSide()) {
             chocolateflavored$setSheared(true);
-            DyeItem dye = DyeItem.byColor(chocolateflavored$getFlowerColor());
+            Item dye = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(chocolateflavored$getFlowerColor().getName() + "_dye"));
             for (int i = 1 + random.nextInt(3); i > 0; --i) drops.add(new ItemStack(dye));
         }
         return drops;

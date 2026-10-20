@@ -39,6 +39,10 @@ import java.util.EnumSet;
 public class HornedSheep extends Sheep {
     private static final EntityDataAccessor<Boolean> DATA_HAS_HORN = SynchedEntityData.defineId(HornedSheep.class, EntityDataSerializers.BOOLEAN);
 
+    private boolean chocolateflavored$previousHorn = true;
+    private int chocolateflavored$cameraShakeTicks;
+    public float chocolateflavored$cameraShake() { return chocolateflavored$cameraShakeTicks / 12F; }
+
     private float aggressiveScale;
     private float aggressiveScaleOld;
 
@@ -127,8 +131,8 @@ public class HornedSheep extends Sheep {
         // Keep horn breaking without registering the unrequested EarthMobs Horn Flute.
         ItemStack horn = Items.GOAT_HORN.getDefaultInstance();
         horn.set(net.minecraft.core.component.DataComponents.INSTRUMENT,
-                this.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.INSTRUMENT)
-                        .getOrThrow(net.minecraft.world.item.Instruments.PONDER_GOAT_HORN));
+                new net.minecraft.world.item.component.InstrumentComponent(this.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.INSTRUMENT)
+                        .getOrThrow(net.minecraft.world.item.Instruments.PONDER_GOAT_HORN)));
         return horn;
     }
 
@@ -153,6 +157,9 @@ public class HornedSheep extends Sheep {
         super.aiStep();
 
         if (this.level().isClientSide()) {
+            if (chocolateflavored$previousHorn && !hasHorn() && tickCount > 5) chocolateflavored$cameraShakeTicks = 12;
+            else if (chocolateflavored$cameraShakeTicks > 0) --chocolateflavored$cameraShakeTicks;
+            chocolateflavored$previousHorn = hasHorn();
 
             this.aggressiveScaleOld = this.aggressiveScale;
             if (this.isAggressive()) {

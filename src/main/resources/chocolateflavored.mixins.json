@@ -14,7 +14,9 @@
     "MuddyPigMixin",
     "SheepSpawnColorMixin",
     "AnimalSpawnMarkerMixin",
-    "FlowerCowBeeMixin"
+    "FlowerCowBeeMixin",
+    "BeeAccessor",
+    "VanillaAnimalIdentityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

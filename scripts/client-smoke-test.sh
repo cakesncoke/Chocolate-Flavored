@@ -18,7 +18,8 @@ for ((attempt=0; attempt<120; attempt++)); do
     if [[ -f run/logs/latest.log ]] &&
        grep -q 'Initializing Chocolate Flavored' run/logs/latest.log &&
        grep -q 'Created: .*textures/atlas/' run/logs/latest.log &&
-       grep -q COOKING_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
+       grep -q COOKING_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&
+       grep -q ANIMAL_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
         # Keep the client alive past resource loading, and capture the display.
         sleep 20
         kill -0 "$client_pid"
@@ -28,7 +29,7 @@ for ((attempt=0; attempt<120; attempt++)); do
         fi
         import -window root build/client-smoke/client.png
         cp run/logs/latest.log build/client-smoke/latest.log
-        echo 'Client remained running after mod initialization, texture atlas loading and cooking-pot screen verification.'
+        echo 'Client remained running after mod initialization, texture atlas loading and cooking-pot screen and adult/baby animal renderer verification.'
         exit 0
     fi
     sleep 5

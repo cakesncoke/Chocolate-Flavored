@@ -134,7 +134,7 @@ publishing {
 }
 
 tasks.named('jar', Jar).configure {
-    from(['LICENSE', 'TEMPLATE_LICENSE.txt']) {
+    from(['LICENSE', 'TEMPLATE_LICENSE.txt', 'THIRD_PARTY_NOTICES.md']) {
         into 'META-INF'
     }
 }

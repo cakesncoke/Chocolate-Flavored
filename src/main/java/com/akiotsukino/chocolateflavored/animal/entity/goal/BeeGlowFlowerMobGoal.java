@@ -26,12 +26,12 @@ public class BeeGlowFlowerMobGoal extends Goal {
 
 
     public boolean canBeeUse() {
-        if (this.bee.getCropsGrownSincePollination() >= 10) {
+        if (((com.akiotsukino.chocolateflavored.mixin.BeeAccessor) this.bee).chocolateflavored$crops() >= 10) {
             return false;
         } else if (this.bee.getRandom().nextFloat() < 0.3F) {
             return false;
         } else {
-            return this.bee.hasNectar() && this.bee.isHiveValid();
+            return this.bee.hasNectar() && ((com.akiotsukino.chocolateflavored.mixin.BeeAccessor) this.bee).chocolateflavored$hiveValid();
         }
     }
 
@@ -47,7 +47,7 @@ public class BeeGlowFlowerMobGoal extends Goal {
             Optional<Animal> optional = this.findNearbyFlowerMob();
             if (optional.isPresent()) {
                 optional.get().ageUp(80, true);
-                this.bee.incrementNumCropsGrownSincePollination();
+                ((com.akiotsukino.chocolateflavored.mixin.BeeAccessor) this.bee).chocolateflavored$incrementCrops();
                 for (int i = 0; i < 16; i++) {
                     int x = optional.get().getBlockX() + this.bee.getRandom().nextInt(6) - this.bee.getRandom().nextInt(3);
                     int y = optional.get().getBlockY() + this.bee.getRandom().nextInt(6) - this.bee.getRandom().nextInt(3);

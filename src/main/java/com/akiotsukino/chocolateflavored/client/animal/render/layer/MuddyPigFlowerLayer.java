@@ -23,7 +23,7 @@ import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.DyeColor;
 
 
-public class MuddyPigFlowerLayer<T extends LivingEntityRenderState, S extends EntityModel<T>> extends RenderLayer<T, S> {
+public class MuddyPigFlowerLayer<T extends LivingEntityRenderState, S extends EntityModel<? super T>> extends RenderLayer<T, S> {
     private static final Identifier LOCATION = Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "textures/entity/muddypig/pig_muddy_flower.png");
     public static final ContextKey<DyeColor> FLOWER_DYE = new ContextKey<>(Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "flower_dye"));
 
