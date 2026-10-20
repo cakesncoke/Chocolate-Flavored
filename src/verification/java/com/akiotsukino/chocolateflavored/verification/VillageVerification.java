@@ -38,7 +38,7 @@ final class VillageVerification {
             spawnWeights(level);
             breedingAndGolems(level);
         } catch (ReflectiveOperationException error) { throw new IllegalStateException("Village verification reflection failed", error); }
-        ChocolateFlavored.LOGGER.info("VILLAGE_VERIFICATION_PASSED: all five abandoned village pools, ten persistent resident templates and entity save/load, daylight policy, exact spawn weights and pine exception, actual breeding timers, villager summons blocked, player-built and outpost golems retained");
+        ChocolateFlavored.LOGGER.info("VILLAGE_VERIFICATION_PASSED: all five abandoned village pools, ten persistent resident templates and entity save/load, actual daylight exposure, exact spawn weights and pine exception, actual breeding timers, villager summons blocked, player-built and outpost golems retained");
     }
     private static void poolsAndResidents(ServerLevel level) throws ReflectiveOperationException {
         var pools = level.registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
@@ -76,6 +76,7 @@ final class VillageVerification {
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(), "time set 6000");
         normal.setPos(48.5, 180, 0.5); natural.setPos(48.5, 180, 0.5);
         normal.setNoAi(true); natural.setNoAi(true);
+        normal.setNoGravity(true); natural.setNoGravity(true);
         for (int i = 0; i < 1000; i++) { normal.aiStep(); natural.aiStep(); }
         check(normal.isOnFire(), "Normal zombie actually ignites in daytime control test");
         check(!natural.isOnFire(), "Zombie villager does not ignite in same daytime exposure");
