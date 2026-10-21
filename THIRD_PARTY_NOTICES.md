@@ -2,7 +2,7 @@
 
 ## Farmer's Delight
 
-The supplied oven and cooking-pot models, textures, GUI, sounds and steam textures originate from [Farmer's Delight](https://github.com/vectorwing/FarmersDelight). Steam particle behavior and cooking interaction/layout concepts are adapted from that project. Reference revision: `22fe987639a9813f5b5474579518571ce91ed5d5` (26.1 branch).
+The supplied oven and cooking-pot models, textures, GUI, empty-bowl slot sprite, Flint Knife/Iron Knife textures, sounds and steam textures originate from [Farmer's Delight](https://github.com/vectorwing/FarmersDelight). Steam particle behavior and cooking interaction/layout concepts are adapted from that project. Reference revision: `22fe987639a9813f5b5474579518571ce91ed5d5` (26.1 branch).
 
 Copyright (c) 2020 vectorwing. MIT License. The complete notice is distributed in the mod JAR at `META-INF/licenses/FarmersDelight-MIT.txt`.
 
@@ -31,3 +31,11 @@ TheFancyFedora's [Ultimate Earth & Dungeons Variants](https://www.curseforge.com
 EarthMobs additionally supplies Husk Rabbit behavior (including its ZombifiedRabbit base), adult/baby skins, Tropical Slime Block behavior/model/texture, Tropical Ball behavior/texture, Husk Rabbit Foot texture, and modern eggs for Horned Sheep, Jumbo Rabbit, Melon Golem, Bouldering Zombie, Bone Spider, Tropical Slime, Swamped (source Lobber Zombie egg), and Husk Rabbit (source Zombified Rabbit egg). LGPL-3.0-only notices above apply. The rider's removed wooden spear is replaced by a wooden sword; private vanilla hop-delay access uses a narrow mixin; native consumable handling prevents double consumption. No new crafting or brewing recipes are imported.
 
 MintRefresh's Earth Animals also supplies unchanged modern spawn-egg textures for Dairy Cow, Moobloom, Moolip, Pale Pig, Bronzed Chicken, Fancy Chicken, Skeleton Wolf and Muddy Pig, from `assets/earth_animals/textures/item/*_spawn_egg.png`; the LGPL-3.0-or-later notices above apply. Fuzzy, Long Nose and Patched Sheep use vanilla's modern sheep egg texture, since no corresponding dedicated egg texture was found in these sources.
+
+## Hardcore Torches
+
+Wolfie_Waffle (GitHub WolfieWaffle), [Hardcore Torches Forge](https://github.com/WolfieWaffle/Hardcore-Torches-Forge). Three project-owner-supplied block textures match upstream byte for byte: `textures/block/lit_torch.png`, `unlit_torch.png`, `unlit_lantern.png`. Source root: `src/main/resources/assets/hardcore_torches/`; destination root: `assets/chocolateflavored/`. This is texture reuse only; torch timer and ignition code are independent implementations. Upstream `gradle.properties` declares **All Rights Reserved**; its Forge boilerplate LICENSE.txt is not treated as a blanket license grant for the artist's textures. Attribution is not a substitute for the applicable redistribution permission. These assets are excluded from Chocolate Flavored's MIT grant.
+
+## Better Than Wolves / Modern Better Than Wolves
+
+FlowerChild is credited for original Better Than Wolves and the primitive fire-plough interaction reference (ordinary swings, high-pitched eating sounds and item-chip particles), inspected in the [original source repository](https://github.com/BetterThanWolves/BetterThanWolves). The project owner also identifies Modern Better Than Wolves as a source of supplied textures. No upstream revision, per-file artist list or original download accompanied that supplied collection; do not interpret the repository's MIT license as relicensing it. The inspected [eragaxshim/ModernBTW](https://github.com/eragaxshim/mbtw) 1.16/1.18/1.19/1.20/1.21 sources did not establish exact file matches. [Resource provenance](docs/resource-provenance.md) lists the remaining supplied files, without inventing a definite per-file attribution. Source-level credit is retained while those records remain unverified.

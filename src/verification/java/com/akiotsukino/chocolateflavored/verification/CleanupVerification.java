@@ -39,7 +39,11 @@ public final class CleanupVerification {
         rabbit.makeRider(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.NATURAL);
         check(rabbit.getFirstPassenger() instanceof net.minecraft.world.entity.monster.zombie.Husk husk && husk.isBaby() && husk.getMainHandItem().is(Items.WOODEN_SWORD), "Baby Husk jockey with allowed equipment");
         var desert = level.registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(net.minecraft.world.level.biome.Biomes.DESERT).value();
-        check(desert.getMobSettings().getMobs(MobCategory.MONSTER).unwrap().stream().anyMatch(e -> e.value().type() == MobContent.HUSK_RABBIT.get() && e.weight() == 15), "Reference desert spawn weight");
+        var desertSpawns = desert.getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
+        long rabbitWeight = desertSpawns.stream().filter(e -> e.value().type() == MobContent.HUSK_RABBIT.get()).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
+        long creeperWeight = desertSpawns.stream().filter(e -> e.value().type() == EntityType.CREEPER).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
+        // The zombie-villager rule rescales all integer weights while preserving their ratios.
+        check(rabbitWeight > 0 && rabbitWeight * 100 == creeperWeight * 15, "Reference desert spawn weight relative to vanilla creepers");
         check(SpawnEggContent.EGGS.size() == 19, "All 18 entity types and muddy pig state have eggs");
         for (var egg : SpawnEggContent.EGGS) check(SpawnEggItem.getType(egg.get().getDefaultInstance()) != null, "Valid spawn egg entity data");
         var muddyEgg = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("chocolateflavored", "muddy_pig_spawn_egg")).getDefaultInstance();
