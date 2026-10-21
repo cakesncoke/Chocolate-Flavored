@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "chocolateflavored:tropical_slime"
+    "chocolateflavored:tropical_slime",
+    "chocolateflavored:sunken_skeleton",
+    "chocolateflavored:barnacle"
   ]
 }

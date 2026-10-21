@@ -20,12 +20,17 @@ for ((attempt=0; attempt<120; attempt++)); do
        grep -q ANIMAL_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
         import -window root build/client-smoke/animals.png
     fi
+    if [[ -f run/logs/latest.log && ! -f build/client-smoke/monsters.png ]] &&
+       grep -q MOB_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
+        import -window root build/client-smoke/monsters.png
+    fi
     if [[ -f run/logs/latest.log ]] &&
        grep -q 'Initializing Chocolate Flavored' run/logs/latest.log &&
        grep -q 'Created: .*textures/atlas/' run/logs/latest.log &&
        grep -q COOKING_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&
        grep -q ANIMAL_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&
-       grep -q MOB_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
+       grep -q MOB_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&
+       grep -q EXPANSION_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
         # Keep the client alive past resource loading, and capture the display.
         sleep 20
         kill -0 "$client_pid"

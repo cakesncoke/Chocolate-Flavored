@@ -21,6 +21,7 @@ public class IceChunk extends Entity {
     private int age;
     public IceChunk(EntityType<? extends IceChunk> type,Level level) { super(type,level); setNoGravity(true); }
     @Override protected void defineSynchedData(SynchedEntityData.Builder data) { data.define(FALLING,false); }
+    @Override public boolean hurtServer(ServerLevel level,net.minecraft.world.damagesource.DamageSource source,float amount) { return false; }
     public boolean isFalling() { return entityData.get(FALLING); }
     public int spellAge() { return age; }
     public void prepare(LivingEntity owner,LivingEntity target) {
@@ -50,14 +51,18 @@ public class IceChunk extends Entity {
         if (isRemoved()) return;
         Entity owner = ownerId == null ? null : level.getEntity(ownerId);
         for (LivingEntity victim : level.getEntitiesOfClass(LivingEntity.class,getBoundingBox().inflate(.75),e -> e != owner && e.isAlive() && !e.isSpectator() && !(owner instanceof LivingEntity living && living.isAlliedTo(e)))) {
-            if (victim.hurtServer(level,damageSources().indirectMagic(this,owner),8)) {
-                victim.addEffect(new MobEffectInstance(MobEffects.SLOWNESS,100,1),owner);
-                victim.setTicksFrozen(Math.max(victim.getTicksFrozen(),140));
-            }
+            affect(level,owner,victim);
         }
         level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK,Blocks.PACKED_ICE.defaultBlockState()),getX(),getY(),getZ(),40,.7,.7,.7,.1);
         level.playSound(null,blockPosition(),SoundEvents.GLASS_BREAK,SoundSource.HOSTILE,1,.8F);
         discard();
+    }
+    protected boolean affect(ServerLevel level,Entity owner,LivingEntity victim) {
+        if (victim == owner || !victim.isAlive() || victim.isSpectator() || owner instanceof LivingEntity living && living.isAlliedTo(victim)) return false;
+        if (!victim.hurtServer(level,damageSources().indirectMagic(this,owner),8)) return false;
+        victim.addEffect(new MobEffectInstance(MobEffects.SLOWNESS,100,1),owner);
+        victim.setTicksFrozen(Math.max(victim.getTicksFrozen(),140));
+        return true;
     }
     @Override protected void addAdditionalSaveData(ValueOutput out) {
         out.putInt("SpellAge",age);

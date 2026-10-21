@@ -62,13 +62,16 @@ public class TuffGolem extends AbstractGolem {
             level.getEntitiesOfClass(ItemEntity.class,getBoundingBox().inflate(6),i -> i.isAlive() && !i.hasPickUpDelay() && !i.getItem().isEmpty()).stream()
                 .min(Comparator.comparingDouble(this::distanceToSqr)).ifPresent(item -> {
                     getNavigation().moveTo(item,1.1);
-                    if (distanceToSqr(item) < 1.5) {
-                        take(item,1); setItemSlot(EquipmentSlot.MAINHAND,item.getItem().split(1));
-                        if (item.getItem().isEmpty()) item.discard();
-                        playSound(SoundEvents.ITEM_PICKUP,.5F,1);
-                    }
+                    collectItem(item);
                 });
         }
+    }
+    public boolean collectItem(ItemEntity item) {
+        if (level().isClientSide() || isStatue() || !getMainHandItem().isEmpty() || item.hasPickUpDelay() || !item.isAlive() || item.getItem().isEmpty() || distanceToSqr(item) >= 1.5) return false;
+        take(item,1); setItemSlot(EquipmentSlot.MAINHAND,item.getItem().split(1));
+        if (item.getItem().isEmpty()) item.discard();
+        playSound(SoundEvents.ITEM_PICKUP,.5F,1);
+        return true;
     }
     @Override public boolean isPushable() { return !isStatue() && super.isPushable(); }
     @Override public InteractionResult mobInteract(Player player, InteractionHand hand) {

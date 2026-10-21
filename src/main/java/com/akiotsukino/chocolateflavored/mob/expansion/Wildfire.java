@@ -39,7 +39,7 @@ public class Wildfire extends Blaze {
         if (shields() > 0 && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && !source.is(DamageTypes.DROWN)) {
             int before = shields();
             entityData.set(SHIELD_HEALTH,Math.max(0,entityData.get(SHIELD_HEALTH)-amount)); regeneration = 150;
-            playSound(shields() < before ? SoundEvents.SHIELD_BREAK : SoundEvents.SHIELD_BLOCK,1,.7F);
+            playSound(shields() < before ? SoundEvents.SHIELD_BREAK.value() : SoundEvents.SHIELD_BLOCK.value(),1,.7F);
         } else super.actuallyHurt(level,source,amount);
     }
     public void shootVolley(ServerLevel level,LivingEntity target) {

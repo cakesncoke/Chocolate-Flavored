@@ -36,7 +36,7 @@ public class Barnacle extends Monster {
         if (isInWater()) { moveRelative(.02F,input); move(MoverType.SELF,getDeltaMovement()); setDeltaMovement(getDeltaMovement().scale(.9)); }
         else super.travel(input);
     }
-    public boolean canTether(LivingEntity prey) { return isInWater() && prey != null && prey.isAlive() && !isAlliedTo(prey) && (prey.isInWater() || prey.getVehicle() instanceof AbstractBoat) && distanceToSqr(prey) <= 144 && hasLineOfSight(prey); }
+    public boolean canTether(LivingEntity prey) { return isInWater() && prey != null && prey.isAlive() && !prey.isSpectator() && !(prey instanceof Player player && player.isCreative()) && !isAlliedTo(prey) && (prey.isInWater() || prey.getVehicle() instanceof AbstractBoat) && distanceToSqr(prey) <= 144 && hasLineOfSight(prey); }
     @Override protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
         LivingEntity prey = getTarget();
