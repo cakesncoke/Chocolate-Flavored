@@ -18,8 +18,7 @@
     "BeeAccessor",
     "MonsterSpawnMarkerMixin",
     "UndeadBodyMixin",
-    "HuskRabbitJumpMixin",
-    "SunkenArrowMixin"
+    "HuskRabbitJumpMixin"
   ],
   "injectors": {
     "defaultRequire": 1

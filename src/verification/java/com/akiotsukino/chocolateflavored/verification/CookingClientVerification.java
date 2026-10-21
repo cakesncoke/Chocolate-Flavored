@@ -27,8 +27,6 @@ public final class CookingClientVerification {
                 try {
                     var player = server.getPlayerList().getPlayer(uuid);
                     if (player == null) throw new IllegalStateException("No integrated-server player");
-                    // Galleries run while the world ticks; ambient flat-world slimes must not kill the viewer.
-                    player.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
                     var level = player.level();
                     var pos = player.blockPosition().relative(player.getDirection(), 3);
                     level.setBlockAndUpdate(pos.below(), CookingContent.OVEN.get().defaultBlockState().setValue(OvenBlock.LIT, true));

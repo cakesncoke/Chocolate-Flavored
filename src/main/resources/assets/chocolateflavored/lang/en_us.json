@@ -96,16 +96,5 @@
   "item.chocolateflavored.bone_spider_spawn_egg": "Bone Spider Spawn Egg",
   "item.chocolateflavored.tropical_slime_spawn_egg": "Tropical Slime Spawn Egg",
   "item.chocolateflavored.husk_rabbit_spawn_egg": "Husk Rabbit Spawn Egg",
-  "item.chocolateflavored.muddy_pig_spawn_egg": "Muddy Pig Spawn Egg",
-  "entity.chocolateflavored.sunken_skeleton": "Sunken Skeleton",
-  "item.chocolateflavored.sunken_skeleton_spawn_egg": "Sunken Skeleton Spawn Egg",
-  "entity.chocolateflavored.tuff_golem": "Tuff Golem",
-  "item.chocolateflavored.tuff_golem_spawn_egg": "Tuff Golem Spawn Egg",
-  "entity.chocolateflavored.barnacle": "Barnacle",
-  "item.chocolateflavored.barnacle_spawn_egg": "Barnacle Spawn Egg",
-  "entity.chocolateflavored.iceologer": "Iceologer",
-  "item.chocolateflavored.iceologer_spawn_egg": "Iceologer Spawn Egg",
-  "entity.chocolateflavored.wildfire": "Wildfire",
-  "item.chocolateflavored.wildfire_spawn_egg": "Wildfire Spawn Egg",
-  "entity.chocolateflavored.ice_chunk": "Ice Chunk"
+  "item.chocolateflavored.muddy_pig_spawn_egg": "Muddy Pig Spawn Egg"
 }
