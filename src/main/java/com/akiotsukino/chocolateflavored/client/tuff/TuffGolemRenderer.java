@@ -31,11 +31,14 @@ public final class TuffGolemRenderer extends MobRenderer<TuffGolem,TuffGolemRend
             }
         });
     }
+    private static float transitionDuration(String animation){
+        return switch(animation){case "showItem","hideItem" -> .458334F;case "wakeAndShowItem","wakeAndHideItem" -> 1.375F;default -> .916667F;};
+    }
     @Override public State createRenderState(){return new State();}
     @Override public Identifier getTextureLocation(State state){return texture("tuff_golem");}
     @Override public void extractRenderState(TuffGolem mob,State state,float partial){
         super.extractRenderState(mob,state,partial);state.sleeping=mob.sleeping();state.carrying=mob.holding();state.color=mob.color();state.animation=mob.animation();state.elapsed=mob.animationSeconds(partial);
         net.minecraft.client.Minecraft.getInstance().getItemModelResolver().updateForTopItem(state.item,mob.getMainHandItem(),ItemDisplayContext.GROUND,mob.level(),mob,mob.getId());
-        if(mob.immobilized())state.walkAnimationSpeed=0;
+        if(mob.sleeping()||mob.glued()||(!state.animation.isEmpty()&&state.elapsed<transitionDuration(state.animation)))state.walkAnimationSpeed=0;
     }
 }

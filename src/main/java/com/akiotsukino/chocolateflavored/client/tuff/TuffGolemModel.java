@@ -5,13 +5,16 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 /** Model/animation data comes exclusively from the original Friends & Foes Blockbench file. */
 final class TuffGolemModel extends EntityModel<TuffGolemRenderer.State> {
     private static final BlockbenchAsset ASSET=new BlockbenchAsset("/assets/chocolateflavored/upstream/friendsandfoes/TuffGolem.bbmodel");
-    private final ModelPart modelRoot;
-    TuffGolemModel(ModelPart root){super(root);modelRoot=root;}
+    private final java.util.Map<String,net.minecraft.client.animation.KeyframeAnimation> animations;
+    TuffGolemModel(ModelPart root){super(root);animations=ASSET.bakeAnimations(root);}
     static LayerDefinition layer(){return ASSET.layer();}
     @Override public void setupAnim(TuffGolemRenderer.State state){
         super.setupAnim(state);
-        if(!state.animation.isEmpty()&&state.elapsed<1.5F)ASSET.animate(modelRoot,state.animation,state.elapsed,false);
-        else if(state.sleeping)ASSET.animate(modelRoot,state.carrying?"sleepWithItem":"sleep",10,false);
-        else ASSET.animate(modelRoot,state.carrying?"walkWithItem":"walk",state.walkAnimationPos/8F,true);
+        // Walking is additive to the persistent pose, exactly as in the source animations.
+        float walkMultiplier=4*(state.carrying?.175F/.225F:1);
+        animations.get(state.carrying?"walkWithItem":"walk").applyWalk(state.walkAnimationPos,state.walkAnimationSpeed,walkMultiplier,walkMultiplier);
+        String pose=state.animation;
+        if(pose.isEmpty())pose=state.sleeping?(state.carrying?"sleepWithItem":"sleep"):(state.carrying?"showItem":"hideItem");
+        animations.get(pose).apply(state.animation.isEmpty()?10000L:(long)(Math.max(0,state.elapsed)*1000),1);
     }
 }

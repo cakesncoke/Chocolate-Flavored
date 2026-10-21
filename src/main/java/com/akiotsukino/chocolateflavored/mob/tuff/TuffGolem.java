@@ -34,6 +34,9 @@ public class TuffGolem extends AbstractGolem {
     public TuffGolem(EntityType<? extends TuffGolem> type,Level level){super(type,level);setPersistenceRequired();setCanPickUpLoot(false);setDropChance(EquipmentSlot.MAINHAND,2);}
     public static AttributeSupplier.Builder createAttributes(){return Mob.createMobAttributes().add(Attributes.MAX_HEALTH,20).add(Attributes.MOVEMENT_SPEED,.225).add(Attributes.KNOCKBACK_RESISTANCE,1);}
     @Override protected void defineSynchedData(SynchedEntityData.Builder b){super.defineSynchedData(b);b.define(SLEEPING,false);b.define(GLUED,false);b.define(COLOR,DyeColor.RED.getId());b.define(ANIMATION,"");b.define(ANIMATION_START,0L);}
+    public void initializeConstruction(DyeColor color,float yaw){
+        entityData.set(COLOR,color.getId());home=position();homeYaw=yaw;yBodyRot=yaw;yHeadRot=yaw;
+    }
     public boolean sleeping(){return entityData.get(SLEEPING);}
     public boolean glued(){return entityData.get(GLUED);}
     public int color(){return entityData.get(COLOR);}

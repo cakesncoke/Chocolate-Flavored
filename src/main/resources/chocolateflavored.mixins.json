@@ -6,6 +6,7 @@
   "mixins": [
     "AbstractVillagerMixin",
     "CampfirePlacementMixin",
+    "TuffGolemConstructionMixin",
     "AnvilMenuMixin",
     "VillagerPopulationMixin",
     "VillagerBreedingMixin",
