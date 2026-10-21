@@ -75,6 +75,7 @@ final class TimeVerification {
         float originalRate = manager.tickrate();
         try {
             server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), "weather clear");
+            level.updateSkyBrightness();
             placeBed(level, firstBed); placeBed(level, secondBed);
             first.setGameMode(GameType.CREATIVE); second.setGameMode(GameType.CREATIVE);
             first.snapTo(firstBed.getX(), firstBed.getY(), firstBed.getZ(), 0, 0);
@@ -123,7 +124,7 @@ final class TimeVerification {
             check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Bed can be reused");
             for (int i = 0; i < 100; i++) first.doTick();
             SleepAcceleration.update(server); check(manager.tickrate() == 40, "Sleep acceleration restarts");
-            server.clockManager().setTotalTicks(clock, 0); DayNightCycle.update(server);
+            server.clockManager().setTotalTicks(clock, 0); DayNightCycle.update(server); level.updateSkyBrightness();
             first.doTick(); SleepAcceleration.update(server);
             check(!first.isSleeping() && manager.tickrate() == 20, "Natural dawn bed rule wakes player and restores speed");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 0, server);
