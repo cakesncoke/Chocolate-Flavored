@@ -74,3 +74,9 @@ Chocolate Flavored is noncommercial. Its own code is MIT; borrowed resources ret
 | **NeoForged / NeoForge contributors** | NeoForge MDK project foundation; original template notice retained in [TEMPLATE_LICENSE.txt](TEMPLATE_LICENSE.txt). |
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), bundled `META-INF/licenses/` notices and [resource provenance](docs/resource-provenance.md) for source revisions, paths, license distinctions and unresolved ownership records. Attribution does not replace any permissions required by an upstream author.
+
+## Additional creatures
+
+Sunken Skeleton, Tuff Golem, Barnacle, Iceologer and Wildfire are standalone additions with spawn eggs in both creative tabs. They have no natural spawning, structures, biome/world-generation changes or designed loot drops. Empty entity loot tables are reserved for later datapacks. See [creature mechanics](docs/additional-creatures.md).
+
+Additional resource credits: **Patrigan / Infamous Mods and Dungeons Mobs contributors** supply Sunken Skeleton, Iceologer and Wildfire textures and model geometry (MIT); **TheFancyFedora**, **GillsBills / ReCrafted Mobs** and **Mojang** are credited for the selected Barnacle pack resources (CC BY-NC 3.0). The Tuff Golem uses original native geometry and referenced Mojang textures; all five eggs use referenced modern vanilla egg textures with tint constants. Exact source files, revisions and changes are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

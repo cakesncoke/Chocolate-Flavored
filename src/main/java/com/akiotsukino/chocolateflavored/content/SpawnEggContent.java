@@ -36,6 +36,11 @@ public final class SpawnEggContent {
         egg("bone_spider", MobContent.BONE_SPIDER);
         egg("tropical_slime", MobContent.TROPICAL_SLIME);
         egg("husk_rabbit", MobContent.HUSK_RABBIT);
+        egg("sunken_skeleton", com.akiotsukino.chocolateflavored.mob.expansion.ExpansionContent.SUNKEN_SKELETON);
+        egg("tuff_golem", com.akiotsukino.chocolateflavored.mob.expansion.ExpansionContent.TUFF_GOLEM);
+        egg("barnacle", com.akiotsukino.chocolateflavored.mob.expansion.ExpansionContent.BARNACLE);
+        egg("iceologer", com.akiotsukino.chocolateflavored.mob.expansion.ExpansionContent.ICEOLOGER);
+        egg("wildfire", com.akiotsukino.chocolateflavored.mob.expansion.ExpansionContent.WILDFIRE);
         EGGS.add(ModContent.ITEMS.registerItem("muddy_pig_spawn_egg", SpawnEggItem::new, () -> {
             CompoundTag state = new CompoundTag();
             state.putInt("state", 1);

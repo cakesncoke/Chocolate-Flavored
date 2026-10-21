@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "chocolateflavored:item/sunken_skeleton_spawn_egg",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 8635588
+      }
+    ]
+  }
+}
