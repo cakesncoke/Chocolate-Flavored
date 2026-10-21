@@ -154,6 +154,7 @@ public final class DevelopmentVerification {
         CleanupVerification.run(level, player);
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
+        TimeVerification.run(level);
         ChocolateFlavored.LOGGER.info("CHOCOLATE_FLAVORED_VERIFICATION_PASSED: equipment, recipes, trims, loot probabilities, mining conversions, durability and trades");
         event.getServer().halt(false);
     }

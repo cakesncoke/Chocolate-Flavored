@@ -19,7 +19,12 @@
     "BeeAccessor",
     "MonsterSpawnMarkerMixin",
     "UndeadBodyMixin",
-    "HuskRabbitJumpMixin"
+    "HuskRabbitJumpMixin",
+    "SleepWithoutSkippingMixin",
+    "PhantomDayLengthMixin",
+    "TraderDayLengthMixin",
+    "TraderDataDayLengthMixin",
+    "VillagerDayLengthMixin"
   ],
   "injectors": {
     "defaultRequire": 1
