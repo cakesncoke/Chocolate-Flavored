@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "chocolateflavored:item/dairy_cow_spawn_egg"
-  }
-}
