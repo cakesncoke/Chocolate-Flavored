@@ -78,3 +78,7 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), bundled `META-INF/licenses
 ## Tuff Golem
 
 The Tuff Golem is being rebuilt independently after reverting PR #8. It uses the original **Friends & Foes** model, animations, textures, sounds and modern spawn egg, with attribution to **Faboslav**, **Furti Two** and their contributors. These unchanged resources retain CC BY-NC-ND 4.0 and are not MIT-licensed. See [resource credits](THIRD_PARTY_NOTICES.md#friends--foes--tuff-golem-restart) and the [implementation notes](docs/tuff-golem.md). No other mobs from PR #8 are included.
+
+### Sunken resources
+
+[GillsBills — Recrafted Mobs v11.0](https://www.curseforge.com/minecraft/texture-packs/recrafted-mobs/files/6561402): the Sunken skeleton CEM model and purple, red and yellow textures. These assets retain **CC BY-NC-SA 4.0**; they are excluded from the mod code's MIT license. The pack credits Cave Fox, Kekkman, PinkuRinku, RavenVLemon, Ewanhowell5195, creepermax123 and MickeyJoeAlpha as contributors; it does not assign individual Sunken asset authorship. Original Minecraft Dungeons designs: Mojang. See [exact source paths and hashes](docs/sunken-assets.json) and [Sunken mechanics](docs/sunken.md). The spawn egg uses Minecraft's existing modern skeleton egg model/texture.

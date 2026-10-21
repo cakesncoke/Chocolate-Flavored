@@ -1,0 +1,28 @@
+{
+  "source": "https://www.curseforge.com/minecraft/texture-packs/recrafted-mobs/files/6561402",
+  "version": "11.0",
+  "author": "GillsBills",
+  "license": "CC-BY-NC-SA-4.0",
+  "files": {
+    "assets/chocolateflavored/textures/entity/sunken/purple.png": {
+      "source": "assets/minecraft/textures/entity/skeleton/sunken_skeleton.png",
+      "sha256": "d279f19caee250bcd1701e07914470c213abb09c35f02aff17de8aecabcab7d7"
+    },
+    "assets/chocolateflavored/textures/entity/sunken/red.png": {
+      "source": "assets/minecraft/optifine/random/entity/skeleton/sunken_skeleton2.png",
+      "sha256": "3b004dfebca30bfa84362d92364b398304d3162b749df8a9af3c7b65eafe8b1e"
+    },
+    "assets/chocolateflavored/textures/entity/sunken/yellow.png": {
+      "source": "assets/minecraft/optifine/random/entity/skeleton/sunken_skeleton3.png",
+      "sha256": "9624954079cbc1fc62fc66194cbb3dd6dc4f3a891b24bfe50755709e9806f6a6"
+    },
+    "assets/chocolateflavored/upstream/recrafted_mobs/sunken.jem": {
+      "source": "assets/minecraft/optifine/cem/skeleton/skeleton4.jem",
+      "sha256": "92fa1f211a3864b7161229bbff053967a77cfc80c1e8edfd010fd906cdacc8b5"
+    },
+    "META-INF/licenses/Recrafted-Mobs.txt": {
+      "source": "licensed.txt",
+      "sha256": "10d9955f2a865a723e40dae31706fd514bd9b101432269d5edef7a239320f404"
+    }
+  }
+}

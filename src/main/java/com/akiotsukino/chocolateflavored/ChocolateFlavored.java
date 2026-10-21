@@ -41,6 +41,7 @@ public class ChocolateFlavored {
     public ChocolateFlavored(IEventBus modEventBus, ModContainer modContainer) {
         LOGGER.info("Initializing Chocolate Flavored");
         com.akiotsukino.chocolateflavored.animal.AnimalContent.register(modEventBus);
+        com.akiotsukino.chocolateflavored.mob.sunken.SunkenContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.mob.MobContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.mob.tuff.TuffGolemContent.register(modEventBus);
         LightingContent.register(modEventBus);

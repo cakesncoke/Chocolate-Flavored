@@ -19,7 +19,7 @@ import org.joml.Vector3f;
 import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TuffGolemClientVerification {
-    private static boolean opened;private static int ticks;
+    public static boolean completed;private static boolean opened;private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!MobClientVerification.completed||++ticks<160)return;if(Minecraft.getInstance().level==null)return;com.akiotsukino.chocolateflavored.client.tuff.TuffAnimationVerification.run();opened=true;Minecraft.getInstance().setScreen(new Gallery());}
     private static final class Gallery extends Screen {
         private final List<TuffGolem> golems=new ArrayList<>();private int frames;
@@ -34,7 +34,7 @@ public final class TuffGolemClientVerification {
                 g.entity(state,36,new Vector3f(0,.52F,0),new Quaternionf().rotateZ((float)Math.PI),new Quaternionf().rotateX(.1F),x+4,y+13,x+cw-4,y+ch-3);
             }
             var egg=com.akiotsukino.chocolateflavored.content.SpawnEggContent.EGGS.stream().filter(e->SpawnEggItem.getType(e.get().getDefaultInstance())==TuffGolemContent.TUFF_GOLEM.get()).findFirst().orElseThrow();g.item(egg.get().getDefaultInstance(),width/2-8,height-19);
-            if(++frames==150)ChocolateFlavored.LOGGER.info("TUFF_GOLEM_CLIENT_VERIFICATION_PASSED: original Blockbench geometry, all eleven original clips, sixteen cloth textures, sleeping eyes, floating item and original modern egg");
+            if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("TUFF_GOLEM_CLIENT_VERIFICATION_PASSED: original Blockbench geometry, all eleven original clips, sixteen cloth textures, sleeping eyes, floating item and original modern egg");}
         }
         @Override public boolean isPauseScreen(){return false;}
     }
