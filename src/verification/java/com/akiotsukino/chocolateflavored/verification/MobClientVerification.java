@@ -17,7 +17,7 @@ import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class MobClientVerification {
  private static boolean opened;private static int ticks;
- @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<20)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.setScreen(new Gallery());}
+ @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<160)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.setScreen(new Gallery());}
  private static final class Gallery extends Screen {
   private final List<Mob> mobs=new ArrayList<>();private int frames;
   private net.minecraft.world.item.ItemStack shard;

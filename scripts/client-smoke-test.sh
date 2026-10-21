@@ -15,6 +15,11 @@ for ((attempt=0; attempt<120; attempt++)); do
         echo 'Client exited before startup verification.' >&2
         exit 1
     fi
+    # Leave eight seconds between galleries so the five-second polling loop captures both.
+    if [[ -f run/logs/latest.log && ! -f build/client-smoke/animals.png ]] &&
+       grep -q ANIMAL_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
+        import -window root build/client-smoke/animals.png
+    fi
     if [[ -f run/logs/latest.log ]] &&
        grep -q 'Initializing Chocolate Flavored' run/logs/latest.log &&
        grep -q 'Created: .*textures/atlas/' run/logs/latest.log &&
