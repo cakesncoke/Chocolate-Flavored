@@ -20,7 +20,7 @@ public final class SunkenRenderer extends HumanoidMobRenderer<Sunken,SunkenRende
     @Override protected HumanoidModel.ArmPose getArmPose(Sunken mob,HumanoidArm arm){
         var held=mob.getItemHeldByArm(arm);
         if(held.is(Items.CROSSBOW))return mob.chargingCrossbow()?HumanoidModel.ArmPose.CROSSBOW_CHARGE:HumanoidModel.ArmPose.CROSSBOW_HOLD;
-        if(held.is(Items.TRIDENT)&&mob.isAggressive())return HumanoidModel.ArmPose.THROW_SPEAR;
+        if(held.is(Items.TRIDENT)&&mob.isAggressive())return HumanoidModel.ArmPose.THROW_TRIDENT;
         if(held.is(Items.BOW)&&mob.isAggressive())return HumanoidModel.ArmPose.BOW_AND_ARROW;
         return held.isEmpty()?HumanoidModel.ArmPose.EMPTY:HumanoidModel.ArmPose.ITEM;
     }

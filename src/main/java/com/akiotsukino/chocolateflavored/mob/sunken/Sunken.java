@@ -126,6 +126,5 @@ public class Sunken extends Bogged implements CrossbowAttackMob, IShearable {
         if(isUnderWater()&&wantsToSwim()){moveRelative(.01F,input);move(MoverType.SELF,getDeltaMovement());setDeltaMovement(getDeltaMovement().scale(.9));}
         else super.travelInWater(input,gravity,falling,oldY);
     }
-    @Override protected boolean canSpawnInLiquids(){return true;}
     @Override public boolean checkSpawnObstruction(LevelReader level){return level.isUnobstructed(this);}
 }
