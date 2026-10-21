@@ -80,11 +80,12 @@ public final class SunkenVerification {
     }
     private static void verifyTargeting(ServerLevel level,FakePlayer player){
         var sunken=spawn(level);
-        player.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);player.tick();player.tick();
+        // FakePlayer.tick() is intentionally empty; baseTick updates actual fluid contact.
+        player.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);player.baseTick();player.baseTick();
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 6000");
         check(!sunken.canAttackTarget(player),"Does not acquire dry players in daylight");
         for(var pos:BlockPos.betweenClosed(player.blockPosition().below(),player.blockPosition().above(2)))level.setBlock(pos,Blocks.WATER.defaultBlockState(),3);
-        player.tick();player.tick();check(sunken.canAttackTarget(player),"Acquires swimming players in daylight");
+        player.baseTick();player.baseTick();check(sunken.canAttackTarget(player),"Acquires swimming players in daylight");
         for(var pos:BlockPos.betweenClosed(player.blockPosition().below(),player.blockPosition().above(2)))level.removeBlock(pos,false);
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 18000");
         check(sunken.canAttackTarget(player)&&!sunken.canAttackTarget(null),"Night targeting and absent target");
