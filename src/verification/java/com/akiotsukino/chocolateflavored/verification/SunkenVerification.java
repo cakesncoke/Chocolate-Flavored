@@ -3,7 +3,6 @@ package com.akiotsukino.chocolateflavored.verification;
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.mob.sunken.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.projectile.arrow.*;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.*;
@@ -77,9 +75,14 @@ public final class SunkenVerification {
         var dry=EntityType.SKELETON.create(level,EntitySpawnReason.COMMAND);dry.snapTo(POS.getX(),POS.getY(),POS.getZ(),0,0);dry.getPersistentData().putInt(SkeletonDrowning.SUBMERGED,599);SkeletonDrowning.tick(new EntityTickEvent.Post(dry));check(dry.getPersistentData().getIntOr(SkeletonDrowning.SUBMERGED,0)==-1,"Leaving water resets exposure before conversion");dry.discard();
     }
     private static void verifyCombat(ServerLevel level){
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 18000");
+        for(var pos:BlockPos.betweenClosed(POS.offset(-6,-1,-6),POS.offset(6,-1,6)))level.setBlock(pos,Blocks.STONE.defaultBlockState(),3);
         var sunken=spawn(level);level.addFreshEntity(sunken);var target=EntityType.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);level.addFreshEntity(target);sunken.setTarget(target);
-        var crossbow=new ItemStack(Items.CROSSBOW);crossbow.set(DataComponents.CHARGED_PROJECTILES,ChargedProjectiles.of(new ItemStack(Items.ARROW)));sunken.setItemSlot(EquipmentSlot.MAINHAND,crossbow);sunken.performRangedAttack(target,1);
-        check(level.getEntitiesOfClass(Arrow.class,AREA).size()==1,"Native crossbow fires an arrow");
+        sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CROSSBOW));
+        boolean charged=false;
+        for(int i=0;i<160;i++){sunken.tick();charged|=sunken.chargingCrossbow();}
+        check(charged&&!level.getEntitiesOfClass(Arrow.class,AREA).isEmpty(),"Crossbow AI charges and fires from an unloaded weapon");
+        sunken.snapTo(POS.getX()+.5,POS.getY(),POS.getZ()+.5,0,0);
         sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.TRIDENT));sunken.performRangedAttack(target,1);check(level.getEntitiesOfClass(ThrownTrident.class,AREA).size()==1,"Native thrown trident projectile");
         level.getEntitiesOfClass(AbstractArrow.class,AREA).forEach(Entity::discard);sunken.discard();target.discard();
     }
