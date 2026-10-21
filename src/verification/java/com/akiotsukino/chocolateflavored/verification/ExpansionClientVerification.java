@@ -68,7 +68,7 @@ public final class ExpansionClientVerification {
             int sx=2*cw,sy=22+ch;
             g.fill(sx+2,sy+1,width-2,sy+ch-2,0xFF3B4E5A);g.centeredText(font,"Ice Chunk — native packed ice",sx+cw/2,sy+3,0xFFFFFFFF);
             var renderer=minecraft.getEntityRenderDispatcher().getRenderer(spell);var state=renderer.createRenderState(spell,1);state.shadowPieces.clear();state.outlineColor=0;
-            g.entity(state,40,new Vector3f(0,.75F,0),new Quaternionf().rotateY(.5F),new Quaternionf().rotateX(.1F),sx+10,sy+18,width-10,sy+ch-4);
+            g.entity(state,40,new Vector3f(0,-.75F,0),new Quaternionf().rotateY(.5F),new Quaternionf().rotateX(.1F),sx+10,sy+18,width-10,sy+ch-4);
             int ex=width/2-50;
             for(var item:com.akiotsukino.chocolateflavored.content.SpawnEggContent.EGGS){
                 var type=SpawnEggItem.getType(item.get().getDefaultInstance());
