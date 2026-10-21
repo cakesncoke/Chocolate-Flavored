@@ -27,6 +27,7 @@ public final class CookingClientVerification {
                 try {
                     var player = server.getPlayerList().getPlayer(uuid);
                     if (player == null) throw new IllegalStateException("No integrated-server player");
+                    player.setGameMode(net.minecraft.world.level.GameType.CREATIVE); // Protect the gallery viewer from ambient slimes.
                     var level = player.level();
                     var pos = player.blockPosition().relative(player.getDirection(), 3);
                     level.setBlockAndUpdate(pos.below(), CookingContent.OVEN.get().defaultBlockState().setValue(OvenBlock.LIT, true));

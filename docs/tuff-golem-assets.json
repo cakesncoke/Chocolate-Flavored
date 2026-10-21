@@ -1,0 +1,143 @@
+{
+  "repository": "https://github.com/Faboslav/friends-and-foes",
+  "revision": "e76a58eb6ffb47f694b60dbe4ca27613aa0c2b3a",
+  "license": "CC-BY-NC-ND-4.0",
+  "files": {
+    "assets/chocolateflavored/textures/item/tuff_golem_spawn_egg.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/item/tuff_golem_spawn_egg.png",
+      "sha256": "473579ec338a89e3392b1b34a9ccaacd2f398ebcc72024647c9bd2ea041bdfae"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/cyan.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/cyan.png",
+      "sha256": "5dc459b5f1b6acfee1ade650fd8b8f35bf7beb0a9b431b0c0822894a657b9f7f"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/orange.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/orange.png",
+      "sha256": "676529311d2eaecdacb3600db1f65abe3a9bbf9a513bb788a2fc639e79a67fdc"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/blue.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/blue.png",
+      "sha256": "3263bbba5d9b6a7ba80eba6c1799e9819ab40c758752d9779856b0622e826ed3"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/light_blue.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/light_blue.png",
+      "sha256": "9fcd54ceccd1a3d884d281fc1f19ba78e742fa67a2cdb2998d9edd38da5a9bde"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/magenta.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/magenta.png",
+      "sha256": "1dad92e0330c2de33e4c5a5e452df7f391672e1ba27b7ca2683225c43698cbcd"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/green.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/green.png",
+      "sha256": "f040237bf44bb8a572d930b25baea117d2a221e003aa8f9c6f39fac2fe1b3aee"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/light_gray.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/light_gray.png",
+      "sha256": "2f7255a12ed7849d3b347c34de91a2951a07ce7e8204fa64518837519da547c9"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/lime.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/lime.png",
+      "sha256": "7d95e39d04cf1ddb9e97c111b3a9acd654180ae2b470e4b36be450b04be36076"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/pink.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/pink.png",
+      "sha256": "d6ad05f4f886b37d2cca148df9cd41dad20e20772b7c71674b5433699a5f9ee6"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/white.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/white.png",
+      "sha256": "12ae09f5828d88ba41fdf96d19738bd65e2a04b9a2226dca24d7462fb3513a2f"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/closed_eyes.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/closed_eyes.png",
+      "sha256": "be79cf08f5dc19053ab3514b899f35ee9ddbebdd8d3f7cc8f3b239ed74e51435"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/yellow.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/yellow.png",
+      "sha256": "7d17b4b2c6cf95f81a2e887d1969b7216d2d31c66e0cfd99719b2148f517c83c"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/gray.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/gray.png",
+      "sha256": "54e1979b578d2b6e6c2c0e226b86d2c63aa47f70606f88f68e568091ca0d8fa6"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/brown.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/brown.png",
+      "sha256": "5c0900e79c023279a9d062c091f837cb155b0d821e535764773d54bbdf05a8e5"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/tuff_golem.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/tuff_golem.png",
+      "sha256": "b16b91d257af091774ccb981e4b342d343573c3c8de8c198192c38fd84017946"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/black.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/black.png",
+      "sha256": "b09e78b1ff654bdf04485b37d82da7f0feb64d9bc274a16eacbabeb00dd309e8"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/purple.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/purple.png",
+      "sha256": "ef202fa66e5fdfb1c0d057dc929636baac9bd60960920cda4a56ed13f1f39714"
+    },
+    "assets/chocolateflavored/textures/entity/tuff_golem/red.png": {
+      "source": "common/src/main/resources/assets/friendsandfoes/textures/entity/tuff_golem/red.png",
+      "sha256": "8dcd868deeede543adcc49aaf4e1a56e7dffd3f991192147814e0ac027cb77c0"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/hurt3.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/hurt3.ogg",
+      "sha256": "71007eba52f0d8286612b28168dadf3efcd1a35b11d56c5213dba355743c4ff8"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/hurt2.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/hurt2.ogg",
+      "sha256": "82c8898cbfce4e537d35e136183fc0ab9a83f3e3915988dadc86d30e7dedca1b"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/repair.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/repair.ogg",
+      "sha256": "144fa03ff96328becd1c5ebe3ea9fa7fefef70269a870c5791e707bd2b580f0a"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/glue_off.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/glue_off.ogg",
+      "sha256": "a213338d169a0dcf377c571f5a17761805deee9024180324f2d57b4736ed2159"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/glue_on.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/glue_on.ogg",
+      "sha256": "175a87f56ee8e77ffe2bd347cee642d5889ebafc4ab35ecf2fdc647fb2878051"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/step3.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/step3.ogg",
+      "sha256": "bd931cae809daa012d6b995b96f50faba37dc66c04c59b6eea1da49c37870a59"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/sleep.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/sleep.ogg",
+      "sha256": "472227690d35341a0809711ea703437d487d9af1211d6b3c9048496624fe234e"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/wake.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/sleep.ogg",
+      "sha256": "472227690d35341a0809711ea703437d487d9af1211d6b3c9048496624fe234e"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/move2.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/move2.ogg",
+      "sha256": "6ac3593fc59209f451e24910a02aa163809565bf5d30521b78665b4a2431219d"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/step4.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/step4.ogg",
+      "sha256": "8d875af80c1fc90a35d334b7b3fe71bb4ab916b4444cd9ba678fa364a8468e40"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/step2.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/step2.ogg",
+      "sha256": "bce7e98a5aaee91b42f16172df3498ab4c95c37a13421954b50d7d0a26772271"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/step1.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/step1.ogg",
+      "sha256": "d0117ebce49e09b6ecb0b038962d8c7c94694c6f95f731b0dc29247b943a8d6e"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/move1.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/move1.ogg",
+      "sha256": "9c6f49cc006f786459b9d92f67a6e181f566b68b24833a40af6797c6943243cc"
+    },
+    "assets/chocolateflavored/sounds/entity/tuff_golem/hurt1.ogg": {
+      "source": "common/src/main/resources/assets/friendsandfoes/sounds/entity/tuff_golem/hurt1.ogg",
+      "sha256": "05fb661577daaf401ea4a7b4d14c3a42dcb6fdf63697f8f5d26e5a1a3596a10c"
+    },
+    "assets/chocolateflavored/upstream/friendsandfoes/TuffGolem.bbmodel": {
+      "source": "blockbench/tuffgolem/TuffGolem.bbmodel",
+      "sha256": "9235e821e46b9f565e09eafe6672a29b9a41eafbb839889b934f52124a1b548a"
+    }
+  }
+}

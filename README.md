@@ -74,3 +74,7 @@ Chocolate Flavored is noncommercial. Its own code is MIT; borrowed resources ret
 | **NeoForged / NeoForge contributors** | NeoForge MDK project foundation; original template notice retained in [TEMPLATE_LICENSE.txt](TEMPLATE_LICENSE.txt). |
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), bundled `META-INF/licenses/` notices and [resource provenance](docs/resource-provenance.md) for source revisions, paths, license distinctions and unresolved ownership records. Attribution does not replace any permissions required by an upstream author.
+
+## Tuff Golem
+
+The Tuff Golem is being rebuilt independently after reverting PR #8. It uses the original **Friends & Foes** model, animations, textures, sounds and modern spawn egg, with attribution to **Faboslav**, **Furti Two** and their contributors. These unchanged resources retain CC BY-NC-ND 4.0 and are not MIT-licensed. See [resource credits](THIRD_PARTY_NOTICES.md#friends--foes--tuff-golem-restart) and the [implementation notes](docs/tuff-golem.md). No other mobs from PR #8 are included.

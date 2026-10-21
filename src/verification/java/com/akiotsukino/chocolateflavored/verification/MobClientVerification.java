@@ -16,6 +16,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class MobClientVerification {
+ public static boolean completed;
  private static boolean opened;private static int ticks;
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<160)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.setScreen(new Gallery());}
  private static final class Gallery extends Screen {
@@ -52,7 +53,7 @@ public final class MobClientVerification {
    g.item(new net.minecraft.world.item.ItemStack(MobContent.TROPICAL_SLIME_BLOCK_ITEM.get()),width-44,height-20);
    g.item(new net.minecraft.world.item.ItemStack(MobContent.HUSK_RABBIT_FOOT.get()),width-24,height-20);
    if(frames%10==0)for(int i=0;i<8;i++)minecraft.level.addParticle(MobContent.TROPICAL_SPLASH.get(),minecraft.player.getX(),minecraft.player.getEyeY(),minecraft.player.getZ()+1,(i-4)*.025,.15,0);
-   if(++frames==150)ChocolateFlavored.LOGGER.info("MOB_CLIENT_VERIFICATION_PASSED: seven mobs, adult/baby armor, angry golem head, bone eyes and animated tropical slime submitted");
+   if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("MOB_CLIENT_VERIFICATION_PASSED: seven mobs, adult/baby armor, angry golem head, bone eyes and animated tropical slime submitted");}
   }
   @Override public boolean isPauseScreen(){return false;}
  }
