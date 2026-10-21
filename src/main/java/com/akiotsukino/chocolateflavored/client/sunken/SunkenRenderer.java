@@ -17,6 +17,10 @@ public final class SunkenRenderer extends HumanoidMobRenderer<Sunken,SunkenRende
     @Override public State createRenderState(){return new State();}
     @Override public Identifier getTextureLocation(State state){return Identifier.fromNamespaceAndPath("chocolateflavored","textures/entity/sunken/"+switch(state.color){case 1->"red";case 2->"yellow";default->"purple";}+".png");}
     @Override public void extractRenderState(Sunken mob,State state,float partial){super.extractRenderState(mob,state,partial);state.color=mob.coralColor();state.sheared=mob.isSheared();}
+    @Override protected void setupRotations(State state,com.mojang.blaze3d.vertex.PoseStack poses,float bodyRot,float entityScale){
+        super.setupRotations(state,poses,bodyRot,entityScale);
+        if(state.swimAmount>0)poses.rotateAround(com.mojang.math.Axis.XP.rotationDegrees(state.swimAmount*(-10-state.xRot)),0,state.boundingBoxHeight/2/entityScale,0);
+    }
     @Override protected HumanoidModel.ArmPose getArmPose(Sunken mob,HumanoidArm arm){
         var held=mob.getItemHeldByArm(arm);
         if(held.is(Items.CROSSBOW))return mob.chargingCrossbow()?HumanoidModel.ArmPose.CROSSBOW_CHARGE:HumanoidModel.ArmPose.CROSSBOW_HOLD;
