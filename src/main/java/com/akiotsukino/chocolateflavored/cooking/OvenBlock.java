@@ -60,7 +60,7 @@ public final class OvenBlock extends BaseEntityBlock {
         if (stack.is(LightingContent.FIRE_STARTER.get()) || isCovered(level, pos)) return InteractionResult.PASS;
         if (level.isClientSide() && !(stack.getItem() instanceof BlockItem)) return InteractionResult.CONSUME;
         if (level instanceof ServerLevel server && level.getBlockEntity(pos) instanceof OvenBlockEntity oven && oven.placeFood(server, player, stack)) {
-            level.playSound(null, pos, SoundEvents.LANTERN_PLACE, SoundSource.BLOCKS, 0.5F, 1);
+            level.playSound(null, pos, SoundEvents.MUD_BRICKS_PLACE, SoundSource.BLOCKS, 0.5F, 1);
             return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.PASS;

@@ -34,10 +34,6 @@ public final class ModContent {
     public static final DeferredItem<Item> COAL_DUST = ITEMS.registerSimpleItem("coal_dust");
     public static final DeferredItem<Item> COPPER_ORE_PILE = ITEMS.registerSimpleItem("copper_ore_pile");
     public static final DeferredItem<Item> IRON_ORE_PILE = ITEMS.registerSimpleItem("iron_ore_pile");
-    public static final DeferredItem<Item> DIRT_PILE = ITEMS.registerSimpleItem("dirt_pile");
-    public static final DeferredItem<Item> SAND_PILE = ITEMS.registerSimpleItem("sand_pile");
-    public static final DeferredItem<Item> RED_SAND_PILE = ITEMS.registerSimpleItem("red_sand_pile");
-    public static final DeferredItem<Item> GRAVEL_PILE = ITEMS.registerSimpleItem("gravel_pile");
     public static final DeferredItem<Item> STONE_PEBBLE = ITEMS.registerSimpleItem("stone_pebble");
     public static final DeferredItem<Item> DEEPSLATE_PEBBLE = ITEMS.registerSimpleItem("deepslate_pebble");
     public static final DeferredItem<Item> PLANT_FIBER = ITEMS.registerSimpleItem("plant_fiber");

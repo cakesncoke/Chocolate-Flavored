@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:slime_ball",
+          "name": "chocolateflavored:tropical_ball",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -44,7 +44,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:slime_ball",
+          "name": "chocolateflavored:tropical_ball",
           "functions": [
             {
               "function": "minecraft:set_count",

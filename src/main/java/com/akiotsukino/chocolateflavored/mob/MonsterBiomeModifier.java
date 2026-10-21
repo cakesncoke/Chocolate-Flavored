@@ -20,6 +20,7 @@ public record MonsterBiomeModifier() implements BiomeModifier {
   boolean forest=biome.is(BiomeTags.IS_FOREST), soul=biome.is(Biomes.SOUL_SAND_VALLEY);
   if(phase==Phase.ADD){
    var spawns=builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER);
+   if(biome.is(net.neoforged.neoforge.common.Tags.Biomes.IS_DESERT))spawns.add(new SpawnerData(MobContent.HUSK_RABBIT.get(),3,4),15);
    if(forest)spawns.add(new SpawnerData(MobContent.SWAMPED.get(),3,4),20);
    if(biome.is(BiomeTags.IS_OCEAN)||biome.is(BiomeTags.IS_DEEP_OCEAN))spawns.add(new SpawnerData(MobContent.TROPICAL_SLIME.get(),3,4),3);
    if(soul)builder.getMobSpawnSettings().addMobCharge(MobContent.SKELETON_WOLF.get(),.7,.15);

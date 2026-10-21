@@ -24,9 +24,10 @@ import net.neoforged.neoforge.event.entity.*;
 import net.neoforged.neoforge.registries.*;
 import java.util.Optional;
 
-/** Internal projectiles and conversion forms register no additional items or spawn eggs. */
+/** Standalone EarthMobs content; internal projectiles remain unobtainable entities. */
 public final class MobContent {
  public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(ChocolateFlavored.MODID);
+ public static final DeferredHolder<EntityType<?>,EntityType<HuskRabbit>> HUSK_RABBIT = ENTITIES.registerEntityType("husk_rabbit",HuskRabbit::new,MobCategory.MONSTER,b->b.notInPeaceful().sized(.4F,.6F).eyeHeight(.59F).clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<MelonGolem>> MELON_GOLEM = ENTITIES.registerEntityType("melon_golem",MelonGolem::new,MobCategory.MISC,b->b.sized(.7F,1.9F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<BoulderingZombie>> BOULDERING_ZOMBIE = ENTITIES.registerEntityType("bouldering_zombie",BoulderingZombie::new,MobCategory.MONSTER,b->b.sized(.6F,1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-.7F).notInPeaceful().clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<Swamped>> SWAMPED = ENTITIES.registerEntityType("swamped",Swamped::new,MobCategory.MONSTER,b->b.sized(.6F,1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-.7F).notInPeaceful().clientTrackingRange(8));
@@ -38,6 +39,10 @@ public final class MobContent {
  public static final DeferredBlock<CarvedMelonBlock> CARVED_MELON = ModContent.BLOCKS.registerBlock("carved_melon",CarvedMelonBlock::new,()->BlockBehaviour.Properties.ofFullCopy(Blocks.MELON).overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE,id("blocks/carved_melon")))));
  public static final DeferredItem<BlockItem> CARVED_MELON_ITEM = ModContent.ITEMS.registerSimpleBlockItem(CARVED_MELON);
  public static final DeferredItem<MobBucketItem> TROPICAL_SLIME_BUCKET = ModContent.ITEMS.registerItem("tropical_slime_bucket",p->new MobBucketItem(TROPICAL_SLIME.get(),Fluids.WATER,SoundEvents.BUCKET_EMPTY_FISH,p),()->new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET));
+ public static final DeferredBlock<com.akiotsukino.chocolateflavored.mob.block.TropicalSlimeBlock> TROPICAL_SLIME_BLOCK = ModContent.BLOCKS.registerBlock("tropical_slime_block",com.akiotsukino.chocolateflavored.mob.block.TropicalSlimeBlock::new,()->BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).mapColor(net.minecraft.world.level.material.MapColor.COLOR_BLUE).overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE,id("blocks/tropical_slime_block")))));
+ public static final DeferredItem<BlockItem> TROPICAL_SLIME_BLOCK_ITEM = ModContent.ITEMS.registerSimpleBlockItem(TROPICAL_SLIME_BLOCK);
+ public static final DeferredItem<com.akiotsukino.chocolateflavored.mob.item.TropicalBallItem> TROPICAL_BALL = ModContent.ITEMS.registerItem("tropical_ball",com.akiotsukino.chocolateflavored.mob.item.TropicalBallItem::new,()->new Item.Properties().food(new net.minecraft.world.food.FoodProperties(0,0,true),net.minecraft.world.item.component.Consumable.builder().consumeSeconds(.8F).animation(ItemUseAnimation.DRINK).sound(SoundEvents.HONEY_DRINK).hasConsumeParticles(false).build()));
+ public static final DeferredItem<Item> HUSK_RABBIT_FOOT = ModContent.ITEMS.registerSimpleItem("husk_rabbit_foot");
  private static final DeferredRegister<EntityDataSerializer<?>> DATA = DeferredRegister.create(NeoForgeRegistries.ENTITY_DATA_SERIALIZERS,ChocolateFlavored.MODID);
  public static final DeferredHolder<EntityDataSerializer<?>,EntityDataSerializer<PotionContents>> POTIONS = DATA.register("bone_spider_potions",()->EntityDataSerializer.forValueType(PotionContents.STREAM_CODEC));
  private static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT,ChocolateFlavored.MODID);
@@ -55,10 +60,12 @@ public final class MobContent {
   NeoForge.EVENT_BUS.addListener(MonsterSpawns::join); NeoForge.EVENT_BUS.addListener(MelonCarving::interact);
  }
  private static void attributes(EntityAttributeCreationEvent e){
+  e.put(HUSK_RABBIT.get(),HuskRabbit.createAttributes().build());
   e.put(MELON_GOLEM.get(),MelonGolem.createAttributes().build()); e.put(BOULDERING_ZOMBIE.get(),BoulderingZombie.createAttributes().build());
   e.put(SWAMPED.get(),Swamped.createAttributes().build()); e.put(SKELETON_WOLF.get(),SkeletonWolf.createAttributes().build()); e.put(BONE_SPIDER.get(),BoneSpider.createAttributes().build()); e.put(TROPICAL_SLIME.get(),Monster.createMonsterAttributes().build());
  }
  private static void placements(RegisterSpawnPlacementsEvent e){
+  e.register(HUSK_RABBIT.get(),SpawnPlacementTypes.ON_GROUND,net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,HuskRabbit::checkMonsterSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
   e.register(SKELETON_WOLF.get(),SpawnPlacementTypes.ON_GROUND,net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,SkeletonWolf::checkSkeletonWolfSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
   e.register(TROPICAL_SLIME.get(),SpawnPlacementTypes.IN_WATER,net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,TropicalSlime::checkTropicalSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
   e.register(SWAMPED.get(),SpawnPlacementTypes.ON_GROUND,net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,Monster::checkMonsterSpawnRules,RegisterSpawnPlacementsEvent.Operation.REPLACE);
