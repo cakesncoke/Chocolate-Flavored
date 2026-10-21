@@ -1,6 +1,6 @@
 # Earth animals (Minecraft 26.1.2)
 
-The mod adds eleven entity types and EarthMobs-style muddy state to vanilla and Pale Pigs. It adds exactly two items, Buttercup and Pink Daisy (placeable small flowers). No spawn eggs, extra equipment, mod dependencies, or recipes are added.
+The mod adds eleven entity types and EarthMobs-style muddy state to vanilla and Pale Pigs. Buttercup and Pink Daisy are placeable small flowers. Every animal now has a spawn egg in the vanilla Spawn Eggs and Chocolate Flavored tabs, including a state-bearing egg for Muddy Pig. No extra equipment, required mod dependencies, or crafting recipes are added. Modern baby texture coverage and licenses are listed in [the baby texture audit](baby-texture-audit.md).
 
 ## Natural spawn replacements
 

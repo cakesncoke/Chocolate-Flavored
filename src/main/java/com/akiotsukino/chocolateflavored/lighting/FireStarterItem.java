@@ -29,7 +29,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public final class FireStarterItem extends Item {
-    public static final int USE_TICKS = 10 * 20;
+    public static final int USE_TICKS = 5 * 20;
     private static final Map<LivingEntity, Attempt> ATTEMPTS = Collections.synchronizedMap(new WeakHashMap<>());
     private static final class Attempt {
         final BlockPos pos;
@@ -91,7 +91,7 @@ public final class FireStarterItem extends Item {
         Attempt attempt = ATTEMPTS.remove(user);
         if (!(user instanceof Player player) || attempt == null || attempt.elapsed < USE_TICKS || !valid(player, stack, attempt)) return stack;
         if (level.isClientSide()) return stack;
-        // Re-check interaction protections because access may have changed during the ten-second hold.
+        // Re-check interaction protections because access may have changed during the five-second hold.
         var hit = new BlockHitResult(Vec3.atCenterOf(attempt.pos), attempt.face, attempt.pos, false);
         var permission = new PlayerInteractEvent.RightClickBlock(player, attempt.hand, attempt.pos, hit);
         NeoForge.EVENT_BUS.post(permission);

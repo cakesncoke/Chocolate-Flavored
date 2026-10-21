@@ -4,7 +4,7 @@ Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. Both blocks are standalone; Farm
 
 ## Oven
 
-ID: `chocolateflavored:oven`. It is named **Oven** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its existing ten-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior.
+ID: `chocolateflavored:oven`. It is named **Oven** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its five-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior. Adding food to the oven plays the vanilla mud-brick placement sound.
 
 Right-click the uncovered top/block with a matching ingredient to place a batch. Six batches cook independently, with visible items on top. A batch can require multiple items (for example, three wheat). Cooked items appear above the oven. Unlit batches cool toward zero progress. Covering the top, including placing a cooking pot on it, returns the raw ingredients; the oven can then heat the pot. Breaking the oven returns its uncooked inventory. Cooking progress and inventory survive saving/loading. Standing on the hot oven causes campfire damage unless sneaking.
 

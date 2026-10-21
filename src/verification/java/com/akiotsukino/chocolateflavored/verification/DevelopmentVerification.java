@@ -85,11 +85,10 @@ public final class DevelopmentVerification {
         check(trim != null && trim.is(ModContent.ROSE_GOLD_TRIM), "Rose gold trim material component");
         check(level.registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL).get(ModContent.ROSE_GOLD_TRIM).isPresent(), "Rose gold trim registry");
 
-        check(count(drops(level, player, pos, Blocks.DIRT, Items.STICK), ModContent.DIRT_PILE.get()) == 3, "Dirt without shovel");
+        check(count(drops(level, player, pos, Blocks.DIRT, Items.STICK), Items.DIRT) == 1, "Dirt without shovel");
         check(count(drops(level, player, pos, Blocks.DIRT, Items.IRON_SHOVEL), Items.DIRT) == 1, "Dirt with shovel");
-        check(count(drops(level, player, pos, Blocks.SAND, Items.AIR), ModContent.SAND_PILE.get()) == 3, "Sand piles");
-        check(count(drops(level, player, pos, Blocks.RED_SAND, Items.STICK), ModContent.RED_SAND_PILE.get()) == 3, "Red sand piles");
-        check(count(drops(level, player, pos, Blocks.GRAVEL, Items.STICK), ModContent.GRAVEL_PILE.get()) == 3, "Gravel piles");
+        check(count(drops(level, player, pos, Blocks.SAND, Items.AIR), Items.SAND) == 1, "Vanilla sand");
+        check(count(drops(level, player, pos, Blocks.RED_SAND, Items.STICK), Items.RED_SAND) == 1, "Vanilla red sand");
         check(drops(level, player, pos, Blocks.OAK_LOG, Items.STICK).isEmpty(), "Logs without axe");
         check(count(drops(level, player, pos, Blocks.OAK_LOG, Items.IRON_AXE), Items.OAK_LOG) == 1, "Logs with axe");
         int dirtFlint = 0, gravelFlint = 0, fibers = 0, vanillaSticks = 0, knifeSticks = 0;
@@ -101,7 +100,7 @@ public final class DevelopmentVerification {
             knifeSticks += count(drops(level, player, pos, Blocks.OAK_LEAVES, ModContent.IRON_KNIFE.get()), Items.STICK);
         }
         // Wide statistical bounds detect missing/doubled rules without fragile exact RNG expectations.
-        check(dirtFlint > 70 && dirtFlint < 240, "Dirt flint probability: " + dirtFlint);
+        check(dirtFlint == 0, "Dirt flint probability: " + dirtFlint);
         check(gravelFlint > 390 && gravelFlint < 610, "Gravel flint probability: " + gravelFlint);
         check(fibers > 220 && fibers < 440, "Plant fiber probability: " + fibers);
         check(knifeSticks > vanillaSticks + 100, "Knife leaves stick bonus");
@@ -152,6 +151,7 @@ public final class DevelopmentVerification {
         CookingVerification.run(level, player);
         AnimalVerification.run(level, player);
         MobVerification.run(level, player);
+        CleanupVerification.run(level, player);
         ChocolateFlavored.LOGGER.info("CHOCOLATE_FLAVORED_VERIFICATION_PASSED: equipment, recipes, trims, loot probabilities, mining conversions, durability and trades");
         event.getServer().halt(false);
     }

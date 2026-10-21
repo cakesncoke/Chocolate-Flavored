@@ -11,7 +11,7 @@ Target: Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. No required external m
 - Knapped flint: four durability, base mining speed 1 (hands), one wear per special stone/ore interaction. Ordinary mining and attacking do not consume its durability.
 - Flint knife: 131 durability, 2.5 total attack damage, 2 attacks/second, mining speed 4, enchantability 5. Iron knife: 250 durability, 3.5 total attack damage, 2 attacks/second, mining speed 6, enchantability 14. These are Farmer's Delight's base knife statistics, without its external dependency or unrelated gameplay features. Knives do not receive Sweeping Edge.
 
-Registered content covers every custom item/block texture currently present, including the rose gold block, diamond ingot, piles, pebbles, plant fiber/string, and rose gold upgrade smithing template. There are no rose gold armor textures in this asset set, so no armor set is invented. The upgrade template is available in creative, with no upgrade recipe until one is supplied by a datapack.
+Registered content covers every custom item/block texture currently present, including the rose gold block, diamond ingot, ore piles, pebbles, plant fiber/string, and rose gold upgrade smithing template. There are no rose gold armor textures in this asset set, so no armor set is invented. The upgrade template is available in creative, with no upgrade recipe until one is supplied by a datapack.
 
 Rose gold ingots provide the `chocolateflavored:rose_gold` trim material and extend vanilla's trim-material ingredient tag. Existing vanilla trimming recipes accept them. Both worn armor and inventory trim rendering are supported.
 
@@ -25,9 +25,9 @@ Vanilla IDs are retained for registry compatibility. Their recipes are removed, 
 
 | Block | Tool | Result |
 |---|---|---|
-| Dirt, grass block, coarse/rooted dirt, podzol, mycelium, dirt path, farmland, mud | Anything except a shovel | 3 dirt piles; independent 15% chance of one vanilla flint |
-| Sand / red sand | Anything except a shovel | 3 corresponding piles |
-| Gravel | Anything except a shovel | 3 gravel piles; independent 50% chance of one vanilla flint |
+| Dirt and dirt variants | Any tool / hands | Vanilla loot; no extra flint |
+| Sand / red sand | Any tool / hands | Vanilla block loot |
+| Gravel | Any tool / hands | 50% flint, otherwise one gravel; Silk Touch gives gravel and Fortune III guarantees flint. Fortune I/II retain the 50% floor. |
 | Logs (including stripped logs/wood through the vanilla logs tag) | Anything except an axe | No drops; mining speed ×0.2 |
 | Stone, granite, diorite, andesite | Knapped flint | Cobblestone remains; one stone pebble |
 | Cobblestone / mossy cobblestone | Knapped flint | Block removed; one stone pebble |
@@ -45,7 +45,7 @@ Special conversions run at the lowest break-event priority, skip canceled/protec
 
 ## Datapacks and compatibility
 
-The block groups are editable under `data/chocolateflavored/tags/block/`; knives and repair materials have item tags. The global loot modifier at `data/chocolateflavored/loot_modifiers/survival.json` exposes dirt/gravel flint chances, fiber chance, and the extra leaves-stick chance. Its probabilities can be changed without recompiling. Item recipe filtering runs on reload and examines recipe outputs rather than filenames.
+The block groups are editable under `data/chocolateflavored/tags/block/`; knives and repair materials have item tags. The global loot modifier at `data/chocolateflavored/loot_modifiers/survival.json` exposes fiber chance and the extra leaves-stick chance. Gravel uses the pinned vanilla loot table with the flint probabilities changed to `[0.5, 0.5, 0.5, 1.0]` under `data/minecraft/loot_table/blocks/gravel.json`. These probabilities can be changed without recompiling. Item recipe filtering runs on reload and examines recipe outputs rather than filenames.
 
 No seasons, crop growth, climate or calendar systems are modified. Serene Seasons and KubeJS remain optional future integration/testing targets; compatibility with their 26.1.2 builds has not been tested.
 
@@ -60,3 +60,5 @@ CI also launches the development client and captures a screenshot and logs. This
 Vanilla behavior was inspected in the official unobfuscated 26.1.2 client: `Items`, `Item.Properties`, `ToolMaterial`, `Tool`, `Player`, `ServerPlayerGameMode`, `RecipeManager`, `AbstractVillager`, trim metadata, and loot/item-model/atlas resources. NeoForge APIs were checked against the published 26.1.2.122 sources and their matching block-break/drop patches.
 
 Knife statistics reference [Farmer's Delight ModMaterials](https://github.com/vectorwing/FarmersDelight/blob/1.21/src/main/java/vectorwing/farmersdelight/common/registry/ModMaterials.java) and [ModItems](https://github.com/vectorwing/FarmersDelight/blob/1.21/src/main/java/vectorwing/farmersdelight/common/registry/ModItems.java). Its Java implementation was not ported.
+
+Dirt, sand, red sand and gravel pile items and their resources have been removed. Existing stacks of those removed IDs are no longer registered. Copper/iron ore piles remain.

@@ -33,7 +33,7 @@ final class LightingVerification {
         var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
         var starter = LightingContent.FIRE_STARTER.get();
         check(new ItemStack(starter).getMaxDamage() == 2, "Fire starter durability must remain two");
-        check(starter.getUseDuration(new ItemStack(starter), player) == 200, "Ten-second use duration");
+        check(starter.getUseDuration(new ItemStack(starter), player) == 100, "Five-second use duration");
 
         for (var campfire : new net.minecraft.world.level.block.Block[]{Blocks.CAMPFIRE, Blocks.SOUL_CAMPFIRE}) {
             player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(campfire));
@@ -47,8 +47,8 @@ final class LightingVerification {
             ItemStack tool = new ItemStack(starter);
             player.setItemInHand(InteractionHand.MAIN_HAND, tool);
             begin(starter, player, pos);
-            for (int remaining = 200; remaining >= 2; remaining--) starter.onUseTick(level, player, tool, remaining);
-            check(!level.getBlockState(pos).getValue(CampfireBlock.LIT) && tool.getDamageValue() == 0, "No ignition/wear before 200 ticks");
+            for (int remaining = 100; remaining >= 2; remaining--) starter.onUseTick(level, player, tool, remaining);
+            check(!level.getBlockState(pos).getValue(CampfireBlock.LIT) && tool.getDamageValue() == 0, "No ignition/wear before 100 ticks");
             starter.onUseTick(level, player, tool, 1);
             starter.finishUsingItem(tool, level, player);
             player.stopUsingItem();
@@ -60,7 +60,7 @@ final class LightingVerification {
         ItemStack tool = new ItemStack(starter);
         player.setItemInHand(InteractionHand.MAIN_HAND, tool);
         begin(starter, player, pos);
-        starter.onUseTick(level, player, tool, 200);
+        starter.onUseTick(level, player, tool, 100);
         player.releaseUsingItem();
         starter.finishUsingItem(tool, level, player);
         check(level.getBlockState(pos).is(LightingContent.UNLIT_TORCH.get()) && tool.getDamageValue() == 0, "Release cancels without wear");
@@ -73,7 +73,7 @@ final class LightingVerification {
         for (int use = 0; use < 2; use++) {
             level.setBlockAndUpdate(pos, LightingContent.UNLIT_TORCH.get().defaultBlockState());
             begin(starter, player, pos);
-            for (int remaining = 200; remaining >= 1; remaining--) starter.onUseTick(level, player, tool, remaining);
+            for (int remaining = 100; remaining >= 1; remaining--) starter.onUseTick(level, player, tool, remaining);
             starter.finishUsingItem(tool, level, player);
             player.stopUsingItem();
             check(level.getBlockState(pos).is(LightingContent.LIT_TORCH.get()), "Fire starter lights torch");
@@ -134,7 +134,7 @@ final class LightingVerification {
         level.removeBlock(pos, false);
         level.removeBlock(pos.west(), false);
         player.stopUsingItem();
-        ChocolateFlavored.LOGGER.info("LIGHTING_VERIFICATION_PASSED: placement, 200-tick hold, cancellation, two uses, timer serialization/expiry/relighting, wall facing and lantern ignition");
+        ChocolateFlavored.LOGGER.info("LIGHTING_VERIFICATION_PASSED: placement, 100-tick hold, cancellation, two uses, timer serialization/expiry/relighting, wall facing and lantern ignition");
     }
     private static void begin(FireStarterItem starter, FakePlayer player, BlockPos pos) {
         player.setXRot(90);

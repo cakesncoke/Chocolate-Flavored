@@ -15,6 +15,7 @@ import net.neoforged.neoforge.client.event.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class MobClient {
  @SubscribeEvent public static void renderers(EntityRenderersEvent.RegisterRenderers e){
+  e.registerEntityRenderer(MobContent.HUSK_RABBIT.get(),HuskRabbitRenderer::new);
   e.registerEntityRenderer(MobContent.MELON_GOLEM.get(),MelonGolemRenderer::new);
   e.registerEntityRenderer(MobContent.BOULDERING_ZOMBIE.get(),BoulderingZombieRenderer::new);
   e.registerEntityRenderer(MobContent.SWAMPED.get(),SwampedRenderer::new);

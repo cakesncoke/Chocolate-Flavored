@@ -12,7 +12,6 @@ public final class ModTags {
     public static final TagKey<Item> ROSE_GOLD_REPAIR = item("rose_gold_tool_materials");
     public static final TagKey<Item> FLINT_REPAIR = item("flint_tool_materials");
     public static final TagKey<Block> KNIFE_MINEABLE = block("mineable/knife");
-    public static final TagKey<Block> DIRT_PILES = block("drops_dirt_piles");
     public static final TagKey<Block> FLINT_STONE = block("flint_to_cobblestone");
     public static final TagKey<Block> FLINT_COBBLE = block("flint_pebbles");
     public static final TagKey<Block> DEEPSLATE = block("deepslate_and_ores");
