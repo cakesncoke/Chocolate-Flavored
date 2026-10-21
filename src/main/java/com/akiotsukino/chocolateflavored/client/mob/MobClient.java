@@ -17,7 +17,6 @@ public final class MobClient {
  @SubscribeEvent public static void renderers(EntityRenderersEvent.RegisterRenderers e){
   e.registerEntityRenderer(MobContent.MELON_GOLEM.get(),MelonGolemRenderer::new);
   e.registerEntityRenderer(MobContent.BOULDERING_ZOMBIE.get(),BoulderingZombieRenderer::new);
-  e.registerEntityRenderer(MobContent.BOULDERING_DROWNED.get(),BoulderingDrownedRenderer::new);
   e.registerEntityRenderer(MobContent.SWAMPED.get(),SwampedRenderer::new);
   e.registerEntityRenderer(MobContent.BONE_SPIDER.get(),BoneSpiderRender::new);
   e.registerEntityRenderer(MobContent.SKELETON_WOLF.get(),SkeletonWolfRenderer::new);
@@ -34,10 +33,6 @@ public final class MobClient {
   e.registerLayerDefinition(ModModelLayers.BABY_ARMOR.feet(),()->net.minecraft.client.model.geom.builders.LayerDefinition.create(armor.feet(),64,32).apply(baby));
   e.registerLayerDefinition(ModModelLayers.BOULDERING_ZOMBIE,AbstractBoulderingZombieModel::createBodyLayer);
   e.registerLayerDefinition(ModModelLayers.BOULDERING_ZOMBIE_BABY,()->AbstractBoulderingZombieModel.createBodyLayer().apply(baby));
-  e.registerLayerDefinition(ModModelLayers.BOULDERING_DROWNED,()->BoulderingDrownedModel.createBodyLayer(CubeDeformation.NONE));
-  e.registerLayerDefinition(ModModelLayers.BOULDERING_DROWNED_BABY,()->BoulderingDrownedModel.createBodyLayer(CubeDeformation.NONE).apply(baby));
-  e.registerLayerDefinition(ModModelLayers.BOULDERING_DROWNED_OUTER,()->BoulderingDrownedModel.createBodyLayer(new CubeDeformation(.25F)));
-  e.registerLayerDefinition(ModModelLayers.BOULDERING_DROWNED_OUTER_BABY,()->BoulderingDrownedModel.createBodyLayer(new CubeDeformation(.25F)).apply(baby));
   e.registerLayerDefinition(ModModelLayers.SWAMPED,AbstractLobberZombieModel::createBodyLayer);
   e.registerLayerDefinition(ModModelLayers.SWAMPED_BABY,()->AbstractLobberZombieModel.createBodyLayer().apply(baby));
   e.registerLayerDefinition(ModModelLayers.BONE_SPIDER,BoneSpiderModel::createBodyLayer);

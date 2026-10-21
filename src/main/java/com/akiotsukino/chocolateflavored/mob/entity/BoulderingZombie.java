@@ -51,7 +51,7 @@ public class BoulderingZombie extends Zombie {
 
 	@Override
     protected void doUnderWaterConversion(ServerLevel serverLevel) {
-        this.convertToZombieType(serverLevel, MobContent.BOULDERING_DROWNED.get());
+        this.convertToZombieType(serverLevel, EntityType.DROWNED);
 		if (!this.isSilent()) {
 			this.level().levelEvent((Player) null, 1040, this.blockPosition(), 0);
 		}

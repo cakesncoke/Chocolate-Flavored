@@ -29,7 +29,6 @@ public final class MobContent {
  public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(ChocolateFlavored.MODID);
  public static final DeferredHolder<EntityType<?>,EntityType<MelonGolem>> MELON_GOLEM = ENTITIES.registerEntityType("melon_golem",MelonGolem::new,MobCategory.MISC,b->b.sized(.7F,1.9F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<BoulderingZombie>> BOULDERING_ZOMBIE = ENTITIES.registerEntityType("bouldering_zombie",BoulderingZombie::new,MobCategory.MONSTER,b->b.sized(.6F,1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-.7F).notInPeaceful().clientTrackingRange(8));
- public static final DeferredHolder<EntityType<?>,EntityType<BoulderingDrowned>> BOULDERING_DROWNED = ENTITIES.registerEntityType("bouldering_drowned",BoulderingDrowned::new,MobCategory.MONSTER,b->b.sized(.6F,1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-.7F).notInPeaceful().clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<Swamped>> SWAMPED = ENTITIES.registerEntityType("swamped",Swamped::new,MobCategory.MONSTER,b->b.sized(.6F,1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-.7F).notInPeaceful().clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<SkeletonWolf>> SKELETON_WOLF = ENTITIES.registerEntityType("skeleton_wolf",SkeletonWolf::new,MobCategory.MONSTER,b->b.sized(.6F,.85F).notInPeaceful().clientTrackingRange(8));
  public static final DeferredHolder<EntityType<?>,EntityType<BoneSpider>> BONE_SPIDER = ENTITIES.registerEntityType("bone_spider",BoneSpider::new,MobCategory.MONSTER,b->b.sized(1.4F,.9F).notInPeaceful().clientTrackingRange(8));
@@ -56,7 +55,7 @@ public final class MobContent {
   NeoForge.EVENT_BUS.addListener(MonsterSpawns::join); NeoForge.EVENT_BUS.addListener(MelonCarving::interact);
  }
  private static void attributes(EntityAttributeCreationEvent e){
-  e.put(MELON_GOLEM.get(),MelonGolem.createAttributes().build()); e.put(BOULDERING_ZOMBIE.get(),BoulderingZombie.createAttributes().build()); e.put(BOULDERING_DROWNED.get(),BoulderingDrowned.createAttributes().build());
+  e.put(MELON_GOLEM.get(),MelonGolem.createAttributes().build()); e.put(BOULDERING_ZOMBIE.get(),BoulderingZombie.createAttributes().build());
   e.put(SWAMPED.get(),Swamped.createAttributes().build()); e.put(SKELETON_WOLF.get(),SkeletonWolf.createAttributes().build()); e.put(BONE_SPIDER.get(),BoneSpider.createAttributes().build()); e.put(TROPICAL_SLIME.get(),Monster.createMonsterAttributes().build());
  }
  private static void placements(RegisterSpawnPlacementsEvent e){

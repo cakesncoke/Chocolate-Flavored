@@ -46,10 +46,12 @@ This standalone subset follows EarthMobs 26.1.x revision `d5acab9846bd3400ac5f09
 | Creature | Natural spawning / changes |
 | --- | --- |
 | Melon Golem | Build with two snow blocks and a carved melon. Shears always return one carved melon, including while aggressive. Retains seed bursts, snow trails, water/heat vulnerabilities and head removal. |
-| Bouldering Zombie | Replaces every regular zombie below Y=0; 10% in mountainous biomes at Y=0 or above. Retains climbing, stronger melee and conversion to a climbing drowned with trident/riptide behavior. |
+| Bouldering Zombie | Replaces every regular zombie below Y=0; 10% in mountainous biomes at Y=0 or above. Retains climbing, stronger melee and conversion to a vanilla drowned. |
 | Skeleton Wolf | 1.5% of hostile spawn-table selections in forests and Soul Sand Valleys; reference ground, darkness and pack restrictions still apply. Retains bone taming, owner defense, sitting/following, bone/rotten-flesh healing and wolf armor. Cannot breed. |
 | Bone Spider | Replaces 25% of spiders below Y=0, or 33% in Dark Forests/Pale Gardens at any height. The 33% rule takes precedence where both apply. Retains climbing, bone volleys, melee, rare potion payloads and freeze immunity. |
 | Tropical Slime | Reference ocean/deep-ocean water and darkness restrictions, group size and weight. Retains swimming pursuit, splitting, fish release on death and tiny-slime bucket capture. Bucketed slimes remain persistent and save their fish. |
-| Swamped | Reference Lobber Zombie model, attributes and forest spawn weight/groups; uses regular zombie AI with the husk-style unarmed melee poison attack against players. |
+| Swamped | Reference Lobber Zombie model, attributes and forest spawn weight/groups; uses regular zombie AI with the husk-style unarmed melee poison attack against players, and converts to vanilla drowned underwater. |
 
 Only Carved Melon and Tropical Slime Bucket are added as items. Seeds and bone shards are internal projectile entities using vanilla item visuals; unrequested loot items use vanilla equivalents. Bone Spider's rare Undead Body and Zombified payloads are internal mob effects, with no new potion items, brewing recipes or unrelated mob conversions. No recipes or spawn eggs are added. EarthMobs and Bagus Lib are not dependencies. Imported portions retain their LGPL notices (see `THIRD_PARTY_NOTICES.md`).
+
+Modern baby asset coverage and sources are recorded in [docs/baby-texture-audit.md](docs/baby-texture-audit.md). Bone shards use a dedicated projectile model; tropical slime particles use vanilla item-fragment physics and quarter-texture UVs without adding obtainable items.

@@ -4,10 +4,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 public final class ModModelLayers {
  public static final ModelLayerLocation BOULDERING_ZOMBIE=new ModelLayerLocation(MobContent.id("bouldering_zombie"),"main");
  public static final ModelLayerLocation BOULDERING_ZOMBIE_BABY=new ModelLayerLocation(MobContent.id("bouldering_zombie_baby"),"main");
- public static final ModelLayerLocation BOULDERING_DROWNED=new ModelLayerLocation(MobContent.id("bouldering_drowned"),"main");
- public static final ModelLayerLocation BOULDERING_DROWNED_BABY=new ModelLayerLocation(MobContent.id("bouldering_drowned_baby"),"main");
- public static final ModelLayerLocation BOULDERING_DROWNED_OUTER=new ModelLayerLocation(MobContent.id("bouldering_drowned_outer"),"main");
- public static final ModelLayerLocation BOULDERING_DROWNED_OUTER_BABY=new ModelLayerLocation(MobContent.id("bouldering_drowned_outer_baby"),"main");
  public static final ModelLayerLocation SWAMPED=new ModelLayerLocation(MobContent.id("swamped"),"main");
  public static final ModelLayerLocation SWAMPED_BABY=new ModelLayerLocation(MobContent.id("swamped_baby"),"main");
  public static final ModelLayerLocation BONE_SPIDER=new ModelLayerLocation(MobContent.id("bone_spider"),"main");

@@ -20,12 +20,14 @@ public final class MobClientVerification {
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<20)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.setScreen(new Gallery());}
  private static final class Gallery extends Screen {
   private final List<Mob> mobs=new ArrayList<>();private int frames;
+  private net.minecraft.world.item.ItemStack shard;
   Gallery(){super(Component.literal("Chocolate Flavored — Earth monsters"));}
   @Override protected void init(){if(!mobs.isEmpty())return;
+   shard=new com.akiotsukino.chocolateflavored.mob.entity.projectile.BoneShard(MobContent.BONE_SHARD.get(),minecraft.level).getItem();
    for(String key:List.of("ambient","growl","hurt","death","pant","whine","step","shake"))if(!net.minecraft.locale.Language.getInstance().has("subtitles.mob.skeleton_wolf."+key))throw new IllegalStateException("Missing wolf subtitle: "+key);
-   for(var holder:List.of(MobContent.MELON_GOLEM,MobContent.BOULDERING_ZOMBIE,MobContent.BOULDERING_DROWNED,MobContent.SWAMPED,MobContent.SKELETON_WOLF,MobContent.BONE_SPIDER,MobContent.TROPICAL_SLIME))for(int variant=0;variant<2;variant++){
+   for(var holder:List.of(MobContent.MELON_GOLEM,MobContent.BOULDERING_ZOMBIE,MobContent.SWAMPED,MobContent.SKELETON_WOLF,MobContent.BONE_SPIDER,MobContent.TROPICAL_SLIME))for(int variant=0;variant<2;variant++){
     Mob mob=(Mob)holder.get().create(minecraft.level,EntitySpawnReason.COMMAND);mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);mob.setAggressive(variant==1);
-    if(mob instanceof net.minecraft.world.entity.monster.zombie.Zombie){mob.setBaby(variant==1);mob.setItemSlot(EquipmentSlot.HEAD,new net.minecraft.world.item.ItemStack(Items.IRON_HELMET));mob.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(mob instanceof BoulderingDrowned?Items.TRIDENT:Items.IRON_AXE));}
+    if(mob instanceof net.minecraft.world.entity.monster.zombie.Zombie){mob.setBaby(variant==1);mob.setItemSlot(EquipmentSlot.HEAD,new net.minecraft.world.item.ItemStack(Items.IRON_HELMET));mob.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(Items.IRON_AXE));}
     if(mob instanceof BoulderingZombie z)z.setClimbing(variant==1);
     if(mob instanceof SkeletonWolf wolf&&variant==1){wolf.tame(minecraft.player);wolf.startPersistentAngerTimer();wolf.setBodyArmorItem(new net.minecraft.world.item.ItemStack(Items.WOLF_ARMOR));}
     if(mob instanceof TropicalSlime slime){slime.setSize(2,true);slime.setHasFish(variant==0);}
@@ -36,7 +38,10 @@ public final class MobClientVerification {
   @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial){
    g.fill(0,0,width,height,0xFF202B34);g.centeredText(font,"Chocolate Flavored: Earth monsters",width/2,5,0xFFFFFFFF);int cw=width/3,ch=(height-20)/3;
    for(int i=0;i<mobs.size();i++){int card=i/2,x=(card%3)*cw,y=20+(card/3)*ch;var mob=mobs.get(i);if(i%2==0){g.fill(x+2,y+1,x+cw-2,y+ch-2,0xFF354653);g.centeredText(font,mob.getType().getDescription().getString(),x+cw/2,y+3,0xFFFFFFFF);}mob.tickCount=frames;int left=x+5+(i%2)*(cw/2),right=left+cw/2-10;InventoryScreen.extractEntityInInventoryFollowsMouse(g,left,y+16,right,y+ch-5,27,.025F,(left+right)/2F-100,y+ch/2F,mob);}
-   if(++frames==150)ChocolateFlavored.LOGGER.info("MOB_CLIENT_VERIFICATION_PASSED: seven forms, adult/baby armor, angry golem head, bone eyes and animated tropical slime submitted");
+   g.centeredText(font,"Bone shard projectile",width/2,height-55,0xFFFFFFFF);
+   g.item(shard,width/2-8,height-35);
+   if(frames%10==0)for(int i=0;i<8;i++)minecraft.level.addParticle(MobContent.TROPICAL_SPLASH.get(),minecraft.player.getX(),minecraft.player.getEyeY(),minecraft.player.getZ()+1,(i-4)*.025,.15,0);
+   if(++frames==150)ChocolateFlavored.LOGGER.info("MOB_CLIENT_VERIFICATION_PASSED: six mobs, adult/baby armor, angry golem head, bone eyes and animated tropical slime submitted");
   }
   @Override public boolean isPauseScreen(){return false;}
  }

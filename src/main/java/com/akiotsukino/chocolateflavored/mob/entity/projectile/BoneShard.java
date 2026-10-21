@@ -32,6 +32,7 @@ public class BoneShard extends ThrowableItemProjectile {
 
 	public BoneShard(EntityType<? extends BoneShard> p_37391_, Level p_37392_) {
 		super(p_37391_, p_37392_);
+        setItem(getItem());
 	}
 
 	public BoneShard(Level p_37399_, LivingEntity p_37400_, ItemStack p_363259_) {
@@ -50,12 +51,18 @@ public class BoneShard extends ThrowableItemProjectile {
 		super(entity, livingEntity, level, p_363259_);
 	}
 
+    @Override public void setItem(ItemStack source) {
+        ItemStack visual = source.copyWithCount(1);
+        visual.set(DataComponents.ITEM_MODEL, MobContent.id("bone_shard"));
+        super.setItem(visual);
+    }
+
 	protected Item getDefaultItem() {
 		return net.minecraft.world.item.Items.BONE;
 	}
 
 	private ParticleOptions getParticle() {
-		return new ItemParticleOption(ParticleTypes.ITEM, net.minecraft.world.item.Items.BONE);
+		return new ItemParticleOption(ParticleTypes.ITEM, net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(getItem()));
 	}
 
 	private void updateColor() {
@@ -76,7 +83,8 @@ public class BoneShard extends ThrowableItemProjectile {
 
 	@Override
 	public void handleEntityEvent(byte p_36869_) {
-		if (p_36869_ == 0) {
+		if (p_36869_ == 3) {
+            for (int j = 0; j < 8; j++) level().addParticle(getParticle(), getX(), getY(), getZ(), 0, 0, 0);
 			int i = this.getColor();
 			if (i != -1) {
 				float f = (float) (i >> 16 & 0xFF) / 255.0F;
