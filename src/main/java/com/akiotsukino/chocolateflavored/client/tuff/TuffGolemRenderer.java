@@ -24,7 +24,7 @@ public final class TuffGolemRenderer extends MobRenderer<TuffGolem,TuffGolemRend
                 if(state.isInvisible)return;
                 coloredCutoutModelCopyLayerRender(getParentModel(),texture(DyeColor.byId(state.color).getName()),pose,collector,light,state,-1,1);
                 if(state.sleeping)coloredCutoutModelCopyLayerRender(getParentModel(),texture("closed_eyes"),pose,collector,light,state,-1,1);
-                if(state.carrying&&!state.isDeadOrDying){
+                if(state.carrying&&state.deathTime==0){
                     pose.pushPose();pose.translate(0,.72F+Mth.sin(state.ageInTicks/10F+Mth.PI)*.05F+.05F,-.575F);pose.mulPose(Axis.XP.rotationDegrees(180));pose.mulPose(Axis.YP.rotation(state.ageInTicks*.05F));
                     state.item.submit(pose,collector,light,OverlayTexture.NO_OVERLAY,state.outlineColor);pose.popPose();
                 }
