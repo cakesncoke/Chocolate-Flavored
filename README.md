@@ -86,3 +86,7 @@ The Tuff Golem is being rebuilt independently after reverting PR #8. It uses the
 ### Sunken behavior and sounds — Variants & Ventures
 
 [Faboslav — Variants & Ventures](https://github.com/Faboslav/variants-and-ventures) supplies the Murk behavior reference and unchanged Murk spawn egg image and ambient, underwater ambient, hurt, underwater hurt, death, underwater death, attack, step and shearing recordings. These assets remain **CC BY-NC-ND 4.0**, separate from the MIT code license. See the [pinned source paths and hashes](docs/sunken-murk-assets.json). Sunken's behavior is independently implemented against Minecraft 26.1.2; skeleton animations come from vanilla Minecraft. The existing Recrafted Mobs model and textures are retained.
+
+### Longer days and sleep acceleration
+
+The Overworld has a **20-minute day and 15-minute night** at normal speed. Sleeping runs the full simulation at **2× speed** instead of skipping the night, using the normal multiplayer sleep threshold. Daily schedules and calendar-dependent timers follow the longer cycle. See [timing, commands and Serene Seasons compatibility](docs/time-and-sleep.md).
