@@ -44,7 +44,7 @@ public final class CleanupVerification {
         long creeperWeight = desertSpawns.stream().filter(e -> e.value().type() == EntityType.CREEPER).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
         // The zombie-villager rule rescales all integer weights while preserving their ratios.
         check(rabbitWeight > 0 && rabbitWeight * 100 == creeperWeight * 15, "Reference desert spawn weight relative to vanilla creepers");
-        check(SpawnEggContent.EGGS.size() == 19, "All 18 entity types and muddy pig state have eggs");
+        check(SpawnEggContent.EGGS.size() == 24, "All 23 entity types and muddy pig state have eggs");
         for (var egg : SpawnEggContent.EGGS) check(SpawnEggItem.getType(egg.get().getDefaultInstance()) != null, "Valid spawn egg entity data");
         var muddyEgg = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("chocolateflavored", "muddy_pig_spawn_egg")).getDefaultInstance();
         level.getChunkAt(pos);
