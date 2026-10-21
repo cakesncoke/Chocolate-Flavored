@@ -53,7 +53,7 @@ final class LightingInteractionVerification {
                         : player.gameMode.useItem(player, level, starter, InteractionHand.MAIN_HAND);
                 check(result.consumesAction() && player.isUsingItem(), "Actual game-mode right click starts the fire starter");
                 player.setItemInHand(InteractionHand.MAIN_HAND, starter.copy());
-                for (int i = 0; i < 199; i++) player.advanceUse();
+                for (int i = 0; i < 99; i++) player.advanceUse();
                 check(level.getBlockState(pos).equals(unlit), "Actual use lifecycle does not light early");
                 player.advanceUse();
                 BlockState lit = level.getBlockState(pos);
