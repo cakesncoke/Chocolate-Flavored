@@ -23,7 +23,7 @@ public class EarthSheepRenderer extends AgeableMobRenderer<EarthSheep, SheepRend
             // The source baby wool uses the same undeformed boxes/UVs as its body.
             private final SheepModel baby = new BabySheepModel(context.bakeLayer(net.minecraft.client.model.geom.ModelLayers.SHEEP_BABY));
             @Override public void submit(PoseStack pose, SubmitNodeCollector collector, int light, SheepRenderState state, float yRot, float xRot) {
-                if (!state.isSheared) coloredCutoutModelCopyLayerRender(state.isBaby ? baby : adult, state.isBaby ? babyWool : wool, pose, collector, light, state, state.getWoolColor(), 0);
+                if (!state.isSheared) coloredCutoutModelCopyLayerRender(state.isBaby ? baby : adult, state.isBaby ? babyWool : wool, pose, collector, light, state, state.getWoolColor(), state.isBaby ? 1 : 0);
             }
         });
     }
