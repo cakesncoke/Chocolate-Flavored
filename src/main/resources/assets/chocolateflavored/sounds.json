@@ -150,5 +150,76 @@
     "sounds": [
       "chocolateflavored:entity/tuff_golem/glue_off"
     ]
+  },
+  "entity.sunken.ambient": {
+    "subtitle": "subtitles.chocolateflavored.sunken.ambient",
+    "sounds": [
+      "chocolateflavored:entity/sunken/ambient1",
+      "chocolateflavored:entity/sunken/ambient2",
+      "chocolateflavored:entity/sunken/ambient3"
+    ]
+  },
+  "entity.sunken.ambient_water": {
+    "subtitle": "subtitles.chocolateflavored.sunken.ambient_water",
+    "sounds": [
+      "chocolateflavored:entity/sunken/ambient_water1",
+      "chocolateflavored:entity/sunken/ambient_water2",
+      "chocolateflavored:entity/sunken/ambient_water3"
+    ]
+  },
+  "entity.sunken.hurt": {
+    "subtitle": "subtitles.chocolateflavored.sunken.hurt",
+    "sounds": [
+      "chocolateflavored:entity/sunken/hurt1",
+      "chocolateflavored:entity/sunken/hurt2",
+      "chocolateflavored:entity/sunken/hurt3",
+      "chocolateflavored:entity/sunken/hurt4"
+    ]
+  },
+  "entity.sunken.hurt_water": {
+    "subtitle": "subtitles.chocolateflavored.sunken.hurt_water",
+    "sounds": [
+      "chocolateflavored:entity/sunken/hurt_water1",
+      "chocolateflavored:entity/sunken/hurt_water2",
+      "chocolateflavored:entity/sunken/hurt_water3",
+      "chocolateflavored:entity/sunken/hurt_water4"
+    ]
+  },
+  "entity.sunken.death": {
+    "subtitle": "subtitles.chocolateflavored.sunken.death",
+    "sounds": [
+      "chocolateflavored:entity/sunken/death1"
+    ]
+  },
+  "entity.sunken.death_water": {
+    "subtitle": "subtitles.chocolateflavored.sunken.death_water",
+    "sounds": [
+      "chocolateflavored:entity/sunken/death_water1",
+      "chocolateflavored:entity/sunken/death_water2",
+      "chocolateflavored:entity/sunken/death_water3"
+    ]
+  },
+  "entity.sunken.attack": {
+    "subtitle": "subtitles.chocolateflavored.sunken.attack",
+    "sounds": [
+      "chocolateflavored:entity/sunken/attack1",
+      "chocolateflavored:entity/sunken/attack2",
+      "chocolateflavored:entity/sunken/attack3"
+    ]
+  },
+  "entity.sunken.step": {
+    "subtitle": "subtitles.chocolateflavored.sunken.step",
+    "sounds": [
+      "chocolateflavored:entity/sunken/step1",
+      "chocolateflavored:entity/sunken/step2",
+      "chocolateflavored:entity/sunken/step3",
+      "chocolateflavored:entity/sunken/step4"
+    ]
+  },
+  "entity.sunken.shear": {
+    "subtitle": "subtitles.chocolateflavored.sunken.shear",
+    "sounds": [
+      "chocolateflavored:entity/sunken/shear"
+    ]
   }
 }

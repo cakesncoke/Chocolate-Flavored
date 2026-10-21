@@ -28,7 +28,8 @@ public final class SunkenVerification {
     public static void run(ServerLevel level,FakePlayer player){
         player.setGameMode(GameType.SURVIVAL);
         var sunken=spawn(level);var skeleton=EntityType.SKELETON.create(level,EntitySpawnReason.COMMAND);
-        for(var attribute:java.util.List.of(Attributes.MAX_HEALTH,Attributes.MOVEMENT_SPEED,Attributes.ATTACK_DAMAGE,Attributes.ARMOR,Attributes.FOLLOW_RANGE))check(sunken.getAttributeValue(attribute)==skeleton.getAttributeValue(attribute),"Skeleton base stats");
+        for(var attribute:java.util.List.of(Attributes.MOVEMENT_SPEED,Attributes.ATTACK_DAMAGE,Attributes.ARMOR,Attributes.FOLLOW_RANGE))check(sunken.getAttributeValue(attribute)==skeleton.getAttributeValue(attribute),"Skeleton base stats");
+        check(sunken.getMaxHealth()==16&&!sunken.canFreeze()&&!sunken.isShaking(),"Murk health and freeze immunity");
         check(sunken.getNavigation() instanceof AmphibiousPathNavigation,"Amphibious navigation");
         check(sunken.is(EntityTypeTags.BURN_IN_DAYLIGHT)&&sunken.is(EntityTypeTags.CAN_BREATHE_UNDER_WATER),"Daylight burning and underwater breathing tags");
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 6000");
@@ -38,21 +39,24 @@ public final class SunkenVerification {
             player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.SHEARS));
             sunken.mobInteract(player,InteractionHand.MAIN_HAND);
             var drops=level.getEntitiesOfClass(ItemEntity.class,AREA);
-            check(drops.size()==1&&drops.getFirst().getItem().is(sunken.coralFan()),"Matching coral fan, exactly once");
+            var live=switch(color){case 1->Items.FIRE_CORAL;case 2->Items.HORN_CORAL;default->Items.BUBBLE_CORAL;};
+            var dead=switch(color){case 1->Items.DEAD_FIRE_CORAL;case 2->Items.DEAD_HORN_CORAL;default->Items.DEAD_BUBBLE_CORAL;};
+            check(drops.stream().mapToInt(e->e.getItem().getCount()).sum()==2&&drops.stream().allMatch(e->e.getItem().is(live)||e.getItem().is(dead)),"Two matching live/dead coral rolls");
             check(sunken.isSheared()&&player.getMainHandItem().getDamageValue()==1,"Shearing state and durability");
-            sunken.mobInteract(player,InteractionHand.MAIN_HAND);check(level.getEntitiesOfClass(ItemEntity.class,AREA).size()==1,"No repeated shear drops");
+            sunken.mobInteract(player,InteractionHand.MAIN_HAND);check(level.getEntitiesOfClass(ItemEntity.class,AREA).stream().mapToInt(e->e.getItem().getCount()).sum()==2,"No repeated shear drops");
             var restored=(Sunken)restore(level,sunken);check(restored.isSheared()&&restored.coralColor()==color&&!restored.readyForShearing(),"Color and sheared state survive reload");
             drops.forEach(Entity::discard);sunken.discard();restored.discard();
         }
-        int tridents=0;boolean[] colors=new boolean[3];
+        boolean[] colors=new boolean[3];
         for(int i=0;i<300;i++){
             sunken=spawn(level);sunken.getRandom().setSeed(918273L+i*9973L);sunken.finalizeSpawn(level,level.getCurrentDifficultyAt(POS),EntitySpawnReason.SPAWN_ITEM_USE,null);
-            colors[sunken.coralColor()]=true;if(sunken.getMainHandItem().is(Items.TRIDENT))tridents++;else check(sunken.getMainHandItem().is(Items.CROSSBOW),"Spawn weapon is crossbow or trident");sunken.discard();
+            colors[sunken.coralColor()]=true;check(sunken.getMainHandItem().is(Items.BOW),"Murk spawn weapon is bow");sunken.discard();
         }
-        check(tridents>10&&tridents<60&&colors[0]&&colors[1]&&colors[2],"Rare tridents and all three spawn colors");
+        check(colors[0]&&colors[1]&&colors[2],"All three spawn colors");
         verifyDrowning(level);
+        verifyTargeting(level,player);
         verifyCombat(level);
-        ChocolateFlavored.LOGGER.info("SUNKEN_VERIFICATION_PASSED: skeleton stats, daylight burning, three colors, one-time coral shearing and persistence, five skeleton conversions and gear preservation, underwater steering, arrows and tridents");
+        ChocolateFlavored.LOGGER.info("SUNKEN_VERIFICATION_PASSED: Murk health and freeze immunity, daylight burning, three colors, one-time coral shearing and persistence, five skeleton conversions and gear preservation, underwater steering, day/night targeting and bow combat");
     }
     private static void verifyDrowning(ServerLevel level){
         for(var p:BlockPos.betweenClosed(POS.offset(-2,-1,-2),POS.offset(2,4,2)))level.setBlock(p,Blocks.WATER.defaultBlockState(),3);
@@ -74,16 +78,27 @@ public final class SunkenVerification {
         for(var p:BlockPos.betweenClosed(POS.offset(-2,-1,-2),POS.offset(2,4,2)))level.removeBlock(p,false);
         var dry=EntityType.SKELETON.create(level,EntitySpawnReason.COMMAND);dry.snapTo(POS.getX(),POS.getY(),POS.getZ(),0,0);dry.getPersistentData().putInt(SkeletonDrowning.SUBMERGED,599);SkeletonDrowning.tick(new EntityTickEvent.Post(dry));check(dry.getPersistentData().getIntOr(SkeletonDrowning.SUBMERGED,0)==-1,"Leaving water resets exposure before conversion");dry.discard();
     }
+    private static void verifyTargeting(ServerLevel level,FakePlayer player){
+        var sunken=spawn(level);
+        // FakePlayer.tick() is intentionally empty; baseTick updates actual fluid contact.
+        player.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);player.baseTick();player.baseTick();
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 6000");
+        check(!sunken.canAttackTarget(player),"Does not acquire dry players in daylight");
+        for(var pos:BlockPos.betweenClosed(player.blockPosition().below(),player.blockPosition().above(2)))level.setBlock(pos,Blocks.WATER.defaultBlockState(),3);
+        player.baseTick();player.baseTick();check(sunken.canAttackTarget(player),"Acquires swimming players in daylight");
+        for(var pos:BlockPos.betweenClosed(player.blockPosition().below(),player.blockPosition().above(2)))level.removeBlock(pos,false);
+        level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 18000");
+        check(sunken.canAttackTarget(player)&&!sunken.canAttackTarget(null),"Night targeting and absent target");
+        sunken.discard();
+    }
     private static void verifyCombat(ServerLevel level){
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 18000");
         for(var pos:BlockPos.betweenClosed(POS.offset(-6,-1,-6),POS.offset(6,-1,6)))level.setBlock(pos,Blocks.STONE.defaultBlockState(),3);
         var sunken=spawn(level);level.addFreshEntity(sunken);var target=EntityType.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);level.addFreshEntity(target);sunken.setTarget(target);
-        sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.CROSSBOW));
-        boolean charged=false;
-        for(int i=0;i<160;i++){sunken.tick();charged|=sunken.chargingCrossbow();}
-        check(charged&&!level.getEntitiesOfClass(Arrow.class,AREA).isEmpty(),"Crossbow AI charges and fires from an unloaded weapon");
-        sunken.snapTo(POS.getX()+.5,POS.getY(),POS.getZ()+.5,0,0);
-        sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.TRIDENT));sunken.performRangedAttack(target,1);check(level.getEntitiesOfClass(ThrownTrident.class,AREA).size()==1,"Native thrown trident projectile");
+        sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.BOW));
+        boolean drewBow=false;
+        for(int i=0;i<160;i++){sunken.tick();drewBow|=sunken.isUsingItem();}
+        check(drewBow&&!level.getEntitiesOfClass(Arrow.class,AREA).isEmpty(),"Skeleton AI draws and fires the bow");
         level.getEntitiesOfClass(AbstractArrow.class,AREA).forEach(Entity::discard);sunken.discard();target.discard();
     }
     private static Sunken spawn(ServerLevel level){var result=SunkenContent.SUNKEN.get().create(level,EntitySpawnReason.COMMAND);result.snapTo(POS.getX()+.5,POS.getY(),POS.getZ()+.5,0,0);return result;}

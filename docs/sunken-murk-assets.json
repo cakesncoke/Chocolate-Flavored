@@ -1,0 +1,143 @@
+{
+  "repository": "https://github.com/Faboslav/variants-and-ventures",
+  "commit": "0ac431558806d10ae60e58ac60d52f431d6eca7b",
+  "license": "CC-BY-NC-ND-4.0",
+  "note": "Unmodified sound assets; behavior independently implemented using Minecraft 26.1.2 APIs. No upstream Java or models copied.",
+  "files": [
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient1.ogg",
+      "sha256": "fcbdece3fc5845077348c59c50ce2233c9db4be1c8d6ce012139cded8ee912f0"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient2.ogg",
+      "sha256": "c16fce3166ed6dd48a90368026e4a5c3d43d51c715c2247e90b26629b20558b4"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient3.ogg",
+      "sha256": "9129e056688f2558a62dbd1de026ffdc22d9e086b704edd17ab220214a96fdfe"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient_water1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient_water1.ogg",
+      "sha256": "fdbdc8d9723aabc652ffba6cd681227cc92f00d3a96c598a8238ee33bdcfff7e"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient_water2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient_water2.ogg",
+      "sha256": "a4cf5aacbbd6ae0e4e6bbfdbd7bab8398ba57e43caac327331d3d9b84d3483ff"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient_water3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/ambient_water3.ogg",
+      "sha256": "93b43635a738518abaed07e46bbfc8a7657f7041fe97a423c68621626ad661f1"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt1.ogg",
+      "sha256": "eae097ce8c42b8cdb3910049d473e5a97b5b6f9353dc1cc8922f29952345afff"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt2.ogg",
+      "sha256": "b354b57c094559619a41eb3c4c8d0f936b4bab8b5dd67ccde5863198e6cd2ccf"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt3.ogg",
+      "sha256": "82a3359d0c1903051a419c815b9e475b0d5c62805db96ba5cb92026122b354e7"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt4.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt4.ogg",
+      "sha256": "367c4d76a38c86922b52f30f1908623f1bb7065e1738d026f99d33f520f2fe01"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt_water1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt_water1.ogg",
+      "sha256": "408fe3c72576f6e254ac5a7c6d7911930881bdc11f0cca1d0d92dbd81527a5bd"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt_water2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt_water2.ogg",
+      "sha256": "28f422c5ba33cd15fcbb5739416cc31370bae4131db5f5ac8aac1c247c36c4ac"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt_water3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt_water3.ogg",
+      "sha256": "87f2eb2e602a9ffb8bd21672180d8d1e0c2abc79aea7e6c6e1c6c6124d7afcc2"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/hurt_water4.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/hurt_water4.ogg",
+      "sha256": "fb48f614fce7c8b432c4b0a54d5799fff0f982aa3b5a4f1e128c8ad6f5a8986f"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/death1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/death1.ogg",
+      "sha256": "06dfc0bcb2410d0f045038781ff367fb030cffc69e698a06662d67ea5ff63a6c"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/death_water1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/death_water1.ogg",
+      "sha256": "6f917f3c20e33c4e0d6d47c30c339a5a9087d9822c68e6868423cd246eedb15a"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/death_water2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/death_water2.ogg",
+      "sha256": "241dbffb87d8796a78407301748725a437235ea7db874cd1538c788bf58bda14"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/death_water3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/death_water3.ogg",
+      "sha256": "0d34bcb1f1264bac62a032cde9a3bd46c0c194597948a2c3291a4a65e273e0e9"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/attack1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/attack1.ogg",
+      "sha256": "9c5cd3cc6488e44ce3c7eb35d945a53b4f77c306a9658cb2a52c9cc805883b91"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/attack2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/attack2.ogg",
+      "sha256": "c5c0223ba7a515b2ed365c4721db951d95133fc67f566272085e6b2beec7e05c"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/attack3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/attack3.ogg",
+      "sha256": "8383d451499d3cc3825f526575e2e1858ed54b2feb85377a516f38efed6e9624"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/step1.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/step1.ogg",
+      "sha256": "9e3a3f55c0388eb18f0f7ba750ea4458f16b6317f99ed0ea6858ee5ac075f85f"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/step2.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/step2.ogg",
+      "sha256": "43d10a97a40681bdab07ec16341c094b74789c7534492f92bd9fe6fce3bb95ce"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/step3.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/step3.ogg",
+      "sha256": "9f922dfd56127e573ff7517d9e4e9c123a690e9670e3bdc1e9777317b418a970"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/step4.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/step4.ogg",
+      "sha256": "ca195f0335fb04fcd9ac297975de0fd31ab8b5851882dfdc44ec83bc264021c2"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/shear.ogg",
+      "destination": "src/main/resources/assets/chocolateflavored/sounds/entity/sunken/shear.ogg",
+      "sha256": "7ada85d7af6496eb2a57e8c56bffdd64add5e5fab8e1f0916fe41c1cc4592e7f"
+    },
+    {
+      "source": "LICENSE.txt",
+      "destination": "src/main/resources/META-INF/licenses/Variants-and-Ventures.txt",
+      "sha256": "cb6303892198afb24723a78e59be37222ffd7494690fca00d9307347df50e0b6"
+    }
+  ]
+}

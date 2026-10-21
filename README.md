@@ -82,3 +82,7 @@ The Tuff Golem is being rebuilt independently after reverting PR #8. It uses the
 ### Sunken resources
 
 [GillsBills — Recrafted Mobs v11.0](https://www.curseforge.com/minecraft/texture-packs/recrafted-mobs/files/6561402): the Sunken skeleton CEM model and purple, red and yellow textures. These assets retain **CC BY-NC-SA 4.0**; they are excluded from the mod code's MIT license. The pack credits Cave Fox, Kekkman, PinkuRinku, RavenVLemon, Ewanhowell5195, creepermax123 and MickeyJoeAlpha as contributors; it does not assign individual Sunken asset authorship. Original Minecraft Dungeons designs: Mojang. See [exact source paths and hashes](docs/sunken-assets.json) and [Sunken mechanics](docs/sunken.md). The spawn egg uses Minecraft's existing modern skeleton egg model/texture.
+
+### Sunken behavior and sounds — Variants & Ventures
+
+[Faboslav — Variants & Ventures](https://github.com/Faboslav/variants-and-ventures) supplies the Murk behavior reference and unchanged Murk ambient, underwater ambient, hurt, underwater hurt, death, underwater death, attack, step and shearing recordings. These sounds remain **CC BY-NC-ND 4.0**, separate from the MIT code license. See the [pinned source paths and hashes](docs/sunken-murk-assets.json). Sunken's behavior is independently implemented against Minecraft 26.1.2; skeleton animations come from vanilla Minecraft. The existing Recrafted Mobs model and textures are retained.
