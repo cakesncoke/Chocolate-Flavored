@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import net.minecraft.client.model.geom.*;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
+import net.minecraft.client.animation.*;
 
 /** Reads original, unmodified Blockbench box-UV assets; no handwritten model geometry/keyframes. */
 final class BlockbenchAsset {
@@ -41,31 +41,42 @@ final class BlockbenchAsset {
         var part=parent.addOrReplaceChild(bone.get("name").getAsString(),builder,PartPose.offset(px-v(bone,"origin",0),py-v(bone,"origin",1),v(bone,"origin",2)-pz));
         for(var child:bone.getAsJsonArray("children"))if(child.isJsonObject())bone(part,child.getAsJsonObject(),bone);
     }
-    private record Frame(float time,float x,float y,float z){}
-    void animate(ModelPart root,String name,float seconds,boolean loop){
-        var animation=animations.get(name);if(animation==null)throw new IllegalArgumentException("Missing original animation: "+name);
-        float length=animation.get("length").getAsFloat();float time=loop?seconds%length:Mth.clamp(seconds,0,length);
-        Map<String,ModelPart> parts=new HashMap<>();for(var part:source.getAsJsonArray("outliner"))findParts(root,part.getAsJsonObject(),parts);
-        for(var entry:animation.getAsJsonObject("animators").entrySet()){
-            var animator=entry.getValue().getAsJsonObject();ModelPart part=parts.get(animator.get("name").getAsString());if(part==null)continue;
-            Map<String,List<Frame>> channels=new HashMap<>();
-            for(var frameElement:animator.getAsJsonArray("keyframes")){
-                var frame=frameElement.getAsJsonObject();if(!frame.get("interpolation").getAsString().equals("linear"))throw new IllegalArgumentException("Unsupported Blockbench interpolation");
-                var point=frame.getAsJsonArray("data_points").get(0).getAsJsonObject();channels.computeIfAbsent(frame.get("channel").getAsString(),key->new ArrayList<>()).add(new Frame(frame.get("time").getAsFloat(),point.get("x").getAsFloat(),point.get("y").getAsFloat(),point.get("z").getAsFloat()));
-            }
-            for(var channel:channels.entrySet()){
-                var frames=channel.getValue();frames.sort(Comparator.comparingDouble(Frame::time));Frame a=frames.getFirst(),b=a;
-                for(var frame:frames){if(frame.time<=time)a=frame;if(frame.time>=time){b=frame;break;}b=frame;}
-                float delta=b.time==a.time?0:Mth.clamp((time-a.time)/(b.time-a.time),0,1);
-                float x=Mth.lerp(delta,a.x,b.x),y=Mth.lerp(delta,a.y,b.y),z=Mth.lerp(delta,a.z,b.z);
-                switch(channel.getKey()){
-                    case "rotation"->{part.xRot+=x*Mth.DEG_TO_RAD;part.yRot+=y*Mth.DEG_TO_RAD;part.zRot+=z*Mth.DEG_TO_RAD;}
-                    case "position"->{part.x+=x;part.y-=y;part.z+=z;}
-                    case "scale"->{part.xScale*=x;part.yScale*=y;part.zScale*=z;}
-                    default->throw new IllegalArgumentException("Unsupported Blockbench channel "+channel.getKey());
+    Map<String,KeyframeAnimation> bakeAnimations(ModelPart root) {
+        Map<String,KeyframeAnimation> result=new HashMap<>();
+        for(var entry:animations.entrySet()) {
+            var animation=entry.getValue();
+            var builder=AnimationDefinition.Builder.withLength(animation.get("length").getAsFloat());
+            if(animation.get("loop").getAsString().equals("loop"))builder.looping();
+            for(var element:animation.getAsJsonObject("animators").entrySet()) {
+                var animator=element.getValue().getAsJsonObject();
+                Map<String,List<Keyframe>> channels=new HashMap<>();
+                for(var value:animator.getAsJsonArray("keyframes")) {
+                    var frame=value.getAsJsonObject();
+                    if(!frame.get("interpolation").getAsString().equals("linear"))throw new IllegalArgumentException("Unsupported interpolation");
+                    var point=frame.getAsJsonArray("data_points").get(0).getAsJsonObject();
+                    float x=point.get("x").getAsFloat(),y=point.get("y").getAsFloat(),z=point.get("z").getAsFloat();
+                    String channel=frame.get("channel").getAsString();
+                    var vector=switch(channel) {
+                        case "position" -> KeyframeAnimations.posVec(x,y,z);
+                        case "rotation" -> KeyframeAnimations.degreeVec(x,y,z);
+                        case "scale" -> KeyframeAnimations.scaleVec(x,y,z);
+                        default -> throw new IllegalArgumentException("Unsupported channel "+channel);
+                    };
+                    channels.computeIfAbsent(channel,key->new ArrayList<>()).add(new Keyframe(frame.get("time").getAsFloat(),vector,AnimationChannel.Interpolations.LINEAR));
+                }
+                for(var channel:channels.entrySet()) {
+                    channel.getValue().sort(Comparator.comparingDouble(Keyframe::timestamp));
+                    var target=switch(channel.getKey()) {
+                        case "position" -> AnimationChannel.Targets.POSITION;
+                        case "rotation" -> AnimationChannel.Targets.ROTATION;
+                        case "scale" -> AnimationChannel.Targets.SCALE;
+                        default -> throw new IllegalArgumentException(channel.getKey());
+                    };
+                    builder.addAnimation(animator.get("name").getAsString(),new AnimationChannel(target,channel.getValue().toArray(Keyframe[]::new)));
                 }
             }
+            result.put(entry.getKey(),builder.build().bake(root));
         }
+        return Map.copyOf(result);
     }
-    private static void findParts(ModelPart parent,JsonObject bone,Map<String,ModelPart> parts){String name=bone.get("name").getAsString();var part=parent.getChild(name);parts.put(name,part);for(var child:bone.getAsJsonArray("children"))if(child.isJsonObject())findParts(part,child.getAsJsonObject(),parts);}
 }

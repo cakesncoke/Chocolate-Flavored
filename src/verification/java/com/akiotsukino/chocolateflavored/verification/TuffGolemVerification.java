@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.common.util.FakePlayer;
 public final class TuffGolemVerification {
     public static void run(ServerLevel level,FakePlayer player){
+        verifyConstruction(level);
         player.setGameMode(GameType.SURVIVAL);player.getInventory().clearContent();
         TestGolem golem=new TestGolem(level);golem.snapTo(210.5,180,210.5,90,0);for(int i=0;i<201;i++)golem.step(level);
         check(golem.getMaxHealth()==20&&!golem.sleeping()&&!golem.immobilized(),"20 health and standing after initial ten seconds");
@@ -31,6 +32,27 @@ public final class TuffGolemVerification {
         level.registryAccess().lookupOrThrow(Registries.BIOME).listElements().forEach(h->{for(var category:MobCategory.values())check(h.value().getMobSettings().getMobs(category).unwrap().stream().noneMatch(e->e.value().type()==TuffGolemContent.TUFF_GOLEM.get()),"No natural Tuff Golem spawns");});
         golem.discard();reloaded.discard();item.discard();
         ChocolateFlavored.LOGGER.info("TUFF_GOLEM_VERIFICATION_PASSED: repair, dye, wax/scrape, exact item transfers, transitions, saved home/pose/item and sleep duration; no natural spawns");
+    }
+    private static void verifyConstruction(ServerLevel level){
+        var head=new net.minecraft.core.BlockPos(230,182,230);
+        for(var color:DyeColor.values())for(var pumpkin:java.util.List.of(net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN,net.minecraft.world.level.block.Blocks.JACK_O_LANTERN)){
+            var base=head.below(2);
+            level.setBlock(base,net.minecraft.world.level.block.Blocks.TUFF.defaultBlockState(),3);
+            var wool=net.minecraft.core.registries.BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace(color.getName()+"_wool"));
+            level.setBlock(head.below(),wool.defaultBlockState(),3);
+            check(((net.minecraft.world.level.block.CarvedPumpkinBlock)net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN).canSpawnGolem(level,head),"Dispenser recognizes wool/tuff base");
+            level.setBlock(head,pumpkin.defaultBlockState(),3);
+            var golems=level.getEntitiesOfClass(TuffGolem.class,new net.minecraft.world.phys.AABB(base).inflate(2));
+            check(golems.size()==1,"Exactly one constructed golem");
+            var golem=golems.getFirst();check(golem.color()==color.getId(),"Wool determines cloth color");
+            check(level.isEmptyBlock(head)&&level.isEmptyBlock(head.below())&&level.isEmptyBlock(base),"Consumes exactly the construction column");
+            check(golem.home().distanceToSqr(golem.position())<.001,"Construction sets home");golem.discard();
+        }
+        level.setBlock(head.below(2),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+        level.setBlock(head.below(),net.minecraft.world.level.block.Blocks.WHITE_WOOL.defaultBlockState(),3);
+        level.setBlock(head,net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN.defaultBlockState(),3);
+        check(!level.isEmptyBlock(head)&&!TuffGolemConstruction.canBuild(level,head),"Invalid base remains intact");
+        for(int i=0;i<3;i++)level.removeBlock(head.below(i),false);
     }
     private static void held(FakePlayer player,Item item,int count){player.setItemInHand(InteractionHand.MAIN_HAND,item==Items.AIR?ItemStack.EMPTY:new ItemStack(item,count));}
     private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Save entity");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();}

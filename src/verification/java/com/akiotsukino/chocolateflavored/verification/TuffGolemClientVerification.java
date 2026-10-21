@@ -20,7 +20,7 @@ import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TuffGolemClientVerification {
     private static boolean opened;private static int ticks;
-    @SubscribeEvent public static void tick(ClientTickEvent.Post event){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!MobClientVerification.completed||++ticks<160)return;if(Minecraft.getInstance().level==null)return;opened=true;Minecraft.getInstance().setScreen(new Gallery());}
+    @SubscribeEvent public static void tick(ClientTickEvent.Post event){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!MobClientVerification.completed||++ticks<160)return;if(Minecraft.getInstance().level==null)return;com.akiotsukino.chocolateflavored.client.tuff.TuffAnimationVerification.run();opened=true;Minecraft.getInstance().setScreen(new Gallery());}
     private static final class Gallery extends Screen {
         private final List<TuffGolem> golems=new ArrayList<>();private int frames;
         private final String[] clips={"","idleWithItem","sleep","sleepWithItem","showItem","hideItem","wake","wakeWithItem","wakeAndShowItem","wakeAndHideItem","walk","walkWithItem","","idleWithItem","sleep","sleepWithItem"};
@@ -30,7 +30,7 @@ public final class TuffGolemClientVerification {
             g.fill(0,0,width,height,0xFF263A38);g.centeredText(font,"Tuff Golem: original Friends & Foes model, textures and keyframes",width/2,4,0xFFFFFFFF);
             int cw=width/4,ch=(height-40)/4;
             for(int i=0;i<16;i++){var golem=golems.get(i);int x=i%4*cw,y=20+i/4*ch;g.fill(x+2,y,x+cw-2,y+ch-2,0xFF40534D);g.centeredText(font,DyeColor.byId(i).getName()+" / "+(clips[i].isEmpty()?"standing":clips[i]),x+cw/2,y+2,0xFFFFFFFF);golem.tickCount=frames;
-                var renderer=minecraft.getEntityRenderDispatcher().getRenderer(golem);var state=(TuffGolemRenderer.State)renderer.createRenderState(golem,1);state.bodyRot=160;state.yRot=0;state.xRot=0;state.ageInTicks=frames;state.shadowPieces.clear();state.outlineColor=0;state.animation=clips[i];state.elapsed=(frames%60)/40F;state.walkAnimationPos=frames/4F;
+                var renderer=minecraft.getEntityRenderDispatcher().getRenderer(golem);var state=(TuffGolemRenderer.State)renderer.createRenderState(golem,1);state.bodyRot=160;state.yRot=0;state.xRot=0;state.ageInTicks=frames;state.shadowPieces.clear();state.outlineColor=0;state.animation=clips[i];state.elapsed=(frames%60)/40F;state.walkAnimationPos=frames/4F;state.walkAnimationSpeed=(i==10||i==11)?1:0;
                 g.entity(state,36,new Vector3f(0,.52F,0),new Quaternionf().rotateZ((float)Math.PI),new Quaternionf().rotateX(.1F),x+4,y+13,x+cw-4,y+ch-3);
             }
             var egg=com.akiotsukino.chocolateflavored.content.SpawnEggContent.EGGS.stream().filter(e->SpawnEggItem.getType(e.get().getDefaultInstance())==TuffGolemContent.TUFF_GOLEM.get()).findFirst().orElseThrow();g.item(egg.get().getDefaultInstance(),width/2-8,height-19);
