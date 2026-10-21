@@ -63,7 +63,8 @@ final class VillageVerification {
                 check(resident.isPersistenceRequired(), "Abandoned resident cannot naturally despawn");
                 check(!resident.is(EntityTypeTags.BURN_IN_DAYLIGHT), "Zombie villagers excluded from actual daylight burning tag");
                 var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
-                resident.save(output);
+                // A finalized baby resident may be a chicken jockey; save() skips passengers.
+                check(resident.saveAsPassenger(output), "Resident serialization includes mounted villagers");
                 var restored = EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), output.buildResult()), level, EntitySpawnReason.COMMAND).orElseThrow();
                 check(restored instanceof ZombieVillager zombie && zombie.isPersistenceRequired(), "Persistence survives entity save/load");
                 resident.checkDespawn();
