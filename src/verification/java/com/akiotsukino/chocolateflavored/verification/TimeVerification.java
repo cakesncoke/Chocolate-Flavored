@@ -74,7 +74,7 @@ final class TimeVerification {
         int percentage = level.getGameRules().get(GameRules.PLAYERS_SLEEPING_PERCENTAGE);
         float originalRate = manager.tickrate();
         try {
-            level.setWeatherParameters(6000, 0, false, false);
+            server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), "weather clear");
             placeBed(level, firstBed); placeBed(level, secondBed);
             first.setGameMode(GameType.CREATIVE); second.setGameMode(GameType.CREATIVE);
             first.snapTo(firstBed.getX(), firstBed.getY(), firstBed.getZ(), 0, 0);
