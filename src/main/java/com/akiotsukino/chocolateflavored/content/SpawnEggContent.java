@@ -20,15 +20,9 @@ public final class SpawnEggContent {
     static {
         egg("sunken", com.akiotsukino.chocolateflavored.mob.sunken.SunkenContent.SUNKEN);
         egg("tuff_golem", com.akiotsukino.chocolateflavored.mob.tuff.TuffGolemContent.TUFF_GOLEM);
-        egg("dairy_cow", AnimalContent.DAIRY_COW);
         egg("moobloom", AnimalContent.MOOBLOOM);
         egg("moolip", AnimalContent.MOOLIP);
-        egg("pale_pig", AnimalContent.PALE_PIG);
-        egg("bronzed_chicken", AnimalContent.BRONZED_CHICKEN);
         egg("fancy_chicken", AnimalContent.FANCY_CHICKEN);
-        egg("fuzzy_sheep", AnimalContent.FUZZY_SHEEP);
-        egg("long_nose_sheep", AnimalContent.LONG_NOSE_SHEEP);
-        egg("patched_sheep", AnimalContent.PATCHED_SHEEP);
         egg("horned_sheep", AnimalContent.HORNED_SHEEP);
         egg("jumbo_rabbit", AnimalContent.JUMBO_RABBIT);
         egg("melon_golem", MobContent.MELON_GOLEM);

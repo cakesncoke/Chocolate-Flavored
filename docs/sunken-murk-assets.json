@@ -2,7 +2,7 @@
   "repository": "https://github.com/Faboslav/variants-and-ventures",
   "commit": "0ac431558806d10ae60e58ac60d52f431d6eca7b",
   "license": "CC-BY-NC-ND-4.0",
-  "note": "Unmodified sound assets; behavior independently implemented using Minecraft 26.1.2 APIs. No upstream Java or models copied.",
+  "note": "Unmodified Murk sound assets and spawn egg image; behavior independently implemented using Minecraft 26.1.2 APIs. No upstream Java or models copied.",
   "files": [
     {
       "source": "common/src/main/resources/assets/variantsandventures/sounds/entity/murk/ambient1.ogg",
@@ -138,6 +138,11 @@
       "source": "LICENSE.txt",
       "destination": "src/main/resources/META-INF/licenses/Variants-and-Ventures.txt",
       "sha256": "cb6303892198afb24723a78e59be37222ffd7494690fca00d9307347df50e0b6"
+    },
+    {
+      "source": "common/src/main/resources/assets/variantsandventures/textures/item/murk_spawn_egg.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/sunken_spawn_egg.png",
+      "sha256": "6fd8d74adc48e2004c222f28cd3fa2bb175f69f954fd39ff933111357aad77bb"
     }
   ]
 }
