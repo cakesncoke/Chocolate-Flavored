@@ -96,5 +96,59 @@
       "chocolateflavored:mob/skeleton_wolf/skeleton_wolf_death"
     ],
     "subtitle": "subtitles.mob.skeleton_wolf.death"
+  },
+  "tuff_golem.hurt": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.hurt",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/hurt1",
+      "chocolateflavored:entity/tuff_golem/hurt2",
+      "chocolateflavored:entity/tuff_golem/hurt3"
+    ]
+  },
+  "tuff_golem.step": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.step",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/step1",
+      "chocolateflavored:entity/tuff_golem/step2",
+      "chocolateflavored:entity/tuff_golem/step3",
+      "chocolateflavored:entity/tuff_golem/step4"
+    ]
+  },
+  "tuff_golem.move": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.move",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/move1",
+      "chocolateflavored:entity/tuff_golem/move2"
+    ]
+  },
+  "tuff_golem.sleep": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.sleep",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/sleep"
+    ]
+  },
+  "tuff_golem.wake": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.wake",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/wake"
+    ]
+  },
+  "tuff_golem.repair": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.repair",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/repair"
+    ]
+  },
+  "tuff_golem.glue_on": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.glue_on",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/glue_on"
+    ]
+  },
+  "tuff_golem.glue_off": {
+    "subtitle": "subtitles.chocolateflavored.tuff_golem.glue_off",
+    "sounds": [
+      "chocolateflavored:entity/tuff_golem/glue_off"
+    ]
   }
 }

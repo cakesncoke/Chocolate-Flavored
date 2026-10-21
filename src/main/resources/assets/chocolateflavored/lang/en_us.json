@@ -96,5 +96,15 @@
   "item.chocolateflavored.bone_spider_spawn_egg": "Bone Spider Spawn Egg",
   "item.chocolateflavored.tropical_slime_spawn_egg": "Tropical Slime Spawn Egg",
   "item.chocolateflavored.husk_rabbit_spawn_egg": "Husk Rabbit Spawn Egg",
-  "item.chocolateflavored.muddy_pig_spawn_egg": "Muddy Pig Spawn Egg"
+  "item.chocolateflavored.muddy_pig_spawn_egg": "Muddy Pig Spawn Egg",
+  "entity.chocolateflavored.tuff_golem": "Tuff Golem",
+  "item.chocolateflavored.tuff_golem_spawn_egg": "Tuff Golem Spawn Egg",
+  "subtitles.chocolateflavored.tuff_golem.hurt": "Tuff Golem hurts",
+  "subtitles.chocolateflavored.tuff_golem.step": "Tuff Golem steps",
+  "subtitles.chocolateflavored.tuff_golem.move": "Tuff Golem moves",
+  "subtitles.chocolateflavored.tuff_golem.sleep": "Tuff Golem rests",
+  "subtitles.chocolateflavored.tuff_golem.wake": "Tuff Golem wakes",
+  "subtitles.chocolateflavored.tuff_golem.repair": "Tuff Golem is repaired",
+  "subtitles.chocolateflavored.tuff_golem.glue_on": "Tuff Golem is waxed",
+  "subtitles.chocolateflavored.tuff_golem.glue_off": "Tuff Golem is scraped"
 }

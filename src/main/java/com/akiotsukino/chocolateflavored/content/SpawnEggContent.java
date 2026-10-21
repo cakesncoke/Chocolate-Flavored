@@ -18,6 +18,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 public final class SpawnEggContent {
     public static final List<DeferredItem<SpawnEggItem>> EGGS = new ArrayList<>();
     static {
+        egg("tuff_golem", com.akiotsukino.chocolateflavored.mob.tuff.TuffGolemContent.TUFF_GOLEM);
         egg("dairy_cow", AnimalContent.DAIRY_COW);
         egg("moobloom", AnimalContent.MOOBLOOM);
         egg("moolip", AnimalContent.MOOLIP);
