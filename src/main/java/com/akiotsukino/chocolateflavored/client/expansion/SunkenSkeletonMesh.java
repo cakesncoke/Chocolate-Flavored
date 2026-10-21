@@ -8,7 +8,8 @@ public final class SunkenSkeletonMesh {
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.getChild("head").addOrReplaceChild("head_coral_1", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F), PartPose.ZERO);
+        partdefinition.getChild("head").addOrReplaceChild("hat",CubeListBuilder.create(),PartPose.ZERO);
+        partdefinition.getChild("head").addOrReplaceChild("head_coral_1", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F,new CubeDeformation(.015F)), PartPose.ZERO);
         partdefinition.getChild("head").addOrReplaceChild("head_coral_2", CubeListBuilder.create().texOffs(44, 10).addBox(-1.0F, -3.0F, 2.0F, 6.0F, 1.0F, 4.0F), PartPose.ZERO);
         partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-5.0F, 2.0F, 0.0F));
         partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(5.0F, 2.0F, 0.0F));

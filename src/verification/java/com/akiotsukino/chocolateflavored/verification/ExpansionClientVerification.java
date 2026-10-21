@@ -41,6 +41,7 @@ public final class ExpansionClientVerification {
             for(var holder:List.of(ExpansionContent.SUNKEN_SKELETON,ExpansionContent.TUFF_GOLEM,ExpansionContent.BARNACLE,ExpansionContent.ICEOLOGER,ExpansionContent.WILDFIRE))for(int variant=0;variant<2;variant++){
                 Mob mob=(Mob)holder.get().create(minecraft.level,EntitySpawnReason.COMMAND);
                 mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);
+                if(mob instanceof SunkenSkeleton)mob.setAggressive(true);
                 if(mob instanceof SunkenSkeleton sunken&&variant==1){sunken.setChargingCrossbow(true);sunken.startUsingItem(InteractionHand.MAIN_HAND);}
                 if(mob instanceof TuffGolem golem&&variant==1){golem.setStatue(false);golem.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.DIAMOND));}
                 if(mob instanceof Wildfire&&variant==1){CompoundTag tag=new CompoundTag();tag.putFloat("ShieldHealth",15);TypedEntityData.of(ExpansionContent.WILDFIRE.get(),tag).loadInto(mob);}

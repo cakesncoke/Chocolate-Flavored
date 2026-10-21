@@ -74,8 +74,11 @@ public final class ExpansionVerification {
         for(int i=0;i<40;i++)barnacle.step(level);
         check(barnacle.preyId()==player.getId()&&player.getDeltaMovement().y<0&&player.getAirSupply()==260&&player.getHealth()<20,"Tether pulls, drains air and bites");
         player.wet=false;barnacle.step(level);check(barnacle.preyId()==0,"Leaving water cancels tether");
-        var boat=EntityType.OAK_BOAT.create(level,EntitySpawnReason.COMMAND);boat.snapTo(player.getX(),player.getY(),player.getZ(),0,0);player.startRiding(boat,true,false);
-        check(barnacle.canTether(player),"Boat riders are eligible prey");barnacle.step(level);check(boat.getDeltaMovement().y<0,"Tether pulls occupied boat");player.stopRiding();boat.discard();
+        // NeoForge FakePlayer deliberately refuses all riding; use a native living passenger for the boat branch.
+        var boat=EntityType.OAK_BOAT.create(level,EntitySpawnReason.COMMAND);boat.snapTo(player.getX(),player.getY(),player.getZ(),0,0);
+        var rider=EntityType.PIG.create(level,EntitySpawnReason.COMMAND);rider.snapTo(player.getX(),player.getY(),player.getZ(),0,0);
+        check(rider.startRiding(boat,true,false),"Native test passenger enters boat");barnacle.setTarget(rider);
+        check(barnacle.canTether(rider),"Boat riders are eligible prey");barnacle.step(level);check(boat.getDeltaMovement().y<0,"Tether pulls occupied boat");rider.stopRiding();rider.discard();boat.discard();barnacle.setTarget(player);
         player.wet=true;barnacle.wet=false;check(!barnacle.canTether(player),"Stranded Barnacle cannot tether");barnacle.wet=true;
         player.snapTo(220,180,180,0,0);check(!barnacle.canTether(player),"Out of range cancels tether");
         player.snapTo(180.5,180,183.5,0,0);player.wet=false;player.removeAllEffects();player.setHealth(20);player.invulnerableTime=0;

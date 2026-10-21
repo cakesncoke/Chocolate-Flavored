@@ -14,7 +14,7 @@ public final class BarnacleMesh {
         PartDefinition p3 = p2.addOrReplaceChild("barnacle_tentacle1",CubeListBuilder.create(),PartPose.offsetAndRotation(-3.0F,0F,4.0F,0F,0F,0F));
         PartDefinition p4 = p3.addOrReplaceChild("inner_barnacle_tentacle1",CubeListBuilder.create().texOffs(0,0).mirror().addBox(-3.0F,0F,-3.0F,6.0F,22.0F,6.0F),PartPose.offsetAndRotation(0F,0F,0F,0F,3.141593F,0F));
         PartDefinition p5 = p2.addOrReplaceChild("barnacle_tentacle3",CubeListBuilder.create(),PartPose.offsetAndRotation(-3.0F,0F,-2.0F,0F,0F,0F));
-        PartDefinition p6 = p5.addOrReplaceChild("inner_barnacle_tentacle3",CubeListBuilder.create().texOffs(24,0).mirror().addBox(17.0F,0F,-3.0F,6.0F,22.0F,6.0F),PartPose.offsetAndRotation(-10.0F,0F,0F,0F,-3.141593F,0F));
+        PartDefinition p6 = p5.addOrReplaceChild("inner_barnacle_tentacle3",CubeListBuilder.create().texOffs(24,0).mirror().addBox(-3.0F,0F,-3.0F,6.0F,22.0F,6.0F),PartPose.offsetAndRotation(0F,0F,0F,0F,-3.141593F,0F));
         PartDefinition p7 = p2.addOrReplaceChild("barnacle_tentacle4",CubeListBuilder.create(),PartPose.offsetAndRotation(3.0F,0F,-2.0F,0F,0F,0F));
         PartDefinition p8 = p7.addOrReplaceChild("inner_barnacle_tentacle4",CubeListBuilder.create().texOffs(0,0).mirror().addBox(-3.0F,0F,-3.0F,6.0F,22.0F,6.0F),PartPose.offsetAndRotation(0F,0F,0F,0F,0F,0F));
         PartDefinition p9 = p2.addOrReplaceChild("barnacle_tentacle2",CubeListBuilder.create(),PartPose.offsetAndRotation(3.0F,0F,4.0F,0F,0F,0F));
