@@ -11,7 +11,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.HumanoidArm;
 
 /** Reads Recrafted Mobs' original CEM geometry/UVs, retaining native humanoid articulation. */
-public final class SunkenModel extends HumanoidModel<SunkenRenderer.State> {
+public final class SunkenModel extends net.minecraft.client.model.monster.skeleton.SkeletonModel<SunkenRenderer.State> {
     public SunkenModel(ModelPart root){super(root);}
     public static LayerDefinition layer(){
         var mesh=HumanoidModel.createMesh(CubeDeformation.NONE,0);var root=mesh.getRoot();
@@ -39,8 +39,5 @@ public final class SunkenModel extends HumanoidModel<SunkenRenderer.State> {
     }
     @Override public void setupAnim(SunkenRenderer.State state){
         super.setupAnim(state);head.getChild("coral").visible=!state.sheared;rightLeg.getChild("coral").visible=!state.sheared;
-    }
-    @Override public void translateToHand(SunkenRenderer.State state,HumanoidArm arm,PoseStack pose){
-        root().translateAndRotate(pose);var part=getArm(arm);float offset=arm==HumanoidArm.RIGHT?1:-1;part.x+=offset;part.translateAndRotate(pose);part.x-=offset;
     }
 }

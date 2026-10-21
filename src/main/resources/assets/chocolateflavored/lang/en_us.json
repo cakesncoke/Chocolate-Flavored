@@ -108,5 +108,14 @@
   "subtitles.chocolateflavored.tuff_golem.glue_on": "Tuff Golem is waxed",
   "subtitles.chocolateflavored.tuff_golem.glue_off": "Tuff Golem is scraped",
   "entity.chocolateflavored.sunken": "Sunken",
-  "item.chocolateflavored.sunken_spawn_egg": "Sunken Spawn Egg"
+  "item.chocolateflavored.sunken_spawn_egg": "Sunken Spawn Egg",
+  "subtitles.chocolateflavored.sunken.ambient": "Sunken rattles",
+  "subtitles.chocolateflavored.sunken.ambient_water": "Sunken rattles underwater",
+  "subtitles.chocolateflavored.sunken.hurt": "Sunken hurts",
+  "subtitles.chocolateflavored.sunken.hurt_water": "Sunken hurts underwater",
+  "subtitles.chocolateflavored.sunken.death": "Sunken dies",
+  "subtitles.chocolateflavored.sunken.death_water": "Sunken dies underwater",
+  "subtitles.chocolateflavored.sunken.attack": "Sunken shoots",
+  "subtitles.chocolateflavored.sunken.step": "Sunken steps",
+  "subtitles.chocolateflavored.sunken.shear": "Shears clip"
 }

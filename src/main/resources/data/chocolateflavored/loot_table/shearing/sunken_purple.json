@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:shearing",
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bubble_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_bubble_coral"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "chocolateflavored:shearing/sunken_purple"
+}

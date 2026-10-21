@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:shearing",
+  "pools": [
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fire_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:dead_fire_coral"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "chocolateflavored:shearing/sunken_red"
+}
