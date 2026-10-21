@@ -34,7 +34,7 @@ public final class TuffGolemVerification {
         ChocolateFlavored.LOGGER.info("TUFF_GOLEM_VERIFICATION_PASSED: repair, dye, wax/scrape, exact item transfers, transitions, saved home/pose/item and sleep duration; no natural spawns");
     }
     private static void verifyConstruction(ServerLevel level){
-        var head=new net.minecraft.core.BlockPos(230,182,230);
+        var head=new net.minecraft.core.BlockPos(48,182,0);
         for(var color:DyeColor.values())for(var pumpkin:java.util.List.of(net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN,net.minecraft.world.level.block.Blocks.JACK_O_LANTERN)){
             var base=head.below(2);
             level.setBlock(base,net.minecraft.world.level.block.Blocks.TUFF.defaultBlockState(),3);
@@ -43,7 +43,7 @@ public final class TuffGolemVerification {
             check(((net.minecraft.world.level.block.CarvedPumpkinBlock)net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN).canSpawnGolem(level,head),"Dispenser recognizes wool/tuff base");
             level.setBlock(head,pumpkin.defaultBlockState(),3);
             var golems=level.getEntitiesOfClass(TuffGolem.class,new net.minecraft.world.phys.AABB(base).inflate(2));
-            check(golems.size()==1,"Exactly one constructed golem");
+            check(golems.size()==1,"Exactly one constructed golem: "+color+" / "+pumpkin+"; count="+golems.size()+"; head="+level.getBlockState(head));
             var golem=golems.getFirst();check(golem.color()==color.getId(),"Wool determines cloth color");
             check(level.isEmptyBlock(head)&&level.isEmptyBlock(head.below())&&level.isEmptyBlock(base),"Consumes exactly the construction column");
             check(golem.home().distanceToSqr(golem.position())<.001,"Construction sets home");golem.discard();
