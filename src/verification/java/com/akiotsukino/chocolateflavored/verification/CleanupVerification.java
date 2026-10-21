@@ -47,8 +47,10 @@ public final class CleanupVerification {
         check(SpawnEggContent.EGGS.size() == 19, "All 18 entity types and muddy pig state have eggs");
         for (var egg : SpawnEggContent.EGGS) check(SpawnEggItem.getType(egg.get().getDefaultInstance()) != null, "Valid spawn egg entity data");
         var muddyEgg = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("chocolateflavored", "muddy_pig_spawn_egg")).getDefaultInstance();
-        var pig = EntityType.PIG.create(level, EntitySpawnReason.SPAWN_ITEM_USE); pig.applyComponentsFromItemStack(muddyEgg);
-        check(((MuddyPig)pig).chocolateflavored$isMuddy(), "Native egg entity data restores muddy pig state");
+        level.getChunkAt(pos);
+        var pig = EntityType.PIG.spawn(level, muddyEgg, player, pos, EntitySpawnReason.SPAWN_ITEM_USE, false, false);
+        check(pig != null && ((MuddyPig)pig).chocolateflavored$isMuddy(), "Native egg entity data restores muddy pig state");
+        pig.discard();
         // Vanilla Silk Touch and Fortune III branches must still take precedence over the 50% baseline.
         var registry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
         for (var enchantment : java.util.List.of(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH, net.minecraft.world.item.enchantment.Enchantments.FORTUNE)) {
