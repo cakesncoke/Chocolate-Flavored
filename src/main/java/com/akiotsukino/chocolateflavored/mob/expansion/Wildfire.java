@@ -28,6 +28,7 @@ public class Wildfire extends Blaze {
     @Override protected void defineSynchedData(SynchedEntityData.Builder data) { super.defineSynchedData(data); data.define(SHIELD_HEALTH,60F); data.define(CHARGE,0); }
     public int shields() { return (int)Math.ceil(entityData.get(SHIELD_HEALTH)/15F); }
     public int chargeTicks() { return entityData.get(CHARGE); }
+    @Override public boolean isOnFire() { return chargeTicks() > 0; }
     @Override protected void registerGoals() {
         goalSelector.addGoal(5,new MoveTowardsRestrictionGoal(this,1));
         goalSelector.addGoal(7,new WaterAvoidingRandomStrollGoal(this,.8));

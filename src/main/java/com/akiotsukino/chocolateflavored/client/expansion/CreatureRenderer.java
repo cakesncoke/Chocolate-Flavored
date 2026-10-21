@@ -11,6 +11,7 @@ public final class CreatureRenderer<T extends Mob> extends MobRenderer<T,Creatur
         texture=Identifier.fromNamespaceAndPath("chocolateflavored","textures/entity/"+kind+"/"+kind+".png");
     }
     public static ModelLayerLocation layer(String kind){return new ModelLayerLocation(Identifier.fromNamespaceAndPath("chocolateflavored",kind),"main");}
+    @Override protected int getBlockLightLevel(T entity,net.minecraft.core.BlockPos pos){return entity instanceof Wildfire?15:super.getBlockLightLevel(entity,pos);}
     @Override public CreatureState createRenderState(){return new CreatureState();}
     @Override public Identifier getTextureLocation(CreatureState state){return texture;}
     @Override public void extractRenderState(T entity,CreatureState state,float ticks){

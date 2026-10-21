@@ -36,6 +36,7 @@ public final class ExpansionVerification {
         check(sunken.getMainHandItem().is(Items.CROSSBOW) && sunken.canBreatheUnderwater(),"Aquatic crossbow skeleton");
         check(sunken.canUseNonMeleeWeapon(new ItemStack(Items.CROSSBOW)),"Native crossbow weapon support");
         sunken.startFreezeConversion(1);check(!sunken.isFreezeConverting(),"Sunken skeleton cannot turn into stray");
+        var waterArrow=new TestArrow(level);waterArrow.setOwner(sunken);check(waterArrow.waterDrag()==.99F,"Sunken arrows keep useful underwater range");waterArrow.setOwner(player);check(waterArrow.waterDrag()==.6F,"Other archers keep vanilla arrow drag");
         sunken.setChargingCrossbow(true);check(sunken.isChargingCrossbow(),"Crossbow charge synchronization");sunken.setChargingCrossbow(false);
         List<Entity> shots = new ArrayList<>();Consumer<EntityJoinLevelEvent> projectileObserver = e -> {if(e.getEntity() instanceof AbstractArrow || e.getEntity() instanceof SmallFireball)shots.add(e.getEntity());};
         NeoForge.EVENT_BUS.addListener(projectileObserver);
@@ -55,6 +56,11 @@ public final class ExpansionVerification {
             wildfire.setTarget(null);for(int i=0;i<149;i++)wildfire.step(level);check(wildfire.shields()==0,"No early shield regeneration");
             wildfire.step(level);check(wildfire.shields()==1,"One shield regenerates after 150 ticks");
             wildfire.shootVolley(level,player);check(shots.size()==3 && shots.stream().allMatch(e->e instanceof SmallFireball),"Wildfire uses three vanilla fireballs");shots.forEach(Entity::discard);shots.clear();
+            player.snapTo(181,180,190,0,0);wildfire.setTarget(player);wildfire.step(level);
+            check(wildfire.chargeTicks()==30&&wildfire.isOnFire(),"Wildfire telegraphs its attack with native charged flames");
+            for(int i=0;i<30;i++)wildfire.step(level);
+            check(shots.size()==3&&wildfire.chargeTicks()==0&&!wildfire.isOnFire(),"AI completes its windup and fires the volley");shots.forEach(Entity::discard);shots.clear();
+            player.snapTo(180.5,180,182.5,0,0);
         } finally {NeoForge.EVENT_BUS.unregister(projectileObserver);}
         var tuff=new TestTuff(level);tuff.snapTo(180.5,180,180.5,0,0);tuff.step(level);
         check(tuff.isStatue()&&!tuff.isPushable()&&tuff.isPersistenceRequired(),"Persistent statue golem");
@@ -105,6 +111,7 @@ public final class ExpansionVerification {
     }
     private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Entity can be saved");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();}
     private static void check(boolean ok,String message){if(!ok)throw new IllegalStateException("Expansion verification: "+message);}
+    private static final class TestArrow extends net.minecraft.world.entity.projectile.arrow.Arrow {TestArrow(ServerLevel l){super(EntityType.ARROW,l);}float waterDrag(){return getWaterInertia();}}
     private static final class TestWildfire extends Wildfire {TestWildfire(ServerLevel l){super(ExpansionContent.WILDFIRE.get(),l);}void step(ServerLevel l){super.customServerAiStep(l);}}
     private static final class TestTuff extends TuffGolem {TestTuff(ServerLevel l){super(ExpansionContent.TUFF_GOLEM.get(),l);}void step(ServerLevel l){super.customServerAiStep(l);}}
     private static final class TestBarnacle extends Barnacle {boolean wet=true;TestBarnacle(ServerLevel l){super(ExpansionContent.BARNACLE.get(),l);}@Override public boolean isInWater(){return wet;}void step(ServerLevel l){super.customServerAiStep(l);}}
