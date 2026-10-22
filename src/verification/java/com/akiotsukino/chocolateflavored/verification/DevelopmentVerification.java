@@ -155,8 +155,7 @@ public final class DevelopmentVerification {
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
         TimeVerification.run(level);
-        ChocolateFlavored.LOGGER.info("CHOCOLATE_FLAVORED_VERIFICATION_PASSED: equipment, recipes, trims, loot probabilities, mining conversions, durability and trades");
-        event.getServer().halt(false);
+        SleepTimingVerification.start(level);
     }
     private static void durability(Item item, int value) { check(new ItemStack(item).getMaxDamage() == value, "Durability: " + item); }
     private static void check(boolean condition, String message) { if (!condition) throw new IllegalStateException("Verification failed: " + message); }

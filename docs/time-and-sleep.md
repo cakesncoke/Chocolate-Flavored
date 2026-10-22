@@ -27,16 +27,30 @@ Ordinary elapsed-time mechanics keep their existing normal-speed durations: furn
 
 ## Sleeping
 
-Sleeping no longer jumps the clock, forcibly clears weather, or immediately wakes everyone. Once the normal five-second deep-sleep entry has completed and the dimension's `players_sleeping_percentage` is met, the server's native tick scheduler runs at **twice its baseline rate** (normally **20 → 40 TPS**). This speeds up loaded ticking entities, block entities, scheduled block/fluid ticks, random ticks and vanilla/mod processes in every dimension. `random_tick_speed` is unchanged; the server performs twice as many full ticks per real second. Unloaded chunks retain normal vanilla behavior.
+When the normal multiplayer `players_sleeping_percentage` threshold is met, bed entry starts a session targeting **ten real seconds to complete the remaining night**, including the entire dawn transition up to solar-clock tick 0. There is no extra five-second entry delay. The rate is sized once from the remaining simulation work; it does not multiply repeatedly or reset when additional players enter bed.
 
-The multiplier applies once, regardless of the number of sleepers. Spectators do not count, zero percent still requires a sleeper, and percentages over 100 disable acceleration. The previous rate returns when the threshold is no longer met, including leaving bed, waking, disconnecting or changing dimensions. Native bed rules still control safety and waking at dawn, including their thunderstorm behavior. Sleeping can be ended normally using Leave Bed. Freeze, stepping and sprinting commands take precedence. Custom `/tick rate` baselines are doubled and restored, including deliberate rate changes made during sleep.
+The server's native tick scheduler runs the complete simulation faster. Loaded ticking entities, block entities, scheduled block/fluid ticks, random ticks and vanilla/mod processes in every dimension advance together. `random_tick_speed` remains unchanged, and the clock progresses naturally through every simulation tick. Unloaded chunks retain vanilla behavior.
 
-With sleep active, the nominal 15-minute night advances in about 7.5 real minutes; actual time spent in bed depends on entry time and the vanilla dawn wake point. All durations assume the server can sustain its target TPS. The multiplier is server-wide, so awake players are also affected.
+| Bed entry | Remaining simulation ticks | Target server rate |
+| --- | ---: | ---: |
+| Sunset, clock 12,000 | 18,000 | 1,800 TPS |
+| Midnight, clock 18,000 | 9,000 | 900 TPS |
+| Near dawn, clock 23,300 | 1,050 | 105 TPS |
+
+These rates are targets. If the server cannot process all the work fast enough, sleep takes longer than ten seconds; the mod keeps simulating the world instead of discarding process ticks. If dawn would arrive in less than ten seconds at the server's ordinary rate, it finishes sooner rather than slowing the world. Storm-time bed entry includes the remaining daytime and night in its tick budget.
+
+Players remain asleep through the native early dawn wake point so the complete night reaches morning. A missing/broken bed, death, manual Leave Bed or loss of the multiplayer threshold still interrupts acceleration. Morning explicitly wakes participating sleepers and restores the saved server tick rate. Sleep does not forcibly clear weather. Spectators do not count, zero percent still requires a sleeper, and percentages above 100 disable the feature.
+
+Only dimensions sharing the Overworld clock participate; standard Nether/End bed restrictions remain native. The simulation rate is server-wide, so awake players and other dimensions also accelerate. Clock pauses, `advance_time=false`, freeze/step and tick sprint take precedence. Custom `/tick rate` baselines are restored after sleep. A deliberate rate change during sleep updates the saved baseline; a backwards `/time` command starts a fresh session.
+
+### Better Days reference
+
+Behavior reference: [Wendall Cada (wendall911), Better Days 26.1](https://github.com/wendall911/BetterDays/tree/995baf3e89f31a7ae3b4bd2005e5084d2b7fb76b), particularly `TimeService`, `SleepStatus` and `BlockEntityTimeEffect`; Better Days credits Nick Iacullo's Hourglass as its origin. Its clock acceleration and process-progression approach informed this change. Chocolate Flavored independently uses Minecraft 26.1.2's whole-server scheduler to advance all ticking systems, with a remaining-night budget targeting ten seconds. No Better Days/Hourglass source code or assets are copied, and neither mod is required.
 
 ## Serene Seasons
 
-Source-reviewed against Glitchfiend/SereneSeasons `26.1`, revision `6a1109c93f8a4df85fae3bd481d5c332d005dae0`: `SeasonHandler.onLevelTick` advances seasons by changes in `getOverworldClockTime()`, and `SeasonTime` reads `time_settings.day_duration`. Keep that setting at its **24,000 default** with this implementation: it describes solar-clock units, not the 42,000 simulation ticks in a cycle. Setting it to 42,000 would lengthen seasons a second time. Clock pauses pause calendar advancement, while sleeping advances the calendar twice as fast in real time. No season weather/crop hooks are replaced. Runtime compatibility with Serene Seasons remains untested.
+Source-reviewed against Glitchfiend/SereneSeasons `26.1`, revision `6a1109c93f8a4df85fae3bd481d5c332d005dae0`: `SeasonHandler.onLevelTick` advances seasons by changes in `getOverworldClockTime()`, and `SeasonTime` reads `time_settings.day_duration`. Keep that setting at its **24,000 default** with this implementation: it describes solar-clock units, not the 42,000 simulation ticks in a cycle. Setting it to 42,000 would lengthen seasons a second time. Clock pauses pause calendar advancement, while sleeping advances the calendar at the session's accelerated simulation rate. No season weather/crop hooks are replaced. Runtime compatibility with Serene Seasons remains untested.
 
 ## Verification
 
-The dedicated-server checks exercise a full 42,000-tick solar cycle, native clock serialization with fractional progress, pause/game-rule handling, real bed entry and deep sleep, multiplayer thresholds, spectator handling, the actual level tick without skipping, native 40-TPS scheduling, administrator rate/freeze handling, dawn wake-up, baseline restoration and trader initialization/reset intervals. The existing build, server regression and client startup checks remain required.
+The dedicated-server checks exercise a full 42,000-tick solar cycle, native clock serialization, paused clocks, real bed entry, multiplayer/spectator rules, a complete midnight-to-morning session with exactly ten seconds of native scheduler periods, uninterrupted dawn, and rate restoration. A separate live server-loop test measures actual wall time over 1,050 world ticks and checks that a vanilla furnace smelts items while sleeping. Existing build, server regression and development-client startup checks remain required. Heavily loaded multiplayer servers and Serene Seasons runtime integration remain manual tests.
