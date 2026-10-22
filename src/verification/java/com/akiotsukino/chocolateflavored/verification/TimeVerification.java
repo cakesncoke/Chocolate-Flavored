@@ -25,9 +25,12 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 final class TimeVerification {
     static void run(ServerLevel level) {
         verifyClock(level);
+        check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(12_000, 0, 2.0F/3, false)) == 18_000, "Full night tick budget");
+        check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(6_000, 0, .5F, false)) == 30_000, "Storm-time sleep includes the remaining day and full night");
+        check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(18_000, 2.0F/3, 2.0F/3, false)) == 8_999, "Fractional progress retains exact remaining tick count");
         verifySleep(level);
         verifyTraderInterval(level);
-        ChocolateFlavored.LOGGER.info("TIME_VERIFICATION_PASSED: exact 20/15-minute phases, calendar and save/load, paused clocks, actual beds/deep sleep, multiplayer thresholds, no night skip, real 2x scheduler, dawn wake, rate restoration and daily trader interval");
+        ChocolateFlavored.LOGGER.info("TIME_VERIFICATION_PASSED: exact 20/15-minute phases, calendar and save/load, paused clocks, actual beds, multiplayer thresholds, ten-second native scheduler, full dawn simulation, morning wake, rate restoration and daily trader interval");
     }
 
     private static void verifyClock(ServerLevel level) {
@@ -85,17 +88,12 @@ final class TimeVerification {
             manager.setTickRate(20);
             check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Real bed accepts sleep at night");
             SleepAcceleration.update(server);
-            check(manager.tickrate() == 20, "Do not accelerate before deep sleep");
-            // FakePlayer.tick is empty. doTick runs the inherited Player tick, including the real sleep counter.
-            for (int i = 0; i < 100; i++) first.doTick();
-            check(first.isSleepingLongEnough(), "Native 100-tick sleep entry");
-            SleepAcceleration.update(server);
             check(manager.tickrate() == 20, "One of two sleepers cannot meet a 100% threshold");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 50, server);
             SleepAcceleration.update(server);
-            check(manager.tickrate() == 40 && manager.nanosecondsPerTick() == 25_000_000, "Native scheduler runs the whole simulation at 40 TPS");
+            check(manager.tickrate() == 900, "Half of the 15-minute night targets ten seconds immediately on bed entry");
             for (int i = 0; i < 20; i++) SleepAcceleration.update(server);
-            check(manager.tickrate() == 40, "Multiplier never compounds");
+            check(manager.tickrate() == 900, "Acceleration never compounds or restarts");
             long time = server.clockManager().getTotalTicks(clock);
             long gameTime = level.getGameTime();
             for (int i = 0; i < 6; i++) {
@@ -106,27 +104,46 @@ final class TimeVerification {
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 100, server);
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Threshold change restores baseline");
             check(second.startSleepInBed(secondBed.east()).right().isPresent(), "Second real bed accepts sleep");
-            for (int i = 0; i < 100; i++) second.doTick();
-            SleepAcceleration.update(server); check(manager.tickrate() == 40, "Both sleepers satisfy 100%, still only 2x");
+            SleepAcceleration.update(server);
+            check(manager.tickrate() > 800 && manager.tickrate() <= 900, "Both sleepers start one rate sized to the remaining night");
             second.stopSleepInBed(true, true);
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Leaving bed restores rate");
             second.setGameMode(GameType.SPECTATOR);
-            SleepAcceleration.update(server); check(manager.tickrate() == 40, "Spectators do not count against sleep");
+            SleepAcceleration.update(server); check(manager.tickrate() > 800, "Spectators do not count against sleep");
             manager.setFrozen(true); SleepAcceleration.update(server);
             check(manager.isFrozen() && manager.tickrate() == 20, "Administrative freeze wins");
             manager.setFrozen(false); SleepAcceleration.update(server);
-            check(manager.tickrate() == 40, "Unfreezing resumes eligible sleep acceleration");
+            check(manager.tickrate() > 800, "Unfreezing resumes a ten-second sleep session");
             manager.setTickRate(30); SleepAcceleration.update(server);
-            check(manager.tickrate() == 60, "Custom server baseline receives exactly 2x");
+            check(manager.tickrate() > 800, "Custom baseline does not lengthen the ten-second target");
             first.stopSleepInBed(true, true); SleepAcceleration.update(server);
             check(manager.tickrate() == 30, "Restore the custom baseline");
             manager.setTickRate(20);
+            server.clockManager().setPaused(clock, true);
             check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Bed can be reused");
-            for (int i = 0; i < 100; i++) first.doTick();
-            SleepAcceleration.update(server); check(manager.tickrate() == 40, "Sleep acceleration restarts");
-            server.clockManager().setTotalTicks(clock, 0); DayNightCycle.update(server); level.updateSkyBrightness();
-            first.doTick(); SleepAcceleration.update(server);
-            check(!first.isSleeping() && manager.tickrate() == 20, "Natural dawn bed rule wakes player and restores speed");
+            SleepAcceleration.update(server); check(manager.tickrate() == 20, "Paused clock does not accelerate indefinitely");
+            server.clockManager().setPaused(clock, false);
+            SleepAcceleration.update(server); check(manager.tickrate() > 800, "Resuming time permits sleep acceleration");
+            server.clockManager().setTotalTicks(clock, 23_900); level.updateSkyBrightness();
+            first.doTick();
+            check(first.isSleeping(), "Sleeper remains in bed through dawn to finish the entire night");
+            server.clockManager().setTotalTicks(clock, 24_000); DayNightCycle.update(server); SleepAcceleration.update(server);
+            check(!first.isSleeping() && manager.tickrate() == 20, "Complete morning cycle wakes sleepers and restores speed");
+
+            // Run a complete half-night through the real clock and Player sleep lifecycle.
+            // The sum of native scheduler periods must be ten seconds, with no clock jumps.
+            server.clockManager().setTotalTicks(clock, 18_000); DayNightCycle.update(server); level.updateSkyBrightness();
+            check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Full-cycle fixture starts sleeping");
+            SleepAcceleration.update(server);
+            long schedulerNanos = 0;
+            for (int i = 0; i < 9_000; i++) {
+                schedulerNanos += manager.nanosecondsPerTick();
+                DayNightCycle.update(server); server.clockManager().tick(); level.updateSkyBrightness();
+                first.doTick(); SleepAcceleration.update(server);
+                if (i < 8_999) check(first.isSleeping(), "No premature dawn wake");
+            }
+            check(Math.abs(schedulerNanos - 10_000_000_000L) < 1_000_000, "Remaining night is exactly ten scheduler seconds");
+            check(server.clockManager().getTotalTicks(clock) == 24_000 && !first.isSleeping() && manager.tickrate() == 20, "All remaining simulation ticks finish at morning");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 0, server);
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Zero-percent rule still needs an actual sleeper");
         } finally {

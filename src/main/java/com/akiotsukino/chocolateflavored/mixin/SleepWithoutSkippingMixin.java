@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(ServerLevel.class)
 abstract class SleepWithoutSkippingMixin {
     // Suppress the complete vanilla skip/wake/weather-clear branch, not the level tick itself.
-    // Native player sleeping checks still wake players when their bed rule stops allowing sleep.
+    // The sleep controller holds dawn sleepers until the complete night has been simulated.
     @Redirect(method = "tick", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/server/players/SleepStatus;areEnoughDeepSleeping(ILjava/util/List;)Z"))
     private boolean chocolateflavored$keepSleeping(SleepStatus status, int percentage, List<ServerPlayer> players) {
