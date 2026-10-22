@@ -20,7 +20,7 @@ Sun, moon, stars, fog/light transitions, item clocks, daylight detectors, daylig
 Raw simulation timers that represent days are adjusted separately:
 
 - Phantom insomnia: three extended days, 126,000 ticks.
-- Wandering trader attempts: one extended day, 42,000 ticks; visits last two days, 84,000 ticks. Previously saved countdowns finish their remaining time before using the new interval.
+- Ordinary wandering trader attempts: one extended day, 42,000 ticks; visits last two days, 84,000 ticks. A separate [five-calendar-day fallback and kept-trader spawn lock](wandering-traders.md) now also apply. Previously saved countdowns finish their remaining time before using the new interval.
 - Villager gossip decay: 42,000 ticks. The restock fallback window is extended proportionally to 21,000 ticks; calendar-day detection remains native.
 
 Ordinary elapsed-time mechanics keep their existing normal-speed durations: furnaces, crops/random ticks, redstone, weather, effects, animal growth, and mod timers such as 20-minute torches, 5-second fire starters, 30-minute villager breeding cooldowns and 60-minute villager maturation. The full simulation accelerates them together during sleep.
