@@ -24,7 +24,11 @@
     "PhantomDayLengthMixin",
     "TraderDayLengthMixin",
     "TraderDataDayLengthMixin",
-    "VillagerDayLengthMixin"
+    "VillagerDayLengthMixin",
+    "TraderSpawningMixin",
+    "WanderingTraderProtectionMixin",
+    "TraderMountMixin",
+    "TraderAdditionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

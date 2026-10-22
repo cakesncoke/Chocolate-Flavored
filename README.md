@@ -90,3 +90,7 @@ The Tuff Golem is being rebuilt independently after reverting PR #8. It uses the
 ### Longer days and sleep acceleration
 
 The Overworld has a **20-minute day and 15-minute night** at normal speed. Sleeping simulates the remaining night in **about 10 seconds**, using the normal multiplayer sleep threshold and accelerating the full world. The duration depends on the server sustaining the required tick rate. Daily schedules and calendar-dependent timers follow the longer cycle. See [timing, commands and Serene Seasons compatibility](docs/time-and-sleep.md).
+
+### Wandering Trader availability and persistence
+
+After five Minecraft days without a trader spawn, a solo trader attempts to visit using vanilla safe placement. Traders kept with a name tag, boat or minecart retain their despawn time and block future automatic visits until they die or despawn. The spawn lock survives chunk unloads and server restarts. See [trader rules and saved-world behavior](docs/wandering-traders.md).
