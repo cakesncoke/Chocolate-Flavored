@@ -54,7 +54,7 @@ public final class SleepAcceleration {
 
     /** Accounts for the different day/night rates, fractional clock progress and storm-time sleep. */
     public static int ticksUntilMorning(ClockState state) {
-        double phase = Math.floorMod(state.totalTicks(), DayNightCycle.CLOCK_TICKS_PER_DAY) + state.partialTick();
+        double phase = Math.floorMod(state.totalTicks(), DayNightCycle.CLOCK_TICKS_PER_DAY) + (double)state.partialTick();
         double ticks = phase < 12_000
                 ? (12_000 - phase) / DayNightCycle.clockRate(0) + DayNightCycle.NIGHT_SIMULATION_TICKS
                 : (24_000 - phase) / DayNightCycle.clockRate(12_000);
@@ -81,9 +81,9 @@ public final class SleepAcceleration {
             return;
         }
         if (session != null && state.totalTicks() < session.lastTime) {
-            // A backwards /time command starts a fresh, correctly sized sleep session.
-            finish(server, false);
-            session = null;
+            // A backwards /time command interrupts sleep; do not carry a dawn sleeper into another full day.
+            finish(server, true);
+            return;
         }
         float current = manager.tickrate();
         if (session == null) {

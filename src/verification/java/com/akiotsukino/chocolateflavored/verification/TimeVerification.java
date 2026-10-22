@@ -27,6 +27,7 @@ final class TimeVerification {
         verifyClock(level);
         check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(12_000, 0, 2.0F/3, false)) == 18_000, "Full night tick budget");
         check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(6_000, 0, .5F, false)) == 30_000, "Storm-time sleep includes the remaining day and full night");
+        check(SleepAcceleration.ticksUntilMorning(new net.minecraft.world.clock.ClockState(18_000, 2.0F/3, 2.0F/3, false)) == 8_999, "Fractional progress retains exact remaining tick count");
         verifySleep(level);
         verifyTraderInterval(level);
         ChocolateFlavored.LOGGER.info("TIME_VERIFICATION_PASSED: exact 20/15-minute phases, calendar and save/load, paused clocks, actual beds, multiplayer thresholds, ten-second native scheduler, full dawn simulation, morning wake, rate restoration and daily trader interval");

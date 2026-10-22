@@ -41,7 +41,7 @@ These rates are targets. If the server cannot process all the work fast enough, 
 
 Players remain asleep through the native early dawn wake point so the complete night reaches morning. A missing/broken bed, death, manual Leave Bed or loss of the multiplayer threshold still interrupts acceleration. Morning explicitly wakes participating sleepers and restores the saved server tick rate. Sleep does not forcibly clear weather. Spectators do not count, zero percent still requires a sleeper, and percentages above 100 disable the feature.
 
-Only dimensions sharing the Overworld clock participate; standard Nether/End bed restrictions remain native. The simulation rate is server-wide, so awake players and other dimensions also accelerate. Clock pauses, `advance_time=false`, freeze/step and tick sprint take precedence. Custom `/tick rate` baselines are restored after sleep. A deliberate rate change during sleep updates the saved baseline; a backwards `/time` command starts a fresh session.
+Only dimensions sharing the Overworld clock participate; standard Nether/End bed restrictions remain native. The simulation rate is server-wide, so awake players and other dimensions also accelerate. Clock pauses, `advance_time=false`, freeze/step and tick sprint take precedence. Custom `/tick rate` baselines are restored after sleep. A deliberate rate change during sleep updates the saved baseline; a backwards `/time` command interrupts the current sleep.
 
 ### Better Days reference
 
