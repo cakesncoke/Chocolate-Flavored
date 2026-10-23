@@ -1,0 +1,86 @@
+{
+  "source": "Project-owner-supplied cake textures on main, commit c66392874998898cc315ba973a02137b8ea418cf",
+  "changes": "PNG files unchanged. Models inherit Minecraft 26.1.2 cake, slice and candle-cake geometry, overriding cake textures only. Native candle textures are referenced, not copied. No external model or artwork downloaded.",
+  "assets": [
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/pomegranate_cake_side.png",
+      "sha256": "224a7b12b3ae79ab6875b1ed67784a98f947901fd19deee04dcf9383b94de12c"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/pomegranate_cake_top.png",
+      "sha256": "3f8fdd12ea8a192e526a1b798e10f0851b064d931328239f2af69aea584441db"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/pomegranate_cake_inner.png",
+      "sha256": "e234aa3b68d5c7bb6ef1f3cedf442b9d6044c19da297661431ab906193be9c10"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/pomegranate_cake_bottom.png",
+      "sha256": "f71447b54e06bb43acb196dbe27ad4245b6075a452c0b306c0ef7a3184fbbe36"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/item/pomegranate_cake.png",
+      "sha256": "55006148774e5fffb573da634d1d2708155bc8e794474e53cf850eff8c26544f"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/coffee_cake_side.png",
+      "sha256": "782a2b97a9a0c39597eea81e83dd90b4593a2c634c69994fe39a84f2f45c7627"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/coffee_cake_bottom.png",
+      "sha256": "d6683f549e0c1676f9415cc1e676b68c0f88fc851a0a58bb736cbf370b55eb0a"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/coffee_cake_top.png",
+      "sha256": "48a4d62edea625e99a83cc1853722f450e712aa78e4ff6fd84570d8385c6a82a"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/coffee_cake_inner.png",
+      "sha256": "e740c635717d40bf89258b60633f1c55328737b7bfdf144e17509d640ceef245"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/item/coffee_cake.png",
+      "sha256": "16f2b86e6279b5f976cd518c07782f5d79d6c98dc9f61ac245c4497f5fdfbea6"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/cherry_cake_side.png",
+      "sha256": "fd19a6b97013f638e15274f1ad6b7dc960ea1369c34146bea674f99d1bc14d13"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/cherry_cake_bottom.png",
+      "sha256": "ec84dda0d365295015a04dbbc7b1b534a4ad0ea8a5a00c50e8c38523462c604c"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/cherry_cake_top.png",
+      "sha256": "91fd9b61173aaf33e3219642d6928e6e19d96782a8d506ba04fa216385ead0ff"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/cherry_cake_inner.png",
+      "sha256": "165eaeb3b3d0e5ca5531047f400cc9a1b3e91fbb99913a9789efce573f5ea0a8"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/item/cherry_cake.png",
+      "sha256": "c7719c5c9b790b7f6448b1fa1a0ba5a3b2bd363c4b626da11eb9a9d15b404115"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/chocolate_cake_bottom.png",
+      "sha256": "ce1593b3ef852804def7608df2aa4780dde728a2c3b2c9810fa56d5ebdb1db05"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/chocolate_cake_top.png",
+      "sha256": "4af9eab7b5d7083b6a0832c1d2817bbeba1b0dfaad4c792885bc0ee0c4ad628b"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/chocolate_cake_side.png",
+      "sha256": "7b21d03103846460c001a71ce8e575f49b6349b48f85d6a629099c627fddefc7"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/block/chocolate_cake_inner.png",
+      "sha256": "d19f3716afc2dc26d39d76f46ebb944c3abc73e0baca3b07bdd6d595e5e0a96a"
+    },
+    {
+      "path": "src/main/resources/assets/chocolateflavored/textures/item/chocolate_cake.png",
+      "sha256": "4f0e46ac4704a5dc589b116276f6d4c87a8b1f1a2529572403802736a09dd103"
+    }
+  ]
+}
