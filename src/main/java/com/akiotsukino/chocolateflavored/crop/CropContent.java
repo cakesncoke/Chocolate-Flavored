@@ -58,7 +58,7 @@ public final class CropContent {
     public static final List<DeferredBlock<? extends FieldCropBlock>> FIELDS = List.of(SOYBEAN_CROP, CHILI_CROP, COTTON, COFFEE, CABBAGES, ONIONS, TOMATOES);
 
     private static <T extends Block> DeferredBlock<T> field(String name, Function<BlockBehaviour.Properties, T> factory) {
-        return ModContent.BLOCKS.registerBlock(name, factory, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)
+        return ModContent.BLOCKS.registerBlock(name, factory, () -> BlockBehaviour.Properties.of().mapColor(net.minecraft.world.level.material.MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)
                 .overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("chocolateflavored", "blocks/" + name)))));
     }
     private static DeferredBlock<WildCropBlock> wild(String name) {
