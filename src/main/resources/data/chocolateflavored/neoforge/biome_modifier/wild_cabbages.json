@@ -1,0 +1,6 @@
+{
+  "type": "chocolateflavored:crop_biome_filter",
+  "allowed_biomes": "#minecraft:is_beach",
+  "features": "chocolateflavored:patch_wild_cabbages",
+  "step": "vegetal_decoration"
+}

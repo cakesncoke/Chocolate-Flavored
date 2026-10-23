@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:soybeans",
+    "chocolateflavored:chili_seeds",
+    "chocolateflavored:cotton_seeds",
+    "chocolateflavored:coffee_beans",
+    "chocolateflavored:cabbage_seeds",
+    "chocolateflavored:onion",
+    "chocolateflavored:tomato_seeds",
+    "chocolateflavored:rice"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#c:crops/soybeans",
+    "#c:crops/chili",
+    "#c:crops/cotton",
+    "#c:crops/coffee",
+    "#c:crops/cabbage",
+    "#c:crops/onion",
+    "#c:crops/tomato",
+    "#c:crops/rice"
+  ]
+}

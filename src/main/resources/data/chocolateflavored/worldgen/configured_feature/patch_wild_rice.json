@@ -1,0 +1,17 @@
+{
+  "type": "chocolateflavored:wild_rice_patch",
+  "config": {
+    "state": {
+      "Name": "chocolateflavored:wild_rice",
+      "Properties": {
+        "half": "lower",
+        "waterlogged": "true"
+      }
+    },
+    "min_count": 1,
+    "max_count": 64,
+    "xz_spread": 7,
+    "y_spread": 3,
+    "tries": 96
+  }
+}

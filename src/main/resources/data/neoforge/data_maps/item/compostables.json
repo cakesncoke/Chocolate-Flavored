@@ -1,7 +1,79 @@
 {
   "values": {
-    "chocolateflavored:carved_melon": {
+    "chocolateflavored:soybeans": {
+      "chance": 0.3
+    },
+    "chocolateflavored:chili_seeds": {
+      "chance": 0.3
+    },
+    "chocolateflavored:cotton_seeds": {
+      "chance": 0.3
+    },
+    "chocolateflavored:coffee_beans": {
+      "chance": 0.3
+    },
+    "chocolateflavored:cabbage_seeds": {
+      "chance": 0.3
+    },
+    "chocolateflavored:tomato_seeds": {
+      "chance": 0.3
+    },
+    "chocolateflavored:rice": {
+      "chance": 0.3
+    },
+    "chocolateflavored:soybean_pod": {
       "chance": 0.65
+    },
+    "chocolateflavored:chili": {
+      "chance": 0.65
+    },
+    "chocolateflavored:cotton_boll": {
+      "chance": 0.65
+    },
+    "chocolateflavored:cabbage": {
+      "chance": 0.65
+    },
+    "chocolateflavored:onion": {
+      "chance": 0.65
+    },
+    "chocolateflavored:tomato": {
+      "chance": 0.65
+    },
+    "chocolateflavored:rice_panicle": {
+      "chance": 0.65
+    },
+    "chocolateflavored:wild_soybean": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_chili": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_cotton": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_coffee": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_cabbages": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_onions": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_tomatoes": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_carrots": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_potatoes": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_beetroots": {
+      "chance": 0.3
+    },
+    "chocolateflavored:wild_rice": {
+      "chance": 0.3
     }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:soybeans",
+    "chocolateflavored:soybean_pod",
+    "chocolateflavored:cabbage_seeds",
+    "chocolateflavored:cabbage",
+    "chocolateflavored:onion"
+  ]
+}

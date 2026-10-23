@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_hot",
+  "features": "chocolateflavored:patch_wild_chili",
+  "step": "vegetal_decoration"
+}

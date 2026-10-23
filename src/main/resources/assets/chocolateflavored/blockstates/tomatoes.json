@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "chocolateflavored:block/budding_tomatoes_stage0"
+    },
+    "age=1": {
+      "model": "chocolateflavored:block/budding_tomatoes_stage1"
+    },
+    "age=2": {
+      "model": "chocolateflavored:block/budding_tomatoes_stage2"
+    },
+    "age=3": {
+      "model": "chocolateflavored:block/budding_tomatoes_stage3"
+    },
+    "age=4": {
+      "model": "chocolateflavored:block/tomatoes_stage0"
+    },
+    "age=5": {
+      "model": "chocolateflavored:block/tomatoes_stage1"
+    },
+    "age=6": {
+      "model": "chocolateflavored:block/tomatoes_stage2"
+    },
+    "age=7": {
+      "model": "chocolateflavored:block/tomatoes_stage3"
+    }
+  }
+}

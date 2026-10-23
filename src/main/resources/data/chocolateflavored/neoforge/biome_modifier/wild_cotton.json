@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#chocolateflavored:has_wild_cotton",
+  "features": "chocolateflavored:patch_wild_cotton",
+  "step": "vegetal_decoration"
+}

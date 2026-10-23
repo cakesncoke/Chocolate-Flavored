@@ -1,0 +1,15 @@
+Extra Delight — Lance5057 and Extra Delight contributors
+Source: https://github.com/Lance5057/ExtraDelight
+Revision: effd768cb8a4b8a2c56deb7d9cf071e795fffe5b
+
+Upstream gradle.properties declares: mod_license=CC BY-NC-SA 4.0 Deed
+The soybean and chili artwork identified in docs/crop-assets.json is distributed
+under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
+License: https://creativecommons.org/licenses/by-nc-sa/4.0/
+Legal code: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+Artwork is copied unchanged. Blockstate/model JSON is adapted only to replace
+namespaces and select crop resources. Those resource adaptations retain the
+same CC BY-NC-SA 4.0 license. No endorsement is implied. Noncommercial use only.
+The independent native Java crop behavior is not copied from Extra Delight.
+These resources are excluded from Chocolate Flavored's MIT license grant.

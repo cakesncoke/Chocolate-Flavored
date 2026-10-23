@@ -1,0 +1,12 @@
+{
+  "type": "chocolateflavored:crop_biome_filter",
+  "allowed_biomes": "#minecraft:is_overworld",
+  "denied_biomes": [
+    "minecraft:lush_caves",
+    "minecraft:mushroom_fields"
+  ],
+  "features": "chocolateflavored:patch_wild_onions",
+  "max_temperature": 0.9,
+  "min_temperature": 0.4,
+  "step": "vegetal_decoration"
+}

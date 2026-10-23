@@ -1,0 +1,6 @@
+{
+  "type": "chocolateflavored:crop_biome_filter",
+  "allowed_biomes": "#minecraft:is_beach",
+  "features": "chocolateflavored:patch_wild_beetroots",
+  "step": "vegetal_decoration"
+}

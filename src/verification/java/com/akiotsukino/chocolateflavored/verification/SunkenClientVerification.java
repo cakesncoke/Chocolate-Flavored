@@ -18,7 +18,7 @@ import org.joml.Vector3f;
 import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class SunkenClientVerification {
-    private static boolean opened;private static int ticks;
+    public static boolean completed; private static boolean opened;private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event){
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!TuffGolemClientVerification.completed||++ticks<160||Minecraft.getInstance().level==null)return;
         opened=true;verifyModel();Minecraft.getInstance().setScreen(new Gallery());
@@ -55,7 +55,7 @@ public final class SunkenClientVerification {
                 g.entity(state,32,new Vector3f(0,1,0),new Quaternionf().rotateZ((float)Math.PI),new Quaternionf().rotateX(.1F),x+5,y+15,x+cw-5,y+ch-3);
             }
             var egg=com.akiotsukino.chocolateflavored.content.SpawnEggContent.EGGS.stream().filter(e->SpawnEggItem.getType(e.get().getDefaultInstance())==SunkenContent.SUNKEN.get()).findFirst().orElseThrow();g.item(egg.get().getDefaultInstance(),width/2-8,height-18);
-            if(++frames==150)ChocolateFlavored.LOGGER.info("SUNKEN_CLIENT_VERIFICATION_PASSED: source model and all three textures, coral visibility, skeleton bow and melee poses, swimming and modern spawn egg");
+            if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("SUNKEN_CLIENT_VERIFICATION_PASSED: source model and all three textures, coral visibility, skeleton bow and melee poses, swimming and modern spawn egg");}
         }
         @Override public boolean isPauseScreen(){return false;}
     }
