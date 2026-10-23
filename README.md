@@ -57,6 +57,10 @@ Carved Melon, Tropical Slime Bucket, Tropical Slime Block, Tropical Ball and Hus
 
 Modern baby asset coverage and sources are recorded in [docs/baby-texture-audit.md](docs/baby-texture-audit.md). Bone shards use a dedicated projectile model; tropical slime particles use vanilla item-fragment physics and quarter-texture UVs and the Tropical Ball texture.
 
+## Crops
+
+Standalone soybeans, chili, cotton, coffee, cabbage, tomato, onion, and rice include seeds, raw harvests, and wild plants. Wild crop patches are four times rarer than their source defaults. No foods, storage blocks, recipes, or dependencies are added. See [crop behavior and generation](docs/crops.md).
+
 ## Credits
 
 Chocolate Flavored is noncommercial. Its own code is MIT; borrowed resources retain their original authorship and licenses. Thanks to these creators for the resources used here:
@@ -94,3 +98,5 @@ The Overworld has a **20-minute day and 15-minute night** at normal speed. Sleep
 ### Wandering Trader availability and persistence
 
 After five Minecraft days without a trader spawn, a solo trader attempts to visit using vanilla safe placement. Traders kept with a name tag, boat or minecart retain their despawn time and block future automatic visits until they die or despawn. The spawn lock survives chunk unloads and server restarts. See [trader rules and saved-world behavior](docs/wandering-traders.md).
+
+Crop resources: **Lance5057 / Extra Delight** (soybean and chili artwork, CC BY-NC-SA 4.0); **PhantomWing / Rustic Delight** (cotton and coffee artwork, MIT); **vectorwing / Farmer's Delight** (cabbage, tomato, onion, rice, wild crop artwork and MIT patch/filter adaptations). Exact files, changes, revisions, hashes, and retained license notices: [crop manifest](docs/crop-assets.json) and [third-party notices](THIRD_PARTY_NOTICES.md).

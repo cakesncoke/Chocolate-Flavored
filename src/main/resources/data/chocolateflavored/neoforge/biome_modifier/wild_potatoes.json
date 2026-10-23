@@ -1,0 +1,9 @@
+{
+  "type": "chocolateflavored:crop_biome_filter",
+  "allowed_biomes": "#minecraft:is_overworld",
+  "denied_biomes": "#c:is_underground",
+  "features": "chocolateflavored:patch_wild_potatoes",
+  "max_temperature": 0.3,
+  "min_temperature": 0.1,
+  "step": "vegetal_decoration"
+}

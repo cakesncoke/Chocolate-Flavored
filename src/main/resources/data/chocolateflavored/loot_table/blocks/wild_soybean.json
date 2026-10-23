@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "chocolateflavored:wild_soybean",
+              "conditions": [
+                {
+                  "condition": "neoforge:can_item_perform_ability",
+                  "ability": "shears_harvest"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:group",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "name": "chocolateflavored:soybeans"
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "chocolateflavored:soybean_pod"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ]
+}

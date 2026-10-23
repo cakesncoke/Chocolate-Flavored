@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:soybean_crop",
+    "chocolateflavored:chili_crop",
+    "chocolateflavored:cotton",
+    "chocolateflavored:coffee",
+    "chocolateflavored:tomatoes",
+    "chocolateflavored:rice_crop",
+    "chocolateflavored:rice_panicles"
+  ]
+}

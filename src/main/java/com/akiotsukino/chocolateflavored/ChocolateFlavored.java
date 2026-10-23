@@ -48,6 +48,7 @@ public class ChocolateFlavored {
         CookingContent.register(modEventBus);
         ZombieVillagerSpawnModifier.register(modEventBus);
         com.akiotsukino.chocolateflavored.content.SpawnEggContent.register(modEventBus);
+        com.akiotsukino.chocolateflavored.crop.CropContent.register(modEventBus);
         ModContent.register(modEventBus);
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);

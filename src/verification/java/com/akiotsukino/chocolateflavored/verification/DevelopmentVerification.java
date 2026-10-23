@@ -154,6 +154,7 @@ public final class DevelopmentVerification {
         CleanupVerification.run(level, player);
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
+        CropVerification.run(level, player);
         TraderVerification.run(level);
         TimeVerification.run(level);
         SleepTimingVerification.start(level);

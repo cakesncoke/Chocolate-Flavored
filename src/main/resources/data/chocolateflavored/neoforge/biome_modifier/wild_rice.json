@@ -1,0 +1,7 @@
+{
+  "type": "chocolateflavored:crop_biome_filter",
+  "allowed_biomes": "#c:is_wet/overworld",
+  "denied_biomes": "#c:is_underground",
+  "features": "chocolateflavored:patch_wild_rice",
+  "step": "vegetal_decoration"
+}

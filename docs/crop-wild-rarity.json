@@ -1,0 +1,46 @@
+{
+  "wild_cabbages": [
+    30,
+    120
+  ],
+  "wild_onions": [
+    120,
+    480
+  ],
+  "wild_tomatoes": [
+    100,
+    400
+  ],
+  "wild_carrots": [
+    120,
+    480
+  ],
+  "wild_potatoes": [
+    100,
+    400
+  ],
+  "wild_beetroots": [
+    30,
+    120
+  ],
+  "wild_rice": [
+    20,
+    80
+  ],
+  "wild_cotton": [
+    32,
+    128
+  ],
+  "wild_coffee": [
+    15,
+    60
+  ],
+  "wild_soybean": [
+    80,
+    320
+  ],
+  "wild_chili": [
+    50,
+    200
+  ]
+}

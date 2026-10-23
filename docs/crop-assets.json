@@ -1,0 +1,1731 @@
+{
+  "sources": {
+    "farmersdelight": {
+      "repository": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT"
+    },
+    "extradelight": {
+      "repository": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0"
+    },
+    "rusticdelight": {
+      "repository": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT"
+    }
+  },
+  "assets": [
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/blockstates/soybean_crop.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/soybean_crop.json",
+      "source_sha256": "7da04590d4fa22912c54fa873c617c839de7cf7b2c80db0a6c035db2e1093148",
+      "bundled_sha256": "a8a0972783f983cd0f8c8adbdbc0c4bb6f8edeba80455dd53764cf575e4c15c3"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage0.json",
+      "source_sha256": "ef723ce112cbfd7489ef0f235b36db287d1635910460efb3e6d916a2304f2a01",
+      "bundled_sha256": "6895ba8d39402e9c58ebb156353ba0f96bf456e1826db081388c09305e132036"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage0.png",
+      "source_sha256": "edf6c188e4dc1cc77ed40c229569fc2c3cee70348db6b2a5bd52ee7b195f0a81",
+      "bundled_sha256": "edf6c188e4dc1cc77ed40c229569fc2c3cee70348db6b2a5bd52ee7b195f0a81"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage1.json",
+      "source_sha256": "78dd3109d6807fd7aa36c76c6ef4513181bbd30e30107c2c1f18fd449e805617",
+      "bundled_sha256": "8a71d13b5fef18cfbe04df70bf6373dad1a2b9c335ace7e37d18bb64f571537e"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage1.png",
+      "source_sha256": "5c56989d8147070afe63df4f2d672644d3bbf814e88b787d3bda5d4ca53d2941",
+      "bundled_sha256": "5c56989d8147070afe63df4f2d672644d3bbf814e88b787d3bda5d4ca53d2941"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage2.json",
+      "source_sha256": "5ed52e16674c30eb76b64cddf33134f21ed22ad583a80f4c90f249986f06b6b5",
+      "bundled_sha256": "2ac6661627346fbce966fb561aa5f08986f8582dc2c926b6f62966938761821d"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage2.png",
+      "source_sha256": "14fcbcd0fbb9cf05dd46d699bd5a345cc968796135902c8b7091c572718501eb",
+      "bundled_sha256": "14fcbcd0fbb9cf05dd46d699bd5a345cc968796135902c8b7091c572718501eb"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage3.json",
+      "source_sha256": "f9b468110cc38fb5dd919f4dc5d914a12be8895913b48693f7955b13324899fa",
+      "bundled_sha256": "1774a937a83187da4a94298a0df54b8e7ab5e1d961d03122820161d3853f67ef"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage3.png",
+      "source_sha256": "cd366781d14f46b9ef1e4156ebb7eb6ab1f56ec872f81c0c9761b8f825f0bab4",
+      "bundled_sha256": "cd366781d14f46b9ef1e4156ebb7eb6ab1f56ec872f81c0c9761b8f825f0bab4"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage4.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage4.json",
+      "source_sha256": "fdc1cdefe3debb5d59d9ac20d65e60cab33c384051a44defc5aa3ba469c89c0b",
+      "bundled_sha256": "0c7755d4ec33d912217888f83c980ed8164cb9223c3f7178272fb93890bd7662"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage4.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage4.png",
+      "source_sha256": "27d780b9ab73afe70fc9aecc4f54ac0f6560fb8b9e2efd4853b76df7cb4f7874",
+      "bundled_sha256": "27d780b9ab73afe70fc9aecc4f54ac0f6560fb8b9e2efd4853b76df7cb4f7874"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage5.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage5.json",
+      "source_sha256": "1a2ca23a525ff3513e1dfb8d80db4df5826eb1093149fca0dbd03ab395c47952",
+      "bundled_sha256": "ee1360e29c434352f7501304a6bdc2bd3ba776b5e99d62466c7ec50be9ac192f"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage5.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage5.png",
+      "source_sha256": "e36200337b537b49fdec2c61b25f6f7b092ad4eab6c7a09a8134793940c0fede",
+      "bundled_sha256": "e36200337b537b49fdec2c61b25f6f7b092ad4eab6c7a09a8134793940c0fede"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage6.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage6.json",
+      "source_sha256": "8c0c7fd303855357e8342080e455159ed36d3f83133ff71b27ee87add5afcfa4",
+      "bundled_sha256": "4287c95bf500cdb61a8d8d70f98c6cf2f13fd3ff4fbf9b8630a94ac7f422a0cd"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage6.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage6.png",
+      "source_sha256": "b42d27d1a1d1ac6655721fe7a7fd528356d9bedb3ac9f0de8c6a80f4a2061b4b",
+      "bundled_sha256": "b42d27d1a1d1ac6655721fe7a7fd528356d9bedb3ac9f0de8c6a80f4a2061b4b"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/soybean_crop_stage7.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/soybean_crop_stage7.json",
+      "source_sha256": "ecf7566ccd341fca4ef90f7ef5a5854b2a8fe2cad5a81ca6dd2f076660333ca8",
+      "bundled_sha256": "298c61b98182fc412134c28e91816f17ff90e093d60eeb7e1657a4c5e7eef0d6"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/soybeans/soybeans_stage7.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/soybeans/soybeans_stage7.png",
+      "source_sha256": "5946b79a697472c93dd826250931dc841a563d84e2d71e83fb8ba604b5d29826",
+      "bundled_sha256": "5946b79a697472c93dd826250931dc841a563d84e2d71e83fb8ba604b5d29826"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/blockstates/chili_crop.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/chili_crop.json",
+      "source_sha256": "53526dc0958e66bb663573f47e3b68d676de1a8c28afb278fd0a6c062205c6f0",
+      "bundled_sha256": "597e59f779b7816079fe32654fe5747cf8b91df516edcb222f357cb3bb66c6e8"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage0.json",
+      "source_sha256": "edc9c6f3d83e21d53a0ae4ccd942967952a19cbfc61c8597a9a23c1693b19b5e",
+      "bundled_sha256": "e87b1c3815891aed646b88bf3ef75b0de90e620ca23058f3dd10ddc346378062"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage0.png",
+      "source_sha256": "bab24a161e9302ff810ee008bb625fe84d313095336cc93368b72ec4c487c4d9",
+      "bundled_sha256": "bab24a161e9302ff810ee008bb625fe84d313095336cc93368b72ec4c487c4d9"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage1.json",
+      "source_sha256": "cdee7c5321027e36bc57a2283b5d03c8ed668827b922494185b8e2720572b181",
+      "bundled_sha256": "9b97c5c30ea8c7f9dc8dc01665f2e2d33b04fc2a253f1487ac8b919e99ac74f1"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage1.png",
+      "source_sha256": "df8f59637cf011b60d94623e229c9cc63e11b539020b6b2ef3c3aaf71b51a864",
+      "bundled_sha256": "df8f59637cf011b60d94623e229c9cc63e11b539020b6b2ef3c3aaf71b51a864"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage2.json",
+      "source_sha256": "61a2e4f34d41955853669bde08987a68954e7475de382d1efb077c243b42c39b",
+      "bundled_sha256": "b4eab6cbaded395824424ff54d6c23b6e48edbf1333ec3ad179764816d8267e6"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage2.png",
+      "source_sha256": "e6c59aaf4f8da42943afda49fe147ebce5ed46884f1a5a406b91d2669abae95e",
+      "bundled_sha256": "e6c59aaf4f8da42943afda49fe147ebce5ed46884f1a5a406b91d2669abae95e"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage3.json",
+      "source_sha256": "6a5ac0d732fd4d4714b9b57378f4c41be973d4c5856d75cb19055edc0f76c4bf",
+      "bundled_sha256": "8ba7ddbae51415fa17e00597cbb929992ecb7d0dd0a31a0c5fdcc3b1459bf1d9"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage3.png",
+      "source_sha256": "7316297172d40eddbd36c0783691974ffbe07d70dae6c8c9bd79c93ae7697da9",
+      "bundled_sha256": "7316297172d40eddbd36c0783691974ffbe07d70dae6c8c9bd79c93ae7697da9"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage4.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage4.json",
+      "source_sha256": "6b72a741717277e500e68e2262202b1e1595dd59f3647541d390fcf2b24891af",
+      "bundled_sha256": "99edc1f8a5439a2b1370e9570df2f2eada6bef023cc55ca511e3880e76a61806"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage4.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage4.png",
+      "source_sha256": "2b1481bde0488ebcc864fa6d8621a394a4fd81f86986276b736fc0a340e125a2",
+      "bundled_sha256": "2b1481bde0488ebcc864fa6d8621a394a4fd81f86986276b736fc0a340e125a2"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage5.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage5.json",
+      "source_sha256": "ecaae7edf0424e3a4d43dbcf92296e5cf2e075ad758d08f38ddbccedb685d738",
+      "bundled_sha256": "540a64e80b7a70018dcae5333b45a371061374c2c24b9821ab0b893821e2350c"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage5.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage5.png",
+      "source_sha256": "896fa60e95934e8ce02f49ba186094d86fe8c1a0a179047b540c85dbbbc0e84f",
+      "bundled_sha256": "896fa60e95934e8ce02f49ba186094d86fe8c1a0a179047b540c85dbbbc0e84f"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/chili_crop_stage6.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/chili_crop_stage6.json",
+      "source_sha256": "6384a9780971fb04e0ead99d8be4f7a7a1314faf5a27cd16dc3fb03fa1601107",
+      "bundled_sha256": "686f9cb8a9483d80192ed5468dc3a640a0b16434a6ee3716763740a68785a71f"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/chili_stage6.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/chili_stage6.png",
+      "source_sha256": "4c3292ad60db9827dfb363f0a38b387172824e90e6f1b431b1f422532db40520",
+      "bundled_sha256": "4c3292ad60db9827dfb363f0a38b387172824e90e6f1b431b1f422532db40520"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/blockstates/wild_soybean.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_soybean.json",
+      "source_sha256": "3166229f97d9aedf133dbed42061d45ca748693ef60992822cb01eb850c21362",
+      "bundled_sha256": "ba721915247a132cefddf531d7f3c7b912c3bb474e7a713ff2ca1bccf2c198c0"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/wild_soybean.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_soybean.json",
+      "source_sha256": "ecf7566ccd341fca4ef90f7ef5a5854b2a8fe2cad5a81ca6dd2f076660333ca8",
+      "bundled_sha256": "298c61b98182fc412134c28e91816f17ff90e093d60eeb7e1657a4c5e7eef0d6"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/blockstates/wild_chili.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_chili.json",
+      "source_sha256": "590c65b8c176960c4619c69727afc2d94874e18ba3b4b92a134532ef6403dc59",
+      "bundled_sha256": "24a4ede394cd2c34a76e1e4200bf1cee9867396c4ed74ef4fe0a7c08af28bc01"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/block/wild_chili.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_chili.json",
+      "source_sha256": "0e8f86c2ea735afe83f2414da341f6a0969c1c478bf024b2bc63a9b90f72dce9",
+      "bundled_sha256": "5f445d4da7ba9c317a486294cf5182062ac2632017a29cea5c03fddf20474b81"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/block/crops/chili/wild_chili.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/crops/chili/wild_chili.png",
+      "source_sha256": "1ae5dd5a16725613a445bcbce46d2365582703729ddf73569d42186f07485a2d",
+      "bundled_sha256": "1ae5dd5a16725613a445bcbce46d2365582703729ddf73569d42186f07485a2d"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/blockstates/cotton.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/cotton.json",
+      "source_sha256": "15be84d03eb28af0a459ed6dc769e0829b684b2988880d441eacf3d2e95d1a2e",
+      "bundled_sha256": "779acf3d4499d8892328b0d3cae271385483fae0f2c60a1d84964cf4121bbb63"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/cotton_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage0.json",
+      "source_sha256": "d60b0a5bbab03ebb0a51923b44cb61a7d58348a5d48b56db2e2c1581ac380c51",
+      "bundled_sha256": "06f980b3e74260b0962d7e2b03e2ecac12b297eef95fb647c201017198c9526b"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/cotton_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage0.png",
+      "source_sha256": "bdd5e13290cb39101f4a7986b987ae82b859733d814fcfefeba549351f130fa1",
+      "bundled_sha256": "bdd5e13290cb39101f4a7986b987ae82b859733d814fcfefeba549351f130fa1"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/cotton_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage1.json",
+      "source_sha256": "962ddc5ff8f4078d8069c73222fbcf27e66ea1551514624ebc5bf8b099d292e2",
+      "bundled_sha256": "9d4e503ac0ac2026465572f846bca6bb57ecf718d60ade5bf93e7a8a98e8ea38"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/cotton_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage1.png",
+      "source_sha256": "cf1696b2f47975cec62420190a2a4757e44c9eabd84e61c576d089e52f2afbf9",
+      "bundled_sha256": "cf1696b2f47975cec62420190a2a4757e44c9eabd84e61c576d089e52f2afbf9"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/cotton_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage2.json",
+      "source_sha256": "a064cbb041a827589cc25db3f149bb07ac50d546e1a6623c8a3cb0a22f8f9cea",
+      "bundled_sha256": "40ac9b09b6c0948a156a4e4ca6fa2ac34c2b313e1e80d3a430df739b5d82317e"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/cotton_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage2.png",
+      "source_sha256": "43ac1bc12f96cf4a62242abeb6e730b9bc586e6d935c57054765e8b4ec4aca93",
+      "bundled_sha256": "43ac1bc12f96cf4a62242abeb6e730b9bc586e6d935c57054765e8b4ec4aca93"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/cotton_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage3.json",
+      "source_sha256": "56535d4721ff89117bf1543828d12f6a4144fec51e8cd88031a9cdfc6126984e",
+      "bundled_sha256": "bf95cda8ced875b10b6804f141c7cad63d28e89851f2f43d46d80888a534eb48"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/cotton_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage3.png",
+      "source_sha256": "b3cca24fb9c3b883118212ce5efefb8c3b10adc84e819c96fd2a68bd0e37aca2",
+      "bundled_sha256": "b3cca24fb9c3b883118212ce5efefb8c3b10adc84e819c96fd2a68bd0e37aca2"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/blockstates/coffee.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/coffee.json",
+      "source_sha256": "9a58d4fbeb6e5ad63514d3d0c967f251f6b74abb1c78a2f2f8ee98c7c146df06",
+      "bundled_sha256": "67e42152d2dce0c830562aeb8ea05c187a6737310edccfc00009660f59128e56"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage0.json",
+      "source_sha256": "c64865d53652061541b554cbafab7abbf693a6b7c6074134447989a30945b130",
+      "bundled_sha256": "059e8981e4fa763bf168072058147f39a2187a3bfb86dc232f787890785f2e1b"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage0.png",
+      "source_sha256": "173dac9e4cf3f753b0a46c39f4add9e5aa9bf4eedb2ffecdb8749e2fdd36d273",
+      "bundled_sha256": "173dac9e4cf3f753b0a46c39f4add9e5aa9bf4eedb2ffecdb8749e2fdd36d273"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage1.json",
+      "source_sha256": "6cd98fde3a8211c048c3c1bca94ebffe092c262fb8953c07a5e72967e5a4a193",
+      "bundled_sha256": "8bc53b50244f801c1cd56a20d74226c8eb8b45ce690005357fcab820c1881712"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage1.png",
+      "source_sha256": "8b51be2f0bc2c58ca8523fe83c217a5968b340ea340074d8a468b58853862af1",
+      "bundled_sha256": "8b51be2f0bc2c58ca8523fe83c217a5968b340ea340074d8a468b58853862af1"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage2.json",
+      "source_sha256": "62089adc84149a10536f4a84e77b74ad5835b50a53c75282362d43e52bdf35ff",
+      "bundled_sha256": "95fc77b850520a48af4f74eff1bd0be181ac111d42f80d367e0735c298fab1d6"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage2.png",
+      "source_sha256": "fa6bce5dc335fbd72a5d7336913e199205a75b3214e3caf7f871bd7e1ce2df81",
+      "bundled_sha256": "fa6bce5dc335fbd72a5d7336913e199205a75b3214e3caf7f871bd7e1ce2df81"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage3.json",
+      "source_sha256": "e8efaed48afc4cc6a8a2aa7179a1daa7564c24452a714f480e2e33d358b3301d",
+      "bundled_sha256": "65086118e5a5da51cbb62a6863332fb42959bc8e6d97b7c9eba1dc40da305d02"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage3.png",
+      "source_sha256": "49704c8b6df367be22950f66ccab1de51780399ddfc9c06bc3e9f792e320ff54",
+      "bundled_sha256": "49704c8b6df367be22950f66ccab1de51780399ddfc9c06bc3e9f792e320ff54"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage4.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage4.json",
+      "source_sha256": "6e7780a4805ca238d64e2986bfae07aabca0104ecb4f45d962654c244e080a44",
+      "bundled_sha256": "d4b6e00ecbf4078995d9f391ce87adddfc4d18be78ad6bc2b7b24653de2d7262"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage4.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage4.png",
+      "source_sha256": "7cc246a599e4de946ac269622e3284458759f0e9e997b847af4dfb3e1d702d97",
+      "bundled_sha256": "7cc246a599e4de946ac269622e3284458759f0e9e997b847af4dfb3e1d702d97"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/coffee_stage5.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/coffee_stage5.json",
+      "source_sha256": "62ef906512e34eb031032e1d253d71024206bb3ad5c885ec7c5e61b3eae814b9",
+      "bundled_sha256": "6d622ed630feb430f6ea8274c278c8039e0fc6ba7179010f71df62af7bb1609b"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/coffee_stage5.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/coffee_stage5.png",
+      "source_sha256": "ba64b08046bf0fbe420f06e5ee854c3901b00b7095e7ad9001a45e0d3ee2ce70",
+      "bundled_sha256": "ba64b08046bf0fbe420f06e5ee854c3901b00b7095e7ad9001a45e0d3ee2ce70"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/blockstates/wild_cotton.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_cotton.json",
+      "source_sha256": "47685de81b50b0afc259abb4ea3b36bfaf01affd93ead78ccc9602714ff2adf6",
+      "bundled_sha256": "11566fa2f9316d7827c7c57850f4ba873285c4ce1d8f92338d7230c8211025c9"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/wild_cotton.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_cotton.json",
+      "source_sha256": "f3950fed51b4210e6c45b562125caf3089792602c39b3df628c2469599300240",
+      "bundled_sha256": "82fb3277d3d6c9da6887d4e828a88fa2bff5ae2c7866121a457198d6d1613118"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/wild_cotton.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_cotton.png",
+      "source_sha256": "fa447fb179b5b8e712aa3ef2450d0b9dbe2c8de58e7dfea318dcad5c054a1bbd",
+      "bundled_sha256": "fa447fb179b5b8e712aa3ef2450d0b9dbe2c8de58e7dfea318dcad5c054a1bbd"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/blockstates/wild_coffee.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_coffee.json",
+      "source_sha256": "2bb6e35f76f60e67c7606be0e2969edce16fd8762ce8693c066e93ce89382952",
+      "bundled_sha256": "ccd372aeba6b72e3b12ebc07304e8017cfbe609e67f630ad61fcd9da116de9cd"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/block/wild_coffee.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_coffee.json",
+      "source_sha256": "e1dc9ad38c07a4231cf166addf98b082a08dfe6c139946f08d38ae8a4982f1f1",
+      "bundled_sha256": "013e257631834c0cc03c1988ec539d0fef2966d573efa79937a80a0008f61e64"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/block/wild_coffee.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_coffee.png",
+      "source_sha256": "91fae717516ea7bc426ab0fd79565891e2e5dbc422a21e35232d0b1b09d9bfa1",
+      "bundled_sha256": "91fae717516ea7bc426ab0fd79565891e2e5dbc422a21e35232d0b1b09d9bfa1"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/cabbages.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/cabbages.json",
+      "source_sha256": "a0a4e976c38a212efb1360b1e7a075f13c2169403a17f1c6143907671b25c052",
+      "bundled_sha256": "56eb4c0ddc20f1a23a82b0bca16836b9de31fe5d75762b191930483fc7657a84"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage0.json",
+      "source_sha256": "deca17b9382ab09bdbfdd6766be377f5a339081537982f72fbbc1c12e182cc69",
+      "bundled_sha256": "e4b30f2c238c0ad1256315c246129c81c65239ace4355e88558b28926151c64a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/models/block/template_crop_cross.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/template_crop_cross.json",
+      "source_sha256": "7db761e6ec07f609abd920d7a25cfa0524b686628881b98e6735e6331834a9b3",
+      "bundled_sha256": "1c5e49230a881535da655f0211402a7e5d268ca441004a41ea14f8dc16603cff"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage0.png",
+      "source_sha256": "c333beb74daf386ddb6b86d24020a14f2f1abff3a99219188368b833c5afda82",
+      "bundled_sha256": "c333beb74daf386ddb6b86d24020a14f2f1abff3a99219188368b833c5afda82"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage1.json",
+      "source_sha256": "29031c5160bb2720bcdef9c8dc703b43ad5a01df3b3b447cd641638597430491",
+      "bundled_sha256": "a67b8db0ed61c49a45cd8e434d031df0243366d60c6e4119d2fe91465516bbb5"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage1.png",
+      "source_sha256": "e4634b064527715beb7f1c5ee70b98693857b64ee9efcf61fcec551e2895bb9a",
+      "bundled_sha256": "e4634b064527715beb7f1c5ee70b98693857b64ee9efcf61fcec551e2895bb9a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage2.json",
+      "source_sha256": "f3975578c7c83d38730282b4e655b99ceb856810e7d198c6f3acbfbbc169e8ec",
+      "bundled_sha256": "2cd310389f0be5c6d166d5793169b10e8430a46eaecf550f71a71d1dca7be31a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage2.png",
+      "source_sha256": "718963268d3e20a2b6e4ea1468be0d45d88182bbbdcd2ab244da9e2a7fdeec8f",
+      "bundled_sha256": "718963268d3e20a2b6e4ea1468be0d45d88182bbbdcd2ab244da9e2a7fdeec8f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage3.json",
+      "source_sha256": "cbc2a45aa74979750dfbc29735d86448fd3131dadb590a5c8d4dc0003cc5767f",
+      "bundled_sha256": "39d61d20d9982fb167cfe66d0bba0b33c71ef7de9604bb59320ee8250e43d2a8"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage3.png",
+      "source_sha256": "a5e8b7c3072c445632c4097f950465b85c3eecdbcfb58abbb6220ad1339f71a6",
+      "bundled_sha256": "a5e8b7c3072c445632c4097f950465b85c3eecdbcfb58abbb6220ad1339f71a6"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage4.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage4.json",
+      "source_sha256": "d7b8647d941ab931e7ef4ec73bd00e5e4b8bd0ee5e2ad778dc5a30687212e3b8",
+      "bundled_sha256": "b58323524fe34c2578787e5119c7598df7ce4682c6dd024ef114d038ad872403"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage4.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage4.png",
+      "source_sha256": "bbcd7b3ececaafad79290e48481cdfe25a75acc3bb253b0c6745aa96d0d4c1ea",
+      "bundled_sha256": "bbcd7b3ececaafad79290e48481cdfe25a75acc3bb253b0c6745aa96d0d4c1ea"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage5.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage5.json",
+      "source_sha256": "90ad18bbebc01799cd4e0d046cb95ca25f19acc61028f669300bfc62ea516ba4",
+      "bundled_sha256": "0f51a49cfca4bba0a5ba0e5a976109d44be91a760f5ec8637db6acca1bd6970f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage5.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage5.png",
+      "source_sha256": "14c4fb8ed32fa15412d567615763c60ff69815ce98e3f66995270aab3a65a833",
+      "bundled_sha256": "14c4fb8ed32fa15412d567615763c60ff69815ce98e3f66995270aab3a65a833"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage6.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage6.json",
+      "source_sha256": "60fd8e27864d58c997905b23ca1dff9dac228070313750f872934656090e5839",
+      "bundled_sha256": "ded46b9b844ceb150568e1ca15043c19deeba3a563dc3e00f3dd8beaaa21fff3"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage6.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage6.png",
+      "source_sha256": "4fff6b7209c431d6d08b6c7a79cf271851d104bdf046b2fc60b76dcb70dc65cd",
+      "bundled_sha256": "4fff6b7209c431d6d08b6c7a79cf271851d104bdf046b2fc60b76dcb70dc65cd"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/cabbages_stage7.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cabbages_stage7.json",
+      "source_sha256": "453970044e5c5c7c370ebda56baac500416411156f4be4370aa14f4cc9ba225b",
+      "bundled_sha256": "66025beb2e7509380321674e54747d657a36b96fb7ce148f19e7a9dae3eb55b3"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/cabbages_stage7.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cabbages_stage7.png",
+      "source_sha256": "8a7030e74e1d842dbffb8a7ee032cc50f7760425aedb6ef572adddc8331c0410",
+      "bundled_sha256": "8a7030e74e1d842dbffb8a7ee032cc50f7760425aedb6ef572adddc8331c0410"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/onions.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/onions.json",
+      "source_sha256": "37653b4c44181b44a549eaf2483beac5918ff8239b09f512a0029b92081cc7fc",
+      "bundled_sha256": "3d0c7bcbb0494f401de501873be0a112eaeb0dc9c24f0bca8501a650d18c46b2"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/onions_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/onions_stage0.json",
+      "source_sha256": "9df65755f2f3b110d60a9f0a20d336911a469c8364b16fdfa18facbfa732cd22",
+      "bundled_sha256": "df10f4640bebc1976912047ee2587ef2fc2ba63354b5d4bd39da5b1fee810ca8"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/onions_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/onions_stage0.png",
+      "source_sha256": "10775aa0ba4947009c74a90c0081592a36ea35ff706094f2823f40ffc49c6453",
+      "bundled_sha256": "10775aa0ba4947009c74a90c0081592a36ea35ff706094f2823f40ffc49c6453"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/onions_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/onions_stage1.json",
+      "source_sha256": "ee631089f2f7f83c361bc6c7d4693206bfd1426d9fd1963b10609d591ad10305",
+      "bundled_sha256": "08e723de7582b9e6314a45e84e62331839b1a58c94b80719b95938888510b04b"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/onions_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/onions_stage1.png",
+      "source_sha256": "4dbabeed97c1edc6e8f2c741d6e8ed2740aa037396fbbe36933bd5d26c59b25d",
+      "bundled_sha256": "4dbabeed97c1edc6e8f2c741d6e8ed2740aa037396fbbe36933bd5d26c59b25d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/onions_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/onions_stage2.json",
+      "source_sha256": "8f798de2a5cc9cd2c12ef55da930e2bab6ce13bdf4ef836a03a03a3742efc349",
+      "bundled_sha256": "9b87194b9269a37f75143ee50c76450c5f43c5cb60ec1ceb097782c51cd46feb"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/onions_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/onions_stage2.png",
+      "source_sha256": "f863c9c54381b8974ba6bba3b7192bd5f0b991ed2f78f89bcab30f3a3853764c",
+      "bundled_sha256": "f863c9c54381b8974ba6bba3b7192bd5f0b991ed2f78f89bcab30f3a3853764c"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/onions_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/onions_stage3.json",
+      "source_sha256": "b816dcc763d0a9b49d03046218970e3f88f3dfaf201bed9ea8b4375ed8c22f60",
+      "bundled_sha256": "5af05cbbdd0499c8aebaa4bfb2ffeae3503fbad5ddfd310686414a11219f2d6f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/onions_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/onions_stage3.png",
+      "source_sha256": "4f35678901bc7f2f3d071d3e574079410d3a58ccf2a5a960f93ab599f8bc5348",
+      "bundled_sha256": "4f35678901bc7f2f3d071d3e574079410d3a58ccf2a5a960f93ab599f8bc5348"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/rice.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/rice_crop.json",
+      "source_sha256": "7fd8c3943f29a49bdba7af31a9275dd13b6874c2189f85d12f3c90b5436a6109",
+      "bundled_sha256": "c154c16dfbc07d310e55d6852c6a167a9bd9083921e0e8af53d904af389943fd"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_stage0.json",
+      "source_sha256": "2b181feb75c3a54e97c758da94a824718e231b0212cb0015f7eaa6b7a2fc59b5",
+      "bundled_sha256": "b3f57f5619e91e27c2f65d7152e14527326e77291ffd86a5d0b9317fc08c9b3d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_stage0.png",
+      "source_sha256": "31c8fc5da98f08d61f7f2ad94d5405e5a55448d4ed9c8ea570b2eb4f4aecc427",
+      "bundled_sha256": "31c8fc5da98f08d61f7f2ad94d5405e5a55448d4ed9c8ea570b2eb4f4aecc427"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_stage1.json",
+      "source_sha256": "6101761f20ba82a8b6ac69382db0bcc9918d5ce5a8ef9b19acbcb31a0e75f7d5",
+      "bundled_sha256": "9d66b72dea4893d1445e356ae3ea59a16051613288575444be9c5741a659378b"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_stage1.png",
+      "source_sha256": "d83d3b26526d3201e025c851ea301c8c904b07d582a616b62a03b40504bd6e98",
+      "bundled_sha256": "d83d3b26526d3201e025c851ea301c8c904b07d582a616b62a03b40504bd6e98"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_stage2.json",
+      "source_sha256": "a4e7da79c03d10da8934055e8265875e654b7132b82d3ef2312c48cbe1772a59",
+      "bundled_sha256": "9c33e3d519a08f61715d9fdae713a71a944fd6d661884fab413e5301e8abef14"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_stage2.png",
+      "source_sha256": "5496ec2ab0a3ed55fb046aef6e885c4dfecf7c58ec171e35133b497de8a00bcf",
+      "bundled_sha256": "5496ec2ab0a3ed55fb046aef6e885c4dfecf7c58ec171e35133b497de8a00bcf"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_stage3.json",
+      "source_sha256": "ff0264863a7ed149d1df02ec6f3e123f52048c6d00504222391492e83e70913c",
+      "bundled_sha256": "9eca280b91b9d7ba6ccd8f1bbd731bc94fe4df90e3ec9cc62a73ef3278093e6d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_stage3.png",
+      "source_sha256": "1ecd28861bb4aeb979a5d177b5723cf33db2b2b8654341d07e38af38a1d766bf",
+      "bundled_sha256": "1ecd28861bb4aeb979a5d177b5723cf33db2b2b8654341d07e38af38a1d766bf"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_supporting.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_supporting.json",
+      "source_sha256": "87b3e6f6cfe61a8617152e2236dc60ddbe38a737b256c4b3a70c9bb8024e320b",
+      "bundled_sha256": "f240c0aa6a652ad8c06fb7341eeb1a77e2797793ba7bef94516a811f5c435d8d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_supporting.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_supporting.png",
+      "source_sha256": "873382a6d8d3d9e71aec5b0a0650dbdad9bddc07c1d45ff0c31595c0c23ae400",
+      "bundled_sha256": "873382a6d8d3d9e71aec5b0a0650dbdad9bddc07c1d45ff0c31595c0c23ae400"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/rice_panicles.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/rice_panicles.json",
+      "source_sha256": "4d06494cf77c626f97bc2ec55dc2023a59e67fb6b2f7a55afb8353b787fc095c",
+      "bundled_sha256": "bff677c76f91185df09661a187dfd0cf10b9f51bfd20024f07a536f1a3feb2fd"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_panicles_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_panicles_stage0.json",
+      "source_sha256": "eacd087cefa803fae6ce7a5bb11082f77c3e625afa35681ab2112b6e986e5e6d",
+      "bundled_sha256": "197abd101c3a2cf3bbc3b9724f347cf5e67897771cccc97fdf5de1b6af9cf76c"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_panicles_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_panicles_stage0.png",
+      "source_sha256": "3a6774f35a9fdb3ada7b19eabaaab03744148e779d19dd524750072cf5f98043",
+      "bundled_sha256": "3a6774f35a9fdb3ada7b19eabaaab03744148e779d19dd524750072cf5f98043"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_panicles_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_panicles_stage1.json",
+      "source_sha256": "4573ef715e3d838f81e81a9ced1bb049f2a4ae5426d1946107c83a0a2766a282",
+      "bundled_sha256": "3c6cfd6490abd996101cc279488506d10a3ac06382350bcf02da3c17a47caad9"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_panicles_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_panicles_stage1.png",
+      "source_sha256": "b265f0df33279f476c208f91c3f0e8570ed115e009078b007c44587def4df673",
+      "bundled_sha256": "b265f0df33279f476c208f91c3f0e8570ed115e009078b007c44587def4df673"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_panicles_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_panicles_stage2.json",
+      "source_sha256": "2a6dbee4b6f106ff01648fb781786f1d5041cd61aeb3bed30c2a0420c3148150",
+      "bundled_sha256": "3ff2945a194e7df11c35bbbac7896a66fd006b2cbe28faf1ffb316158c2fa00a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_panicles_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_panicles_stage2.png",
+      "source_sha256": "67ab44b38e570e67cfacca9d837857948435a553e5c4a0f5de46d30d3c8299f6",
+      "bundled_sha256": "67ab44b38e570e67cfacca9d837857948435a553e5c4a0f5de46d30d3c8299f6"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/rice_panicles_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/rice_panicles_stage3.json",
+      "source_sha256": "9cb35c9f1b588113b27527a17ed0b27e946ed5a77016a1a91a48e28a27cf499a",
+      "bundled_sha256": "f40c8a96921a0572f3bb40027504ae2696bb0ed8b235767212fb1ad6ddbaa512"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/rice_panicles_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/rice_panicles_stage3.png",
+      "source_sha256": "590bd9add21b5c95867c3be67589dfccaf36037ab5f4b11dca4e3a796282aca7",
+      "bundled_sha256": "590bd9add21b5c95867c3be67589dfccaf36037ab5f4b11dca4e3a796282aca7"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_cabbages.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_cabbages.json",
+      "source_sha256": "0c3483ccbb91b38b32690795b01f7e7f9f2aa85a332324e1b8ab2ba45ec2d87b",
+      "bundled_sha256": "eec3fab18da74850648bdfc424e204ad999f4d709d0732bf530af62a853a2a8a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_cabbages.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_cabbages.json",
+      "source_sha256": "352a3a667bab498ecf7d730d30dd44cac9cbdffa389bee12c43a62e2f9b7a406",
+      "bundled_sha256": "976920c38ef52c1b5ed31c0053a114d1755feba1758fa819a74ceb77dd27b304"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_cabbages.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_cabbages.png",
+      "source_sha256": "b0f784b81a6ecc748345ab4ac4c393975dae0012bad003c451d5cd7441b9d41d",
+      "bundled_sha256": "b0f784b81a6ecc748345ab4ac4c393975dae0012bad003c451d5cd7441b9d41d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_onions.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_onions.json",
+      "source_sha256": "3d21a109b4dddc1322ef7b78e73e0c6a42bb30938eba6a8eddf46001ff7a9710",
+      "bundled_sha256": "45d0addee69fefc720b00c052a6e99df3b93cce5a4b54f8887a78fef5cb00beb"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_onions.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_onions.json",
+      "source_sha256": "28843c17ba3be2d43bf1c2b791f5a12384843e9d466605038a38ceaf537dd7c8",
+      "bundled_sha256": "f09b553f419a63c8924b91fc53378a454a7397fae28ed213475d3131307ed23e"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_onions.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_onions.png",
+      "source_sha256": "b93366fabb7b0cd66ee02656dd49e17fd3756b88702284d6712da0175acd5b02",
+      "bundled_sha256": "b93366fabb7b0cd66ee02656dd49e17fd3756b88702284d6712da0175acd5b02"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_tomatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_tomatoes.json",
+      "source_sha256": "ccc9591b58ff3c1fae051b007a7cb007eca922baa2571b59bb5b4f9006982ace",
+      "bundled_sha256": "01c942831b0daea6083a3fbd68a6e7a0b9cae07167a2e5c4b37e58f4c4ccf285"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_tomatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_tomatoes.json",
+      "source_sha256": "e702250d6c0c9909addf9e3aa2e083450880a7ae46b80fb86d783861fa28aca2",
+      "bundled_sha256": "5645df70758dd87b6558d9cab84ea296d15181fae40d1c3b8804143599eb8339"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_tomatoes.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_tomatoes.png",
+      "source_sha256": "d498666446ed5f1145074e505e72289fd725186cb0c21757fae1f86e4004654d",
+      "bundled_sha256": "d498666446ed5f1145074e505e72289fd725186cb0c21757fae1f86e4004654d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_carrots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_carrots.json",
+      "source_sha256": "04171d898de27e62921ed449fa1b032217a6e758ab2c4a03dfdd19446b1df0d7",
+      "bundled_sha256": "536f3efcb4bb90c7cbf7cb0f57e9464da295c4a7b5ba0f608cd62a5bb5e45eae"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_carrots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_carrots.json",
+      "source_sha256": "569c9e2e7b5cdf5bf47a587d38af1d6e70959d7136c409018b4acb67c0a9a3c9",
+      "bundled_sha256": "49d53959f0725679e7b4ff64981de469c86367e66d128c38c1fc935793844b66"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_carrots.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_carrots.png",
+      "source_sha256": "f82f89395179fb7afbc9c47d4a07e9c3eb0102addd6a87ba9d20d1351c53f4d3",
+      "bundled_sha256": "f82f89395179fb7afbc9c47d4a07e9c3eb0102addd6a87ba9d20d1351c53f4d3"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_potatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_potatoes.json",
+      "source_sha256": "e42a411b68a1e3e16cae53a3ccc4db9b3cb1cac1c898be9d21bb3c4bb0c6ac9b",
+      "bundled_sha256": "e9f25f672584b456c1390156f7a2d122bed6626bd7d5b3fc269725e69d7a67bc"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_potatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_potatoes.json",
+      "source_sha256": "60fb3a62518b4b8c4c61fbf4ea76e1c659b8ae0ba2606bdfa369fe691d8c00ee",
+      "bundled_sha256": "f445f791d9977cdeb02994ed6497fc35e7c45e1846a56cd4f15162e26480e1a4"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_potatoes.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_potatoes.png",
+      "source_sha256": "95dee82bfe1fee8a5c28b7b4d7a2ff2e66bedf0ec5cef16b19f979088a4d7eb4",
+      "bundled_sha256": "95dee82bfe1fee8a5c28b7b4d7a2ff2e66bedf0ec5cef16b19f979088a4d7eb4"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_beetroots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_beetroots.json",
+      "source_sha256": "5a5d0a9ae00ea5a3439d1cf9a55ab56ae58c1d22f3c625a0a67e3c0b59d4b29f",
+      "bundled_sha256": "93d4a6b1a2fdffa8a09270a83132412fe4053dddeeb9476ef1b7751acfa6450a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_beetroots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_beetroots.json",
+      "source_sha256": "89ba9dc18eb833b6d9d0c69e38287b4e6603bae0da582b74c121ba6512501efe",
+      "bundled_sha256": "e9e124182bc7d117fbe49168a4c678a7cd62253c58bb8269efbf20fbff7df7b1"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_beetroots.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_beetroots.png",
+      "source_sha256": "c69673c6229b6bf7d04616335913a2059caca885778eba0bddf9329f1939c533",
+      "bundled_sha256": "c69673c6229b6bf7d04616335913a2059caca885778eba0bddf9329f1939c533"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/blockstates/wild_rice.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/wild_rice.json",
+      "source_sha256": "6c4a5b91658ca986c7e8adaa45bd4833075a7eac55d83cd04c8bf515081d3baa",
+      "bundled_sha256": "910bea15f2780af8db512408784704c64517b49509c5c25756e9a91b77007b5f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_rice_bottom.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_rice_bottom.json",
+      "source_sha256": "c68d965ea93154f0919cb007d75d86a768e29e668a9d1b3b2490335d8d1d50f4",
+      "bundled_sha256": "117478987c2777490e4588c3cd0567eb2a96a21be3933fdb79a93d72bc1bf07a"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_rice_bottom.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_rice_bottom.png",
+      "source_sha256": "af5cf2b5fb4dcc225b497ea4b61b09ee4b251d0c761bf89dfcb5cd5525dbd9cd",
+      "bundled_sha256": "af5cf2b5fb4dcc225b497ea4b61b09ee4b251d0c761bf89dfcb5cd5525dbd9cd"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/wild_rice_top.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/wild_rice_top.json",
+      "source_sha256": "a02978ea732a850d567543d845c6171f4c1cd87f430042957e79f44fc07bba67",
+      "bundled_sha256": "ffff0496f5f2531db1e789ed16b659b1b2ccae1314b3bca0f54b3ab7a13183c4"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/wild_rice_top.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/wild_rice_top.png",
+      "source_sha256": "945bfd853ec7a7913429917b9265fe08d89f38071ffdae73ddcd565c51be2aff",
+      "bundled_sha256": "945bfd853ec7a7913429917b9265fe08d89f38071ffdae73ddcd565c51be2aff"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/budding_tomatoes_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/budding_tomatoes_stage0.json",
+      "source_sha256": "b120e56ccdcb7168efb514bea6c1e734eff614b61cbcff0c884d0bc72c6c1475",
+      "bundled_sha256": "af83b8e9505f5b22af3a377df47e58995c5464ccbd41026198d38981936a1885"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/budding_tomatoes_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/budding_tomatoes_stage0.png",
+      "source_sha256": "244232b51837a0d81b9bb9b3e50a0d1d001ef30448f9d0746459b4e02600d923",
+      "bundled_sha256": "244232b51837a0d81b9bb9b3e50a0d1d001ef30448f9d0746459b4e02600d923"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/budding_tomatoes_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/budding_tomatoes_stage1.json",
+      "source_sha256": "2590ecf9f2ae4415a324ccf4e28b028486bda994e98bf5f806b03b216cf0c608",
+      "bundled_sha256": "9d38277a43d001aed4d82da58a46009a48cc28561b5811db4b75da4e096bef3d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/budding_tomatoes_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/budding_tomatoes_stage1.png",
+      "source_sha256": "9841901cb80cd32365b7bc483a95d02e48f1a27568d98a2e275358edddc078df",
+      "bundled_sha256": "9841901cb80cd32365b7bc483a95d02e48f1a27568d98a2e275358edddc078df"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/budding_tomatoes_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/budding_tomatoes_stage2.json",
+      "source_sha256": "7b1040f4366ab470da8775e4e1a99ae19ed608c51bdadb6b7dcee23ff147541d",
+      "bundled_sha256": "bd259c1072b3a570cf08de5ec89ad5719007e74708ac77e84c4c10cd1b58f64f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/budding_tomatoes_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/budding_tomatoes_stage2.png",
+      "source_sha256": "98ad67303863764154eb68aa79e5e34ee5cb63f0e27f50a03e6c9689888ae3f0",
+      "bundled_sha256": "98ad67303863764154eb68aa79e5e34ee5cb63f0e27f50a03e6c9689888ae3f0"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/budding_tomatoes_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/budding_tomatoes_stage3.json",
+      "source_sha256": "0c698267a3e848adc0008a69b98fde99ca48f9eea2a41eff98a9367641078bc0",
+      "bundled_sha256": "0b08cdbcbe61057ec6054575470bb265fe0b04daee558ba75b8e7624071b7273"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/budding_tomatoes_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/budding_tomatoes_stage3.png",
+      "source_sha256": "57289f920893f31edf816e0e73ff6f48dc28b56b3076b11cdce6c546ceb8ef14",
+      "bundled_sha256": "57289f920893f31edf816e0e73ff6f48dc28b56b3076b11cdce6c546ceb8ef14"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/tomatoes_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/tomatoes_stage0.json",
+      "source_sha256": "446fbe5f3f31c15d8547b577ee9eef539a59fb0178097c4b432d4089a7af768d",
+      "bundled_sha256": "6a29b3451c81b8d8c8385932a2519b03ba03f36bc2997d45f06268f1c31aca43"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/tomatoes_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/tomatoes_stage0.png",
+      "source_sha256": "a6e2bdecf97b009148fb9446440563365102037fe87f339683a6df2cc4fdcf2b",
+      "bundled_sha256": "a6e2bdecf97b009148fb9446440563365102037fe87f339683a6df2cc4fdcf2b"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/tomatoes_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/tomatoes_stage1.json",
+      "source_sha256": "ca259ae2bfbe80f1f95776cb8b428c62a916a6cead7ba0fbb598125cad61a369",
+      "bundled_sha256": "c3777f20887c2341e798d9120a197bab9686b3f3070178d6bc675d8ab7324aa4"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/tomatoes_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/tomatoes_stage1.png",
+      "source_sha256": "3c13a23305562e4e8ac6958e49b2252491872affd83b5d0e5df052b465443bc2",
+      "bundled_sha256": "3c13a23305562e4e8ac6958e49b2252491872affd83b5d0e5df052b465443bc2"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/tomatoes_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/tomatoes_stage2.json",
+      "source_sha256": "da2b2d126d3d95a9d8082a27cc792246024c716f2a4038af05ae086422df152c",
+      "bundled_sha256": "b571b3c4b595b05eccad5d9c0da4186336e8eb61f2ca202c75838225261c6d9f"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/tomatoes_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/tomatoes_stage2.png",
+      "source_sha256": "d42481349a027b8edccbd16ccd1fa133c7820b3b09d22004079db36814cd8d99",
+      "bundled_sha256": "d42481349a027b8edccbd16ccd1fa133c7820b3b09d22004079db36814cd8d99"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/block/tomatoes_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/tomatoes_stage3.json",
+      "source_sha256": "22585a0220a36aa3cc0e39c48a9c74820b4c81d0c98adcb7d942e0cc581d8aaa",
+      "bundled_sha256": "9ba79f59abb2cae7472f4dcbbebeedcd3f40529b59dee5d7646080b291bac8a1"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/block/tomatoes_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/tomatoes_stage3.png",
+      "source_sha256": "5d119af98c2e73e80f2bc862537d04353488b9738b1cf5599cb439aca5a52ffd",
+      "bundled_sha256": "5d119af98c2e73e80f2bc862537d04353488b9738b1cf5599cb439aca5a52ffd"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/soybeans.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/soybeans.json",
+      "source_sha256": "a95c35eb1c92d7a36fcfcc57ffd1b595b45d71798e57aff690f61e57d2ed846c",
+      "bundled_sha256": "c6abc2f5a6dd05dee7bf910c0357a63c281ac1a78b13717c28aa21937159ef44"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/item/crops/soybeans/soybeans.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/crops/soybeans/soybeans.png",
+      "source_sha256": "5b856c36f34c6785398434c055f7bc936fc237215e64a323730081c21ec2a0ab",
+      "bundled_sha256": "5b856c36f34c6785398434c055f7bc936fc237215e64a323730081c21ec2a0ab"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/soybean_pod.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/soybean_pod.json",
+      "source_sha256": "d9b3bcc2482d414dd5381e92051b4e564fb2429f07e6dbbb0d6894182f295d9b",
+      "bundled_sha256": "c8d6ee052ef7444fd56767b8e92efc55907d585f27477d8108da6b3fc046b09d"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/item/crops/soybeans/soybeans_pod.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/crops/soybeans/soybeans_pod.png",
+      "source_sha256": "a574192c5749d1416df98ad0a5cc0aba3c0845088630d520c1c420fb000aaeb7",
+      "bundled_sha256": "a574192c5749d1416df98ad0a5cc0aba3c0845088630d520c1c420fb000aaeb7"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/chili.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/chili.json",
+      "source_sha256": "3cd3fbb4f39df6da641097522f32dc366ba62d17f1b2ab6daea6f243767aa7c8",
+      "bundled_sha256": "5f8db05e5f6eb849c72daae417ca771ddbec51a82002b2c8389e3e2d8d86adcf"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/item/crops/chili/chili_pepper.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/crops/chili/chili_pepper.png",
+      "source_sha256": "d0ecd3548ab84cea8f848c609222baf17dbcf383f0aed7669dbff110d6888397",
+      "bundled_sha256": "d0ecd3548ab84cea8f848c609222baf17dbcf383f0aed7669dbff110d6888397"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/chili_seeds.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/chili_seeds.json",
+      "source_sha256": "617e8641a279743720992a8f925b5b3382dd020b03c9d53e12bc66fa76dec52a",
+      "bundled_sha256": "3fab8ed718933d4448b337db292ad459d48c0398ca5ddc0315b2424de51b1440"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/main/resources/assets/extradelight/textures/item/crops/chili/chili_seeds.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/crops/chili/chili_seeds.png",
+      "source_sha256": "5754249d21c7c4c7758b52cdec94138c9336f6448c8d5772656567bde82f9622",
+      "bundled_sha256": "5754249d21c7c4c7758b52cdec94138c9336f6448c8d5772656567bde82f9622"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/wild_soybean_item.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_soybean.json",
+      "source_sha256": "d517acd6ec0940eb92d3024b7dbe175eba368718aa5fab369b4536a04e690445",
+      "bundled_sha256": "f337c7dd8752980f2e340b07b2b4aa69286179cefb0b6c5304bc929a3eaabcfe"
+    },
+    {
+      "project": "Lance5057/ExtraDelight",
+      "revision": "effd768cb8a4b8a2c56deb7d9cf071e795fffe5b",
+      "license": "CC BY-NC-SA 4.0",
+      "source": "src/generated/resources/assets/extradelight/models/item/wild_chili_block.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_chili.json",
+      "source_sha256": "d14b6f01e75ef14e2c88e1877cfabf32db62381b5fb731afdbf6b3affce49807",
+      "bundled_sha256": "2eed745ea32bf676a727a665c732212bba83dad5c049a6aa4f7376aa5203135f"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/item/cotton_seeds.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/cotton_seeds.json",
+      "source_sha256": "3a2f00411ae3f74ca8ad0622a76a00d7fc99b7dec28342602a878545eb35e47e",
+      "bundled_sha256": "e29ff2395194c3eb34de3c5009179e66bf4b282215d3f931bd729dcdb42abdb6"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/item/cotton_seeds.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/cotton_seeds.png",
+      "source_sha256": "6f9891bc60d6d7b93f4d700971f0aba86206a90ccf83aa325f130dbe34a63b3a",
+      "bundled_sha256": "6f9891bc60d6d7b93f4d700971f0aba86206a90ccf83aa325f130dbe34a63b3a"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/item/cotton_boll.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/cotton_boll.json",
+      "source_sha256": "15b2f1fbd8dbed5dff7208f9bed8e69bbabb280366c3a2ec23ecf69e68cf06c7",
+      "bundled_sha256": "413dd5553b89065909e66834de6010e6f2ff3a010b95cee6c1072964cd70df27"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/item/cotton_boll.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/cotton_boll.png",
+      "source_sha256": "3f7f86e9fc5a0a9a09751ccc2f908fb098da9195702475d2ebff558eff13e2d4",
+      "bundled_sha256": "3f7f86e9fc5a0a9a09751ccc2f908fb098da9195702475d2ebff558eff13e2d4"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/item/coffee_beans.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/coffee_beans.json",
+      "source_sha256": "8dd352759521eeca0d5bc8d0607885435ddfad0628a086c9873492ac84acda50",
+      "bundled_sha256": "4cef5f4768c1f9b69fd7197e4e133298a3d95f4d20c026d6f0cc8256ef249379"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/main/resources/assets/rusticdelight/textures/item/coffee_beans.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/coffee_beans.png",
+      "source_sha256": "d49dc8bffef576e98ab39f8980a93a90d03907cba91ef1fa0389ea4dee61fc7b",
+      "bundled_sha256": "d49dc8bffef576e98ab39f8980a93a90d03907cba91ef1fa0389ea4dee61fc7b"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/item/wild_cotton.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_cotton.json",
+      "source_sha256": "24661642195d453d2508f9282692c67927771586d27c225c755db4171e0d2c91",
+      "bundled_sha256": "4a974bafe865063a74a2fce66e888d7f8257d02c420593c8f244f6afe9611175"
+    },
+    {
+      "project": "PhantomWing/RusticDelight",
+      "revision": "e4e0ca19f3d8baa61e43001c57b5ecbe652d6d58",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/rusticdelight/models/item/wild_coffee.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_coffee.json",
+      "source_sha256": "6f378a4e262e8d33726d4a2ba94e97291afbd3ba0d24873cc8ff813effa2b1f7",
+      "bundled_sha256": "e944a68930d447cd8f40eca0c2f0beb4f2402e4b790b2aba321c6b29f88207ca"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/cabbage.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/cabbage.json",
+      "source_sha256": "b69d7c98fad29ff84bc3b116bf4e3f204c6aedd19c74596053404b7181dc7bf3",
+      "bundled_sha256": "322d2c6cef29c7d2ec259522eb2857eb27e14d5ef327cd3f7ce05289e7c78ffc"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/cabbage.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/cabbage.png",
+      "source_sha256": "58a795be65df31067393c50eaee92b8fbc55303cc083c53f7c9fb102c69943ff",
+      "bundled_sha256": "58a795be65df31067393c50eaee92b8fbc55303cc083c53f7c9fb102c69943ff"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/cabbage_seeds.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/cabbage_seeds.json",
+      "source_sha256": "9f087fbd3d4f88e187f7be4cf6093074f9dee64b4c8280ae3b07b03aaa17ed07",
+      "bundled_sha256": "288d8a006e901f0ef3e97724f79392e34319e34b1a741612bb0c17d718e0a5f3"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/cabbage_seeds.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/cabbage_seeds.png",
+      "source_sha256": "dffc2cedaa2d01053fdd5c7f59083ca69fcc495fd6f2c8aab178de36d1cddef1",
+      "bundled_sha256": "dffc2cedaa2d01053fdd5c7f59083ca69fcc495fd6f2c8aab178de36d1cddef1"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/onion.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/onion.json",
+      "source_sha256": "94f2e46f1acea831da58811b3f3876a36ff60b4908575f9214dc1875501adc27",
+      "bundled_sha256": "c6f1774375a535f6ae7729e0c3c83837e99d8d0e18d4f35c14d79b490c61c16d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/onion.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/onion.png",
+      "source_sha256": "9c8b0f915f7f5aa7e75f96e541171e0fce8f14e24853809a244216f9e1927d6b",
+      "bundled_sha256": "9c8b0f915f7f5aa7e75f96e541171e0fce8f14e24853809a244216f9e1927d6b"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/tomato.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/tomato.json",
+      "source_sha256": "8a95b4df4c8e7fbe00f61add623f8f116cd5142562b9736433dc220cb1fad8f0",
+      "bundled_sha256": "8bcacc680b8870d3e695d90ad6ac4774b47f79f33a5bf82d9dae8d0467354e56"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/tomato.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/tomato.png",
+      "source_sha256": "ee5dadbb7164485c9ab28b8c706c3b92a727415e444f5cd1b744874965707b36",
+      "bundled_sha256": "ee5dadbb7164485c9ab28b8c706c3b92a727415e444f5cd1b744874965707b36"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/tomato_seeds.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/tomato_seeds.json",
+      "source_sha256": "2d8c9862be1b7f8b6a0dae0e6fc3e11c0039ec2fa3605d6ce8a2a20060ecac22",
+      "bundled_sha256": "2b743e904419c734d2635a17ff27f5b4010cb43fa4105a878695e170ebe13c98"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/tomato_seeds.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/tomato_seeds.png",
+      "source_sha256": "25328b3ae0876b714ee00012d012fbda9c747c90b194188860a151d42def3020",
+      "bundled_sha256": "25328b3ae0876b714ee00012d012fbda9c747c90b194188860a151d42def3020"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/rice.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/rice.json",
+      "source_sha256": "fc76f7efb397847d2d3a257036e070c49451cef0216b4a5ce6f1c86b22f7bcf0",
+      "bundled_sha256": "0f50a178a559548205a280b335c5a3f5023fbd4bf63f7e8d947558a1719ba549"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/rice.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/rice.png",
+      "source_sha256": "ab2834ec93e2fb8d69ee1704aab32aab8259f66a34a4933d71de5cd6a1f6dc4e",
+      "bundled_sha256": "ab2834ec93e2fb8d69ee1704aab32aab8259f66a34a4933d71de5cd6a1f6dc4e"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/rice_panicle.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/rice_panicle.json",
+      "source_sha256": "055d2956986a99fa5a38e829e3666ed68febe8a1ca8458052f6cf44c183b2df0",
+      "bundled_sha256": "3f3802e7e5d5316a3194427125bc3d7047ba6d053f44863b937746929d80b656"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/main/resources/assets/farmersdelight/textures/item/rice_panicle.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/rice_panicle.png",
+      "source_sha256": "1a7a0fbcf5fd978a026263ac0e5f454e05ea9ceb35756635c8bcc87e66cc807d",
+      "bundled_sha256": "1a7a0fbcf5fd978a026263ac0e5f454e05ea9ceb35756635c8bcc87e66cc807d"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_cabbages.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_cabbages.json",
+      "source_sha256": "0c1133a2bb3ae284f47fe7c86c73df93a67d2bcde8be668015fb9339d58f4d71",
+      "bundled_sha256": "3a36e7501c6d30bdd42956b21f3f281ca577fe0a6f7ee548873beea80226b0cb"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_onions.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_onions.json",
+      "source_sha256": "1ac4a5e32db55b81f8122ca311c0346481c5efb5689c7c3eafaf3704b1bb5971",
+      "bundled_sha256": "67f067b2d4fe5bcdc61ca147a46575e057be3533c090de79d9478688b2defb53"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_tomatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_tomatoes.json",
+      "source_sha256": "83ef143552a1353456a75fb962fa6cfb5db14c976d97ad53f4482bb339e93060",
+      "bundled_sha256": "4c22d8ae57cfdf587026830718f6e7f5391b80c7fff1261692b66857d6246096"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_carrots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_carrots.json",
+      "source_sha256": "bb513adfae0ee47cabc7802482387242e82476032cc416c1bb355b340ce388cc",
+      "bundled_sha256": "16e1a15539b46af93c5f54d26c17a9f23c87c4e34826853714a23ec4949be782"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_potatoes.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_potatoes.json",
+      "source_sha256": "29b2806cf8f7d86bda6065b06c667561ce56686510d114279c6f95269af874c4",
+      "bundled_sha256": "320eb3747a4ec6477e90c0e38ccd350630b20cb47c4dd9950b7844591bb11e95"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_beetroots.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_beetroots.json",
+      "source_sha256": "798a0168efe935cf4f7a1b4e3a3e702ec6e3aa6d366cc73acac9967b3ab6897a",
+      "bundled_sha256": "3bc5bdfcce9e38ef9dffdd630a083bf7e6eee132c33e2ffc9df79e54aadcbb47"
+    },
+    {
+      "project": "vectorwing/FarmersDelight",
+      "revision": "dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259",
+      "license": "MIT",
+      "source": "src/generated/resources/assets/farmersdelight/models/item/wild_rice.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/item/wild_rice.json",
+      "source_sha256": "d2e1ddd6f66096ac65ab8f706e11bc100a164f960cebe9ff8c0d3ca0610e431a",
+      "bundled_sha256": "8c62dcd9df065396a2d7a2f2bc63c73648fea9d9121ccf5fd068414cb3ec8fa7"
+    }
+  ]
+}
