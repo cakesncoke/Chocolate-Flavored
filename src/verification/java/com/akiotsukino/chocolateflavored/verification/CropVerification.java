@@ -46,7 +46,7 @@ public final class CropVerification {
             check(player.getMainHandItem().getCount() == 1, "Planting consumes one seed");
             var immature = Block.getDrops(crop.defaultBlockState(), level, pos, null, player, ItemStack.EMPTY);
             check(immature.stream().anyMatch(s -> s.is(seed)), "Immature crop returns seed");
-            for (int i = 0; i < 16 && !crop.isMaxAge(level.getBlockState(pos)); i++) crop.performBonemeal(level, level.random, pos, level.getBlockState(pos));
+            for (int i = 0; i < 16 && !crop.isMaxAge(level.getBlockState(pos)); i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
             check(crop.isMaxAge(level.getBlockState(pos)), "Bonemeal matures " + crop);
             check(!crop.isValidBonemealTarget(level, pos, level.getBlockState(pos)), "Mature crop rejects bonemeal");
             var mature = Block.getDrops(level.getBlockState(pos), level, pos, null, player, ItemStack.EMPTY);
@@ -55,7 +55,7 @@ public final class CropVerification {
             check(level.getBlockState(pos).isAir(), "Crop removed when support disappears");
             level.setBlockAndUpdate(pos.below(), Blocks.FARMLAND.defaultBlockState().setValue(FarmlandBlock.MOISTURE, 7));
             level.setBlockAndUpdate(pos, crop.defaultBlockState());
-            for (int i = 0; i < 1000 && !crop.isMaxAge(level.getBlockState(pos)); i++) level.getBlockState(pos).randomTick(level, pos, level.random);
+            for (int i = 0; i < 1000 && !crop.isMaxAge(level.getBlockState(pos)); i++) level.getBlockState(pos).randomTick(level, pos, level.getRandom());
             check(crop.isMaxAge(level.getBlockState(pos)), "Natural random-tick growth " + crop);
         }
         var tomatoes = CropContent.TOMATOES.get();
@@ -85,7 +85,7 @@ public final class CropVerification {
             var soil = name.equals("wild_cabbages") || name.equals("wild_beetroots") ? Blocks.SAND : Blocks.GRASS_BLOCK;
             for (var p : BlockPos.betweenClosed(origin.offset(-12,-1,-12), origin.offset(12,-1,12))) level.setBlock(p, soil.defaultBlockState(), 2);
             var feature = configured.getValueOrThrow(ResourceKey.create(Registries.CONFIGURED_FEATURE, id("patch_"+name)));
-            check(feature.place(level, level.getChunkSource().getGenerator(), level.random, origin), "Configured wild patch actually places " + name);
+            check(feature.place(level, level.getChunkSource().getGenerator(), level.getRandom(), origin), "Configured wild patch actually places " + name);
             var block = BuiltInRegistries.BLOCK.getValue(id(name));
             boolean found = false;
             for (var p : BlockPos.betweenClosed(origin.offset(-12,0,-12), origin.offset(12,1,12))) if (level.getBlockState(p).is(block)) { found = true; break; }
@@ -106,14 +106,14 @@ public final class CropVerification {
         check(CropContent.RICE.get().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(pos.below()), Direction.UP, pos.below(), false))).consumesAction(), "Plant rice underwater");
         check(level.getBlockState(pos).is(crop) && level.getFluidState(pos).isFull(), "Rice retains water");
-        for (int i = 0; i < 16; i++) crop.performBonemeal(level, level.random, pos, level.getBlockState(pos));
+        for (int i = 0; i < 16; i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
         var top = CropContent.RICE_PANICLES.get();
         check(level.getBlockState(pos.above()).is(top) && top.isMaxAge(level.getBlockState(pos.above())), "Rice grows mature upper panicles");
         check(level.getBlockState(pos).getValue(RiceCropBlock.SUPPORTING), "Rice supporting model state");
         var loot = Block.getDrops(level.getBlockState(pos.above()), level, pos.above(), null, player, new ItemStack(com.akiotsukino.chocolateflavored.content.ModContent.IRON_KNIFE.get()));
         check(loot.stream().anyMatch(s -> s.is(CropContent.RICE.get())), "Knife harvest yields plantable rice");
         level.destroyBlock(pos.above(), false);
-        for (int i = 0; i < 100; i++) level.getBlockState(pos).randomTick(level, pos, level.random);
+        for (int i = 0; i < 100; i++) level.getBlockState(pos).randomTick(level, pos, level.getRandom());
         check(level.getBlockState(pos.above()).is(top), "Rice upper regrows from root");
         level.removeBlock(pos.above(), false);level.removeBlock(pos, false);
         level.setBlockAndUpdate(pos, Blocks.WATER.defaultBlockState());

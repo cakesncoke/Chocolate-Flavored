@@ -33,7 +33,7 @@ public final class TomatoCropBlock extends FieldCropBlock {
     @Override public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!isMaxAge(state)) return InteractionResult.PASS;
         if (level instanceof ServerLevel server) {
-            popResource(level, pos, new ItemStack(CropContent.TOMATO.get(), 1 + level.random.nextInt(2)));
+            popResource(level, pos, new ItemStack(CropContent.TOMATO.get(), 1 + level.getRandom().nextInt(2)));
             level.setBlock(pos, getStateForAge(4), 2);
             server.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1, 1);
             server.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
