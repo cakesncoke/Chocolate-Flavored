@@ -42,6 +42,7 @@ public final class RiceCropBlock extends FieldCropBlock implements LiquidBlockCo
     @Override public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluid) { return false; }
     @Override protected boolean isRandomlyTicking(BlockState state) { return true; }
     @Override public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!level.isAreaLoaded(pos, 1)) return;
         if (level.getRawBrightness(pos.above(), 0) >= 6 && canAdvance(level, pos, state)
                 && CommonHooks.canCropGrow(level, pos, state, random.nextInt(3) == 0)) {
             advance(level, pos, state);

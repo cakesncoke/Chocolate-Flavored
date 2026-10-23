@@ -22,6 +22,7 @@ public final class TomatoCropBlock extends FieldCropBlock {
     public TomatoCropBlock(Properties properties) { super(properties); }
     @Override public MapCodec<? extends CropBlock> codec() { return CODEC; }
     @Override public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!level.isAreaLoaded(pos, 1)) return;
         if (getAge(state) < 4) { super.randomTick(state, level, pos, random); return; }
         if (getAge(state) < 7 && level.getRawBrightness(pos, 0) >= 9
                 && CommonHooks.canCropGrow(level, pos, state, random.nextInt(6) == 0)) {

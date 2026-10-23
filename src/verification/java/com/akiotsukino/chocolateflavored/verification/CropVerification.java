@@ -33,6 +33,7 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 public final class CropVerification {
     public static void run(ServerLevel level, FakePlayer player) {
         BlockPos pos = new BlockPos(160, 160, 0);
+        for (int x = -16; x <= 16; x += 16) for (int z = -16; z <= 16; z += 16) level.getChunk(pos.offset(x, 0, z));
         for (var entry : CropContent.FIELDS) {
             var crop = entry.get();
             var seed = CropContent.seedFor(crop);
