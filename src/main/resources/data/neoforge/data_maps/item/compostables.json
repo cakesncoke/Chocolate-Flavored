@@ -74,6 +74,18 @@
     },
     "chocolateflavored:wild_rice": {
       "chance": 0.3
+    },
+    "chocolateflavored:pomegranate_cake": {
+      "chance": 1.0
+    },
+    "chocolateflavored:coffee_cake": {
+      "chance": 1.0
+    },
+    "chocolateflavored:cherry_cake": {
+      "chance": 1.0
+    },
+    "chocolateflavored:chocolate_cake": {
+      "chance": 1.0
     }
   }
 }

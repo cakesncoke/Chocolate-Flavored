@@ -17,6 +17,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 @EventBusSubscriber(modid = ChocolateFlavored.MODID, value = Dist.CLIENT)
 public final class CropClientVerification {
+    public static boolean completed;
     private static boolean opened;
     private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
@@ -55,7 +56,7 @@ public final class CropClientVerification {
                 g.item(items.get(i),x+cellW/2-8,y+3);
                 g.centeredText(font,items.get(i).getHoverName(),x+cellW/2,y+23,-1);
             }
-            if (++frames == 150) ChocolateFlavored.LOGGER.info("CROP_CLIENT_VERIFICATION_PASSED: all registered crop state models baked; harvest, seed and wild plant icons rendered");
+            if (++frames == 150) { completed = true; ChocolateFlavored.LOGGER.info("CROP_CLIENT_VERIFICATION_PASSED: all registered crop state models baked; harvest, seed and wild plant icons rendered"); }
         }
         @Override public boolean isPauseScreen() { return false; }
     }

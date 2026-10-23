@@ -33,7 +33,7 @@ public class ChocolateFlavored {
     static {
         TABS.register("chocolate_flavored", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.chocolateflavored"))
-                .icon(() -> ModContent.ROSE_GOLD_INGOT.get().getDefaultInstance())
+                .icon(() -> com.akiotsukino.chocolateflavored.cake.CakeContent.CHOCOLATE.item().get().getDefaultInstance())
                 .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().forEach(item -> output.accept(item.get())))
                 .build());
     }
@@ -49,6 +49,7 @@ public class ChocolateFlavored {
         ZombieVillagerSpawnModifier.register(modEventBus);
         com.akiotsukino.chocolateflavored.content.SpawnEggContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.crop.CropContent.register(modEventBus);
+        com.akiotsukino.chocolateflavored.cake.CakeContent.register(modEventBus);
         ModContent.register(modEventBus);
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);

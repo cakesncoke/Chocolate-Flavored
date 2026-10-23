@@ -61,6 +61,10 @@ Modern baby asset coverage and sources are recorded in [docs/baby-texture-audit.
 
 Standalone soybeans, chili, cotton, coffee, cabbage, tomato, onion, and rice include seeds, raw harvests, and wild plants. Wild crop patches are four times rarer than their source defaults. No foods, storage blocks, recipes, or dependencies are added. See [crop behavior and generation](docs/crops.md).
 
+## Cakes
+
+Pomegranate, Coffee, Cherry, and Chocolate Cake retain vanilla cake behavior, including all vanilla candle colors. Chocolate Cake is the mod creative-tab icon. See [cakes](docs/cakes.md).
+
 ## Credits
 
 Chocolate Flavored is noncommercial. Its own code is MIT; borrowed resources retain their original authorship and licenses. Thanks to these creators for the resources used here:
@@ -100,3 +104,5 @@ The Overworld has a **20-minute day and 15-minute night** at normal speed. Sleep
 After five Minecraft days without a trader spawn, a solo trader attempts to visit using vanilla safe placement. Traders kept with a name tag, boat or minecart retain their despawn time and block future automatic visits until they die or despawn. The spawn lock survives chunk unloads and server restarts. See [trader rules and saved-world behavior](docs/wandering-traders.md).
 
 Crop resources: **Lance5057 / Extra Delight** (soybean and chili artwork, CC BY-NC-SA 4.0); **PhantomWing / Rustic Delight** (cotton and coffee artwork, MIT); **vectorwing / Farmer's Delight** (cabbage, tomato, onion, rice, wild crop artwork and MIT patch/filter adaptations). Exact files, changes, revisions, hashes, and retained license notices: [crop manifest](docs/crop-assets.json) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+Cake textures: project-owner-supplied Pomegranate, Coffee, Cherry, and Chocolate Cake block/item artwork, retained unchanged. Exact files/hashes: [cake manifest](docs/cake-assets.json). Cake models reference Minecraft's vanilla geometry and candle textures; no external model is imported. Original per-file artists/licenses were not supplied.

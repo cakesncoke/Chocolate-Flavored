@@ -70,3 +70,7 @@ Faboslav's [Variants & Ventures](https://github.com/Faboslav/variants-and-ventur
 - **vectorwing and Farmer's Delight contributors**, [Farmer's Delight](https://github.com/vectorwing/FarmersDelight), `dd8b9b0bfec916a2da88a6d64e3a37f4a02c3259`: unchanged cabbage, tomato, onion, rice and wild-crop artwork (including wild vanilla carrots/potatoes/beetroots); crop templates/models and item/blockstate JSON adapted to local IDs; loot/cluster layouts; the MIT crop-patch configuration/feature and filtered-biome modifier are adapted to native 26.1.2 APIs. **MIT**, preserved at `META-INF/licenses/FarmersDelight-MIT.txt`.
 
 The precise asset list and original/bundled SHA-256 hashes are in [docs/crop-assets.json](docs/crop-assets.json). None of these mods is a dependency. No meals, crates, machinery, or unrelated resources are imported; no endorsement is implied.
+
+## Project-owner-supplied cake textures
+
+The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added by the project owner in main commit `c66392874998898cc315ba973a02137b8ea418cf`. They are reused unchanged; [docs/cake-assets.json](docs/cake-assets.json) records the twenty exact paths and hashes. No upstream artist, source project or per-file license accompanied this addition; existing supplied-resource provenance notices remain applicable, and no new attribution or MIT relicensing of third-party artwork is inferred. Models reference Minecraft 26.1.2's existing cake/slice/candle geometry and native candle textures rather than importing external models or artwork.
