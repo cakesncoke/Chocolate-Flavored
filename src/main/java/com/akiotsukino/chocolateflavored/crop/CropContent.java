@@ -20,6 +20,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 /** Only crop plants and raw harvests: no meals, storage blocks, or external registrations. */
 public final class CropContent {
+    public static final net.minecraft.tags.TagKey<Block> CROP_SOIL = net.minecraft.tags.TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("chocolateflavored", "crop_soil"));
     public static final DeferredBlock<FieldCropBlock> SOYBEAN_CROP = field("soybean_crop", FieldCropBlock::new);
     public static final DeferredBlock<FieldCropBlock.Chili> CHILI_CROP = field("chili_crop", FieldCropBlock.Chili::new);
     public static final DeferredBlock<FieldCropBlock.Cotton> COTTON = field("cotton", FieldCropBlock.Cotton::new);

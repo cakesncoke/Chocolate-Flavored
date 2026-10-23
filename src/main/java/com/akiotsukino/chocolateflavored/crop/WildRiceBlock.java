@@ -20,7 +20,7 @@ public final class WildRiceBlock extends DoublePlantBlock implements SimpleWater
     public WildRiceBlock(Properties p) { super(p); registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true)); }
     @Override public MapCodec<WildRiceBlock> codec() { return CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(HALF, BlockStateProperties.WATERLOGGED); }
-    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(BlockTags.DIRT) || state.is(BlockTags.SAND); }
+    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(CropContent.CROP_SOIL) || state.is(BlockTags.SAND); }
     @Override public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (state.getValue(HALF) == DoubleBlockHalf.UPPER) return super.canSurvive(state, level, pos);
         return super.canSurvive(state, level, pos) && state.getValue(BlockStateProperties.WATERLOGGED);

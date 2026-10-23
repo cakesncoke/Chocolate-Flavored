@@ -16,7 +16,7 @@ public final class WildCropBlock extends VegetationBlock implements Bonemealable
     public WildCropBlock(Properties p) { super(p); }
     @Override public MapCodec<WildCropBlock> codec() { return CODEC; }
     @Override public boolean canBeReplaced(BlockState state, net.minecraft.world.item.context.BlockPlaceContext context) { return false; }
-    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(BlockTags.DIRT) || state.is(BlockTags.SAND); }
+    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(CropContent.CROP_SOIL) || state.is(BlockTags.SAND); }
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return Block.column(12, 0, 13); }
     @Override public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) { return true; }
     @Override public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) { return random.nextFloat() < .8F; }

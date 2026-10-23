@@ -28,7 +28,7 @@ public final class RiceCropBlock extends FieldCropBlock implements LiquidBlockCo
     @Override public IntegerProperty getAgeProperty() { return BlockStateProperties.AGE_3; }
     @Override public int getMaxAge() { return 3; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(BlockStateProperties.AGE_3, SUPPORTING); }
-    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(BlockTags.DIRT); }
+    @Override protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) { return state.is(CropContent.CROP_SOIL); }
     @Override public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return mayPlaceOn(level.getBlockState(pos.below()), level, pos.below())
                 && level.getFluidState(pos).is(FluidTags.WATER) && level.getFluidState(pos).isFull();
