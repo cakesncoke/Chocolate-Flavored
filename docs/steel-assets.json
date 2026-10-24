@@ -22,10 +22,6 @@
       "sha256": "d28163f22cef4ddd1ac770d8181b0d6bd054916a377f5ed53ef5100623bb74f5"
     },
     {
-      "path": "assets/chocolateflavored/textures/item/iron_hammer.png",
-      "sha256": "815202c99cec4bb644b7b7ee3e9a4c6ea04c734368da6348eee0e2165470fca0"
-    },
-    {
       "path": "assets/chocolateflavored/textures/item/padding.png",
       "sha256": "f4251a9c3f677dbb0a329e46506b57f47bba83047d2c01623709ac888a5c1b1c"
     },
@@ -136,6 +132,16 @@
     {
       "path": "assets/minecraft/textures/models/armor/iron_layer_2.png",
       "sha256": "d19d5d08114f9849eac7130f9c6b57f20b9d66f52ddca9c51b64ff02164c0e53"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/gold_ore_pile.png",
+      "sha256": "5534aef2685d26d437840acfd392a4b5ef22e99ac1286873f8023fa04fad9844",
+      "source_commit": "2801d39203c06625c1825fcd5b0ffc823f5af8e1"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/deepslate_hammer.png",
+      "sha256": "99cd95d953a07f6d3705208bbd07c27642f44dc39d9f9cc0179893b100ee1f0a",
+      "source_commit": "2801d39203c06625c1825fcd5b0ffc823f5af8e1"
     }
   ]
 }

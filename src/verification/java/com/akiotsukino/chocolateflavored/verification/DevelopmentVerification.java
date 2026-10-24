@@ -57,7 +57,7 @@ public final class DevelopmentVerification {
         durability(Items.IRON_CHESTPLATE, 480);
         durability(ModContent.ROSE_GOLD_PICKAXE.get(), 576);
         durability(com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), 32);
-        durability(com.akiotsukino.chocolateflavored.equipment.SteelContent.IRON_HAMMER.get(), 500);
+        durability(com.akiotsukino.chocolateflavored.equipment.SteelContent.DEEPSLATE_HAMMER.get(), 500);
         durability(ModContent.FLINT_KNIFE.get(), 131);
         durability(ModContent.IRON_KNIFE.get(), 250);
         ItemStack rose = new ItemStack(ModContent.ROSE_GOLD_PICKAXE.get());
@@ -156,6 +156,7 @@ public final class DevelopmentVerification {
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
         SteelVerification.run(level, player);
+        DeepslateMiningVerification.run(level, player);
         DyeingVerification.run(level, player);
         CakeVerification.run(level, player);
         CropVerification.run(level, player);
