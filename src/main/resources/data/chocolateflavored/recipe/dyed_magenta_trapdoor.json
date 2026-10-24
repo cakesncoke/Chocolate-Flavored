@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "dyed_trapdoor",
+  "key": {
+    "#": "chocolateflavored:dyed_magenta_planks"
+  },
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "id": "chocolateflavored:dyed_magenta_trapdoor"
+  }
+}

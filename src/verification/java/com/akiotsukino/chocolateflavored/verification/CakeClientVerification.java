@@ -18,6 +18,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class CakeClientVerification {
+    public static boolean completed;
     private static boolean opened;private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || opened || !CropClientVerification.completed || ++ticks<180) return;
@@ -52,7 +53,7 @@ public final class CakeClientVerification {
                 g.centeredText(font,flavor.item().get().getDefaultInstance().getHoverName(),x+cw/2,height/2+5,-1);
             }
             g.centeredText(font,"Creative tab icon: Chocolate Cake",width/2,height-25,-1);
-            if(++frames==150)ChocolateFlavored.LOGGER.info("CAKE_CLIENT_VERIFICATION_PASSED: all cake/slice/lit/unlit candle state models baked; four item textures, creative entries and chocolate cake tab icon");
+            if(++frames==150) { completed=true; ChocolateFlavored.LOGGER.info("CAKE_CLIENT_VERIFICATION_PASSED: all cake/slice/lit/unlit candle state models baked; four item textures, creative entries and chocolate cake tab icon"); }
         }
         @Override public boolean isPauseScreen(){return false;}
     }

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "dyed_button",
+  "ingredients": [
+    "chocolateflavored:dyed_cyan_planks"
+  ],
+  "result": {
+    "id": "chocolateflavored:dyed_cyan_button"
+  }
+}

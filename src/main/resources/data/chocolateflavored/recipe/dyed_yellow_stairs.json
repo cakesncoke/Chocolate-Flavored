@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "dyed_stairs",
+  "key": {
+    "#": "chocolateflavored:dyed_yellow_planks"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "id": "chocolateflavored:dyed_yellow_stairs"
+  }
+}

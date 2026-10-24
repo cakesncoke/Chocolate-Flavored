@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "dyed_fence_gate",
+  "key": {
+    "#": "minecraft:stick",
+    "W": "chocolateflavored:dyed_green_planks"
+  },
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "result": {
+    "id": "chocolateflavored:dyed_green_fence_gate"
+  }
+}

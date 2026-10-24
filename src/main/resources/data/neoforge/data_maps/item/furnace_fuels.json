@@ -1,0 +1,628 @@
+{
+  "values": {
+    "chocolateflavored:dyed_white_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_white_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_white_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_white_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_white_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_white_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_white_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_white_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_orange_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_orange_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_orange_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_orange_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_orange_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_orange_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_orange_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_magenta_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_magenta_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_magenta_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_magenta_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_magenta_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_magenta_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_magenta_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_light_blue_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_light_blue_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_blue_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_light_blue_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_light_blue_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_light_blue_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_light_blue_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_yellow_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_yellow_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_yellow_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_yellow_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_yellow_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_yellow_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_yellow_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_lime_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_lime_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_lime_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_lime_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_lime_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_lime_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_lime_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_pink_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_pink_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_pink_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_pink_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_pink_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_pink_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_pink_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_gray_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_gray_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_gray_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_gray_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_gray_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_gray_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_gray_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_light_gray_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_light_gray_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_light_gray_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_light_gray_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_light_gray_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_light_gray_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_light_gray_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_cyan_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_cyan_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_cyan_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_cyan_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_cyan_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_cyan_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_cyan_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_purple_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_purple_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_purple_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_purple_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_purple_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_purple_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_purple_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_blue_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_blue_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_blue_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_blue_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_blue_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_blue_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_blue_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_brown_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_brown_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_brown_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_brown_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_brown_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_brown_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_brown_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_green_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_green_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_green_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_green_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_green_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_green_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_green_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_red_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_red_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_red_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_red_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_red_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_red_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_red_shelf": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_planks": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_door": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_black_trapdoor": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_stairs": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_slab": {
+      "burn_time": 150
+    },
+    "chocolateflavored:dyed_black_pressure_plate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_fence": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_fence_gate": {
+      "burn_time": 300
+    },
+    "chocolateflavored:dyed_black_sign": {
+      "burn_time": 200
+    },
+    "chocolateflavored:dyed_black_hanging_sign": {
+      "burn_time": 800
+    },
+    "chocolateflavored:dyed_black_button": {
+      "burn_time": 100
+    },
+    "chocolateflavored:dyed_black_boat": {
+      "burn_time": 1200
+    },
+    "chocolateflavored:dyed_black_shelf": {
+      "burn_time": 300
+    }
+  }
+}

@@ -74,3 +74,7 @@ The precise asset list and original/bundled SHA-256 hashes are in [docs/crop-ass
 ## Project-owner-supplied cake textures
 
 The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added by the project owner in main commit `c66392874998898cc315ba973a02137b8ea418cf`. They are reused unchanged; [docs/cake-assets.json](docs/cake-assets.json) records the twenty exact paths and hashes. No upstream artist, source project or per-file license accompanied this addition; existing supplied-resource provenance notices remain applicable, and no new attribution or MIT relicensing of third-party artwork is inferred. Models reference Minecraft 26.1.2's existing cake/slice/candle geometry and native candle textures rather than importing external models or artwork.
+
+## Pastel wood rendering
+
+The dyed wood set references Mojang/Minecraft 26.1.2 oak door and trapdoor textures, pale oak wood/item/sign/boat textures, vanilla model geometry and water-cauldron models. No Minecraft PNGs are copied into this mod. Small model JSON derivatives add tint indices; native palette permutations retain the original oak door/trapdoor pixel layouts using generated color lookup tables; the tint palette, registration and cauldron code are Chocolate Flavored implementations. Minecraft resources remain the property of Mojang/Microsoft and are not relicensed under this project's MIT license.

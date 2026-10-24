@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "chocolateflavored:dyed/item/pale_oak_hanging_sign",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": 16302032
+      }
+    ]
+  }
+}
