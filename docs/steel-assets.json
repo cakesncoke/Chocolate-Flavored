@@ -1,0 +1,141 @@
+{
+  "source": "Project-owner textures supplied in main commit d19f32b85fd39361515d8c22b3462c8aa6044a06; retained unchanged",
+  "textures": [
+    {
+      "path": "assets/chocolateflavored/textures/block/steel_block.png",
+      "sha256": "b6bd38e2a28050226d23f3b26078d3e7ec2ea8d6eb0fd7c634546b38ef8e83a5"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/creeper_oysters.png",
+      "sha256": "97be36917d3d39d7d76606e4c6bd88256bd7a0de59217c30de16aca174923acb"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/cut_tanned_leather.png",
+      "sha256": "d08eb74c1a9dacb15794b5386e799576567249074539b847e0fa54f9368068a8"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/diamond_armor_plate.png",
+      "sha256": "0fbc1446e658fb6032b8f8d12b82df3f28f3033034866e56e60ead017f94991d"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/diamond_plate.png",
+      "sha256": "d28163f22cef4ddd1ac770d8181b0d6bd054916a377f5ed53ef5100623bb74f5"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/iron_hammer.png",
+      "sha256": "815202c99cec4bb644b7b7ee3e9a4c6ea04c734368da6348eee0e2165470fca0"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/padding.png",
+      "sha256": "f4251a9c3f677dbb0a329e46506b57f47bba83047d2c01623709ac888a5c1b1c"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/steel_ingot.png",
+      "sha256": "b0ef3f18cb96d3cc7e3581ad65f41aabd21773199750c9e69ce502cd7e20a202"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/steel_nugget.png",
+      "sha256": "4acd6f8853a4e370c5453236a16ed50bca7f8e9174a9b22f6a2aa0cd84991af5"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/steel_plate.png",
+      "sha256": "3263a537dc03a3b7a7bf4071854af2c0a4429727004732b720639a5ee054afdf"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/stone_hammer.png",
+      "sha256": "8d34339fb8be4564f09992aa871c2e6b6e8f1a7045108390cce270ac846cb99a"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/strap.png",
+      "sha256": "f33a641f18b4436636326c48b42e4217e2ae0ba83bde075fefa9edf1edbd35c7"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/tanned_leather.png",
+      "sha256": "1a1645cdcd06898a00a9bf300ff570d068b0e83abe802301fb339c083f4dfd96"
+    },
+    {
+      "path": "assets/chocolateflavored/textures/item/wool.png",
+      "sha256": "c53f4c87db5b49f7ee5e729dc6b07e4f3471282ed289100537a0878cd6091abe"
+    },
+    {
+      "path": "assets/minecraft/textures/entity/equipment/horse_body/iron.png",
+      "sha256": "e378c257442a075e4145c9694786347268075111eced673015ba8456a67b100a"
+    },
+    {
+      "path": "assets/minecraft/textures/entity/equipment/humanoid/iron.png",
+      "sha256": "dd0c4aabb5a7412b7807a989a0b40ab7a8e35fd45a5a2a06b0dbeb774e4ad9ea"
+    },
+    {
+      "path": "assets/minecraft/textures/entity/equipment/humanoid_leggings/iron.png",
+      "sha256": "d19d5d08114f9849eac7130f9c6b57f20b9d66f52ddca9c51b64ff02164c0e53"
+    },
+    {
+      "path": "assets/minecraft/textures/entity/equipment/nautilus_body/iron.png",
+      "sha256": "8c06caf8bca04128a1c93cc81ff9b976bc5b8f8836e27f3fd3cba23db27e1b0a"
+    },
+    {
+      "path": "assets/minecraft/textures/entity/horse/armor/horse_armor_iron.png",
+      "sha256": "e378c257442a075e4145c9694786347268075111eced673015ba8456a67b100a"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_axe.png",
+      "sha256": "2e356c094c0630264a8bea3787052531eaddf8ae8efa40b242a100cced39a44a"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_boots.png",
+      "sha256": "2b5b8569e4586920bff40d899d45dba3cc616add37270760f62430b2a59aaeab"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_chestplate.png",
+      "sha256": "f573882b96dfa02360b6092bbe691980fbc0fceafad506ebaa9b52659752f169"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_helmet.png",
+      "sha256": "c6ca990bed2bd01d9e987c0863fb16d82314e3cdca7079b206d47dcf1fe1b2cc"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_hoe.png",
+      "sha256": "dfc4e4a4283bb5f79274a8df11ec7751da7efabd91046d2ba95708c472bf9304"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_horse_armor.png",
+      "sha256": "98f3726c4ec19d7994803d03cc992229b2990a949609572b912e3259d5c3fcaf"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_leggings.png",
+      "sha256": "50f055a0eea52a174c698f851647c0aed53b32dc9a812f2ece6ccbc6ea2ca382"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_nautilus_armor.png",
+      "sha256": "86d89b454eb03d3283671d27491cd826ab7d0d62d8dec9d109f08c738d0be4cf"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_pickaxe.png",
+      "sha256": "22a0b6cab67efa3edc9243c1944d5f979c56e8478320db4eba78a6f87119ec72"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_shovel.png",
+      "sha256": "4ed4c6e97dc7fb0327a83f0d4f0665f651c2935803408f95293b664a2070328c"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_spear.png",
+      "sha256": "31dea0dc5941451388819c64281ea70c317bb21c1e8d547a0103f8fc1b6e362b"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_spear_in_hand.png",
+      "sha256": "777c1d32a4a06ecd50c98e28abab5dd1b0b4c681af4a38bc48b2aeb7eecacb7b"
+    },
+    {
+      "path": "assets/minecraft/textures/item/iron_sword.png",
+      "sha256": "3a67f2c0a069dafcb69562f845e8d8897fdf6cb432928ddcbb0b37265a5c6629"
+    },
+    {
+      "path": "assets/minecraft/textures/models/armor/iron_layer_1.png",
+      "sha256": "dd0c4aabb5a7412b7807a989a0b40ab7a8e35fd45a5a2a06b0dbeb774e4ad9ea"
+    },
+    {
+      "path": "assets/minecraft/textures/models/armor/iron_layer_2.png",
+      "sha256": "d19d5d08114f9849eac7130f9c6b57f20b9d66f52ddca9c51b64ff02164c0e53"
+    }
+  ]
+}

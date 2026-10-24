@@ -110,3 +110,7 @@ Cake textures: project-owner-supplied Pomegranate, Coffee, Cherry, and Chocolate
 ### Pastel wood and dyed cauldrons
 
 Sixteen pastel wood families include planks, oak-pattern doors/trapdoors, stairs, slabs, plates, fences, gates, signs, hanging signs, buttons, boats and shelves. A vanilla plank plus dye produces one dyed plank; generic plank crafting also accepts dyed planks. Dyed cauldrons recolor an entire held stack for one water level, including hardening concrete powder. See [the full rules and verification scope](docs/dyed-wood.md).
+
+### Steel equipment and primitive hammers
+
+Iron equipment now displays as steel using the supplied textures while retaining its existing IDs and behavior. Eleven new crafting materials and a steel block join the creative tab. Stone and iron hammers replace Knapped Flint for primitive mining and provide strong, slow melee attacks. See [steel and hammer rules](docs/steel-and-hammers.md) for statistics, saved-item migration and verification scope.

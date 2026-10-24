@@ -23,7 +23,7 @@ public final class MiningRules {
     public record Conversion(BlockState replacement, ItemStack drop, boolean vanillaLoot) {}
 
     public static Conversion conversion(BlockState state, ItemStack tool) {
-        if (tool.is(ModContent.KNAPPED_FLINT.get())) {
+        if (tool.is(ModTags.HAMMERS)) {
             if (state.is(ModTags.FLINT_COBBLE)) return new Conversion(Blocks.AIR.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false);
             if (state.is(ModTags.FLINT_STONE)) return new Conversion(Blocks.COBBLESTONE.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false);
             if (state.is(Blocks.COAL_ORE)) return new Conversion(Blocks.COBBLESTONE.defaultBlockState(), new ItemStack(ModContent.COAL_DUST.get()), false);

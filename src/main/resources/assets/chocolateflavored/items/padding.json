@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "chocolateflavored:item/knapped_flint"
+    "model": "chocolateflavored:item/padding"
   }
 }

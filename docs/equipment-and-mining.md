@@ -8,7 +8,7 @@ Target: Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. No required external m
 - Fishing rod: 192 durability (vanilla ×3).
 - Other damageable vanilla equipment: ×2 durability, except golden equipment, which retains vanilla durability. This includes armor, elytra, ranged weapons, spears, shields, shears, and other damageable utility equipment.
 - Rose gold tools: iron harvesting tier and attack damage, diamond mining speed (8), gold enchantability (22), 576 durability, repairable with rose gold ingots. Iron pickaxe durability after the vanilla change is 500. Rose gold pickaxes use normal vanilla harvesting/removal.
-- Knapped flint: four durability, base mining speed 1 (hands), one wear per special stone/ore interaction. Ordinary mining and attacking do not consume its durability.
+- Stone hammer: 32 durability, 11 total attack damage and 0.6 attacks/second. Iron hammer: 500 durability (matching iron/steel tools), 12 total attack damage and 0.7 attacks/second. Both mine at hand speed, use one durability per special conversion or successful hit, and replace Knapped Flint.
 - Flint knife: 131 durability, 2.5 total attack damage, 2 attacks/second, mining speed 4, enchantability 5. Iron knife: 250 durability, 3.5 total attack damage, 2 attacks/second, mining speed 6, enchantability 14. These are Farmer's Delight's base knife statistics, without its external dependency or unrelated gameplay features. Knives do not receive Sweeping Edge.
 
 Registered content covers every custom item/block texture currently present, including the rose gold block, diamond ingot, ore piles, pebbles, plant fiber/string, and rose gold upgrade smithing template. There are no rose gold armor textures in this asset set, so no armor set is invented. The upgrade template is available in creative, with no upgrade recipe until one is supplied by a datapack.
@@ -29,13 +29,13 @@ Vanilla IDs are retained for registry compatibility. Their recipes are removed, 
 | Sand / red sand | Any tool / hands | Vanilla block loot |
 | Gravel | Any tool / hands | 50% flint, otherwise one gravel; Silk Touch gives gravel and Fortune III guarantees flint. Fortune I/II retain the 50% floor. |
 | Logs (including stripped logs/wood through the vanilla logs tag) | Anything except an axe | No drops; mining speed ×0.2 |
-| Stone, granite, diorite, andesite | Knapped flint | Cobblestone remains; one stone pebble |
-| Cobblestone / mossy cobblestone | Knapped flint | Block removed; one stone pebble |
-| Coal / copper ore | Knapped flint | Cobblestone remains; one coal dust / copper ore pile |
+| Stone, granite, diorite, andesite | Either hammer | Cobblestone remains; one stone pebble |
+| Cobblestone / mossy cobblestone | Either hammer | Block removed; one stone pebble |
+| Coal / copper ore | Either hammer | Cobblestone remains; one coal dust / copper ore pile |
 | Iron ore | Copper pickaxe | Cobblestone remains; one iron ore pile |
 | Deepslate / any deepslate ore | Copper pickaxe | Hand mining speed; no drops |
-| Deepslate | Iron pickaxe | Cobbled deepslate remains; one deepslate pebble |
-| Any deepslate ore | Iron pickaxe | Cobbled deepslate remains; original ore loot table and XP rules |
+| Deepslate | Steel pickaxe (vanilla iron ID) | Cobbled deepslate remains; one deepslate pebble |
+| Any deepslate ore | Steel pickaxe (vanilla iron ID) | Cobbled deepslate remains; original ore loot table and XP rules |
 | Short/tall grass, fern/large fern | Knife | Additional independent 33% chance of one plant fiber |
 | Leaves | Knife | Additional independent 20% chance of 1–2 sticks; original loot retained |
 

@@ -8,7 +8,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
@@ -41,8 +40,6 @@ public final class ModContent {
     public static final DeferredItem<Item> DIAMOND_INGOT = ITEMS.registerSimpleItem("diamond_ingot");
     public static final DeferredItem<Item> ROSE_GOLD_INGOT = ITEMS.registerSimpleItem("rose_gold_ingot", p -> p.trimMaterial(ROSE_GOLD_TRIM));
     public static final DeferredItem<Item> ROSE_GOLD_NUGGET = ITEMS.registerSimpleItem("rose_gold_nugget");
-    public static final DeferredItem<Item> KNAPPED_FLINT = ITEMS.registerSimpleItem("knapped_flint",
-            p -> p.durability(4).component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 0, true)));
     public static final DeferredItem<Item> FLINT_KNIFE = knife("flint_knife", FLINT);
     public static final DeferredItem<Item> IRON_KNIFE = knife("iron_knife", ToolMaterial.IRON);
     public static final DeferredItem<Item> ROSE_GOLD_SWORD = ITEMS.registerSimpleItem("rose_gold_sword", p -> p.sword(ROSE_GOLD, 3.0F, -2.4F));

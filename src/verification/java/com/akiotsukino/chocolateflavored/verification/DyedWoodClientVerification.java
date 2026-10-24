@@ -19,6 +19,7 @@ import org.joml.Vector3f;
 
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class DyedWoodClientVerification {
+    public static boolean completed;
     private static int ticks;private static boolean opened;
     @SubscribeEvent public static void tick(ClientTickEvent.Post e) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!CakeClientVerification.completed||++ticks<180)return;
@@ -45,7 +46,7 @@ public final class DyedWoodClientVerification {
                 state.shadowPieces.clear();state.outlineColor=0;
                 g.entity(state,13,new Vector3f(0,.25F,0),new Quaternionf().rotateZ((float)Math.PI).rotateY(.6F),new Quaternionf().rotateX(.3F),width-27,y,width-2,y+rowH);
             }
-            if(++frames==150)ChocolateFlavored.LOGGER.info("DYED_WOOD_CLIENT_VERIFICATION_PASSED: every block state baked, all 208 item models and sixteen native tinted boat renderers submitted");
+            if(++frames==150) { completed=true; ChocolateFlavored.LOGGER.info("DYED_WOOD_CLIENT_VERIFICATION_PASSED: every block state baked, all 208 item models and sixteen native tinted boat renderers submitted"); }
         }
         @Override public boolean isPauseScreen(){return false;}
     }

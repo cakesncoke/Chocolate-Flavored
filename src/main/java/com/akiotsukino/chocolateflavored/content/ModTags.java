@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public final class ModTags {
+    public static final TagKey<Item> HAMMERS = item("hammers");
     public static final TagKey<Item> KNIVES = item("knives");
     public static final TagKey<Item> ROSE_GOLD_REPAIR = item("rose_gold_tool_materials");
     public static final TagKey<Item> FLINT_REPAIR = item("flint_tool_materials");

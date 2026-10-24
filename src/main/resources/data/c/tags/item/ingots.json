@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/rose_gold"
+    "#c:ingots/rose_gold",
+    "#c:ingots/steel"
   ]
 }

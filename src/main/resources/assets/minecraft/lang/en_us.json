@@ -4,5 +4,17 @@
   "block.minecraft.smoker": "Stove",
   "container.smoker": "Stove",
   "item.minecraft.leather": "Raw Leather",
-  "block.minecraft.stone": "Stone Block"
+  "block.minecraft.stone": "Stone Block",
+  "item.minecraft.iron_sword": "Steel Sword",
+  "item.minecraft.iron_pickaxe": "Steel Pickaxe",
+  "item.minecraft.iron_axe": "Steel Axe",
+  "item.minecraft.iron_shovel": "Steel Shovel",
+  "item.minecraft.iron_hoe": "Steel Hoe",
+  "item.minecraft.iron_spear": "Steel Spear",
+  "item.minecraft.iron_helmet": "Steel Helmet",
+  "item.minecraft.iron_chestplate": "Steel Chestplate",
+  "item.minecraft.iron_leggings": "Steel Leggings",
+  "item.minecraft.iron_boots": "Steel Boots",
+  "item.minecraft.iron_horse_armor": "Steel Horse Armor",
+  "item.minecraft.iron_nautilus_armor": "Steel Nautilus Armor"
 }
