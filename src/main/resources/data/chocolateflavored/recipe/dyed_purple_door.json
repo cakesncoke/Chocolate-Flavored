@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "dyed_door",
+  "key": {
+    "#": "chocolateflavored:dyed_purple_planks"
+  },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "chocolateflavored:dyed_purple_door"
+  }
+}

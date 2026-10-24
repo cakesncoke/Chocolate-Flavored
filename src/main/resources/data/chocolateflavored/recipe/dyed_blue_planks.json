@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "dyed_planks",
+  "ingredients": [
+    "#chocolateflavored:vanilla_planks",
+    "minecraft:blue_dye"
+  ],
+  "result": {
+    "id": "chocolateflavored:dyed_blue_planks",
+    "count": 1
+  }
+}

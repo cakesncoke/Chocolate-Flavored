@@ -106,3 +106,7 @@ After five Minecraft days without a trader spawn, a solo trader attempts to visi
 Crop resources: **Lance5057 / Extra Delight** (soybean and chili artwork, CC BY-NC-SA 4.0); **PhantomWing / Rustic Delight** (cotton and coffee artwork, MIT); **vectorwing / Farmer's Delight** (cabbage, tomato, onion, rice, wild crop artwork and MIT patch/filter adaptations). Exact files, changes, revisions, hashes, and retained license notices: [crop manifest](docs/crop-assets.json) and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 Cake textures: project-owner-supplied Pomegranate, Coffee, Cherry, and Chocolate Cake block/item artwork, retained unchanged. Exact files/hashes: [cake manifest](docs/cake-assets.json). Cake models reference Minecraft's vanilla geometry and candle textures; no external model is imported. Original per-file artists/licenses were not supplied.
+
+### Pastel wood and dyed cauldrons
+
+Sixteen pastel wood families include planks, oak-pattern doors/trapdoors, stairs, slabs, plates, fences, gates, signs, hanging signs, buttons, boats and shelves. A vanilla plank plus dye produces one dyed plank; generic plank crafting also accepts dyed planks. Dyed cauldrons recolor an entire held stack for one water level, including hardening concrete powder. See [the full rules and verification scope](docs/dyed-wood.md).

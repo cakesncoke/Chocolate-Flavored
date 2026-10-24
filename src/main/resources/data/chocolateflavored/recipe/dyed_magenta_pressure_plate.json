@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "dyed_pressure_plate",
+  "key": {
+    "#": "chocolateflavored:dyed_magenta_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "chocolateflavored:dyed_magenta_pressure_plate"
+  }
+}

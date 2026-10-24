@@ -28,7 +28,8 @@
     "TraderSpawningMixin",
     "WanderingTraderProtectionMixin",
     "TraderMountMixin",
-    "TraderAdditionMixin"
+    "TraderAdditionMixin",
+    "FireFlammabilityInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -36,6 +37,9 @@
   "client": [
     "FireStarterHandMixin",
     "MuddyPigModelMixin",
-    "EntityPipelineAccessor"
+    "EntityPipelineAccessor",
+    "PastelSignMixin",
+    "PastelBoatMixin",
+    "BlockEntityRenderStateAccessor"
   ]
 }

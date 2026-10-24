@@ -50,6 +50,7 @@ public class ChocolateFlavored {
         com.akiotsukino.chocolateflavored.content.SpawnEggContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.crop.CropContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.cake.CakeContent.register(modEventBus);
+        com.akiotsukino.chocolateflavored.dye.DyedWood.register(modEventBus);
         ModContent.register(modEventBus);
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);
