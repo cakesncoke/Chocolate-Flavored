@@ -51,7 +51,7 @@ public final class DyedWood {
             items.put("sign", ModContent.ITEMS.registerItem(id("sign"), p -> new SignItem(block("sign"), block("wall_sign"), p.stacksTo(16).useBlockDescriptionPrefix())));
             items.put("hanging_sign", ModContent.ITEMS.registerItem(id("hanging_sign"), p -> new HangingSignItem(block("hanging_sign"), block("wall_hanging_sign"), p.stacksTo(16).useBlockDescriptionPrefix())));
             boat = MobContent.ENTITIES.registerEntityType(id("boat"), (type, level) -> new Boat(type, level, () -> item("boat")), MobCategory.MISC,
-                    b -> b.sized(1.375F, .5625F).eyeHeight(.5625F).clientTrackingRange(10));
+                    b -> b.noLootTable().sized(1.375F, .5625F).eyeHeight(.5625F).clientTrackingRange(10));
             items.put("boat", ModContent.ITEMS.registerItem(id("boat"), p -> new BoatItem(boat.get(), p.stacksTo(1))));
             addBlock("water_cauldron", Blocks.WATER_CAULDRON, p -> new LayeredCauldronBlock(Biome.Precipitation.RAIN, CauldronInteractions.WATER, p));
         }
