@@ -114,3 +114,7 @@ Sixteen pastel wood families include planks, oak-pattern doors/trapdoors, stairs
 ### Steel equipment and primitive hammers
 
 Iron equipment now displays as steel using the supplied textures while retaining its existing IDs and behavior. Eleven new crafting materials and a steel block join the creative tab. Stone and iron hammers replace Knapped Flint for primitive mining and provide strong, slow melee attacks. See [steel and hammer rules](docs/steel-and-hammers.md) for statistics, saved-item migration and verification scope.
+
+### Deepslate Hammer and ore piles
+
+The Iron Hammer is now the Deepslate Hammer, with stone-pickaxe mining speed and expanded stone/deepslate/ore conversions. Gold Ore Pile is available, and vanilla flint can be spent on primitive stone conversions. See [the exact drops and migration rules](docs/deepslate-mining.md).

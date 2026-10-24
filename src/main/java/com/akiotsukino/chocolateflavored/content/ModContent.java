@@ -32,6 +32,7 @@ public final class ModContent {
 
     public static final DeferredItem<Item> COAL_DUST = ITEMS.registerSimpleItem("coal_dust");
     public static final DeferredItem<Item> COPPER_ORE_PILE = ITEMS.registerSimpleItem("copper_ore_pile");
+    public static final DeferredItem<Item> GOLD_ORE_PILE = ITEMS.registerSimpleItem("gold_ore_pile");
     public static final DeferredItem<Item> IRON_ORE_PILE = ITEMS.registerSimpleItem("iron_ore_pile");
     public static final DeferredItem<Item> STONE_PEBBLE = ITEMS.registerSimpleItem("stone_pebble");
     public static final DeferredItem<Item> DEEPSLATE_PEBBLE = ITEMS.registerSimpleItem("deepslate_pebble");

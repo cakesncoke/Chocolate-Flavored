@@ -471,6 +471,7 @@
   "item.chocolateflavored.creeper_oysters": "Creeper Oysters",
   "item.chocolateflavored.diamond_armor_plate": "Diamond Armor Plate",
   "item.chocolateflavored.stone_hammer": "Stone Hammer",
-  "item.chocolateflavored.iron_hammer": "Iron Hammer",
-  "block.chocolateflavored.steel_block": "Block of Steel"
+  "block.chocolateflavored.steel_block": "Block of Steel",
+  "item.chocolateflavored.deepslate_hammer": "Deepslate Hammer",
+  "item.chocolateflavored.gold_ore_pile": "Gold Ore Pile"
 }

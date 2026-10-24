@@ -82,3 +82,5 @@ The dyed wood set references Mojang/Minecraft 26.1.2 oak door and trapdoor textu
 ## Supplied steel equipment, materials and hammers
 
 The project owner supplied the steel-equipment resource overrides, steel-block texture, eleven material sprites and two hammer sprites in main commit `d19f32b85fd39361515d8c22b3462c8aa6044a06`. They are used unchanged. Paths and SHA-256 hashes are recorded in `docs/steel-assets.json`; no file-specific original artist or additional license is invented. The supplied legacy armor paths are retained, while rendering uses the native 26.1.2 equipment paths. The existing iron/steel knife sprite retains its Farmer's Delight credit. These assets remain subject to their original authors' rights and are not automatically relicensed as MIT by this code change.
+
+The Deepslate Hammer and Gold Ore Pile sprites were supplied unchanged in main commit `2801d39203c06625c1825fcd5b0ffc823f5af8e1`. Their hashes are recorded in `docs/steel-assets.json`. The removed Iron Hammer sprite is no longer referenced by item models. No additional source artist or license is inferred.

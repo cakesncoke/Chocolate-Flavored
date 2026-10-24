@@ -2,6 +2,7 @@ package com.akiotsukino.chocolateflavored.gameplay;
 
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import com.akiotsukino.chocolateflavored.content.ModTags;
+import com.akiotsukino.chocolateflavored.equipment.SteelContent;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +24,22 @@ public final class MiningRules {
     public record Conversion(BlockState replacement, ItemStack drop, boolean vanillaLoot) {}
 
     public static Conversion conversion(BlockState state, ItemStack tool) {
+        if (tool.is(Items.FLINT)) {
+            return state.is(ModTags.FLINT_STONE)
+                    ? new Conversion(Blocks.COBBLESTONE.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false) : null;
+        }
+        if (tool.is(SteelContent.DEEPSLATE_HAMMER.get())) {
+            if (state.is(ModTags.FLINT_STONE)) return new Conversion(Blocks.AIR.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get(), 4), false);
+            if (state.is(ModTags.FLINT_COBBLE)) return new Conversion(Blocks.AIR.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false);
+            if (state.is(Blocks.DEEPSLATE)) return new Conversion(Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new ItemStack(ModContent.DEEPSLATE_PEBBLE.get()), false);
+            if (state.is(Blocks.DEEPSLATE_COPPER_ORE)) return new Conversion(Blocks.COBBLED_DEEPSLATE.defaultBlockState(), new ItemStack(ModContent.COPPER_ORE_PILE.get()), false);
+            if (state.is(Blocks.IRON_ORE) || state.is(Blocks.DEEPSLATE_IRON_ORE)) return new Conversion(
+                    (state.is(Blocks.IRON_ORE) ? Blocks.COBBLESTONE : Blocks.COBBLED_DEEPSLATE).defaultBlockState(), new ItemStack(ModContent.IRON_ORE_PILE.get()), false);
+            if (state.is(Blocks.GOLD_ORE) || state.is(Blocks.DEEPSLATE_GOLD_ORE)) return new Conversion(
+                    (state.is(Blocks.GOLD_ORE) ? Blocks.COBBLESTONE : Blocks.COBBLED_DEEPSLATE).defaultBlockState(), new ItemStack(ModContent.GOLD_ORE_PILE.get()), false);
+            // Coal/copper and all remaining pickaxe blocks use native destruction, loot and XP.
+            return null;
+        }
         if (tool.is(ModTags.HAMMERS)) {
             if (state.is(ModTags.FLINT_COBBLE)) return new Conversion(Blocks.AIR.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false);
             if (state.is(ModTags.FLINT_STONE)) return new Conversion(Blocks.COBBLESTONE.defaultBlockState(), new ItemStack(ModContent.STONE_PEBBLE.get()), false);
@@ -59,7 +76,8 @@ public final class MiningRules {
         } else {
             Block.popResource(level, pos, change.drop());
         }
-        tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+        if (tool.is(Items.FLINT)) tool.shrink(1);
+        else tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
         player.causeFoodExhaustion(0.005F);
         level.levelEvent(2001, pos, Block.getId(state));
