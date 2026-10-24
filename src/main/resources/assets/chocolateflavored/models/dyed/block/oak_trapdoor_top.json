@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_trapdoor_top",
   "textures": {
-    "texture": "minecraft:block/oak_trapdoor"
+    "texture": "minecraft:block/oak_trapdoor_chocolateflavored_pastel_base"
   },
   "elements": [
     {

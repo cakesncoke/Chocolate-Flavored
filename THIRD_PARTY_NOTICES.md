@@ -77,4 +77,4 @@ The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added b
 
 ## Pastel wood rendering
 
-The dyed wood set references Mojang/Minecraft 26.1.2 oak door and trapdoor textures, pale oak wood/item/sign/boat textures, vanilla model geometry and water-cauldron models. No Minecraft PNGs are copied into this mod. Small model JSON derivatives add tint indices; the tint palette, registration and cauldron code are Chocolate Flavored implementations. Minecraft resources remain the property of Mojang/Microsoft and are not relicensed under this project's MIT license.
+The dyed wood set references Mojang/Minecraft 26.1.2 oak door and trapdoor textures, pale oak wood/item/sign/boat textures, vanilla model geometry and water-cauldron models. No Minecraft PNGs are copied into this mod. Small model JSON derivatives add tint indices; native palette permutations retain the original oak door/trapdoor pixel layouts using generated color lookup tables; the tint palette, registration and cauldron code are Chocolate Flavored implementations. Minecraft resources remain the property of Mojang/Microsoft and are not relicensed under this project's MIT license.
