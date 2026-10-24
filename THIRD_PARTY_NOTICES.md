@@ -78,3 +78,7 @@ The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added b
 ## Pastel wood rendering
 
 The dyed wood set references Mojang/Minecraft 26.1.2 oak door and trapdoor textures, pale oak wood/item/sign/boat textures, vanilla model geometry and water-cauldron models. No Minecraft PNGs are copied into this mod. Small model JSON derivatives add tint indices; native palette permutations retain the original oak door/trapdoor pixel layouts using generated color lookup tables; the tint palette, registration and cauldron code are Chocolate Flavored implementations. Minecraft resources remain the property of Mojang/Microsoft and are not relicensed under this project's MIT license.
+
+## Supplied steel equipment, materials and hammers
+
+The project owner supplied the steel-equipment resource overrides, steel-block texture, eleven material sprites and two hammer sprites in main commit `d19f32b85fd39361515d8c22b3462c8aa6044a06`. They are used unchanged. Paths and SHA-256 hashes are recorded in `docs/steel-assets.json`; no file-specific original artist or additional license is invented. The supplied legacy armor paths are retained, while rendering uses the native 26.1.2 equipment paths. The existing iron/steel knife sprite retains its Farmer's Delight credit. These assets remain subject to their original authors' rights and are not automatically relicensed as MIT by this code change.

@@ -56,7 +56,8 @@ public final class DevelopmentVerification {
         durability(Items.GOLDEN_PICKAXE, 32);
         durability(Items.IRON_CHESTPLATE, 480);
         durability(ModContent.ROSE_GOLD_PICKAXE.get(), 576);
-        durability(ModContent.KNAPPED_FLINT.get(), 4);
+        durability(com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), 32);
+        durability(com.akiotsukino.chocolateflavored.equipment.SteelContent.IRON_HAMMER.get(), 500);
         durability(ModContent.FLINT_KNIFE.get(), 131);
         durability(ModContent.IRON_KNIFE.get(), 250);
         ItemStack rose = new ItemStack(ModContent.ROSE_GOLD_PICKAXE.get());
@@ -105,23 +106,23 @@ public final class DevelopmentVerification {
         check(fibers > 220 && fibers < 440, "Plant fiber probability: " + fibers);
         check(knifeSticks > vanillaSticks + 100, "Knife leaves stick bonus");
 
-        convert(level, player, pos, Blocks.STONE, ModContent.KNAPPED_FLINT.get(), Blocks.COBBLESTONE, ModContent.STONE_PEBBLE.get());
-        convert(level, player, pos, Blocks.GRANITE, ModContent.KNAPPED_FLINT.get(), Blocks.COBBLESTONE, ModContent.STONE_PEBBLE.get());
-        convert(level, player, pos, Blocks.COBBLESTONE, ModContent.KNAPPED_FLINT.get(), Blocks.AIR, ModContent.STONE_PEBBLE.get());
-        convert(level, player, pos, Blocks.MOSSY_COBBLESTONE, ModContent.KNAPPED_FLINT.get(), Blocks.AIR, ModContent.STONE_PEBBLE.get());
-        convert(level, player, pos, Blocks.COAL_ORE, ModContent.KNAPPED_FLINT.get(), Blocks.COBBLESTONE, ModContent.COAL_DUST.get());
-        convert(level, player, pos, Blocks.COPPER_ORE, ModContent.KNAPPED_FLINT.get(), Blocks.COBBLESTONE, ModContent.COPPER_ORE_PILE.get());
+        convert(level, player, pos, Blocks.STONE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.COBBLESTONE, ModContent.STONE_PEBBLE.get());
+        convert(level, player, pos, Blocks.GRANITE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.COBBLESTONE, ModContent.STONE_PEBBLE.get());
+        convert(level, player, pos, Blocks.COBBLESTONE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.AIR, ModContent.STONE_PEBBLE.get());
+        convert(level, player, pos, Blocks.MOSSY_COBBLESTONE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.AIR, ModContent.STONE_PEBBLE.get());
+        convert(level, player, pos, Blocks.COAL_ORE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.COBBLESTONE, ModContent.COAL_DUST.get());
+        convert(level, player, pos, Blocks.COPPER_ORE, com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get(), Blocks.COBBLESTONE, ModContent.COPPER_ORE_PILE.get());
         convert(level, player, pos, Blocks.IRON_ORE, Items.COPPER_PICKAXE, Blocks.COBBLESTONE, ModContent.IRON_ORE_PILE.get());
         convert(level, player, pos, Blocks.DEEPSLATE, Items.IRON_PICKAXE, Blocks.COBBLED_DEEPSLATE, ModContent.DEEPSLATE_PEBBLE.get());
         convert(level, player, pos, Blocks.DEEPSLATE_DIAMOND_ORE, Items.IRON_PICKAXE, Blocks.COBBLED_DEEPSLATE, Items.DIAMOND);
         convert(level, player, pos, Blocks.DEEPSLATE_COPPER_ORE, Items.IRON_PICKAXE, Blocks.COBBLED_DEEPSLATE, Items.RAW_COPPER);
         clearItems(level, pos);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModContent.KNAPPED_FLINT.get()));
-        for (int i = 0; i < 4; i++) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(com.akiotsukino.chocolateflavored.equipment.SteelContent.STONE_HAMMER.get()));
+        for (int i = 0; i < 32; i++) {
             level.setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
             player.gameMode.destroyBlock(pos);
         }
-        check(player.getMainHandItem().isEmpty(), "Knapped flint breaks after four interactions");
+        check(player.getMainHandItem().isEmpty(), "Stone hammer breaks after 32 interactions");
         clearItems(level, pos);
         level.setBlockAndUpdate(pos, Blocks.DEEPSLATE_COAL_ORE.defaultBlockState());
         player.setItemInHand(InteractionHand.MAIN_HAND, copper);
@@ -154,6 +155,7 @@ public final class DevelopmentVerification {
         CleanupVerification.run(level, player);
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
+        SteelVerification.run(level, player);
         DyeingVerification.run(level, player);
         CakeVerification.run(level, player);
         CropVerification.run(level, player);
