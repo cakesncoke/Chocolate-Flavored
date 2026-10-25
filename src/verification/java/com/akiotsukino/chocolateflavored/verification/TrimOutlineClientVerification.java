@@ -15,9 +15,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TrimOutlineClientVerification {
     private static int ticks;
-    private static boolean setup;
+    private static boolean setup, durationChecked, completed;
+    private static long received = -1;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TrimClientVerification.completed || ++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
             setup=true;mc.setScreen(null);
@@ -40,15 +41,26 @@ public final class TrimOutlineClientVerification {
                 TrimHighlights.scan(p,false);
             });
         }
-        if(ticks%100==0)mc.getSingleplayerServer().execute(()->{
-            var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());if(p!=null)TrimHighlights.scan(p,false);
-        });
-        if(ticks==340){
-            try {
-                var field=com.akiotsukino.chocolateflavored.client.trim.TrimOutlines.class.getDeclaredField("positions");field.setAccessible(true);
-                if(((java.util.List<?>)field.get(null)).size()!=4)throw new IllegalStateException("Expected four authorized ore borders");
-            } catch(ReflectiveOperationException ex){throw new IllegalStateException(ex);}
-            ChocolateFlavored.LOGGER.info("TRIM_OUTLINE_CLIENT_VERIFICATION_PASSED: real server payload, four visible/occluded ores, textureless border pipeline");
-        }
+        try {
+            var field=com.akiotsukino.chocolateflavored.client.trim.TrimOutlines.class.getDeclaredField("positions");field.setAccessible(true);
+            int count=((java.util.List<?>)field.get(null)).size();
+            if(received<0 && count==4)received=mc.level.getGameTime();
+            if(received>=0 && !completed){
+                long elapsed=mc.level.getGameTime()-received;
+                if(!durationChecked && elapsed>=400){
+                    if(count!=4)throw new IllegalStateException("Eye glow expired before thirty seconds");
+                    durationChecked=true;
+                }
+                if(elapsed>=620){
+                    if(count!=0)throw new IllegalStateException("Eye glow did not expire after thirty seconds");
+                    completed=true;
+                    mc.getSingleplayerServer().execute(()->{
+                        var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());TrimHighlights.scan(p,false);
+                    });
+                    ChocolateFlavored.LOGGER.info("TRIM_OUTLINE_CLIENT_VERIFICATION_PASSED: real server payload, emissive borders, reveal persists past ten seconds and expires at thirty seconds");
+                }
+            }
+            if(received<0 && ticks>500)throw new IllegalStateException("Expected four authorized ore borders");
+        } catch(ReflectiveOperationException ex){throw new IllegalStateException(ex);}
     }
 }
