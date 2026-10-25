@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:drowned",
+    "minecraft:guardian",
+    "minecraft:elder_guardian",
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:pufferfish",
+    "minecraft:tropical_fish",
+    "minecraft:squid",
+    "minecraft:glow_squid",
+    "minecraft:dolphin",
+    "minecraft:turtle",
+    "minecraft:axolotl",
+    {
+      "id": "chocolateflavored:sunken",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:tropical_slime",
+      "required": false
+    }
+  ]
+}
