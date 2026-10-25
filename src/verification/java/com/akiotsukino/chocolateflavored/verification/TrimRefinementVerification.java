@@ -33,6 +33,7 @@ final class TrimRefinementVerification {
             player.getPersistentData().putLong(TrimTriggers.key("eye"),0);
             TrimTriggers.tick(new net.neoforged.neoforge.event.tick.PlayerTickEvent.Post(player));
             check(player.getPersistentData().getLongOr(TrimTriggers.key("eye"),0)-TrimTriggers.clock(player)==2400,"Eye two-minute trigger cooldown");
+            check(TrimOutlinePayload.DURATION_TICKS==600,"Eye thirty-second reveal duration");
             player.setShiftKeyDown(false);TrimHighlights.clearAll(player);TrimVerification.clear(player);
             ChocolateFlavored.LOGGER.info("TRIM_REFINEMENT_VERIFICATION_PASSED: Nether Fire Resistance, oxygen attributes, movement-validation leaf collision, native airborne swimming and floor jumps, basalt source disk/aging/restoration, fireless lightning, Eye cooldown");
         } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); }
@@ -70,6 +71,15 @@ final class TrimRefinementVerification {
         p.setDeltaMovement(Vec3.ZERO);p.setOnGround(false);jump.invoke(p,net.minecraft.tags.FluidTags.WATER);check(Math.abs(p.getDeltaMovement().y-.04)<1e-6,"Normal off-floor swim jump");
         p.setDeltaMovement(Vec3.ZERO);p.setOnGround(true);jump.invoke(p,net.minecraft.tags.FluidTags.WATER);check(p.getDeltaMovement().y>.4,"Floor jump launches upward");
         water.setBoolean(p,false);p.setOnGround(false);p.setDeltaMovement(Vec3.ZERO);
+        // Exercise NeoForge's actual aiStep -> jumpInFluid path, not just the legacy method.
+        BlockPos floor = new BlockPos(390,160,0);
+        for(BlockPos pos:BlockPos.betweenClosed(floor.offset(-2,0,-2),floor.offset(2,4,2)))level.setBlock(pos,pos.getY()==160?Blocks.STONE.defaultBlockState():Blocks.WATER.defaultBlockState(),2);
+        p.setPos(390.5,161,.5);p.baseTick();p.setOnGround(true);p.setJumping(true);p.setDeltaMovement(Vec3.ZERO);
+        check(p.isInWater() && p.getFluidHeight(net.minecraft.tags.FluidTags.WATER)>p.getFluidJumpThreshold(),"Real deep-water jump fixture");
+        p.aiStep();check(p.getY()>161.1 && !p.onGround(),"NeoForge aiStep jumps off the floor into swimming");
+        p.setJumping(false);
+        for(BlockPos pos:BlockPos.betweenClosed(floor.offset(-2,0,-2),floor.offset(2,4,2)))level.setBlock(pos,Blocks.AIR.defaultBlockState(),2);
+        p.baseTick();p.setDeltaMovement(Vec3.ZERO);
     }
     private static void basalt(ServerLevel level,FakePlayer p) {
         BlockPos center=new BlockPos(400,160,0);

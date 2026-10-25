@@ -25,6 +25,7 @@ import org.joml.Vector3f;
 public final class TrimOutlines {
     private static final RenderPipeline PIPELINE = RenderPipeline.builder(EntityPipelineAccessor.chocolateflavored$linesSnippet())
             .withLocation(TrimAbilities.id("pipeline/eye_outline"))
+            .withFragmentShader(TrimAbilities.id("core/eye_outline"))
             .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false)).build();
     private static final RenderType LINES = TrimRenderTypeInvoker.chocolateflavored$create("chocolateflavored_eye_outline", RenderSetup.builder(PIPELINE).createRenderSetup());
     private static final ContextKey<List<Vec3>> OUTLINES = new ContextKey<>(TrimAbilities.id("eye_outlines"));
@@ -37,12 +38,14 @@ public final class TrimOutlines {
         event.register(TrimOutlinePayload.TYPE, (payload, context) -> {
             world = Minecraft.getInstance().level;
             positions = payload.positions();
-            until = world == null ? 0 : world.getGameTime() + 200;
+            until = world == null ? 0 : world.getGameTime() + TrimOutlinePayload.DURATION_TICKS;
         });
     }
     @SubscribeEvent public static void extract(ExtractLevelRenderStateEvent event) {
         var player = Minecraft.getInstance().player;
-        if (event.getLevel() != world || world.getGameTime() >= until || player == null || !player.isAlive() || !TrimAbilities.full(player, "eye")) {
+        // The server invalidates unequipped sets. Client equipment packets can arrive after
+        // the reveal packet; discarding it here would permanently lose a valid reveal.
+        if (event.getLevel() != world || world.getGameTime() >= until || player == null || !player.isAlive()) {
             positions = List.of();
         }
         Vec3 camera = event.getRenderState().cameraRenderState.pos;
@@ -55,11 +58,19 @@ public final class TrimOutlines {
         List<Vec3> snapshot = event.getLevelRenderState().getRenderData(OUTLINES);
         if (snapshot == null || snapshot.isEmpty()) return;
         event.getSubmitNodeCollector().submitCustomGeometry(event.getPoseStack(), LINES, (pose, vertices) -> {
+            // Broad translucent halo, warm inner glow, then a bright emissive core.
+            // Only line vertices are emitted: terrain models and faces remain untouched.
+            int[] colors = {0x18FFD34D, 0x38FFCC33, 0x90FFD633, 0xFFFFF3AD};
+            float[] widths = {12, 8, 5, 3.5f};
+            for (int layer = 0; layer < colors.length; layer++) {
+                final int color = colors[layer];
+                final float width = widths[layer];
             for (Vec3 offset : snapshot) Shapes.block().forAllEdges((x1, y1, z1, x2, y2, z2) -> {
                 Vector3f normal = new Vector3f((float)(x2-x1), (float)(y2-y1), (float)(z2-z1)).normalize();
-                vertices.addVertex(pose, (float)(x1+offset.x), (float)(y1+offset.y), (float)(z1+offset.z)).setColor(0xFFFFDD66).setNormal(pose, normal).setLineWidth(2);
-                vertices.addVertex(pose, (float)(x2+offset.x), (float)(y2+offset.y), (float)(z2+offset.z)).setColor(0xFFFFDD66).setNormal(pose, normal).setLineWidth(2);
+                vertices.addVertex(pose, (float)(x1+offset.x), (float)(y1+offset.y), (float)(z1+offset.z)).setColor(color).setNormal(pose, normal).setLineWidth(width);
+                vertices.addVertex(pose, (float)(x2+offset.x), (float)(y2+offset.y), (float)(z2+offset.z)).setColor(color).setNormal(pose, normal).setLineWidth(width);
             });
+            }
         });
     }
     private TrimOutlines() {}

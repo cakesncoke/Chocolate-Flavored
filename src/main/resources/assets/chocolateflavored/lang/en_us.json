@@ -541,7 +541,7 @@
   "trim.chocolateflavored.flow.legs": "+10% movement speed outdoors in the Overworld",
   "trim.chocolateflavored.flow.feet": "25% less fall damage",
   "trim.chocolateflavored.eye.theme": "Mining and ore detection",
-  "trim.chocolateflavored.eye.full": "Full set: Crouch with a pickaxe to outline harvestable ores within 16 blocks for 10 seconds; 2-minute cooldown. Mining retains protection, tier, drops and tool wear.",
+  "trim.chocolateflavored.eye.full": "Full set: Crouch with a pickaxe to outline harvestable ores within 16 blocks for 30 seconds; 2-minute cooldown. Mining retains protection, tier, drops and tool wear.",
   "trim.chocolateflavored.eye.head": "Night Vision below Y=0",
   "trim.chocolateflavored.eye.chest": "Vein mine up to 16 connected ores of the same block type",
   "trim.chocolateflavored.eye.legs": "+2 blocks dropped-item pickup radius",

@@ -59,9 +59,22 @@ abstract class TrimLivingMixin {
     private static void cf$gliderStack(net.minecraft.world.item.ItemStack stack,EquipmentSlot slot,CallbackInfoReturnable<Boolean> cir) {
         if(slot==CHEST && pattern(stack).equals("minecraft:spire") && stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE)!=null && stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE).slot()==CHEST && (!stack.isDamageableItem() || stack.getDamageValue()<stack.getMaxDamage()-1))cir.setReturnValue(true);
     }
-    @Inject(method="jumpInLiquid",at=@At("HEAD"),cancellable=true)
-    private void cf$jumpWater(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> type,CallbackInfo ci) {
-        var e=cf$self();if(type==net.minecraft.tags.FluidTags.WATER && has(e,FEET,"tide") && e.onGround() && !e.isSwimming()){e.jumpFromGround();ci.cancel();}
+    @Unique private static boolean cf$launchFromFloor(LivingEntity entity) {
+        if (!(entity instanceof Player) || !has(entity, FEET, "tide") || !entity.isInWater() || !entity.onGround()) return false;
+        entity.jumpFromGround();
+        // Leave floor mode immediately, before this tick's travel chooses land or fluid motion.
+        entity.setOnGround(false);
+        return true;
+    }
+    @Redirect(method="aiStep", at=@At(value="INVOKE", target="Lnet/minecraft/world/entity/LivingEntity;jumpInFluid(Lnet/neoforged/neoforge/fluids/FluidType;)V"))
+    private void cf$neoForgeWaterJump(LivingEntity entity, net.neoforged.neoforge.fluids.FluidType type) {
+        if (type == net.neoforged.neoforge.common.NeoForgeMod.WATER_TYPE.value() && cf$launchFromFloor(entity)) return;
+        entity.jumpInFluid(type);
+    }
+    // Retain compatibility for callers of vanilla's deprecated liquid-jump method.
+    @Inject(method="jumpInLiquid", at=@At("HEAD"), cancellable=true)
+    private void cf$legacyWaterJump(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> type, CallbackInfo ci) {
+        if (type == net.minecraft.tags.FluidTags.WATER && cf$launchFromFloor(cf$self())) ci.cancel();
     }
     @Inject(method="travelInFluid", at=@At("HEAD"), cancellable=true)
     private void cf$walkWater(Vec3 input, CallbackInfo ci) {

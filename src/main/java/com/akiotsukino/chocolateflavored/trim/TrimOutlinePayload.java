@@ -10,6 +10,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 /** Server-authorized positions only: no replacement block states or fake entities. */
 public record TrimOutlinePayload(List<BlockPos> positions) implements CustomPacketPayload {
+    public static final int DURATION_TICKS = 30 * 20;
     public TrimOutlinePayload { positions = List.copyOf(positions); }
     public static final Type<TrimOutlinePayload> TYPE = new Type<>(TrimAbilities.id("eye_outlines"));
     public static final StreamCodec<RegistryFriendlyByteBuf, TrimOutlinePayload> CODEC = new StreamCodec<>() {

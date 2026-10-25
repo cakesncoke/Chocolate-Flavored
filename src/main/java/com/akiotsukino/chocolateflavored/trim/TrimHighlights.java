@@ -40,7 +40,7 @@ public final class TrimHighlights {
             ids.add(display.getId());
         }
         if (!archaeology) net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new TrimOutlinePayload(outlines));
-        VIEWS.computeIfAbsent(p,k->new ArrayList<>()).add(new View(ids.stream().mapToInt(Integer::intValue).toArray(),TrimTriggers.clock(p)+(archaeology?22:200),archaeology,p.level().dimension()));
+        VIEWS.computeIfAbsent(p,k->new ArrayList<>()).add(new View(ids.stream().mapToInt(Integer::intValue).toArray(),TrimTriggers.clock(p)+(archaeology?22:TrimOutlinePayload.DURATION_TICKS),archaeology,p.level().dimension()));
     }
     private static void remove(ServerPlayer p, View view) {
         if (view.archaeology) p.connection.send(new ClientboundRemoveEntitiesPacket(view.ids));

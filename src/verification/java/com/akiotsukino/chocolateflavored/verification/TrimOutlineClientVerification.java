@@ -15,9 +15,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TrimOutlineClientVerification {
     private static int ticks;
-    private static boolean setup;
+    private static boolean setup, requested, durationChecked, completed;
+    private static long received = -1;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TrimClientVerification.completed || ++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
             setup=true;mc.setScreen(null);
@@ -37,18 +38,36 @@ public final class TrimOutlineClientVerification {
                 p.setItemSlot(EquipmentSlot.FEET,TrimVerification.armor(level,Items.LEATHER_BOOTS,"eye","gold"));
                 p.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(Items.DIAMOND_PICKAXE));
                 p.connection.teleport(451,160,.5,0,0);
-                TrimHighlights.scan(p,false);
             });
         }
-        if(ticks%100==0)mc.getSingleplayerServer().execute(()->{
-            var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());if(p!=null)TrimHighlights.scan(p,false);
-        });
-        if(ticks==340){
-            try {
-                var field=com.akiotsukino.chocolateflavored.client.trim.TrimOutlines.class.getDeclaredField("positions");field.setAccessible(true);
-                if(((java.util.List<?>)field.get(null)).size()!=4)throw new IllegalStateException("Expected four authorized ore borders");
-            } catch(ReflectiveOperationException ex){throw new IllegalStateException(ex);}
-            ChocolateFlavored.LOGGER.info("TRIM_OUTLINE_CLIENT_VERIFICATION_PASSED: real server payload, four visible/occluded ores, textureless border pipeline");
+        // Activation occurs only after equipment and teleport packets have reached the client,
+        // matching a real player who equips the set before crouching to reveal ores.
+        if(!requested && mc.player.getX()>440 && TrimAbilities.full(mc.player,"eye")) {
+            requested=true;
+            mc.getSingleplayerServer().execute(()->{
+                var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());TrimHighlights.scan(p,false);
+            });
         }
+        try {
+            var field=com.akiotsukino.chocolateflavored.client.trim.TrimOutlines.class.getDeclaredField("positions");field.setAccessible(true);
+            int count=((java.util.List<?>)field.get(null)).size();
+            if(received<0 && count==4)received=mc.level.getGameTime();
+            if(received>=0 && !completed){
+                long elapsed=mc.level.getGameTime()-received;
+                if(!durationChecked && elapsed>=400){
+                    if(count!=4)throw new IllegalStateException("Eye glow cleared early: elapsed="+elapsed+", alive="+mc.player.isAlive()+", fullSet="+TrimAbilities.full(mc.player,"eye")+", count="+count);
+                    durationChecked=true;
+                }
+                if(elapsed>=620){
+                    if(count!=0)throw new IllegalStateException("Eye glow did not expire after thirty seconds");
+                    completed=true;
+                    mc.getSingleplayerServer().execute(()->{
+                        var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());TrimHighlights.scan(p,false);
+                    });
+                    ChocolateFlavored.LOGGER.info("TRIM_OUTLINE_CLIENT_VERIFICATION_PASSED: real server payload, emissive borders, reveal persists past ten seconds and expires at thirty seconds");
+                }
+            }
+            if(received<0 && ticks>500)throw new IllegalStateException("Expected four authorized ore borders");
+        } catch(ReflectiveOperationException ex){throw new IllegalStateException(ex);}
     }
 }
