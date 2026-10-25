@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:camel",
+    {
+      "id": "minecraft:camel_husk",
+      "required": false
+    }
+  ]
+}

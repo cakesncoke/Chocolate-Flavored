@@ -1,0 +1,53 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "minecraft:copper_sword",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_axe",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_spear",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_pickaxe",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_shovel",
+      "required": false
+    },
+    {
+      "id": "minecraft:copper_hoe",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_sword",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_axe",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_spear",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_pickaxe",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_shovel",
+      "required": false
+    },
+    {
+      "id": "chocolateflavored:rose_gold_hoe",
+      "required": false
+    }
+  ]
+}

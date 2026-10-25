@@ -29,7 +29,25 @@
     "WanderingTraderProtectionMixin",
     "TraderMountMixin",
     "TraderAdditionMixin",
-    "FireFlammabilityInvoker"
+    "FireFlammabilityInvoker",
+    "TrimDisplayAccessor",
+    "TrimEnchantedCountIncreaseFunctionMixin",
+    "TrimLivingMixin",
+    "TrimArchaeologyMixin",
+    "TrimFireworkMixin",
+    "TrimPlayerMixin",
+    "TrimVillagerMixin",
+    "TrimLeafCollisionMixin",
+    "TrimPiglinMixin",
+    "TrimWindInvoker",
+    "TrimVibrationMixin",
+    "TrimEntityMixin",
+    "TrimBoatMixin",
+    "TrimEnchantmentMixin",
+    "TrimMiningMixin",
+    "TrimCrossbowMixin",
+    "TrimLootItemRandomChanceWithEnchantedBonusConditionMixin",
+    "TrimBowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -40,6 +58,7 @@
     "EntityPipelineAccessor",
     "PastelSignMixin",
     "PastelBoatMixin",
-    "BlockEntityRenderStateAccessor"
+    "BlockEntityRenderStateAccessor",
+    "TrimLocalPlayerMixin"
   ]
 }
