@@ -43,7 +43,9 @@ public final class TrimOutlines {
     }
     @SubscribeEvent public static void extract(ExtractLevelRenderStateEvent event) {
         var player = Minecraft.getInstance().player;
-        if (event.getLevel() != world || world.getGameTime() >= until || player == null || !player.isAlive() || !TrimAbilities.full(player, "eye")) {
+        // The server invalidates unequipped sets. Client equipment packets can arrive after
+        // the reveal packet; discarding it here would permanently lose a valid reveal.
+        if (event.getLevel() != world || world.getGameTime() >= until || player == null || !player.isAlive()) {
             positions = List.of();
         }
         Vec3 camera = event.getRenderState().cameraRenderState.pos;

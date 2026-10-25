@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TrimOutlineClientVerification {
     private static int ticks;
-    private static boolean setup, durationChecked, completed;
+    private static boolean setup, requested, durationChecked, completed;
     private static long received = -1;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
@@ -38,7 +38,14 @@ public final class TrimOutlineClientVerification {
                 p.setItemSlot(EquipmentSlot.FEET,TrimVerification.armor(level,Items.LEATHER_BOOTS,"eye","gold"));
                 p.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(Items.DIAMOND_PICKAXE));
                 p.connection.teleport(451,160,.5,0,0);
-                TrimHighlights.scan(p,false);
+            });
+        }
+        // Activation occurs only after equipment and teleport packets have reached the client,
+        // matching a real player who equips the set before crouching to reveal ores.
+        if(!requested && mc.player.getX()>440 && TrimAbilities.full(mc.player,"eye")) {
+            requested=true;
+            mc.getSingleplayerServer().execute(()->{
+                var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());TrimHighlights.scan(p,false);
             });
         }
         try {
@@ -48,7 +55,7 @@ public final class TrimOutlineClientVerification {
             if(received>=0 && !completed){
                 long elapsed=mc.level.getGameTime()-received;
                 if(!durationChecked && elapsed>=400){
-                    if(count!=4)throw new IllegalStateException("Eye glow expired before thirty seconds");
+                    if(count!=4)throw new IllegalStateException("Eye glow cleared early: elapsed="+elapsed+", alive="+mc.player.isAlive()+", fullSet="+TrimAbilities.full(mc.player,"eye")+", count="+count);
                     durationChecked=true;
                 }
                 if(elapsed>=620){
