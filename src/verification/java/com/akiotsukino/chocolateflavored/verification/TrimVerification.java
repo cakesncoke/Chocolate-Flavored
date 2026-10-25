@@ -52,7 +52,7 @@ final class TrimVerification {
         set(l,p,"wayfinder");check(p.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==7.5,"Trail reach +3");p.setItemSlot(FEET,armor(l,Items.LEATHER_BOOTS,"host","gold"));TrimAttributes.update(p);check(!TrimAbilities.trailFull(p)&&p.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==5.5,"Mixed Trail patterns no full set");
         set(l,p,"wild");check(Math.abs(p.getAttributeValue(Attributes.STEP_HEIGHT)-1)<.00001,"Wild step height");check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().fall())==6,"Intrinsic Feather Falling II");
         p.getItemBySlot(FEET).enchant(l.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FEATHER_FALLING),4);check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().fall())==18,"Feather Falling stacks in native protection input");
-        set(l,p,"tide");check(p.getMaxAirSupply()==2700,"Tide full air");p.setItemSlot(FEET,ItemStack.EMPTY);check(p.getMaxAirSupply()==1500,"Tide chest air");p.setAirSupply(1500);clear(p);check(p.getMaxAirSupply()==300 && p.getAirSupply()==300,"Air clamp on removal");
+        set(l,p,"tide");check(p.getMaxAirSupply()==300 && p.getAttributeValue(Attributes.OXYGEN_BONUS)==8,"Tide full immediate oxygen bonus");p.setItemSlot(FEET,ItemStack.EMPTY);check(p.getAttributeValue(Attributes.OXYGEN_BONUS)==8,"Tide chest immediate oxygen bonus");clear(p);check(p.getAttributeValue(Attributes.OXYGEN_BONUS)==0,"Oxygen removed with chestplate");
         set(l,p,"spire");check(LivingEntity.canGlideUsing(p.getItemBySlot(CHEST),CHEST),"Spire participates in native glider selection");
         set(l,p,"dune");check(!p.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,100)),"Dune rejects blindness");check(!p.addEffect(new MobEffectInstance(MobEffects.DARKNESS,100)),"Dune rejects darkness");
         set(l,p,"coast");check(EnchantmentHelper.getFishingLuckBonus(l,new ItemStack(Items.FISHING_ROD),p)==2,"Coast native fishing luck");
@@ -74,6 +74,7 @@ final class TrimVerification {
         try{p.gameMode.destroyBlock(start);check(l.getBlockState(start.east()).is(Blocks.COAL_ORE)&&l.getBlockState(start.east(2)).is(Blocks.COAL_ORE),"Protected ore stops traversal");}finally{NeoForge.EVENT_BUS.unregister(protection);}
         for(int i=0;i<20;i++)l.removeBlock(start.east(i),false);l.getEntitiesOfClass(ItemEntity.class,new AABB(start).inflate(25)).forEach(ItemEntity::discard);
         mechanics(l,p);
+        TrimRefinementVerification.run(l,p);
         clear(p);p.setItemSlot(MAINHAND,ItemStack.EMPTY);p.setHealth(p.getMaxHealth());
         ChocolateFlavored.LOGGER.info("TRIM_VERIFICATION_PASSED: all 18 pattern/slot combinations, mixed materials, reach, Ward lifecycle, native protection and fishing, air, glider, gold neutrality, Dune immunity, Vex atomic costs, persistent cooldowns and native/protected 16-block vein mining");
     }
@@ -83,7 +84,7 @@ final class TrimVerification {
     private static void mechanics(ServerLevel l,FakePlayer p){
         for(String pattern:List.of("sentry","dune")){set(l,p,pattern);var arrow=EntityType.ARROW.create(l,EntitySpawnReason.COMMAND);check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().arrow(arrow,p))==4,"Projectile protection II "+pattern);}
         set(l,p,"rib");check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().inFire())==8,"Fire protection IV");check(Math.abs(p.getAttributeValue(Attributes.BURNING_TIME)-.4)<.00001,"Fire protection burn duration");
-        check(incoming(p,p.damageSources().lava())==0,"First lava hit protected");p.getPersistentData().putLong(TrimTriggers.key("lava"),0);check(incoming(p,p.damageSources().lava())==20,"Lava cooldown cannot reset on reentry");
+        check(!p.hasEffect(MobEffects.FIRE_RESISTANCE),"Rib gives no Overworld Fire Resistance");
         set(l,p,"flow");check(p.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE)==.3,"Blast knockback resistance");p.fallDistance=10;check(incoming(p,p.damageSources().fall())==15,"Flow fall reduction");
         set(l,p,"spire");check(incoming(p,p.damageSources().flyIntoWall())==5,"Spire wall reduction");check(incoming(p,p.damageSources().fall())==10,"Spire fall reduction");
         p.setOnGround(false);p.setShiftKeyDown(true);check(p.hasEffect(MobEffects.LEVITATION),"Infinite crouch levitation available");p.setShiftKeyDown(false);check(!p.hasEffect(MobEffects.LEVITATION),"Levitation stops on release");

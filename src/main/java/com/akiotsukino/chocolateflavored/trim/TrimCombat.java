@@ -41,10 +41,6 @@ public final class TrimCombat {
             if (source.is(DamageTypes.LIGHTNING_BOLT) && has(p, HEAD, "bolt")) amount = 0;
             if (source.is(DamageTypes.FLY_INTO_WALL) && has(p, HEAD, "spire")) amount *= .25f;
             if (source.is(DamageTypes.HOT_FLOOR) && has(p, FEET, "rib")) amount = 0;
-            if(source.is(DamageTypes.LAVA) && has(p,CHEST,"rib")) {
-                if(TrimTriggers.ready(p,"rib") && !p.getPersistentData().getBooleanOr(TrimTriggers.key("in_lava"),false)){TrimTriggers.start(p,"rib",600);TrimTriggers.duration(p,"lava",100);}
-                if(TrimTriggers.active(p,"lava"))amount=0;
-            }
             if (source.is(DamageTypeTags.IS_FALL)) {
                 if (trail(p, FEET) && p.fallDistance <= 5) amount = 0;
                 if (has(p, FEET, "spire")) amount *= .5f;
@@ -88,7 +84,7 @@ public final class TrimCombat {
         if (hits < 5 || !(p.level() instanceof ServerLevel level)) return;
         if (storm(p)) {
             var bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
-            if (bolt != null) { bolt.setPos(e.getEntity().position()); if (p instanceof net.minecraft.server.level.ServerPlayer sp) bolt.setCause(sp); level.addFreshEntity(bolt); }
+            if (bolt != null) { bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"), true); bolt.setPos(e.getEntity().position()); if (p instanceof net.minecraft.server.level.ServerPlayer sp) bolt.setCause(sp); level.addFreshEntity(bolt); }
         } else if (e.getEntity().isAlive()) {
             DISCHARGING.set(true);
             try { e.getEntity().hurtServer(level, new DamageSource(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getOrThrow(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,id("static_discharge"))),p), 2); } finally { DISCHARGING.remove(); }

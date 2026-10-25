@@ -23,6 +23,7 @@ public final class TrimAttributes {
         var old = event.getOriginal().getPersistentData();
         var data = event.getEntity().getPersistentData();
         for (String ability : TrimTriggers.COOLDOWNS) data.putLong(TrimTriggers.key(ability), old.getLongOr(TrimTriggers.key(ability), 0));
+        data.putBoolean(TrimTriggers.key("refined_cooldowns"), old.getBooleanOr(TrimTriggers.key("refined_cooldowns"), false));
         update(event.getEntity());
         if(!event.isWasDeath())event.getEntity().setHealth(Math.min(event.getOriginal().getHealth(),event.getEntity().getMaxHealth()));
     }
@@ -38,6 +39,7 @@ public final class TrimAttributes {
         modifier(p, Attributes.SUBMERGED_MINING_SPEED, "aqua", has(p, HEAD, "tide") ? existingAqua(p) : 0, Operation.ADD_MULTIPLIED_TOTAL);
         modifier(p, Attributes.BURNING_TIME, "fire_protection", full(p,"rib") ? -.6 : 0, Operation.ADD_MULTIPLIED_BASE);
         modifier(p, Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, "blast_protection", has(p,CHEST,"flow") ? .3 : 0, Operation.ADD_VALUE);
+        modifier(p, Attributes.OXYGEN_BONUS, "oxygen", has(p, CHEST, "tide") ? 8 : 0, Operation.ADD_VALUE);
         var below = p.level().getBlockState(p.getBlockPosBelowThatAffectsMyMovement());
         double speed = has(p, HEAD, "wild") ? .2 : 0;
         if (has(p, FEET, "snout") && p.level().dimension() == Level.NETHER) speed += .15;

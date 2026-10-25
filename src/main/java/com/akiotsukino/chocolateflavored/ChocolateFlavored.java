@@ -53,6 +53,7 @@ public class ChocolateFlavored {
         com.akiotsukino.chocolateflavored.dye.DyedWood.register(modEventBus);
         com.akiotsukino.chocolateflavored.equipment.SteelContent.register(modEventBus);
         com.akiotsukino.chocolateflavored.trim.TrimBasalt.register();
+        modEventBus.addListener(com.akiotsukino.chocolateflavored.trim.TrimOutlinePayload::register);
         ModContent.register(modEventBus);
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);

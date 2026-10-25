@@ -32,7 +32,8 @@ for ((attempt=0; attempt<120; attempt++)); do
        grep -q CAKE_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&\
        grep -q DYED_WOOD_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&\
        grep -q STEEL_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&\
-       grep -q TRIM_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
+       grep -q TRIM_CLIENT_VERIFICATION_PASSED run/logs/latest.log &&\
+       grep -q TRIM_OUTLINE_CLIENT_VERIFICATION_PASSED run/logs/latest.log; then
         # Keep the client alive past resource loading, and capture the display.
         sleep 20
         kill -0 "$client_pid"
