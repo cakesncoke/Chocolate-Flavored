@@ -25,7 +25,7 @@ import org.joml.Vector3f;
 public final class TrimOutlines {
     private static final RenderPipeline PIPELINE = RenderPipeline.builder(EntityPipelineAccessor.chocolateflavored$linesSnippet())
             .withLocation(TrimAbilities.id("pipeline/eye_outline"))
-            .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS, false)).build();
+            .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false)).build();
     private static final RenderType LINES = TrimRenderTypeInvoker.chocolateflavored$create("chocolateflavored_eye_outline", RenderSetup.builder(PIPELINE).createRenderSetup());
     private static final ContextKey<List<Vec3>> OUTLINES = new ContextKey<>(TrimAbilities.id("eye_outlines"));
     private static List<BlockPos> positions = List.of();
