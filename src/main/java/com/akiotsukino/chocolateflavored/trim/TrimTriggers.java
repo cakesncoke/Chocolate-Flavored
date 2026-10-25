@@ -34,8 +34,23 @@ public final class TrimTriggers {
     }
     public static void duration(Player p, String ability, int ticks) { p.getPersistentData().putLong(key(ability), clock(p) + ticks); }
     public static void start(Player p, String ability, int ticks) {
+        migrateCooldowns(p);
         duration(p, ability, ticks);
         p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), ticks);
+    }
+    public static void migrateCooldowns(Player p) {
+        var data = p.getPersistentData();
+        if (data.getBooleanOr(key("refined_cooldowns"), false)) return;
+        data.putBoolean(key("refined_cooldowns"), true);
+        long oldDeadline = data.getLongOr(key("eye"), 0);
+        if (oldDeadline > clock(p)) {
+            long remaining = Math.min(2400, Math.max(0, oldDeadline - clock(p) - 9600));
+            data.putLong(key("eye"), clock(p) + remaining);
+            p.getCooldowns().removeCooldown(id("trim_cooldown/eye"));
+            if (remaining > 0) p.getCooldowns().addCooldown(id("trim_cooldown/eye"), (int)Math.min(2400, remaining));
+        }
+        p.getCooldowns().removeCooldown(id("trim_cooldown/rib"));
+        data.remove(key("rib")); data.remove(key("lava")); data.remove(key("in_lava"));
     }
     public static boolean resurrect(LivingEntity entity, DamageSource source) {
         if (!(entity instanceof ServerPlayer p) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || !full(p, "vex")) return false;
@@ -57,6 +72,7 @@ public final class TrimTriggers {
     }
     @SubscribeEvent public static void tick(PlayerTickEvent.Post event) {
         if (!(event.getEntity() instanceof ServerPlayer p)) return;
+        migrateCooldowns(p);
         TrimHighlights.expire(p);
         if(!p.isAlive() || p.isSpectator())return;
         var data = p.getPersistentData();

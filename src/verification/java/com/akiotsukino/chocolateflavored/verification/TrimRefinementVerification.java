@@ -17,6 +17,10 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 final class TrimRefinementVerification {
     static void run(ServerLevel level, FakePlayer player) {
         try {
+            player.getPersistentData().putBoolean(TrimTriggers.key("refined_cooldowns"),false);
+            player.getPersistentData().putLong(TrimTriggers.key("eye"),TrimTriggers.clock(player)+11000);
+            TrimTriggers.migrateCooldowns(player);
+            check(player.getPersistentData().getLongOr(TrimTriggers.key("eye"),0)-TrimTriggers.clock(player)==1400,"Old cooldown retains elapsed time under new two-minute limit");
             fireResistance(level, player);
             collision(level, player);
             swimming(level, player);
@@ -89,12 +93,17 @@ final class TrimRefinementVerification {
         TrimBasalt.reset(p);p.setOnGround(false);
     }
     private static void lightning(ServerLevel level) throws ReflectiveOperationException {
+        var rule=net.minecraft.world.level.gamerules.GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER;
+        int previous=level.getGameRules().get(rule);
+        level.getGameRules().set(rule,-1,level.getServer());
+        try {
         BlockPos pos=new BlockPos(410,161,0);level.setBlockAndUpdate(pos.below(),Blocks.STONE.defaultBlockState());level.removeBlock(pos,false);
         var bolt=EntityType.LIGHTNING_BOLT.create(level,EntitySpawnReason.TRIGGERED);bolt.setPos(Vec3.atBottomCenterOf(pos));
         var fire=LightningBolt.class.getDeclaredMethod("spawnFire",int.class);fire.setAccessible(true);
         bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"),true);fire.invoke(bolt,4);check(level.getBlockState(pos).isAir(),"Trim bolt does not ignite");
         bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"),false);fire.invoke(bolt,0);check(level.getBlockState(pos).is(Blocks.FIRE),"Natural lightning ignition unchanged");
         level.removeBlock(pos,false);level.removeBlock(pos.below(),false);
+        } finally { level.getGameRules().set(rule,previous,level.getServer()); }
     }
     private static void check(boolean condition,String description) { if(!condition)throw new IllegalStateException("Trim refinement: "+description); }
 }

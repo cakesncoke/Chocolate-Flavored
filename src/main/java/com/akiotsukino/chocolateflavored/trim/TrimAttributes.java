@@ -23,6 +23,7 @@ public final class TrimAttributes {
         var old = event.getOriginal().getPersistentData();
         var data = event.getEntity().getPersistentData();
         for (String ability : TrimTriggers.COOLDOWNS) data.putLong(TrimTriggers.key(ability), old.getLongOr(TrimTriggers.key(ability), 0));
+        data.putBoolean(TrimTriggers.key("refined_cooldowns"), old.getBooleanOr(TrimTriggers.key("refined_cooldowns"), false));
         update(event.getEntity());
         if(!event.isWasDeath())event.getEntity().setHealth(Math.min(event.getOriginal().getHealth(),event.getEntity().getMaxHealth()));
     }
