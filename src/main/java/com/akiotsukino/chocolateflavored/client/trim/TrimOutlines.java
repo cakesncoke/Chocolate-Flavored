@@ -32,13 +32,16 @@ public final class TrimOutlines {
     private static List<BlockPos> positions = List.of();
     private static ClientLevel world;
     private static long until;
+    private static boolean archaeology;
 
     @SubscribeEvent public static void pipelines(RegisterRenderPipelinesEvent event) { event.registerPipeline(PIPELINE); }
     @SubscribeEvent public static void payloads(RegisterClientPayloadHandlersEvent event) {
         event.register(TrimOutlinePayload.TYPE, (payload, context) -> {
+            if (payload.positions().isEmpty() && payload.archaeology() != archaeology) return;
+            archaeology = payload.archaeology();
             world = Minecraft.getInstance().level;
             positions = payload.positions();
-            until = world == null ? 0 : world.getGameTime() + TrimOutlinePayload.DURATION_TICKS;
+            until = world == null ? 0 : world.getGameTime() + payload.durationTicks();
         });
     }
     @SubscribeEvent public static void extract(ExtractLevelRenderStateEvent event) {
@@ -51,7 +54,7 @@ public final class TrimOutlines {
         Vec3 camera = event.getRenderState().cameraRenderState.pos;
         // Rendering consumes an immutable camera-relative snapshot, never the live level.
         event.getRenderState().setRenderData(OUTLINES, positions.stream()
-                .filter(pos -> event.getLevel().getBlockState(pos).is(TrimAbilities.ORES))
+                .filter(pos -> archaeology ? event.getLevel().getBlockEntity(pos) instanceof net.minecraft.world.level.block.entity.BrushableBlockEntity : event.getLevel().getBlockState(pos).is(TrimAbilities.ORES))
                 .map(pos -> Vec3.atLowerCornerOf(pos).subtract(camera)).toList());
     }
     @SubscribeEvent public static void submit(SubmitCustomGeometryEvent event) {

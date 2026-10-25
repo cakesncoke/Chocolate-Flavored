@@ -15,7 +15,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TrimOutlineClientVerification {
     private static int ticks;
-    private static boolean setup, requested, durationChecked, completed;
+    private static boolean setup, requested, durationChecked;
+    public static boolean completed;
     private static long received = -1;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
