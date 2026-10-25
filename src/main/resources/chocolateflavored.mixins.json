@@ -50,7 +50,9 @@
     "TrimBowMixin",
     "TrimPlayerEquipmentMixin",
     "TrimCooldownMixin",
-    "TrimCooldownInstanceAccessor"
+    "TrimCooldownInstanceAccessor",
+    "TrimLightningMixin",
+    "TrimCollisionContextMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -63,6 +65,7 @@
     "PastelBoatMixin",
     "BlockEntityRenderStateAccessor",
     "TrimLocalPlayerMixin",
-    "TrimBowVisualMixin"
+    "TrimBowVisualMixin",
+    "TrimRenderTypeInvoker"
   ]
 }

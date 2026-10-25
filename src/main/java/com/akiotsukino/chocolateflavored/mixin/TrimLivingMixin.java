@@ -20,6 +20,7 @@ abstract class TrimLivingMixin {
     @Unique private MobEffectInstance cf$virtual(Holder<MobEffect> effect) {
         LivingEntity e = cf$self();
         if (!(e instanceof Player p)) return null;
+        if (effect == MobEffects.FIRE_RESISTANCE && has(p, CHEST, "rib") && p.level().dimension() == net.minecraft.world.level.Level.NETHER) return new MobEffectInstance(effect, -1, 0, false, false, false);
         if (effect == MobEffects.NIGHT_VISION && has(p, HEAD, "eye") && p.getY() < 0) return new MobEffectInstance(effect, 400, 0, false, false, false);
         if (effect == MobEffects.DOLPHINS_GRACE && has(p, LEGS, "tide") && p.isUnderWater()) return new MobEffectInstance(effect, 400, 0, false, false, false);
         if (effect == MobEffects.LEVITATION && full(p, "spire") && !p.onGround() && p.isShiftKeyDown() && !p.isPassenger()) return new MobEffectInstance(effect, 400, 0, false, false, false);
@@ -65,7 +66,7 @@ abstract class TrimLivingMixin {
     @Inject(method="travelInFluid", at=@At("HEAD"), cancellable=true)
     private void cf$walkWater(Vec3 input, CallbackInfo ci) {
         var e = cf$self();
-        if (has(e, FEET, "tide") && e.isInWater() && !e.isSwimming()) { travelInAir(input); ci.cancel(); }
+        if (has(e, FEET, "tide") && e.isInWater() && e.onGround()) { travelInAir(input); ci.cancel(); }
     }
     @ModifyVariable(method="travelInAir", at=@At("HEAD"), argsOnly=true)
     private Vec3 cf$levitationControl(Vec3 input) { var e = cf$self(); return has(e, LEGS, "spire") && e.hasEffect(MobEffects.LEVITATION) ? input.multiply(1.5, 1, 1.5) : input; }

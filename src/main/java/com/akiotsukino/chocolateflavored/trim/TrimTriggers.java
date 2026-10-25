@@ -19,11 +19,11 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 
 @EventBusSubscriber(modid = ChocolateFlavored.MODID)
 public final class TrimTriggers {
-    public static final String[] COOLDOWNS = {"vex", "rib", "sentry", "eye"};
+    public static final String[] COOLDOWNS = {"vex", "sentry", "eye"};
     public static boolean cooldownApplies(ItemStack stack,String ability) {
         if(!pattern(stack).equals("minecraft:"+ability))return false;
         var equipped=stack.get(DataComponents.EQUIPPABLE);if(equipped==null)return false;
-        return switch(ability){case "vex"->equipped.slot()==FEET;case "rib"->equipped.slot()==CHEST;default->true;};
+        return switch(ability){case "vex"->equipped.slot()==FEET;default->true;};
     }
     public static String key(String ability) { return "chocolateflavored:trim/" + ability; }
     public static long clock(Player p) { return p.level() instanceof ServerLevel l ? l.getServer().overworld().getGameTime() : p.level().getGameTime(); }
@@ -60,9 +60,6 @@ public final class TrimTriggers {
         TrimHighlights.expire(p);
         if(!p.isAlive() || p.isSpectator())return;
         var data = p.getPersistentData();
-        boolean lava = p.isInLava();
-        if (lava && !data.getBooleanOr(key("in_lava"), false) && has(p, CHEST, "rib") && ready(p, "rib")) { start(p, "rib", 600); duration(p, "lava", 100); }
-        data.putBoolean(key("in_lava"), lava);
         if (p.onGround() && !p.isInWater() && !p.isInLava()) data.putBoolean(key("flow_used"), false);
         boolean crouch = p.isShiftKeyDown();
         boolean edge = crouch && !data.getBooleanOr(key("crouching"), false);
@@ -78,10 +75,10 @@ public final class TrimTriggers {
                 mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0, false, false, false));
         }
         if (edge && full(p, "eye") && p.getMainHandItem().is(net.minecraft.tags.ItemTags.PICKAXES) && ready(p, "eye")) {
-            start(p, "eye", 12000); TrimHighlights.scan(p, false);
+            start(p, "eye", 2400); TrimHighlights.scan(p, false);
         }
         if (p.tickCount % 20 == 0 && full(p, "dune") && (p.getMainHandItem().is(Items.BRUSH) || p.getOffhandItem().is(Items.BRUSH))) TrimHighlights.scan(p, true);
-        if (has(p, FEET, "rib")) TrimBasalt.walk(p);
+        if (has(p, FEET, "rib")) TrimBasalt.walk(p); else TrimBasalt.reset(p);
         // Native cooldown packets are restored after reconnects/equipment changes without item mutation.
         if (p.tickCount % 20 == 0) for (String ability : COOLDOWNS) if (!ready(p, ability)) for (var slot : ARMOR)
             if (cooldownApplies(p.getItemBySlot(slot), ability) && p.getCooldowns().getCooldownPercent(p.getItemBySlot(slot),0)==0) p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), (int)Math.min(Integer.MAX_VALUE, data.getLongOr(key(ability), 0) - clock(p)));

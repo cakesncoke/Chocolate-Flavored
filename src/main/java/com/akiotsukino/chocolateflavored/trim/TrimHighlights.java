@@ -9,12 +9,13 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import com.akiotsukino.chocolateflavored.mixin.TrimDisplayAccessor;
 import static com.akiotsukino.chocolateflavored.trim.TrimAbilities.*;
-/** Client-only native displays: no blocks/entities are added to the server world. */
+/** Server-selected Eye borders and client-only Dune displays; no server world entities. */
 public final class TrimHighlights {
     private record View(int[] ids,long until,boolean archaeology,net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension) {}
     private static final Map<ServerPlayer,List<View>> VIEWS=new WeakHashMap<>();
     public static void scan(ServerPlayer p,boolean archaeology) {
-        if (archaeology) clear(p,true);
+        clear(p, archaeology);
+        var outlines = new ArrayList<BlockPos>();
         var ids=new ArrayList<Integer>(); BlockPos center=p.blockPosition();
         Iterable<BlockPos> candidates;
         if(archaeology){
@@ -29,6 +30,7 @@ public final class TrimHighlights {
             if (pos.distSqr(center)>256 || !p.level().hasChunkAt(pos)) continue;
             var state=p.level().getBlockState(pos);
             if (archaeology ? !(p.level().getBlockEntity(pos) instanceof BrushableBlockEntity) : !state.is(ORES) || !p.getMainHandItem().isCorrectToolForDrops(state)) continue;
+            if (!archaeology) { outlines.add(pos.immutable()); continue; }
             Display.BlockDisplay display=new Display.BlockDisplay(EntityType.BLOCK_DISPLAY,p.level());
             display.setPos(Vec3.atLowerCornerOf(pos)); display.setGlowingTag(true);
             ((TrimDisplayAccessor)display).chocolateflavored$state(state);
@@ -37,17 +39,22 @@ public final class TrimHighlights {
             if(values!=null) p.connection.send(new ClientboundSetEntityDataPacket(display.getId(),values));
             ids.add(display.getId());
         }
+        if (!archaeology) net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new TrimOutlinePayload(outlines));
         VIEWS.computeIfAbsent(p,k->new ArrayList<>()).add(new View(ids.stream().mapToInt(Integer::intValue).toArray(),TrimTriggers.clock(p)+(archaeology?22:200),archaeology,p.level().dimension()));
+    }
+    private static void remove(ServerPlayer p, View view) {
+        if (view.archaeology) p.connection.send(new ClientboundRemoveEntitiesPacket(view.ids));
+        else net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p, new TrimOutlinePayload(List.of()));
     }
     private static void clear(ServerPlayer p,boolean archaeology) {
         var list=VIEWS.get(p);if(list==null)return;
-        list.removeIf(v->{ if(v.archaeology==archaeology){p.connection.send(new ClientboundRemoveEntitiesPacket(v.ids));return true;}return false;});
+        list.removeIf(v->{ if(v.archaeology==archaeology){remove(p, v);return true;}return false;});
     }
-    public static void clearAll(ServerPlayer p){var list=VIEWS.remove(p);if(list!=null)for(var view:list)p.connection.send(new ClientboundRemoveEntitiesPacket(view.ids));}
+    public static void clearAll(ServerPlayer p){var list=VIEWS.remove(p);if(list!=null)for(var view:list)remove(p, view);}
     public static void expire(ServerPlayer p) {
         var list=VIEWS.get(p);if(list==null)return;
         list.removeIf(v->{boolean valid=v.archaeology?full(p,"dune") && (p.getMainHandItem().is(net.minecraft.world.item.Items.BRUSH)||p.getOffhandItem().is(net.minecraft.world.item.Items.BRUSH)):full(p,"eye");
-            if(!p.isAlive() || !valid || v.until<=TrimTriggers.clock(p) || v.dimension!=p.level().dimension()){p.connection.send(new ClientboundRemoveEntitiesPacket(v.ids));return true;}return false;});
+            if(!p.isAlive() || !valid || v.until<=TrimTriggers.clock(p) || v.dimension!=p.level().dimension()){remove(p, v);return true;}return false;});
     }
     private TrimHighlights() {}
 }

@@ -5,5 +5,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(RenderPipelines.class)
 public interface EntityPipelineAccessor {
+ @Accessor("LINES_SNIPPET") static RenderPipeline.Snippet chocolateflavored$linesSnippet(){throw new AssertionError();}
  @Accessor("ENTITY_SNIPPET") static RenderPipeline.Snippet chocolateflavored$entitySnippet(){throw new AssertionError();}
 }

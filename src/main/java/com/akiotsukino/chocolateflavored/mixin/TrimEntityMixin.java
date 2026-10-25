@@ -12,6 +12,4 @@ abstract class TrimEntityMixin {
             p.setSwimming(false);ci.cancel();
         }
     }
-    @Inject(method="getMaxAirSupply", at=@At("RETURN"), cancellable=true)
-    private void cf$air(CallbackInfoReturnable<Integer> cir) { if ((Object)this instanceof LivingEntity e && e.getAttributes() != null && has(e, EquipmentSlot.CHEST, "tide")) cir.setReturnValue(cir.getReturnValue() + (full(e, "tide") ? 2400 : 1200)); }
 }
