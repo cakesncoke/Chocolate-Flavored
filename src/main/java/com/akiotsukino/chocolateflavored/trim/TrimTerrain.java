@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID)
 public final class TrimTerrain {
-    @SubscribeEvent public static void placed(BlockEvent.EntityPlaceEvent e){if(e.getLevel().getBlockState(e.getPos().below()).is(TrimBasalt.BLOCK.get()))e.setCanceled(true);}
+    @SubscribeEvent public static void placed(BlockEvent.EntityPlaceEvent e){if(e.getPlacedAgainst().is(TrimBasalt.BLOCK.get()) || e.getLevel().getBlockState(e.getPos().below()).is(TrimBasalt.BLOCK.get()))e.setCanceled(true);}
     @SubscribeEvent public static void mount(EntityTickEvent.Pre e){
         if(e.getEntity() instanceof LivingEntity mount && mount.is(TrimAbilities.CAMELS) && !mount.level().isClientSide()){
             var p=TrimAbilities.rider(mount);

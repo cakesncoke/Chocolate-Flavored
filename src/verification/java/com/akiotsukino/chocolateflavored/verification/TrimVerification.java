@@ -44,7 +44,11 @@ final class TrimVerification {
             set(l,p,pattern);check(TrimAbilities.full(p,pattern),"mixed armor/material full set: "+pattern);
             for(var slot:TrimAbilities.ARMOR){var saved=p.getItemBySlot(slot);p.setItemSlot(slot,ItemStack.EMPTY);check(!TrimAbilities.full(p,pattern),"missing slot "+pattern+slot);p.setItemSlot(slot,saved);}
         }
-        set(l,p,"ward");for(int i=0;i<10;i++)TrimAttributes.update(p);check(p.getMaxHealth()==base+10,"Ward idempotence");p.setHealth(p.getMaxHealth());clear(p);check(p.getMaxHealth()==base && p.getHealth()==base,"Ward removal caps current health");
+        set(l,p,"ward");for(int i=0;i<10;i++)TrimAttributes.update(p);check(p.getMaxHealth()==base+10,"Ward idempotence");p.setHealth(p.getMaxHealth());
+        var out=net.minecraft.world.level.storage.TagValueOutput.createWithContext(net.minecraft.util.ProblemReporter.DISCARDING,l.registryAccess());p.saveWithoutId(out);
+        var copy=new FakePlayer(l,new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(),"TrimReload"));copy.load(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING,l.registryAccess(),out.buildResult()));
+        check(copy.getMaxHealth()==30 && copy.getHealth()==30,"Ward health survives actual save/load without duplicate attributes");
+        clear(p);check(p.getMaxHealth()==base && p.getHealth()==base,"Ward removal caps current health");
         set(l,p,"wayfinder");check(p.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==7.5,"Trail reach +3");p.setItemSlot(FEET,armor(l,Items.LEATHER_BOOTS,"host","gold"));TrimAttributes.update(p);check(!TrimAbilities.trailFull(p)&&p.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==5.5,"Mixed Trail patterns no full set");
         set(l,p,"wild");check(Math.abs(p.getAttributeValue(Attributes.STEP_HEIGHT)-1)<.00001,"Wild step height");check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().fall())==6,"Intrinsic Feather Falling II");
         p.getItemBySlot(FEET).enchant(l.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FEATHER_FALLING),4);check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().fall())==18,"Feather Falling stacks in native protection input");
@@ -59,7 +63,7 @@ final class TrimVerification {
         check(p.getHealth()==1 && p.hasEffect(MobEffects.REGENERATION)&&p.hasEffect(MobEffects.FIRE_RESISTANCE),"Native Totem effects");
         check(!TrimTriggers.resurrect(p,p.damageSources().fellOutOfWorld()),"No void resurrection");
         p.getItemBySlot(HEAD).setDamageValue(p.getItemBySlot(HEAD).getMaxDamage()-1);int chestDamage=p.getItemBySlot(CHEST).getDamageValue();check(!TrimTriggers.resurrect(p,damage)&&p.getItemBySlot(CHEST).getDamageValue()==chestDamage,"Unaffordable resurrection has no partial costs");
-        TrimTriggers.start(p,"vex",600);clear(p);set(l,p,"vex");check(!TrimTriggers.ready(p,"vex"),"Cooldown survives equipment swapping");p.removeAllEffects();p.setHealth(20);
+        TrimTriggers.start(p,"vex",600);check(p.getCooldowns().getCooldownPercent(p.getItemBySlot(FEET),0)>0 && !p.getCooldowns().isOnCooldown(p.getItemBySlot(FEET)),"Trim overlay never blocks ordinary armor equipping");clear(p);set(l,p,"vex");check(!TrimTriggers.ready(p,"vex"),"Cooldown survives equipment swapping");p.removeAllEffects();p.setHealth(20);
         set(l,p,"eye");BlockPos start=new BlockPos(320,160,0);
         for(int i=0;i<20;i++)l.setBlockAndUpdate(start.east(i),Blocks.DEEPSLATE_IRON_ORE.defaultBlockState());
         p.setItemSlot(MAINHAND,new ItemStack(Items.IRON_PICKAXE));p.gameMode.destroyBlock(start);

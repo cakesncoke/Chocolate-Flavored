@@ -43,10 +43,11 @@ public final class TrimHighlights {
         var list=VIEWS.get(p);if(list==null)return;
         list.removeIf(v->{ if(v.archaeology==archaeology){p.connection.send(new ClientboundRemoveEntitiesPacket(v.ids));return true;}return false;});
     }
+    public static void clearAll(ServerPlayer p){var list=VIEWS.remove(p);if(list!=null)for(var view:list)p.connection.send(new ClientboundRemoveEntitiesPacket(view.ids));}
     public static void expire(ServerPlayer p) {
         var list=VIEWS.get(p);if(list==null)return;
         list.removeIf(v->{boolean valid=v.archaeology?full(p,"dune") && (p.getMainHandItem().is(net.minecraft.world.item.Items.BRUSH)||p.getOffhandItem().is(net.minecraft.world.item.Items.BRUSH)):full(p,"eye");
-            if(!valid || v.until<=TrimTriggers.clock(p) || v.dimension!=p.level().dimension()){p.connection.send(new ClientboundRemoveEntitiesPacket(v.ids));return true;}return false;});
+            if(!p.isAlive() || !valid || v.until<=TrimTriggers.clock(p) || v.dimension!=p.level().dimension()){p.connection.send(new ClientboundRemoveEntitiesPacket(v.ids));return true;}return false;});
     }
     private TrimHighlights() {}
 }

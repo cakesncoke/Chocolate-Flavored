@@ -19,11 +19,14 @@ public final class TrimAttributes {
     @SubscribeEvent public static void tick(PlayerTickEvent.Pre event) { if (!event.getEntity().level().isClientSide()) update(event.getEntity()); }
     @SubscribeEvent public static void equipment(LivingEquipmentChangeEvent event) { if (event.getEntity() instanceof Player p && !p.level().isClientSide()) update(p); }
     @SubscribeEvent public static void clone(PlayerEvent.Clone event) {
+        if(event.getOriginal() instanceof net.minecraft.server.level.ServerPlayer original)TrimHighlights.clearAll(original);
         var old = event.getOriginal().getPersistentData();
         var data = event.getEntity().getPersistentData();
         for (String ability : TrimTriggers.COOLDOWNS) data.putLong(TrimTriggers.key(ability), old.getLongOr(TrimTriggers.key(ability), 0));
         update(event.getEntity());
+        if(!event.isWasDeath())event.getEntity().setHealth(Math.min(event.getOriginal().getHealth(),event.getEntity().getMaxHealth()));
     }
+    @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent event){if(event.getEntity() instanceof net.minecraft.server.level.ServerPlayer p)TrimHighlights.clearAll(p);}
     public static void update(Player p) {
         if(has(p,HEAD,"dune")){p.removeEffect(net.minecraft.world.effect.MobEffects.BLINDNESS);p.removeEffect(net.minecraft.world.effect.MobEffects.DARKNESS);}
         int ward = 0; for (var slot : ARMOR) if (has(p, slot, "ward")) ward++;

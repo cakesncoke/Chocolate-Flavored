@@ -13,11 +13,14 @@ abstract class TrimVillagerMixin {
     @Unique private final Map<MerchantOffer,Integer> cf$prices=new IdentityHashMap<>();
     @Unique private void cf$apply(Player p){
         var villager=(Villager)(Object)this;
+        boolean changed=false;
         for(var offer:villager.getOffers()){
             offer.addToSpecialPriceDiff(-cf$prices.getOrDefault(offer,0));
             int extra=full(p,"vex")?(int)Math.ceil(offer.getCostA().getCount()*.25):0;
+            if(extra!=cf$prices.getOrDefault(offer,0))changed=true;
             offer.addToSpecialPriceDiff(extra);cf$prices.put(offer,extra);
         }
+        if(changed && villager.getTradingPlayer()==p && p instanceof net.minecraft.server.level.ServerPlayer sp)sp.sendMerchantOffers(sp.containerMenu.containerId,villager.getOffers(),villager.getVillagerData().level(),villager.getVillagerXp(),villager.showProgressBar(),villager.canRestock());
     }
     @Inject(method="updateSpecialPrices",at=@At("TAIL")) private void cf$open(Player p,CallbackInfo ci){cf$apply(p);}
     @Inject(method="resetSpecialPrices",at=@At("TAIL")) private void cf$reset(CallbackInfo ci){cf$prices.clear();}

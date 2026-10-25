@@ -118,3 +118,7 @@ Iron equipment now displays as steel using the supplied textures while retaining
 ### Deepslate Hammer and ore piles
 
 The Iron Hammer is now the Deepslate Hammer, with stone-pickaxe mining speed and expanded stone/deepslate/ore conversions. Gold Ore Pile is available, and vanilla flint can be spent on primitive stone conversions. See [the exact drops and migration rules](docs/deepslate-mining.md).
+
+## Intrinsic armor trims
+
+All 18 vanilla trim patterns now grant per-piece and exact-pattern full-set abilities. Gold trim additionally counts as Piglin-safe armor. See [armor trim behavior, stacking, datapack tags and verification limits](docs/armor-trims.md) and the [complete feature specification](docs/armor-trims-spec.md). No additional mod is required.

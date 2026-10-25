@@ -47,7 +47,10 @@
     "TrimMiningMixin",
     "TrimCrossbowMixin",
     "TrimLootItemRandomChanceWithEnchantedBonusConditionMixin",
-    "TrimBowMixin"
+    "TrimBowMixin",
+    "TrimPlayerEquipmentMixin",
+    "TrimCooldownMixin",
+    "TrimCooldownInstanceAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -59,6 +62,7 @@
     "PastelSignMixin",
     "PastelBoatMixin",
     "BlockEntityRenderStateAccessor",
-    "TrimLocalPlayerMixin"
+    "TrimLocalPlayerMixin",
+    "TrimBowVisualMixin"
   ]
 }

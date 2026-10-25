@@ -30,7 +30,7 @@ public final class TrimTriggers {
     public static void duration(Player p, String ability, int ticks) { p.getPersistentData().putLong(key(ability), clock(p) + ticks); }
     public static void start(Player p, String ability, int ticks) {
         duration(p, ability, ticks);
-        for (var slot : ARMOR) if (has(p, slot, ability)) p.getCooldowns().addCooldown(p.getItemBySlot(slot), ticks);
+        p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), ticks);
     }
     public static boolean resurrect(LivingEntity entity, DamageSource source) {
         if (!(entity instanceof ServerPlayer p) || source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) || !full(p, "vex")) return false;
@@ -51,7 +51,9 @@ public final class TrimTriggers {
         return true;
     }
     @SubscribeEvent public static void tick(PlayerTickEvent.Post event) {
-        if (!(event.getEntity() instanceof ServerPlayer p) || !p.isAlive() || p.isSpectator()) return;
+        if (!(event.getEntity() instanceof ServerPlayer p)) return;
+        TrimHighlights.expire(p);
+        if(!p.isAlive() || p.isSpectator())return;
         var data = p.getPersistentData();
         boolean lava = p.isInLava();
         if (lava && !data.getBooleanOr(key("in_lava"), false) && has(p, CHEST, "rib") && ready(p, "rib")) { start(p, "rib", 600); duration(p, "lava", 100); }
@@ -74,11 +76,10 @@ public final class TrimTriggers {
             start(p, "eye", 12000); TrimHighlights.scan(p, false);
         }
         if (p.tickCount % 20 == 0 && full(p, "dune") && (p.getMainHandItem().is(Items.BRUSH) || p.getOffhandItem().is(Items.BRUSH))) TrimHighlights.scan(p, true);
-        TrimHighlights.expire(p);
         if (has(p, FEET, "rib")) TrimBasalt.walk(p);
         // Native cooldown packets are restored after reconnects/equipment changes without item mutation.
         if (p.tickCount % 20 == 0) for (String ability : COOLDOWNS) if (!ready(p, ability)) for (var slot : ARMOR)
-            if (has(p, slot, ability) && !p.getCooldowns().isOnCooldown(p.getItemBySlot(slot))) p.getCooldowns().addCooldown(p.getItemBySlot(slot), (int)Math.min(Integer.MAX_VALUE, data.getLongOr(key(ability), 0) - clock(p)));
+            if (has(p, slot, ability) && p.getCooldowns().getCooldownPercent(p.getItemBySlot(slot),0)==0) p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), (int)Math.min(Integer.MAX_VALUE, data.getLongOr(key(ability), 0) - clock(p)));
         if (has(p, LEGS, "eye")) for (var item : p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3, 2.5, 3))) item.playerTouch(p);
     }
     public static boolean ranged(ItemStack stack) { return stack.getItem() instanceof BowItem || stack.getItem() instanceof CrossbowItem; }

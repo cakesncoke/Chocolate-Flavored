@@ -25,6 +25,16 @@ abstract class TrimLivingMixin {
         if (effect == MobEffects.LEVITATION && full(p, "spire") && !p.onGround() && p.isShiftKeyDown() && !p.isPassenger()) return new MobEffectInstance(effect, 400, 0, false, false, false);
         return null;
     }
+    @Inject(method="readAdditionalSaveData",at=@At("TAIL"))
+    private void cf$loadHealth(net.minecraft.world.level.storage.ValueInput input,CallbackInfo ci){
+        if(cf$self() instanceof Player p && !p.level().isClientSide()){
+            TrimAttributes.update(p);
+            // Native loading clamps Health before equipment is decoded; restore only the saved value.
+            p.setHealth(input.getFloatOr("Health",p.getHealth()));
+        }
+    }
+    @Inject(method="onEquippedItemBroken",at=@At("TAIL"))
+    private void cf$broken(net.minecraft.world.item.Item item,EquipmentSlot slot,CallbackInfo ci){if(cf$self() instanceof Player p && !p.level().isClientSide())TrimAttributes.update(p);}
     @Inject(method="hasEffect", at=@At("RETURN"), cancellable=true)
     private void cf$has(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) { if (cf$virtual(effect) != null) cir.setReturnValue(true); }
     @Inject(method="getEffect", at=@At("RETURN"), cancellable=true)
