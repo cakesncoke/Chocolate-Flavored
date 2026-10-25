@@ -20,6 +20,11 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 @EventBusSubscriber(modid = ChocolateFlavored.MODID)
 public final class TrimTriggers {
     public static final String[] COOLDOWNS = {"vex", "rib", "sentry", "eye"};
+    public static boolean cooldownApplies(ItemStack stack,String ability) {
+        if(!pattern(stack).equals("minecraft:"+ability))return false;
+        var equipped=stack.get(DataComponents.EQUIPPABLE);if(equipped==null)return false;
+        return switch(ability){case "vex"->equipped.slot()==FEET;case "rib"->equipped.slot()==CHEST;default->true;};
+    }
     public static String key(String ability) { return "chocolateflavored:trim/" + ability; }
     public static long clock(Player p) { return p.level() instanceof ServerLevel l ? l.getServer().overworld().getGameTime() : p.level().getGameTime(); }
     public static boolean ready(Player p, String ability) { return p.getPersistentData().getLongOr(key(ability), 0) <= clock(p); }
@@ -79,7 +84,7 @@ public final class TrimTriggers {
         if (has(p, FEET, "rib")) TrimBasalt.walk(p);
         // Native cooldown packets are restored after reconnects/equipment changes without item mutation.
         if (p.tickCount % 20 == 0) for (String ability : COOLDOWNS) if (!ready(p, ability)) for (var slot : ARMOR)
-            if (has(p, slot, ability) && p.getCooldowns().getCooldownPercent(p.getItemBySlot(slot),0)==0) p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), (int)Math.min(Integer.MAX_VALUE, data.getLongOr(key(ability), 0) - clock(p)));
+            if (cooldownApplies(p.getItemBySlot(slot), ability) && p.getCooldowns().getCooldownPercent(p.getItemBySlot(slot),0)==0) p.getCooldowns().addCooldown(id("trim_cooldown/"+ability), (int)Math.min(Integer.MAX_VALUE, data.getLongOr(key(ability), 0) - clock(p)));
         if (has(p, LEGS, "eye")) for (var item : p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3, 2.5, 3))) item.playerTouch(p);
     }
     public static boolean ranged(ItemStack stack) { return stack.getItem() instanceof BowItem || stack.getItem() instanceof CrossbowItem; }

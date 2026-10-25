@@ -19,7 +19,7 @@ abstract class TrimCooldownMixin {
     @Inject(method="getCooldownPercent",at=@At("RETURN"),cancellable=true)
     private void cf$overlay(ItemStack stack,float partial,CallbackInfoReturnable<Float> cir){
         String pattern=TrimAbilities.pattern(stack);
-        for(String ability:TrimTriggers.COOLDOWNS)if(pattern.equals("minecraft:"+ability))cir.setReturnValue(Math.max(cir.getReturnValue(),cf$percent(TrimAbilities.id("trim_cooldown/"+ability),partial)));
+        for(String ability:TrimTriggers.COOLDOWNS)if(TrimTriggers.cooldownApplies(stack,ability))cir.setReturnValue(Math.max(cir.getReturnValue(),cf$percent(TrimAbilities.id("trim_cooldown/"+ability),partial)));
     }
     @Redirect(method="isOnCooldown",at=@At(value="INVOKE",target="Lnet/minecraft/world/item/ItemCooldowns;getCooldownPercent(Lnet/minecraft/world/item/ItemStack;F)F"))
     private float cf$ordinaryUse(ItemCooldowns self,ItemStack stack,float partial){return cf$percent(self.getCooldownGroup(stack),partial);}

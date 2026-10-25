@@ -31,6 +31,7 @@ Cooldown deadlines use the server's monotonic Overworld game time, survive logou
 
 - Actual held death-protection items are tried first; Vex runs only if native protection did not activate. Each Vex payment is `ceil(max durability / 3)` and bypasses Unbreaking. All four payments are validated before any is charged. An exact final payment breaks that piece. Unbreakable/non-damageable armor cannot pay. Damage bypassing invulnerability (including the void) cannot activate Vex.
 - Spire gliding uses native glider selection and normal gliding wear. Full-set levitation has **no durability cost, duration limit or cooldown**. Fireworks cannot accelerate Spire gliding. Crouching switches from gliding to controlled levitation through the native movement path.
+- Tide boots keep surface walking/sprinting while grounded underwater. Jumping off the bottom permits the normal sprint-to-swim transition; ordinary non-sprinting jumps retain the land-style launch.
 - Speed and damage effects never confer entity attack reach. Trail reach modifies block interaction only.
 - Native target visibility is reduced; existing aggression, line-of-sight rules and the Warden's special detection remain intact. Silence suppresses movement/landing vibration events, not unrelated interactions.
 - Sentry's full-set highlighting uses native temporary Glowing on hostile mobs (visible to nearby clients, as ordinary Glowing is). Eye/Dune block reveals are private to their activating player, removed on expiry, equipment invalidation, death, dimension change or logout.
