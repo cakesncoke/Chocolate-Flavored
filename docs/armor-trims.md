@@ -11,7 +11,7 @@ The original specification (superseded by the refinements below for Rib, Tide, E
 - `TrimCombat`, `TrimTriggers`: damage, target-specific bonuses, kills, resurrection, cooldowns, lightning, wind bursts and triggered highlights.
 - `TrimMining`: bounded six-neighbor ore traversal through **the existing server game-mode break handler**. Initial and subsequent blocks count toward the 16-block limit; canceled blocks never bridge the traversal. The held tool must remain suitable. Stone and other non-ores never participate.
 - `TrimLoot`: target-scoped native Looting calculations and independent Ocean Salvage generation.
-- `TrimHighlights`: server-selected, textureless Eye border geometry sent only to the activating player; Dune retains native client-only block displays. No world block substitutions or server-side display entities. Eye scans occur only on activation; Dune scans the block-entity indexes of already-loaded nearby chunks once per second rather than scanning a block volume every tick.
+- `TrimHighlights`: server-selected, textureless Eye border geometry sent only to the activating player; Dune uses the same emissive border renderer for suspicious sand and gravel. No world block substitutions or display entities. Eye scans occur only on activation; Dune scans the block-entity indexes of already-loaded nearby chunks once per second rather than scanning a block volume every tick.
 - `ArchaeologyMemory` and `TrimArchaeologyMixin`: saved original loot identity, fresh second loot roll, and persistent spent world positions.
 - `TrimBasalt`, `TrimTerrain`: Frost Walker-style aging lava crust, native lava-level restoration, and mounted camel attributes.
 - `mixin/Trim*`: narrow hooks into the pinned native protection, movement, gliding, vibration, looting, fishing, archaeology, trading and item-use paths.
@@ -62,3 +62,5 @@ The complete existing dedicated-server and optional KubeJS suites also run, foll
 
 
 `TrimRefinementVerification` additionally exercises the native movement-packet collision validator, actual Nether lava damage, immediate oxygen attributes, airborne vanilla fluid motion, floor jumping, weak-basalt source/radius/aging/mining restoration, natural-versus-trim lightning ignition, and the Eye activation cooldown. The client fixture sends a real Eye payload and renders exposed and occluded ore borders in-world.
+
+Dune shares Eye’s bright core, layered glow and through-wall border geometry, preserving suspicious-block textures. Its existing loaded-chunk scan, 16-block range, brush requirement and once-per-second refresh remain unchanged. Dune packets expire after 22 ticks and are independent of Eye’s 30-second reveal.
