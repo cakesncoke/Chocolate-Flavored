@@ -21,6 +21,10 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 public final class TrimCombat {
     private static final ThreadLocal<Boolean> DISCHARGING = ThreadLocal.withInitial(() -> false);
     public static boolean hostile(Entity e) { return e instanceof Enemy; }
+    public static ItemStack weapon(DamageSource source) {
+        if (!source.is(DamageTypes.PLAYER_ATTACK) && !source.is(DamageTypes.MOB_ATTACK) && !source.is(DamageTypeTags.IS_PROJECTILE)) return ItemStack.EMPTY;
+        var direct=source.getDirectEntity();var stack=direct==null?null:direct.getWeaponItem();return stack==null?ItemStack.EMPTY:stack;
+    }
     public static float protection(LivingEntity p, DamageSource s) {
         float points = 0;
         if (has(p, FEET, "wild") && s.is(DamageTypeTags.IS_FALL)) points += 6;
@@ -36,7 +40,10 @@ public final class TrimCombat {
             if (source.is(DamageTypes.LIGHTNING_BOLT) && has(p, HEAD, "bolt")) amount = 0;
             if (source.is(DamageTypes.FLY_INTO_WALL) && has(p, HEAD, "spire")) amount *= .25f;
             if (source.is(DamageTypes.HOT_FLOOR) && has(p, FEET, "rib")) amount = 0;
-            if (source.is(DamageTypes.LAVA) && has(p, CHEST, "rib") && TrimTriggers.active(p, "lava")) amount = 0;
+            if(source.is(DamageTypes.LAVA) && has(p,CHEST,"rib")) {
+                if(TrimTriggers.ready(p,"rib") && !p.getPersistentData().getBooleanOr(TrimTriggers.key("in_lava"),false)){TrimTriggers.start(p,"rib",600);TrimTriggers.duration(p,"lava",100);}
+                if(TrimTriggers.active(p,"lava"))amount=0;
+            }
             if (source.is(DamageTypeTags.IS_FALL)) {
                 if (trail(p, FEET) && p.fallDistance <= 5) amount = 0;
                 if (has(p, FEET, "spire")) amount *= .5f;
@@ -45,7 +52,7 @@ public final class TrimCombat {
             }
             if (has(p, HEAD, "flow") && source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityType.WIND_CHARGE) amount = 0;
             if (source.getEntity() instanceof AbstractPiglin && has(p, CHEST, "snout")) amount *= .7f;
-            if (source.getEntity() instanceof LivingEntity attacker && attacker.getMainHandItem().is(BOLT_WEAPONS) && has(p, LEGS, "bolt")) amount *= .5f;
+            if (weapon(source).is(BOLT_WEAPONS) && has(p, LEGS, "bolt")) amount *= .5f;
         }
         if (!DISCHARGING.get() && source.getEntity() instanceof Player p) {
             double bonus = 0;
@@ -54,8 +61,9 @@ public final class TrimCombat {
                 if (victim.is(EntityTypeTags.ILLAGER) && has(p, CHEST, "vex")) bonus += .25;
                 if (victim instanceof Mob && has(p, CHEST, "silence")) bonus += full(p, "silence") ? .2 : .1;
                 if (p.isUnderWater() && full(p, "tide")) bonus += .5;
-                if (has(p, CHEST, "bolt") && p.getMainHandItem().is(BOLT_WEAPONS)) bonus += .2;
+
             }
+            if(has(p,CHEST,"bolt") && weapon(source).is(BOLT_WEAPONS))bonus+=.2;
             amount *= (float)(1 + bonus);
         }
         e.setAmount(amount);

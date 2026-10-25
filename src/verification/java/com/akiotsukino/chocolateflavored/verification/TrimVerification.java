@@ -69,8 +69,40 @@ final class TrimVerification {
         Consumer<BreakBlockEvent> protection=e->{if(e.getPos().equals(start.east()))e.setCanceled(true);};NeoForge.EVENT_BUS.addListener(EventPriority.HIGHEST,protection);
         try{p.gameMode.destroyBlock(start);check(l.getBlockState(start.east()).is(Blocks.COAL_ORE)&&l.getBlockState(start.east(2)).is(Blocks.COAL_ORE),"Protected ore stops traversal");}finally{NeoForge.EVENT_BUS.unregister(protection);}
         for(int i=0;i<20;i++)l.removeBlock(start.east(i),false);l.getEntitiesOfClass(ItemEntity.class,new AABB(start).inflate(25)).forEach(ItemEntity::discard);
+        mechanics(l,p);
         clear(p);p.setItemSlot(MAINHAND,ItemStack.EMPTY);p.setHealth(p.getMaxHealth());
         ChocolateFlavored.LOGGER.info("TRIM_VERIFICATION_PASSED: all 18 pattern/slot combinations, mixed materials, reach, Ward lifecycle, native protection and fishing, air, glider, gold neutrality, Dune immunity, Vex atomic costs, persistent cooldowns and native/protected 16-block vein mining");
+    }
+    private static float incoming(FakePlayer target,net.minecraft.world.damagesource.DamageSource source){
+        var event=new net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent(target,new net.neoforged.neoforge.common.damagesource.DamageContainer(source,20));TrimCombat.incoming(event);return event.getAmount();
+    }
+    private static void mechanics(ServerLevel l,FakePlayer p){
+        for(String pattern:List.of("sentry","dune")){set(l,p,pattern);var arrow=EntityType.ARROW.create(l,EntitySpawnReason.COMMAND);check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().arrow(arrow,p))==4,"Projectile protection II "+pattern);}
+        set(l,p,"rib");check(EnchantmentHelper.getDamageProtection(l,p,p.damageSources().inFire())==8,"Fire protection IV");check(Math.abs(p.getAttributeValue(Attributes.BURNING_TIME)-.4)<.00001,"Fire protection burn duration");
+        check(incoming(p,p.damageSources().lava())==0,"First lava hit protected");p.getPersistentData().putLong(TrimTriggers.key("lava"),0);check(incoming(p,p.damageSources().lava())==20,"Lava cooldown cannot reset on reentry");
+        set(l,p,"flow");check(p.getAttributeValue(Attributes.EXPLOSION_KNOCKBACK_RESISTANCE)==.3,"Blast knockback resistance");p.fallDistance=10;check(incoming(p,p.damageSources().fall())==15,"Flow fall reduction");
+        set(l,p,"spire");check(incoming(p,p.damageSources().flyIntoWall())==5,"Spire wall reduction");check(incoming(p,p.damageSources().fall())==10,"Spire fall reduction");
+        p.setOnGround(false);p.setShiftKeyDown(true);check(p.hasEffect(MobEffects.LEVITATION),"Infinite crouch levitation available");p.setShiftKeyDown(false);check(!p.hasEffect(MobEffects.LEVITATION),"Levitation stops on release");
+        set(l,p,"eye");p.setPos(320.5,-1,.5);check(p.hasEffect(MobEffects.NIGHT_VISION),"Eye low-altitude night vision");p.setPos(320.5,161,.5);check(!p.hasEffect(MobEffects.NIGHT_VISION),"Eye vision stops above zero");
+        set(l,p,"bolt");check(incoming(p,p.damageSources().lightningBolt())==0,"Bolt lightning immunity");
+        var illager=EntityType.VINDICATOR.create(l,EntitySpawnReason.COMMAND);var drowned=EntityType.DROWNED.create(l,EntitySpawnReason.COMMAND);var zombie=EntityType.ZOMBIE.create(l,EntitySpawnReason.COMMAND);var warden=EntityType.WARDEN.create(l,EntitySpawnReason.COMMAND);var brute=EntityType.PIGLIN_BRUTE.create(l,EntitySpawnReason.COMMAND);
+        set(l,p,"vex");check(p.getVisibilityPercent(illager)==.5,"Vex detection");set(l,p,"snout");check(p.getVisibilityPercent(brute)==.5,"Snout brute detection");set(l,p,"coast");check(p.getVisibilityPercent(drowned)==.5,"Coast detection");set(l,p,"silence");check(p.getVisibilityPercent(zombie)==.6&&p.getVisibilityPercent(warden)==1,"Silence detection / Warden exception");
+        clear(p);int load=CrossbowItem.getChargeDuration(new ItemStack(Items.CROSSBOW),p);set(l,p,"sentry");check(CrossbowItem.getChargeDuration(new ItemStack(Items.CROSSBOW),p)==(int)Math.ceil(load*.8),"Crossbow load duration");
+        set(l,p,"wild");var leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);BlockPos leaves=p.blockPosition();check(leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Horizontal leaf collision removed");p.setPos(320.5,162,.5);leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);check(!leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Standing on leaf collision retained");p.setShiftKeyDown(true);leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);check(leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Crouch descends through leaves");p.setShiftKeyDown(false);
+        archaeology(l,p);
+        p.setPos(320.5,161,.5);clear(p);
+    }
+    private static void archaeology(ServerLevel l,FakePlayer p){
+        BlockPos pos=new BlockPos(350,160,0);l.setBlockAndUpdate(pos.below(),Blocks.STONE.defaultBlockState());l.setBlockAndUpdate(pos,Blocks.SUSPICIOUS_SAND.defaultBlockState());
+        var be=(net.minecraft.world.level.block.entity.BrushableBlockEntity)l.getBlockEntity(pos);
+        var table=ResourceKey.create(Registries.LOOT_TABLE,Identifier.parse("minecraft:archaeology/desert_pyramid"));be.setLootTable(table,123);set(l,p,"dune");var brush=new ItemStack(Items.BRUSH);
+        for(int i=0;i<9;i++)check(!be.brush(1000+i*10,l,p,Direction.UP,brush),"Only completed brushing can preserve");
+        long seed=0;while(true){l.getRandom().setSeed(seed);if(l.getRandom().nextFloat()<.2)break;seed++;}l.getRandom().setSeed(seed);
+        check(be.brush(1090,l,p,Direction.UP,brush)&&l.getBlockState(pos).is(Blocks.SUSPICIOUS_SAND),"Legitimate completed brushing preserved");
+        var saved=be.saveWithFullMetadata(l.registryAccess());var reloaded=net.minecraft.world.level.block.entity.BlockEntity.loadStatic(pos,l.getBlockState(pos),saved,l.registryAccess());reloaded.setLevel(l);l.setBlockEntity(reloaded);be=(net.minecraft.world.level.block.entity.BrushableBlockEntity)reloaded;
+        for(int i=0;i<10;i++)be.brush(2000+i*10,l,p,Direction.UP,brush);
+        check(l.getBlockState(pos).is(Blocks.SAND),"Second extraction depletes preserved block after reload");check(!ArchaeologyMemory.claim(l,pos),"Position remains spent after replacing block");
+        var items=l.getEntitiesOfClass(ItemEntity.class,new AABB(pos).inflate(3));check(items.size()==2,"Two independent archaeology extractions");items.forEach(ItemEntity::discard);l.removeBlock(pos,false);l.removeBlock(pos.below(),false);
     }
     private static void check(boolean b,String s){if(!b)throw new IllegalStateException("Trim verification: "+s);}
 }

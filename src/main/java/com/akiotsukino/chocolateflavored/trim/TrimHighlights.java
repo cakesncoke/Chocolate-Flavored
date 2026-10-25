@@ -16,7 +16,16 @@ public final class TrimHighlights {
     public static void scan(ServerPlayer p,boolean archaeology) {
         if (archaeology) clear(p,true);
         var ids=new ArrayList<Integer>(); BlockPos center=p.blockPosition();
-        for(BlockPos pos:BlockPos.betweenClosed(center.offset(-16,-16,-16),center.offset(16,16,16))) {
+        Iterable<BlockPos> candidates;
+        if(archaeology){
+            var positions=new ArrayList<BlockPos>();
+            for(int cx=(center.getX()-16)>>4;cx<=((center.getX()+16)>>4);cx++)for(int cz=(center.getZ()-16)>>4;cz<=((center.getZ()+16)>>4);cz++){
+                var origin=new BlockPos(cx<<4,center.getY(),cz<<4);
+                if(p.level().hasChunkAt(origin))positions.addAll(p.level().getChunkAt(origin).getBlockEntities().keySet());
+            }
+            candidates=positions;
+        }else candidates=BlockPos.betweenClosed(center.offset(-16,-16,-16),center.offset(16,16,16));
+        for(BlockPos pos:candidates) {
             if (pos.distSqr(center)>256 || !p.level().hasChunkAt(pos)) continue;
             var state=p.level().getBlockState(pos);
             if (archaeology ? !(p.level().getBlockEntity(pos) instanceof BrushableBlockEntity) : !state.is(ORES) || !p.getMainHandItem().isCorrectToolForDrops(state)) continue;

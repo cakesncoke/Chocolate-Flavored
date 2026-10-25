@@ -32,7 +32,9 @@ public final class TrimAttributes {
         modifier(p, Attributes.BLOCK_INTERACTION_RANGE, "reach", (trail(p, HEAD) ? 1 : 0) + (trailFull(p) ? 2 : 0), Operation.ADD_VALUE);
         modifier(p, Attributes.STEP_HEIGHT, "step", has(p, LEGS, "wild") ? .4 : 0, Operation.ADD_VALUE);
         modifier(p, Attributes.SNEAKING_SPEED, "sneak", trail(p, LEGS) ? .15 : 0, Operation.ADD_VALUE);
-        modifier(p, Attributes.SUBMERGED_MINING_SPEED, "aqua", has(p, HEAD, "tide") && p.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED) < 1 ? .8 : has(p, HEAD, "tide") ? existingAqua(p) : 0, Operation.ADD_VALUE);
+        modifier(p, Attributes.SUBMERGED_MINING_SPEED, "aqua", has(p, HEAD, "tide") ? existingAqua(p) : 0, Operation.ADD_MULTIPLIED_TOTAL);
+        modifier(p, Attributes.BURNING_TIME, "fire_protection", full(p,"rib") ? -.6 : 0, Operation.ADD_MULTIPLIED_BASE);
+        modifier(p, Attributes.EXPLOSION_KNOCKBACK_RESISTANCE, "blast_protection", has(p,CHEST,"flow") ? .3 : 0, Operation.ADD_VALUE);
         var below = p.level().getBlockState(p.getBlockPosBelowThatAffectsMyMovement());
         double speed = has(p, HEAD, "wild") ? .2 : 0;
         if (has(p, FEET, "snout") && p.level().dimension() == Level.NETHER) speed += .15;
@@ -48,7 +50,7 @@ public final class TrimAttributes {
     private static double existingAqua(Player p) {
         var modifier = p.getAttribute(Attributes.SUBMERGED_MINING_SPEED).getModifier(id("trim/aqua"));
         double ours = modifier == null ? 0 : modifier.amount();
-        return Math.max(0, 1 - (p.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED) - ours));
+        return p.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED) / (1 + ours) < 1 ? 4 : 0;
     }
     private TrimAttributes() {}
 }

@@ -21,7 +21,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class SteelClientVerification {
-    private static int ticks;private static boolean opened;
+    private static int ticks;private static boolean opened;public static boolean completed;
     static List<Item> equipment(){return List.of(Items.IRON_SWORD,Items.IRON_PICKAXE,Items.IRON_AXE,Items.IRON_SHOVEL,Items.IRON_HOE,Items.IRON_SPEAR,Items.IRON_HELMET,Items.IRON_CHESTPLATE,Items.IRON_LEGGINGS,Items.IRON_BOOTS,Items.IRON_HORSE_ARMOR,Items.IRON_NAUTILUS_ARMOR,ModContent.IRON_KNIFE.get());}
     static List<Item> additions(){return List.of(ModContent.GOLD_ORE_PILE.get(),SteelContent.STEEL_INGOT.get(),SteelContent.STEEL_NUGGET.get(),SteelContent.STEEL_PLATE.get(),SteelContent.DIAMOND_PLATE.get(),SteelContent.TANNED_LEATHER.get(),SteelContent.CUT_TANNED_LEATHER.get(),SteelContent.STRAP.get(),SteelContent.PADDING.get(),SteelContent.WOOL.get(),SteelContent.CREEPER_OYSTERS.get(),SteelContent.DIAMOND_ARMOR_PLATE.get(),SteelContent.STEEL_BLOCK_ITEM.get(),SteelContent.STONE_HAMMER.get(),SteelContent.DEEPSLATE_HAMMER.get());}
     @SubscribeEvent public static void tick(ClientTickEvent.Post e) {
@@ -52,7 +52,7 @@ public final class SteelClientVerification {
             var added=additions();for(int i=0;i<added.size();i++){int x=(i%7)*cw,y=105+i/7*34;var stack=added.get(i).getDefaultInstance();g.item(stack,x+cw/2-8,y);g.centeredText(font,stack.getHoverName(),x+cw/2,y+19,-1);}
             for(int i=0;i<wearers.size();i++){int x=i*width/3;InventoryScreen.extractEntityInInventoryFollowsMouse(g,x+5,211,x+width/3-5,height-22,43,.04F,x+width/6F-120,215,wearers.get(i));}
             g.centeredText(font,"Stone: 11 damage / 0.6 speed / 32 uses     Deepslate: 12 damage / 0.7 speed / 500 uses",width/2,height-15,-1);
-            if(++frames==150)ChocolateFlavored.LOGGER.info("STEEL_CLIENT_VERIFICATION_PASSED: steel equipment names/icons, all fifteen new creative entries, supplied humanoid/horse/nautilus equipment textures, held spear, hammer models and steel block");
+            if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("STEEL_CLIENT_VERIFICATION_PASSED: steel equipment names/icons, all fifteen new creative entries, supplied humanoid/horse/nautilus equipment textures, held spear, hammer models and steel block");}
         }
         @Override public boolean isPauseScreen(){return false;}
     }

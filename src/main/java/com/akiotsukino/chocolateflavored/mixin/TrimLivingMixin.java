@@ -52,12 +52,10 @@ abstract class TrimLivingMixin {
     private void cf$jumpWater(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> type,CallbackInfo ci) {
         var e=cf$self();if(type==net.minecraft.tags.FluidTags.WATER && has(e,FEET,"tide") && e.onGround() && !e.isSwimming()){e.jumpFromGround();ci.cancel();}
     }
-    @Inject(method="canGlide", at=@At("RETURN"), cancellable=true)
-    private void cf$glide(CallbackInfoReturnable<Boolean> cir) { var e = cf$self(); if (has(e, CHEST, "spire") && !e.onGround() && !e.isPassenger() && !e.hasEffect(MobEffects.LEVITATION)) cir.setReturnValue(true); }
     @Inject(method="travelInFluid", at=@At("HEAD"), cancellable=true)
     private void cf$walkWater(Vec3 input, CallbackInfo ci) {
         var e = cf$self();
-        if (has(e, FEET, "tide") && e.isInWater() && !e.isSwimming() && (e.onGround() || !e.level().getBlockState(e.blockPosition().below()).getCollisionShape(e.level(), e.blockPosition().below()).isEmpty())) { travelInAir(input); ci.cancel(); }
+        if (has(e, FEET, "tide") && e.isInWater() && !e.isSwimming()) { travelInAir(input); ci.cancel(); }
     }
     @ModifyVariable(method="travelInAir", at=@At("HEAD"), argsOnly=true)
     private Vec3 cf$levitationControl(Vec3 input) { var e = cf$self(); return has(e, LEGS, "spire") && e.hasEffect(MobEffects.LEVITATION) ? input.multiply(1.5, 1, 1.5) : input; }
