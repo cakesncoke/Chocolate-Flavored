@@ -26,7 +26,7 @@ abstract class TrimArchaeologyMixin {
     private void cf$preserve(ServerLevel level,LivingEntity user,ItemStack brush,CallbackInfo ci){
         BlockEntity self=(BlockEntity)(Object)this;
         boolean first=ArchaeologyMemory.claim(level,self.getBlockPos());
-        if(!first || cf$original==null || !TrimAbilities.full(user,"dune") || level.random.nextFloat()>=.2f)return;
+        if(!first || cf$original==null || !TrimAbilities.full(user,"dune") || level.getRandom().nextFloat()>=.2f)return;
         dropContent(level,user,brush);
         lootTable=cf$original;lootTableSeed=0;brushCount=0;coolDownEndsAtTick=level.getGameTime()+10;
         level.setBlock(self.getBlockPos(),self.getBlockState().setValue(BlockStateProperties.DUSTED,0),3);

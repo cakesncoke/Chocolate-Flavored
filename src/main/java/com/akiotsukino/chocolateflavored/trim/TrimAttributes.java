@@ -25,6 +25,7 @@ public final class TrimAttributes {
         update(event.getEntity());
     }
     public static void update(Player p) {
+        if(has(p,HEAD,"dune")){p.removeEffect(net.minecraft.world.effect.MobEffects.BLINDNESS);p.removeEffect(net.minecraft.world.effect.MobEffects.DARKNESS);}
         int ward = 0; for (var slot : ARMOR) if (has(p, slot, "ward")) ward++;
         modifier(p, Attributes.MAX_HEALTH, "ward", ward * 2 + (ward == 4 ? 2 : 0), Operation.ADD_VALUE);
         if (p.getHealth() > p.getMaxHealth()) p.setHealth(p.getMaxHealth());

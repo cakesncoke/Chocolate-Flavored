@@ -21,7 +21,7 @@ public final class TrimLoot {
         int result=EnchantmentHelper.getEnchantmentLevel(enchantment,killer);
         if(!enchantment.is(Enchantments.LOOTING))return result;
         var target=context.getOptionalParameter(LootContextParams.THIS_ENTITY);
-        if(target!=null && (has(killer,LEGS,"vex") && target.getType().is(net.minecraft.tags.EntityTypeTags.ILLAGER) || has(killer,FEET,"coast") && target.getType().is(AQUATIC))) result+=2;
+        if(target!=null && (has(killer,LEGS,"vex") && target.is(net.minecraft.tags.EntityTypeTags.ILLAGER) || has(killer,FEET,"coast") && target.is(AQUATIC))) result+=2;
         return result;
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void fish(ItemFishedEvent event) {

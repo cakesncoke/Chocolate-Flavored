@@ -38,14 +38,22 @@ abstract class TrimLivingMixin {
         var e = cf$self(); if (!(e instanceof Player) || observer == null || observer.getType() == EntityType.WARDEN) return;
         double scale = 1;
         if (TrimCombat.hostile(observer) && has(e, HEAD, "silence")) scale = full(e, "silence") ? .6 : .85;
-        if (observer.getType().is(net.minecraft.tags.EntityTypeTags.ILLAGER) && has(e, HEAD, "vex")) scale = Math.min(scale, .5);
+        if (observer.is(net.minecraft.tags.EntityTypeTags.ILLAGER) && has(e, HEAD, "vex")) scale = Math.min(scale, .5);
         if (observer instanceof net.minecraft.world.entity.monster.piglin.AbstractPiglin && has(e, HEAD, "snout")) scale = Math.min(scale, .5);
         if (observer.getType() == EntityType.DROWNED && has(e, HEAD, "coast")) scale = Math.min(scale, .5);
-        if (observer.getType().is(NETHER_HOSTILES) && has(e, HEAD, "rib")) scale = Math.min(scale, .75);
+        if (observer.is(NETHER_HOSTILES) && has(e, HEAD, "rib")) scale = Math.min(scale, .75);
         cir.setReturnValue(cir.getReturnValue() * scale);
     }
+    @Inject(method="canGlideUsing",at=@At("RETURN"),cancellable=true)
+    private static void cf$gliderStack(net.minecraft.world.item.ItemStack stack,EquipmentSlot slot,CallbackInfoReturnable<Boolean> cir) {
+        if(slot==CHEST && pattern(stack).equals("minecraft:spire") && stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE)!=null && stack.get(net.minecraft.core.component.DataComponents.EQUIPPABLE).slot()==CHEST && (!stack.isDamageableItem() || stack.getDamageValue()<stack.getMaxDamage()-1))cir.setReturnValue(true);
+    }
+    @Inject(method="jumpInLiquid",at=@At("HEAD"),cancellable=true)
+    private void cf$jumpWater(net.minecraft.tags.TagKey<net.minecraft.world.level.material.Fluid> type,CallbackInfo ci) {
+        var e=cf$self();if(type==net.minecraft.tags.FluidTags.WATER && has(e,FEET,"tide") && e.onGround() && !e.isSwimming()){e.jumpFromGround();ci.cancel();}
+    }
     @Inject(method="canGlide", at=@At("RETURN"), cancellable=true)
-    private void cf$glide(CallbackInfoReturnable<Boolean> cir) { var e = cf$self(); if (has(e, CHEST, "spire") && !e.onGround() && !e.hasEffect(MobEffects.LEVITATION)) cir.setReturnValue(true); }
+    private void cf$glide(CallbackInfoReturnable<Boolean> cir) { var e = cf$self(); if (has(e, CHEST, "spire") && !e.onGround() && !e.isPassenger() && !e.hasEffect(MobEffects.LEVITATION)) cir.setReturnValue(true); }
     @Inject(method="travelInFluid", at=@At("HEAD"), cancellable=true)
     private void cf$walkWater(Vec3 input, CallbackInfo ci) {
         var e = cf$self();

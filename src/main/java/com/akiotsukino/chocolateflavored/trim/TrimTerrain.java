@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 public final class TrimTerrain {
     @SubscribeEvent public static void placed(BlockEvent.EntityPlaceEvent e){if(e.getLevel().getBlockState(e.getPos().below()).is(TrimBasalt.BLOCK.get()))e.setCanceled(true);}
     @SubscribeEvent public static void mount(EntityTickEvent.Pre e){
-        if(e.getEntity() instanceof LivingEntity mount && mount.getType().is(TrimAbilities.CAMELS) && !mount.level().isClientSide()){
+        if(e.getEntity() instanceof LivingEntity mount && mount.is(TrimAbilities.CAMELS) && !mount.level().isClientSide()){
             var p=TrimAbilities.rider(mount);
             TrimAbilities.modifier(mount,Attributes.MOVEMENT_SPEED,"camel",p!=null && TrimAbilities.has(p,EquipmentSlot.FEET,"dune")?.25:0,AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         }

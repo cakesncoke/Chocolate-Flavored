@@ -157,6 +157,7 @@ public final class DevelopmentVerification {
         SunkenVerification.run(level, player);
         SteelVerification.run(level, player);
         DeepslateMiningVerification.run(level, player);
+        TrimVerification.run(level, player);
         DyeingVerification.run(level, player);
         CakeVerification.run(level, player);
         CropVerification.run(level, player);

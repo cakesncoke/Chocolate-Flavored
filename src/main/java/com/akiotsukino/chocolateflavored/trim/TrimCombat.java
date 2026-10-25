@@ -51,7 +51,7 @@ public final class TrimCombat {
             double bonus = 0;
             if (source.is(DamageTypeTags.IS_PROJECTILE) && has(p, HEAD, "sentry")) bonus += full(p, "sentry") ? .3 : .15;
             if (source.getDirectEntity() == p && source.is(DamageTypes.PLAYER_ATTACK)) {
-                if (victim.getType().is(EntityTypeTags.ILLAGER) && has(p, CHEST, "vex")) bonus += .25;
+                if (victim.is(EntityTypeTags.ILLAGER) && has(p, CHEST, "vex")) bonus += .25;
                 if (victim instanceof Mob && has(p, CHEST, "silence")) bonus += full(p, "silence") ? .2 : .1;
                 if (p.isUnderWater() && full(p, "tide")) bonus += .5;
                 if (has(p, CHEST, "bolt") && p.getMainHandItem().is(BOLT_WEAPONS)) bonus += .2;
@@ -82,7 +82,7 @@ public final class TrimCombat {
             if (bolt != null) { bolt.setPos(e.getEntity().position()); if (p instanceof net.minecraft.server.level.ServerPlayer sp) bolt.setCause(sp); level.addFreshEntity(bolt); }
         } else if (e.getEntity().isAlive()) {
             DISCHARGING.set(true);
-            try { e.getEntity().hurtServer(level, p.damageSources().magic(), 2); } finally { DISCHARGING.remove(); }
+            try { e.getEntity().hurtServer(level, new DamageSource(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getOrThrow(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,id("static_discharge"))),p), 2); } finally { DISCHARGING.remove(); }
         }
     }
     @SubscribeEvent public static void drops(LivingDropsEvent e) {
