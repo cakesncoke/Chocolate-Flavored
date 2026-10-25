@@ -21,8 +21,9 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 public final class TrimCombat {
     private static final ThreadLocal<Boolean> DISCHARGING = ThreadLocal.withInitial(() -> false);
     public static boolean hostile(Entity e) { return e instanceof Enemy; }
+    public static final net.minecraft.tags.TagKey<DamageType> MELEE=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,id("trim/melee_attacks"));
     public static ItemStack weapon(DamageSource source) {
-        if (!source.is(DamageTypes.PLAYER_ATTACK) && !source.is(DamageTypes.MOB_ATTACK) && !source.is(DamageTypeTags.IS_PROJECTILE)) return ItemStack.EMPTY;
+        if (!source.is(MELEE) && !source.is(DamageTypeTags.IS_PROJECTILE)) return ItemStack.EMPTY;
         var direct=source.getDirectEntity();var stack=direct==null?null:direct.getWeaponItem();return stack==null?ItemStack.EMPTY:stack;
     }
     public static float protection(LivingEntity p, DamageSource s) {
@@ -57,7 +58,7 @@ public final class TrimCombat {
         if (!DISCHARGING.get() && source.getEntity() instanceof Player p) {
             double bonus = 0;
             if (source.is(DamageTypeTags.IS_PROJECTILE) && has(p, HEAD, "sentry")) bonus += full(p, "sentry") ? .3 : .15;
-            if (source.getDirectEntity() == p && source.is(DamageTypes.PLAYER_ATTACK)) {
+            if (source.getDirectEntity() == p && source.is(MELEE)) {
                 if (victim.is(EntityTypeTags.ILLAGER) && has(p, CHEST, "vex")) bonus += .25;
                 if (victim instanceof Mob && has(p, CHEST, "silence")) bonus += full(p, "silence") ? .2 : .1;
                 if (p.isUnderWater() && full(p, "tide")) bonus += .5;
@@ -74,7 +75,7 @@ public final class TrimCombat {
             TrimTriggers.start(p, "vex", 600); TrimTriggers.duration(p, "vex_speed", 100);
         }
         var s = e.getSource();
-        if (DISCHARGING.get() || !(s.getEntity() instanceof Player p) || s.getDirectEntity() != p || !s.is(DamageTypes.PLAYER_ATTACK)) return;
+        if (DISCHARGING.get() || !(s.getEntity() instanceof Player p) || s.getDirectEntity() != p || !s.is(MELEE)) return;
         if (full(p, "rib") && p.getRandom().nextFloat() < .3f) e.getEntity().addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 1));
         if (!full(p, "bolt")) return;
         var data = p.getPersistentData();

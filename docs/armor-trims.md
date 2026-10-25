@@ -46,6 +46,7 @@ Cooldown deadlines use the server's monotonic Overworld game time, survive logou
 - `chocolateflavored:gameplay/ocean_salvage`: independent fishing table, one roll on 10% of legitimate catches. Default weights: iron nugget 40, gold nugget 30, nautilus shell 8, map 8, emerald 5, name tag 5, saddle 3, heart of the sea 1. Ordinary fishing loot is untouched.
 - `c:ores`: eligible ore membership, with the held tool's correct-harvest rules additionally enforced.
 - `chocolateflavored:trim/nether_terrain`, `desert_terrain`, `stone_landings`: terrain membership.
+- `chocolateflavored:trim/melee_attacks`: melee damage types, including 26.1 spears; custom weapon damage types can opt in.
 - `chocolateflavored:trim/bolt_weapons`, `bolt_tools`: copper/rose-gold equipment membership.
 - `chocolateflavored:trim/aquatic`, `nether_hostiles`, `camels`: entity membership, including the relevant existing custom mobs.
 

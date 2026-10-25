@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "chocolateflavored:zombified",
     "chocolateflavored:static_discharge"
   ]
 }
