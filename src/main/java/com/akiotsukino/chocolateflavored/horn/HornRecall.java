@@ -53,7 +53,7 @@ public final class HornRecall {
         if (player.level() instanceof ServerLevel level) {
             CopperHornItem.link(horn, target.getUUID());
             HornLinks.get(level.getServer()).remember(target);
-            player.displayClientMessage(Component.translatable("message.chocolateflavored.horn_linked", target.getDisplayName()), true);
+            player.sendOverlayMessage(Component.translatable("message.chocolateflavored.horn_linked", target.getDisplayName()));
         }
         return true;
     }
@@ -81,7 +81,7 @@ public final class HornRecall {
         var level = location == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, location.dimension()));
         if (level == null) { unavailable(player); return; }
         // Native portal tickets expire automatically; no permanent force-loaded chunks.
-        level.getChunkSource().addTicketWithRadius(TicketType.PORTAL, new ChunkPos(location.pos()), 2);
+        level.getChunkSource().addTicketWithRadius(TicketType.PORTAL, ChunkPos.containing(location.pos()), 2);
         var pending = PENDING.computeIfAbsent(server, s -> new ArrayList<>());
         pending.removeIf(p -> p.player().equals(player.getUUID()) && p.target().equals(target));
         pending.add(new Pending(player.getUUID(), target, server.getTickCount() + 200));
@@ -100,7 +100,7 @@ public final class HornRecall {
     }
 
     private static void unavailable(Player player) {
-        player.displayClientMessage(Component.translatable("message.chocolateflavored.horn_unavailable"), true);
+        player.sendOverlayMessage(Component.translatable("message.chocolateflavored.horn_unavailable"));
     }
 
     @SubscribeEvent public static void tick(ServerTickEvent.Post event) {

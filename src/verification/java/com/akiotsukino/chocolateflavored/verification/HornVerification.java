@@ -59,6 +59,14 @@ final class HornVerification {
             check(!item.use(level, player, InteractionHand.MAIN_HAND).consumesAction() && wolf.position().distanceToSqr(origin) > 100, "Cooldown prevents repeated recall");
             check(HornRecall.bind(player, horn, horse) && CopperHornItem.target(horn).equals(horse.getUUID()), "Relinking mount");
             check(HornRecall.recall(player, horse) && horse.position().distanceToSqr(origin) < .01, "Horse recall");
+            var nether = level.getServer().getLevel(net.minecraft.world.level.Level.NETHER);
+            var away = horse.teleport(new net.minecraft.world.level.portal.TeleportTransition(nether, origin,
+                    net.minecraft.world.phys.Vec3.ZERO, 0, 0, net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
+            check(away != null && away.level() == nether, "Native dimension travel");
+            check(HornRecall.recall(player, away), "Cross-dimension recall");
+            var returned = HornRecall.loaded(level.getServer(), horse.getUUID());
+            check(returned != null && returned.level() == level && returned.position().distanceToSqr(origin) < .01, "Returned same UUID across dimensions");
+            returned.discard();
             wolf.setOwnerReference(net.minecraft.world.entity.EntityReference.of(java.util.UUID.randomUUID()));
             check(!HornRecall.bind(player, horn, wolf) && !HornRecall.recall(player, wolf), "Other player's pet protected");
             ChocolateFlavored.LOGGER.info("HORN_VERIFICATION_PASSED: eight native instruments, linking event, glint, item/location persistence, sitting pet/mount recall, ownership, cooldown");
