@@ -19,10 +19,10 @@ import net.neoforged.neoforge.event.entity.player.CanContinueSleepingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-/** Fully simulates the remaining night using the native scheduler, targeting ten real seconds. */
+/** Fully simulates the remaining night using the native scheduler, targeting twenty real seconds. */
 @EventBusSubscriber(modid = ChocolateFlavored.MODID)
 public final class SleepAcceleration {
-    public static final int SLEEP_SECONDS = 10;
+    public static final int SLEEP_SECONDS = 20;
     private static final Map<MinecraftServer, Session> SESSIONS = new WeakHashMap<>();
 
     @SubscribeEvent
@@ -96,7 +96,7 @@ public final class SleepAcceleration {
         }
         session.levels = levels;
         session.lastTime = state.totalTicks();
-        // Do not slow a server whose remaining night would naturally finish sooner than ten seconds.
+        // Do not slow a server whose remaining night would naturally finish sooner than twenty seconds.
         float desired = Math.max(session.baseRate, session.targetRate);
         session.appliedRate = desired;
         if (Float.compare(current, desired) != 0) manager.setTickRate(desired);

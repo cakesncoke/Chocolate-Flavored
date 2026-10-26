@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class VillagerBabyAgeMixin {
     @Inject(method = "getBabyStartAge", at = @At("HEAD"), cancellable = true)
     private void chocolateflavored$villagerBabyAge(CallbackInfoReturnable<Integer> callback) {
-        if ((Object)this instanceof Villager) callback.setReturnValue(-60 * 60 * 20);
+        if ((Object)this instanceof Villager) callback.setReturnValue(-35 * 60 * 20);
     }
 }

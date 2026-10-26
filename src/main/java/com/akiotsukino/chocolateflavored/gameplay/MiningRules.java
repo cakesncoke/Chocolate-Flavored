@@ -76,7 +76,7 @@ public final class MiningRules {
         } else {
             Block.popResource(level, pos, change.drop());
         }
-        if (tool.is(Items.FLINT)) tool.shrink(1);
+        if (tool.is(Items.FLINT)) { tool.shrink(1); level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.ITEM_BREAK, net.minecraft.sounds.SoundSource.PLAYERS, .8F, .8F + level.getRandom().nextFloat() * .4F); }
         else tool.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
         player.causeFoodExhaustion(0.005F);

@@ -1,23 +1,23 @@
-# Oven and cooking pot
+# MudKiln and cooking pot
 
 Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. Both blocks are standalone; Farmer's Delight, KubeJS and recipe-viewer mods are not required. Assets, layout and steam behavior are attributed to Farmer's Delight in `THIRD_PARTY_NOTICES.md`, with its MIT notice included in the release JAR.
 
-## Oven
+## MudKiln
 
-ID: `chocolateflavored:oven`. It is named **Oven** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its five-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior. Adding food to the oven plays the vanilla mud-brick placement sound.
+ID: `chocolateflavored:mud_kiln`. It is named **MudKiln** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its five-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior. Adding food to the mud_kiln plays the vanilla mud-brick placement sound.
 
-Right-click the uncovered top/block with a matching ingredient to place a batch. Six batches cook independently, with visible items on top. A batch can require multiple items (for example, three wheat). Cooked items appear above the oven. Unlit batches cool toward zero progress. Covering the top, including placing a cooking pot on it, returns the raw ingredients; the oven can then heat the pot. Breaking the oven returns its uncooked inventory. Cooking progress and inventory survive saving/loading. Standing on the hot oven causes campfire damage unless sneaking.
+Right-click the uncovered top/block with a matching ingredient to place a batch. Six batches cook independently, with visible items on top. A batch can require multiple items (for example, three wheat). Cooked items appear above the mud_kiln. Unlit batches cool toward zero progress. Covering the top, including placing a cooking pot on it, returns the raw ingredients; the mud_kiln can then heat the pot. Breaking the mud_kiln returns its uncooked inventory. Cooking progress and inventory survive saving/loading. Standing on the hot mud_kiln causes campfire damage unless sneaking.
 
-The oven first searches `chocolateflavored:oven` recipes. If no custom recipe matches, it uses vanilla `minecraft:campfire_cooking` recipes. Recipe reloads use the current recipe manager and never retain a cached output after a recipe is removed. If a recipe's input count is reduced while a larger batch is already placed, unused ingredients are returned.
+The mud_kiln first searches `chocolateflavored:mud_kiln` recipes. If no custom recipe matches, it uses vanilla `minecraft:campfire_cooking` recipes. Recipe reloads use the current recipe manager and never retain a cached output after a recipe is removed. If a recipe's input count is reduced while a larger batch is already placed, unused ingredients are returned.
 
 Default processing recipes:
 
-| Oven input | Output | Time at 20 TPS |
+| MudKiln input | Output | Time at 20 TPS |
 | --- | --- | --- |
 | 3 wheat | 1 bread | 10 seconds |
 | 1 potato | 1 baked potato | 10 seconds |
 
-Campfire fallback recipes retain their own cooking times. No crafting recipes for the oven or pot are added.
+Campfire fallback recipes retain their own cooking times. No crafting recipes for the mud_kiln or pot are added.
 
 ## Cooking pot
 
@@ -25,7 +25,7 @@ ID: `chocolateflavored:cooking_pot`. Right-click to open its normal container sc
 
 The pot has six ingredient slots, a read-only meal display, a serving-container input, and an output slot. Recipes are shapeless: put each listed ingredient in its own slot. Stacks allow repeated batches. The meal buffer holds up to 64 portions, including normally unstackable soups. Supply bowls or the recipe's serving container to produce normal food items, or right-click the pot with the correct container for one serving. Served food keeps its original components and stack limits. Different meal types/components and serving containers cannot mix in one occupied buffer.
 
-The pot requires heat below it. Default heat sources are a **lit oven**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
+The pot requires heat below it. Default heat sources are a **lit mud_kiln**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
 
 Pot support changes between the regular, tray and hanging-handle models. Placement against a block's underside selects the handle; shift-right-click with an empty hand toggles it. Waterlogging is supported. Heated pots produce the supplied boiling sounds and steam particles.
 
@@ -44,7 +44,7 @@ Place recipes under `data/<namespace>/recipe/<name>.json`. Current 26.1 ingredie
 
 ```json
 {
-  "type": "chocolateflavored:oven",
+  "type": "chocolateflavored:mud_kiln",
   "ingredient": "minecraft:wheat",
   "input_count": 3,
   "result": { "id": "minecraft:bread", "count": 1 },
@@ -74,15 +74,15 @@ Use `kubejs/server_scripts/cooking.js` and KubeJS's ordinary custom-JSON recipe 
 
 ```js
 ServerEvents.recipes(event => {
-  event.remove({ id: 'chocolateflavored:oven/bread' })
+  event.remove({ id: 'chocolateflavored:mud_kiln/bread' })
   event.custom({
-    type: 'chocolateflavored:oven',
+    type: 'chocolateflavored:mud_kiln',
     ingredient: 'minecraft:wheat',
     input_count: 3,
     result: { id: 'minecraft:bread' },
     cookingtime: 160,
     experience: 0.1
-  }).id('kubejs:oven_bread')
+  }).id('kubejs:mud_kiln_bread')
 
   event.custom({
     type: 'chocolateflavored:cooking_pot',
@@ -98,6 +98,6 @@ Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS r
 
 ## Verification
 
-Dedicated-server checks exercise custom and fallback oven recipes, six batches, ingredient counts, ignition/dousing, the fire starter's full use lifecycle on the oven, progress persistence, covered-top returns, heat requirements, shapeless matching, serving, full-buffer behavior, 64-portion save/load/drop/replacement, container consumption and sided automation policies. Client verification quick-plays the saved world, opens the pot through the integrated server, checks synchronized meal counts and heat data, and captures the recipe-book-free screen. A separate KubeJS server loads a script that removes a built-in oven recipe and executes new oven and pot recipes without Farmer's Delight installed.
+Dedicated-server checks exercise custom and fallback mud_kiln recipes, six batches, ingredient counts, ignition/dousing, the fire starter's full use lifecycle on the mud_kiln, progress persistence, covered-top returns, heat requirements, shapeless matching, serving, full-buffer behavior, 64-portion save/load/drop/replacement, container consumption and sided automation policies. Client verification quick-plays the saved world, opens the pot through the integrated server, checks synchronized meal counts and heat data, and captures the recipe-book-free screen. A separate KubeJS server loads a script that removes a built-in mud_kiln recipe and executes new mud_kiln and pot recipes without Farmer's Delight installed.
 
 The verification source set is excluded from the release JAR. Other mods' automation, multiplayer latency/permissions integrations and seasonal-mod compatibility are not claimed as tested.

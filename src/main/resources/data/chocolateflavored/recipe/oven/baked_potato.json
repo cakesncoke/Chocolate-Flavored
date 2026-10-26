@@ -1,5 +1,5 @@
 {
-  "type": "chocolateflavored:oven",
+  "type": "chocolateflavored:mud_kiln",
   "ingredient": "minecraft:potato",
   "result": {
     "id": "minecraft:baked_potato"

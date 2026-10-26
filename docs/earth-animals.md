@@ -34,7 +34,7 @@ Natural wool colors are white except vanilla's rare pink roll (0.164%). Wool dye
 
 These are explicit adaptations required by the standalone/item constraints; EarthMobs, Earth2Java and Bagus Lib are not required or bundled as mods. Serene Seasons is not directly integrated: climate selection uses biome tags, without changing seasonal systems. No Serene Seasons compatibility claim is made.
 
-## Provenance and verification
+## Prmud_kilnance and verification
 
 Reference: EarthMobs `26.1.x`, commit `d5acab9846bd3400ac5f093bfec7439351a1bd61`. The six simple-variant textures come from MIT-licensed Earth2Java because they are absent from EarthMobs' current branch. Adapted EarthMobs Java and assets retain LGPL-3.0 licensing; Chocolate Flavored's own code remains MIT. See `THIRD_PARTY_NOTICES.md` and the licenses shipped in the JAR.
 

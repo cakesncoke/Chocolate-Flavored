@@ -81,7 +81,7 @@ public final class DevelopmentVerification {
             check(event.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,
                     Identifier.withDefaultNamespace(name))).isEmpty(), "Gold equipment crafting " + name);
         }
-        check(event.getServer().getRecipeManager().getRecipes().stream().filter(r -> r.id().identifier().getNamespace().equals(ChocolateFlavored.MODID)).allMatch(r -> r.id().identifier().getPath().startsWith("oven/") || r.id().identifier().getPath().startsWith("cooking_pot/") || com.akiotsukino.chocolateflavored.dye.DyedWood.FAMILIES.values().stream().anyMatch(f -> f.items.keySet().stream().anyMatch(k -> f.id(k).equals(r.id().identifier().getPath())))), "Only requested cooking and dyed wood recipes added");
+        check(event.getServer().getRecipeManager().getRecipes().stream().filter(r -> r.id().identifier().getNamespace().equals(ChocolateFlavored.MODID)).allMatch(r -> r.id().identifier().getPath().startsWith("mud_kiln/") || r.id().identifier().getPath().startsWith("cooking_pot/") || com.akiotsukino.chocolateflavored.dye.DyedWood.FAMILIES.values().stream().anyMatch(f -> f.items.keySet().stream().anyMatch(k -> f.id(k).equals(r.id().identifier().getPath())))), "Only requested cooking and dyed wood recipes added");
         var trim = new ItemStack(ModContent.ROSE_GOLD_INGOT.get()).get(DataComponents.PROVIDES_TRIM_MATERIAL);
         check(trim != null && trim.is(ModContent.ROSE_GOLD_TRIM), "Rose gold trim material component");
         check(level.registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL).get(ModContent.ROSE_GOLD_TRIM).isPresent(), "Rose gold trim registry");

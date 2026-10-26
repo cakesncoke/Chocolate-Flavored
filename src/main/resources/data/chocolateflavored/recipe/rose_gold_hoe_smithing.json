@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "chocolateflavored:rose_gold_upgrade_smithing_template",
+  "base": "minecraft:copper_hoe",
+  "addition": "chocolateflavored:rose_gold_ingot",
+  "result": {
+    "id": "chocolateflavored:rose_gold_hoe",
+    "count": 1
+  }
+}

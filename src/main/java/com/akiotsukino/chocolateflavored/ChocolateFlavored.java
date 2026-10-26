@@ -33,8 +33,8 @@ public class ChocolateFlavored {
     static {
         TABS.register("chocolate_flavored", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.chocolateflavored"))
-                .icon(() -> com.akiotsukino.chocolateflavored.cake.CakeContent.CHOCOLATE.item().get().getDefaultInstance())
-                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().forEach(item -> output.accept(item.get())))
+                .icon(() -> ModContent.CHOCOLATE_CAKE_SLICE.get().getDefaultInstance())
+                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().stream().sorted(java.util.Comparator.comparingInt((net.neoforged.neoforge.registries.DeferredItem<?> entry) -> com.akiotsukino.chocolateflavored.content.CreativeOrder.group(entry.get())).thenComparing(entry -> entry.get().getName().getString())).forEach(item -> output.accept(item.get())))
                 .build());
     }
 

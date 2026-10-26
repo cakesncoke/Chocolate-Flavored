@@ -1,7 +1,7 @@
 package com.akiotsukino.chocolateflavored.client;
 
-import com.akiotsukino.chocolateflavored.cooking.OvenBlock;
-import com.akiotsukino.chocolateflavored.cooking.OvenBlockEntity;
+import com.akiotsukino.chocolateflavored.cooking.MudKilnBlock;
+import com.akiotsukino.chocolateflavored.cooking.MudKilnBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import java.util.ArrayList;
@@ -18,16 +18,17 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /** Uses vanilla 26.1 extraction/submission, with the six-position cooking layout. */
-public final class OvenRenderer implements BlockEntityRenderer<OvenBlockEntity, CampfireRenderState> {
+public final class MudKilnRenderer implements BlockEntityRenderer<MudKilnBlockEntity, CampfireRenderState> {
     private final ItemModelResolver resolver;
-    public OvenRenderer(BlockEntityRendererProvider.Context context) { resolver = context.itemModelResolver(); }
+    public MudKilnRenderer(BlockEntityRendererProvider.Context context) { resolver = context.itemModelResolver(); }
     @Override public CampfireRenderState createRenderState() { return new CampfireRenderState(); }
-    @Override public void extractRenderState(OvenBlockEntity oven, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
-        BlockEntityRenderer.super.extractRenderState(oven, state, partialTick, camera, overlay);
-        state.facing = oven.getBlockState().getValue(OvenBlock.FACING); state.items = new ArrayList<>();
+    @Override public void extractRenderState(MudKilnBlockEntity mud_kiln, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
+        BlockEntityRenderer.super.extractRenderState(mud_kiln, state, partialTick, camera, overlay);
+        state.lightCoords = net.minecraft.client.renderer.LevelRenderer.getLightColor(mud_kiln.getLevel(), mud_kiln.getBlockPos().above());
+        state.facing = mud_kiln.getBlockState().getValue(MudKilnBlock.FACING); state.items = new ArrayList<>();
         for (int slot = 0; slot < 6; slot++) {
             var item = new ItemStackRenderState();
-            resolver.updateForTopItem(item, oven.items().get(slot), ItemDisplayContext.FIXED, oven.getLevel(), null, (int)oven.getBlockPos().asLong() + slot);
+            resolver.updateForTopItem(item, mud_kiln.items().get(slot), ItemDisplayContext.FIXED, mud_kiln.getLevel(), null, (int)mud_kiln.getBlockPos().asLong() + slot);
             state.items.add(item);
         }
     }

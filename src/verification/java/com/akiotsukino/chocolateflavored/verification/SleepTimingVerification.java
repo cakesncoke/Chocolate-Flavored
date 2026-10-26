@@ -54,9 +54,9 @@ public final class SleepTimingVerification {
         check(sleeper.startSleepInBed(bed.east()).right().isPresent(), "Live fixture enters a real bed");
         server.clockManager().setTotalTicks(clock, 23_300); level.updateSkyBrightness();
         SleepAcceleration.update(server);
-        check(server.tickRateManager().tickrate() == 105, "Live session targets 105 TPS");
+        check(server.tickRateManager().tickrate() == 52.5F, "Live session targets 52.5 TPS");
         fixture = new Fixture(level, sleeper, bed, furnacePos, level.getGameTime(), System.nanoTime());
-        ChocolateFlavored.LOGGER.info("SLEEP_TIMING_VERIFICATION_STARTED: live scheduler at 105 TPS for 1,050 ticks");
+        ChocolateFlavored.LOGGER.info("SLEEP_TIMING_VERIFICATION_STARTED: live scheduler at 52.5 TPS for 1,050 ticks");
     }
 
     @SubscribeEvent
@@ -70,7 +70,7 @@ public final class SleepTimingVerification {
         var clock = server.registryAccess().getOrThrow(WorldClocks.OVERWORLD);
         long now = server.clockManager().getTotalTicks(clock);
         double seconds = (System.nanoTime() - f.started()) / 1_000_000_000.0;
-        check(seconds < 30, "Live sleep finishes within the runner's timing budget");
+        check(seconds < 45, "Live sleep finishes within the runner's timing budget");
         if (now < 24_000) return;
         check(now == 24_000 && !f.sleeper().isSleeping(), "Live sleep finishes at morning and wakes the player");
         check(server.tickRateManager().tickrate() == 20, "Live scheduler returns to 20 TPS");
@@ -79,7 +79,7 @@ public final class SleepTimingVerification {
         check(furnace.getItem(2).is(Items.STONE) && furnace.getItem(2).getCount() >= 4,
                 "Vanilla furnace smelts during the simulated night");
         // Allow CI scheduling jitter, but catch an accidental old five-second entry or 2x speed.
-        check(seconds >= 8 && seconds <= 18, "Live wall time remains close to the ten-second target: " + seconds);
+        check(seconds >= 17 && seconds <= 29, "Live wall time remains close to the twenty-second target: " + seconds);
         fixture = null;
         f.level().removePlayerImmediately(f.sleeper(), Entity.RemovalReason.DISCARDED);
         for (var pos : new BlockPos[]{f.bed(), f.bed().east(), f.furnace()}) f.level().removeBlock(pos, false);

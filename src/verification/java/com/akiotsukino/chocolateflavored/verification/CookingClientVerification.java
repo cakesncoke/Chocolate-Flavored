@@ -30,16 +30,16 @@ public final class CookingClientVerification {
                     player.setGameMode(net.minecraft.world.level.GameType.CREATIVE); // Protect the gallery viewer from ambient slimes.
                     var level = player.level();
                     var pos = player.blockPosition().relative(player.getDirection(), 3);
-                    level.setBlockAndUpdate(pos.below(), CookingContent.OVEN.get().defaultBlockState().setValue(OvenBlock.LIT, true));
+                    level.setBlockAndUpdate(pos.below(), CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
                     level.setBlockAndUpdate(pos, CookingContent.COOKING_POT.get().defaultBlockState());
                     var pot = (CookingPotBlockEntity)level.getBlockEntity(pos);
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 2)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 2));
                     for (int i = 0; i < 400; i++) CookingPotBlockEntity.tick(level, pos, pot.getBlockState(), pot);
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 32)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 32));
                     var displayPos = pos.relative(player.getDirection().getClockWise(), 2).below();
-                    level.setBlockAndUpdate(displayPos, CookingContent.OVEN.get().defaultBlockState().setValue(OvenBlock.LIT, true));
-                    var oven = (OvenBlockEntity)level.getBlockEntity(displayPos);
-                    for (int i = 0; i < 6; i++) oven.placeFood(level, player, new ItemStack(Items.BEEF));
+                    level.setBlockAndUpdate(displayPos, CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
+                    var mud_kiln = (MudKilnBlockEntity)level.getBlockEntity(displayPos);
+                    for (int i = 0; i < 6; i++) mud_kiln.placeFood(level, player, new ItemStack(Items.BEEF));
                     player.openMenu(pot);
                 } catch (Throwable failure) {
                     ChocolateFlavored.LOGGER.error("COOKING_CLIENT_VERIFICATION_FAILED", failure);

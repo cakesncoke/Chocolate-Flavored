@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "chocolateflavored:block/mud_kiln_bottom",
+    "front": "chocolateflavored:block/mud_kiln_front_on",
+    "side": "chocolateflavored:block/mud_kiln_side",
+    "top": "chocolateflavored:block/mud_kiln_top_on"
+  }
+}

@@ -30,6 +30,18 @@ public final class ModContent {
     public static final ToolMaterial FLINT = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL,
             131, 4.0F, 1.0F, 5, ModTags.FLINT_REPAIR);
 
+    public static final DeferredItem<Item> BREAD_DOUGH = ITEMS.registerSimpleItem("bread_dough");
+    public static final DeferredItem<Item> CAKE_SLICE = ITEMS.registerSimpleItem("cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
+    public static final DeferredItem<Item> CHERRY_CAKE_SLICE = ITEMS.registerSimpleItem("cherry_cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
+    public static final DeferredItem<Item> CHOCOLATE_CAKE_SLICE = ITEMS.registerSimpleItem("chocolate_cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
+    public static final DeferredItem<Item> COFFEE_CAKE_SLICE = ITEMS.registerSimpleItem("coffee_cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
+    public static final DeferredItem<Item> POMEGRANATE_CAKE_SLICE = ITEMS.registerSimpleItem("pomegranate_cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
+    public static final DeferredItem<Item> CARBON_IRON = ITEMS.registerSimpleItem("carbon_iron");
+    public static final DeferredItem<Item> COCOA_POWDER = ITEMS.registerSimpleItem("cocoa_powder");
+    public static final DeferredItem<Item> FLOUR = ITEMS.registerSimpleItem("flour");
+    public static final DeferredItem<Item> SALT = ITEMS.registerSimpleItem("salt");
+    public static final DeferredItem<Item> UNBAKED_CAKE = ITEMS.registerSimpleItem("unbaked_cake");
+
     public static final DeferredItem<Item> COAL_DUST = ITEMS.registerSimpleItem("coal_dust");
     public static final DeferredItem<Item> COPPER_ORE_PILE = ITEMS.registerSimpleItem("copper_ore_pile");
     public static final DeferredItem<Item> GOLD_ORE_PILE = ITEMS.registerSimpleItem("gold_ore_pile");

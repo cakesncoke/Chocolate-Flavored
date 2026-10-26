@@ -1,12 +1,12 @@
 {
-  "block.oven.crackle": {
+  "block.mud_kiln.crackle": {
     "sounds": [
       {
         "type": "event",
         "name": "minecraft:block.campfire.crackle"
       }
     ],
-    "subtitle": "subtitles.chocolateflavored.block.oven.crackle"
+    "subtitle": "subtitles.chocolateflavored.block.mud_kiln.crackle"
   },
   "block.cooking_pot.boil": {
     "sounds": [
