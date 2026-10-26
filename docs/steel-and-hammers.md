@@ -39,3 +39,5 @@ Stone Hammer replaces Knapped Flint in the original conversion system; Deepslate
 The development-only server fixture exercises both hammers through real block destruction, conversion/drop counts, single wear and final-use breakage, attack components, free native anvil repairs, old-stack decoding, steel-block harvesting and material defaults. The client fixture checks translated equipment names, all new creative entries, models, native worn armor and held spear rendering. It renders the supplied item sprites unchanged. These fixtures are excluded from the release JAR.
 
 No season mechanics change. Optional KubeJS is a regression test only; no required mod dependency is added.
+
+Steel ingots use the supplied `steel.png` trim palette for armor and inventory trim sprites, with `steel_darker.png` on native iron (Steel) armor for contrast.
