@@ -114,12 +114,12 @@ final class VillageVerification {
         var breed = VillagerMakeLove.class.getDeclaredMethod("breed", ServerLevel.class, Villager.class, Villager.class); breed.setAccessible(true);
         var newborn = ((Optional<Villager>)breed.invoke(new VillagerMakeLove(), level, first, second)).orElseThrow();
         check(first.getAge() == 42000 && second.getAge() == 42000, "Both parents have 35-minute cooldown");
-        check(newborn.getAge() == -42000, "Bred baby starts at 35 minutes");
+        check(newborn.getAge() == -72000, "Bred baby starts at one hour");
         first.setNoAi(true); newborn.setNoAi(true); first.aiStep(); newborn.aiStep();
-        check(first.getAge() == 41999 && newborn.getAge() == -41999, "Timers advance by one game tick");
+        check(first.getAge() == 41999 && newborn.getAge() == -71999, "Timers advance by one game tick");
         newborn.setAge(-1); newborn.aiStep(); check(!newborn.isBaby(), "Baby matures at age zero");
         var eggBaby = EntityType.VILLAGER.create(level, EntitySpawnReason.SPAWN_ITEM_USE); eggBaby.setBaby(true);
-        check(eggBaby.getAge() == -42000, "Other newly initialized villager babies also take 35 minutes");
+        check(eggBaby.getAge() == -72000, "Other newly initialized villager babies also take one hour");
         var cow = EntityType.COW.create(level, EntitySpawnReason.COMMAND); cow.setBaby(true);
         check(cow.getAge() == -24000, "Animal maturation remains vanilla");
         newborn.discard();

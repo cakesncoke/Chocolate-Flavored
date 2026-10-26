@@ -4,7 +4,9 @@
       "type": "minecraft:paletted_permutations",
       "palette_key": "chocolateflavored:trims/color_palettes/trim_palette",
       "permutations": {
-        "chocolateflavored_rose_gold": "chocolateflavored:trims/color_palettes/rose_gold"
+        "chocolateflavored_rose_gold": "chocolateflavored:trims/color_palettes/rose_gold",
+        "chocolateflavored_steel": "chocolateflavored:trims/color_palettes/steel",
+        "chocolateflavored_steel_darker": "chocolateflavored:trims/color_palettes/steel_darker"
       },
       "textures": [
         "minecraft:trims/entity/humanoid/sentry",

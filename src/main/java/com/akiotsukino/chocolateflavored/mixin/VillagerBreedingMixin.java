@@ -10,5 +10,5 @@ abstract class VillagerBreedingMixin {
     @ModifyConstant(method = "breed", constant = @Constant(intValue = 6000), require = 2)
     private int chocolateflavored$parentCooldown(int original) { return 35 * 60 * 20; }
     @ModifyConstant(method = "breed", constant = @Constant(intValue = -24000))
-    private int chocolateflavored$newbornAge(int original) { return -35 * 60 * 20; }
+    private int chocolateflavored$newbornAge(int original) { return -60 * 60 * 20; }
 }
