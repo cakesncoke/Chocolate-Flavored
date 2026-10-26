@@ -24,7 +24,7 @@ public final class MudKilnRenderer implements BlockEntityRenderer<MudKilnBlockEn
     @Override public CampfireRenderState createRenderState() { return new CampfireRenderState(); }
     @Override public void extractRenderState(MudKilnBlockEntity mud_kiln, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
         BlockEntityRenderer.super.extractRenderState(mud_kiln, state, partialTick, camera, overlay);
-        state.lightCoords = net.minecraft.client.renderer.LightTexture.pack(mud_kiln.getLevel().getBrightness(net.minecraft.world.level.LightLayer.BLOCK, mud_kiln.getBlockPos().above()), mud_kiln.getLevel().getBrightness(net.minecraft.world.level.LightLayer.SKY, mud_kiln.getBlockPos().above()));
+        state.lightCoords = net.minecraft.client.renderer.LevelRenderer.getLightCoords(mud_kiln.getLevel(), mud_kiln.getBlockPos().above());
         state.facing = mud_kiln.getBlockState().getValue(MudKilnBlock.FACING); state.items = new ArrayList<>();
         for (int slot = 0; slot < 6; slot++) {
             var item = new ItemStackRenderState();
