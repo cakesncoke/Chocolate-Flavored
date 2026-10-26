@@ -72,20 +72,20 @@ final class LightingInteractionVerification {
             var timer = (TorchTimerBlockEntity)level.getBlockEntity(pos);
             timer.reset();
             var tag = timer.saveWithFullMetadata(level.registryAccess());
-            tag.putLong("BurnUntil", level.getGameTime() + 12000);
+            tag.putLong("BurnUntil", level.getGameTime() + 21000);
             var half = (TorchTimerBlockEntity)BlockEntity.loadStatic(pos, state, tag, level.registryAccess());
             half.setLevel(level);
             level.setBlockEntity(half);
             var drops = Block.getDrops(state, level, pos, half, player, ItemStack.EMPTY);
             check(drops.size() == 1 && drops.getFirst().is(LightingContent.LIT_TORCH_ITEM.get()), "Broken lit torch remains a lit torch item");
             ItemStack saved = drops.getFirst();
-            check(LitTorchItem.remaining(saved) == 12000, "Drop preserves exact remaining fuel");
+            check(LitTorchItem.remaining(saved) == 21000, "Drop preserves exact remaining fuel");
             check(saved.getItem().isBarVisible(saved) && saved.getItem().getBarWidth(saved) == 7, "Half-fuel durability bar");
             for (int i = 0; i < 400; i++) saved.getItem().inventoryTick(saved, level, player, null);
-            check(LitTorchItem.remaining(saved) == 12000, "Inventory does not consume fuel");
+            check(LitTorchItem.remaining(saved) == 21000, "Inventory does not consume fuel");
             var ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
             saved = ItemStack.CODEC.parse(ops, ItemStack.CODEC.encodeStart(ops, saved).getOrThrow()).getOrThrow();
-            check(LitTorchItem.remaining(saved) == 12000, "Remaining fuel survives item save/load");
+            check(LitTorchItem.remaining(saved) == 21000, "Remaining fuel survives item save/load");
             level.removeBlock(pos, false);
             player.setItemInHand(InteractionHand.MAIN_HAND, saved);
             var support = wall ? pos.west() : pos.below();
@@ -93,7 +93,7 @@ final class LightingInteractionVerification {
             var result = saved.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, placeHit));
             check(result.consumesAction(), "Saved torch can be placed through BlockItem");
             timer = (TorchTimerBlockEntity)level.getBlockEntity(pos);
-            check(timer != null && timer.burnUntil() == level.getGameTime() + 12000, "Placing resumes saved timer instead of resetting it");
+            check(timer != null && timer.burnUntil() == level.getGameTime() + 21000, "Placing resumes saved timer instead of resetting it");
             if (wall) check(level.getBlockState(pos).getValue(WallTorchBlock.FACING) == Direction.EAST, "Saved wall torch places with correct facing");
         }
         level.removeBlock(pos, false); level.removeBlock(pos.west(), false);

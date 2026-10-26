@@ -14,6 +14,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid = ChocolateFlavored.MODID, value = Dist.CLIENT)
 public final class CookingClientVerification {
     private static boolean prepared, completed;
+    private static volatile net.minecraft.core.BlockPos unlitKilnPos;
     private static int worldTicks, screenTicks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || completed) return;
@@ -37,7 +38,8 @@ public final class CookingClientVerification {
                     for (int i = 0; i < 400; i++) CookingPotBlockEntity.tick(level, pos, pot.getBlockState(), pot);
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 32)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 32));
                     var displayPos = pos.relative(player.getDirection().getClockWise(), 2).below();
-                    level.setBlockAndUpdate(displayPos, CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
+                    level.setBlockAndUpdate(displayPos, CookingContent.MUD_KILN.get().defaultBlockState());
+                    unlitKilnPos = displayPos;
                     var mud_kiln = (MudKilnBlockEntity)level.getBlockEntity(displayPos);
                     for (int i = 0; i < 6; i++) mud_kiln.placeFood(level, player, new ItemStack(Items.BEEF));
                     player.openMenu(pot);
@@ -51,6 +53,12 @@ public final class CookingClientVerification {
             if (screen.getMenu().getSlot(6).getItem().getCount() < 2) throw new IllegalStateException("Meal buffer lost servings during client synchronization");
             if (!screen.getMenu().isHeated()) throw new IllegalStateException("Pot heat state did not synchronize");
             if (screen.children().stream().anyMatch(child -> child.getClass().getSimpleName().contains("RecipeBook"))) throw new IllegalStateException("Cooking pot exposed a recipe-book widget");
+            var kiln=(MudKilnBlockEntity)minecraft.level.getBlockEntity(unlitKilnPos);
+            net.minecraft.client.renderer.blockentity.BlockEntityRenderer<MudKilnBlockEntity,net.minecraft.client.renderer.blockentity.state.CampfireRenderState> renderer=minecraft.getBlockEntityRenderDispatcher().getRenderer(kiln);
+            var renderState=renderer.createRenderState();renderer.extractRenderState(kiln,renderState,0,net.minecraft.world.phys.Vec3.ZERO,null);
+            int expected=net.minecraft.client.renderer.LevelRenderer.getLightCoords(minecraft.level,unlitKilnPos.above());
+            if(renderState.lightCoords!=expected || renderState.items.stream().allMatch(net.minecraft.client.renderer.item.ItemStackRenderState::isEmpty))throw new IllegalStateException("Unlit kiln food lighting or synchronization failed");
+            ChocolateFlavored.LOGGER.info("UNLIT_KILN_LIGHT_VERIFICATION_PASSED: six visible food slots use above-block ambient light");
             ChocolateFlavored.LOGGER.info("COOKING_CLIENT_VERIFICATION_PASSED: integrated world, real server-opened menu, multi-serving synchronization, heat data, recipe-book-free screen and cooking renderers");
             completed = true;
         }
