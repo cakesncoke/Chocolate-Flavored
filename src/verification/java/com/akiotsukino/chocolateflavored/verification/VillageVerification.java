@@ -116,7 +116,7 @@ final class VillageVerification {
         check(first.getAge() == 42000 && second.getAge() == 42000, "Both parents have 35-minute cooldown");
         check(newborn.getAge() == -42000, "Bred baby starts at 35 minutes");
         first.setNoAi(true); newborn.setNoAi(true); first.aiStep(); newborn.aiStep();
-        check(first.getAge() == 35999 && newborn.getAge() == -71999, "Timers advance by one game tick");
+        check(first.getAge() == 41999 && newborn.getAge() == -41999, "Timers advance by one game tick");
         newborn.setAge(-1); newborn.aiStep(); check(!newborn.isBaby(), "Baby matures at age zero");
         var eggBaby = EntityType.VILLAGER.create(level, EntitySpawnReason.SPAWN_ITEM_USE); eggBaby.setBaby(true);
         check(eggBaby.getAge() == -42000, "Other newly initialized villager babies also take 35 minutes");
