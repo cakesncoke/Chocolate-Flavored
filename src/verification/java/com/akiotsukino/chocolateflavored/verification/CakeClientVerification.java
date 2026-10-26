@@ -31,7 +31,7 @@ public final class CakeClientVerification {
         }
         CreativeModeTabs.tryRebuildTabContents(mc.level.enabledFeatures(),true,mc.level.registryAccess());
         var tab=mc.level.registryAccess().lookupOrThrow(Registries.CREATIVE_MODE_TAB).getOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,Identifier.parse("chocolateflavored:chocolate_flavored"))).value();
-        if(!tab.getIconItem().is(CakeContent.CHOCOLATE.item().get()))throw new IllegalStateException("Chocolate cake tab icon");
+        if(!tab.getIconItem().is(com.akiotsukino.chocolateflavored.content.ModContent.CHOCOLATE_CAKE_SLICE.get()))throw new IllegalStateException("Chocolate cake tab icon");
         for(var flavor:CakeContent.FLAVORS)if(tab.getDisplayItems().stream().noneMatch(s->s.is(flavor.item().get())))throw new IllegalStateException("Cake absent from mod creative tab");
         mc.setScreen(new Gallery());
     }
@@ -52,7 +52,7 @@ public final class CakeClientVerification {
                 g.item(flavor.item().get().getDefaultInstance(),x+cw/2-8,height/2-25);
                 g.centeredText(font,flavor.item().get().getDefaultInstance().getHoverName(),x+cw/2,height/2+5,-1);
             }
-            g.centeredText(font,"Creative tab icon: Chocolate Cake",width/2,height-25,-1);
+            g.centeredText(font,"Creative tab icon: Chocolate Cake Slice",width/2,height-25,-1);
             if(++frames==150) { completed=true; ChocolateFlavored.LOGGER.info("CAKE_CLIENT_VERIFICATION_PASSED: all cake/slice/lit/unlit candle state models baked; four item textures, creative entries and chocolate cake tab icon"); }
         }
         @Override public boolean isPauseScreen(){return false;}

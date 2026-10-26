@@ -156,6 +156,7 @@ public final class DevelopmentVerification {
         TuffGolemVerification.run(level, player);
         SunkenVerification.run(level, player);
         SteelVerification.run(level, player);
+        SurvivalRefinementVerification.run(level);
         DeepslateMiningVerification.run(level, player);
         TrimVerification.run(level, player);
         DyeingVerification.run(level, player);

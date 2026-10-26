@@ -6,7 +6,7 @@ Target: Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. No external mod dependen
 
 `chocolateflavored:unlit_torch` and `chocolateflavored:lit_torch` support standing and wall placement, with separate matching wall block IDs. Unlit torches emit no light or flame/smoke particles. Lit torches use vanilla torch light level and particles.
 
-A placed lit torch burns for 24,000 game ticks (20 minutes at 20 TPS). Its absolute game-time deadline is saved in a block entity. Server shutdown pauses game time; unloaded chunks do not reset deadlines, and an expired torch extinguishes when its chunk next ticks. Wall orientation is preserved. Burnout plays vanilla's fire-extinguish sound and changes the block to its unlit counterpart. Relighting starts a fresh 24,000-tick timer.
+A placed lit torch burns for 42,000 game ticks (35 minutes at 20 TPS). Its absolute game-time deadline is saved in a block entity. Server shutdown pauses game time; unloaded chunks do not reset deadlines, and an expired torch extinguishes when its chunk next ticks. Wall orientation is preserved. Burnout plays vanilla's fire-extinguish sound and changes the block to its unlit counterpart. Relighting starts a fresh 42,000-tick timer.
 
 Breaking a lit standing or wall torch drops a lit torch item with its exact remaining burn time. Its inventory durability bar and tooltip show the saved fuel; inventory storage pauses the timer and placement resumes it. Lit torches stack to one. Fuel uses a persistent item component rather than repairable tool damage. Unlit torches drop unlit torches. Creative mode exposes both item variants. Vanilla torches are left unchanged.
 
