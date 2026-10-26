@@ -17,6 +17,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class SteelTrimClientVerification {
+ public static boolean completed;
  private static int ticks;private static boolean opened;
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){
   if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!RefinementClientVerification.completed||++ticks<100)return;
@@ -45,7 +46,7 @@ public final class SteelTrimClientVerification {
     for(int k=0;k<4;k++)g.item(stacks.get(i*4+k),x+width/4-40+k*22,65);
     InventoryScreen.extractEntityInInventoryFollowsMouse(g,x+15,95,x+width/2-15,height-25,70,.04F,x+width/4F-100,120,wearers.get(i));
    }
-   if(++frames==150)ChocolateFlavored.LOGGER.info("STEEL_TRIM_CLIENT_VERIFICATION_PASSED: supplied steel/steel_darker palettes render on humanoid armor, leggings and all four inventory trim types");
+   if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("STEEL_TRIM_CLIENT_VERIFICATION_PASSED: supplied steel/steel_darker palettes render on humanoid armor, leggings and all four inventory trim types");}
   }
   @Override public boolean isPauseScreen(){return false;}
  }

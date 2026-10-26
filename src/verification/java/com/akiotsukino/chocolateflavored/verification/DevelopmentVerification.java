@@ -157,6 +157,7 @@ public final class DevelopmentVerification {
         SunkenVerification.run(level, player);
         SteelVerification.run(level, player);
         SurvivalRefinementVerification.run(level);
+        HornVerification.run(level, player);
         DeepslateMiningVerification.run(level, player);
         TrimVerification.run(level, player);
         DyeingVerification.run(level, player);
@@ -164,6 +165,7 @@ public final class DevelopmentVerification {
         CropVerification.run(level, player);
         TraderVerification.run(level);
         TimeVerification.run(level);
+        HornUnloadedVerification.start(level);
         SleepTimingVerification.start(level);
     }
     private static void durability(Item item, int value) { check(new ItemStack(item).getMaxDamage() == value, "Durability: " + item); }
