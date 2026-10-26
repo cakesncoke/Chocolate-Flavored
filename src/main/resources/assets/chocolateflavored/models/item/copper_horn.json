@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/goat_horn",
+  "textures": {
+    "layer0": "chocolateflavored:item/copper_horn"
+  }
+}

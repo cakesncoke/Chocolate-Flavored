@@ -597,5 +597,8 @@
   "item.chocolateflavored.flour": "Flour",
   "item.chocolateflavored.salt": "Salt",
   "item.chocolateflavored.unbaked_cake": "Unbaked Cake",
-  "trim_material.chocolateflavored.steel": "Steel"
+  "trim_material.chocolateflavored.steel": "Steel",
+  "item.chocolateflavored.copper_horn": "Copper Horn",
+  "message.chocolateflavored.horn_linked": "Horn linked to %s",
+  "message.chocolateflavored.horn_unavailable": "The linked companion cannot be recalled."
 }

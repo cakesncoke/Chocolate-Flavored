@@ -34,7 +34,13 @@ public class ChocolateFlavored {
         TABS.register("chocolate_flavored", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.chocolateflavored"))
                 .icon(() -> ModContent.CHOCOLATE_CAKE_SLICE.get().getDefaultInstance())
-                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().stream().map(entry -> entry.get()).sorted(java.util.Comparator.comparingInt((net.minecraft.world.item.Item item) -> com.akiotsukino.chocolateflavored.content.CreativeOrder.group(item)).thenComparing(item -> item.getName(item.getDefaultInstance()).getString())).forEach(output::accept))
+                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().stream().map(entry -> entry.get()).sorted(java.util.Comparator.comparingInt((net.minecraft.world.item.Item item) -> com.akiotsukino.chocolateflavored.content.CreativeOrder.group(item)).thenComparing(item -> item.getName(item.getDefaultInstance()).getString())).forEach(item -> {
+                    if (item == ModContent.COPPER_HORN.get())
+                        parameters.holders().lookupOrThrow(Registries.INSTRUMENT).listElements()
+                                .filter(instrument -> instrument.is(net.minecraft.tags.InstrumentTags.GOAT_HORNS))
+                                .forEach(instrument -> output.accept(net.minecraft.world.item.InstrumentItem.create(item, instrument)));
+                    else output.accept(item);
+                }))
                 .build());
     }
 

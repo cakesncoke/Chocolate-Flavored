@@ -30,6 +30,10 @@ public final class ModContent {
     public static final ToolMaterial FLINT = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL,
             131, 4.0F, 1.0F, 5, ModTags.FLINT_REPAIR);
 
+    public static final DeferredItem<com.akiotsukino.chocolateflavored.horn.CopperHornItem> COPPER_HORN = ITEMS.registerItem("copper_horn",
+            com.akiotsukino.chocolateflavored.horn.CopperHornItem::new, p -> p.stacksTo(1).rarity(Rarity.UNCOMMON)
+                    .delayedComponent(DataComponents.INSTRUMENT, context -> new net.minecraft.world.item.component.InstrumentComponent(context.getOrThrow(Instruments.PONDER_GOAT_HORN))));
+
     public static final DeferredItem<Item> BREAD_DOUGH = ITEMS.registerSimpleItem("bread_dough");
     public static final DeferredItem<Item> CAKE_SLICE = ITEMS.registerSimpleItem("cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
     public static final DeferredItem<Item> CHERRY_CAKE_SLICE = ITEMS.registerSimpleItem("cherry_cake_slice", p -> p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(2).saturationModifier(.1F).build()));
