@@ -14,8 +14,7 @@ final class SurvivalRefinementVerification {
  static void run(ServerLevel level){
   var ops=level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
   for(String tool:java.util.List.of("sword","pickaxe","axe","shovel","hoe")){
-   String json="{\"type\":\"minecraft:smithing_transform\",\"template\":\"chocolateflavored:rose_gold_upgrade_smithing_template\",\"base\":\"minecraft:copper_"+tool+"\",\"addition\":\"chocolateflavored:rose_gold_ingot\",\"result\":{\"id\":\"chocolateflavored:rose_gold_"+tool+"\"}}";
-   var recipe=(SmithingTransformRecipe)Recipe.CODEC.parse(ops,JsonParser.parseString(json)).getOrThrow();
+   var recipe=(SmithingTransformRecipe)level.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,Identifier.parse("chocolateflavored:rose_gold_"+tool+"_smithing"))).orElseThrow().value();
    var base=new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse("minecraft:copper_"+tool)));base.set(DataComponents.CUSTOM_NAME,net.minecraft.network.chat.Component.literal("Kept name"));base.setDamageValue(7);
    var input=new SmithingRecipeInput(new ItemStack(ModContent.ROSE_GOLD_UPGRADE.get()),base,new ItemStack(ModContent.ROSE_GOLD_INGOT.get()));
    var result=recipe.assemble(input);
