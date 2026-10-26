@@ -26,6 +26,26 @@ public final class CopperHornItem extends InstrumentItem {
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putString(LINK, target.toString()));
     }
 
+    public static void link(ItemStack stack, net.minecraft.world.entity.Entity target) {
+        link(stack, target.getUUID());
+        CustomData.update(DataComponents.CUSTOM_DATA, stack,
+                tag -> tag.putString("chocolateflavored:horn_target_name", target.getName().getString()));
+    }
+
+    @Override public void appendHoverText(ItemStack stack, TooltipContext context,
+            net.minecraft.world.item.component.TooltipDisplay display,
+            java.util.function.Consumer<net.minecraft.network.chat.Component> tooltip,
+            net.minecraft.world.item.TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, tooltip, flag);
+        if (target(stack) == null) return;
+        String name = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag()
+                .getStringOr("chocolateflavored:horn_target_name", "");
+        var companion = name.isEmpty() ? net.minecraft.network.chat.Component.translatable("tooltip.chocolateflavored.horn_companion")
+                : net.minecraft.network.chat.Component.literal(name);
+        tooltip.accept(net.minecraft.network.chat.Component.translatable("tooltip.chocolateflavored.horn_call", companion)
+                .withStyle(net.minecraft.ChatFormatting.GRAY));
+    }
+
     @Override public boolean isFoil(ItemStack stack) { return target(stack) != null || super.isFoil(stack); }
 
     @Override public InteractionResult use(Level level, Player player, InteractionHand hand) {
