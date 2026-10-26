@@ -2,7 +2,7 @@
   "values": [
     "minecraft:magma_block",
     "minecraft:lava_cauldron",
-    "chocolateflavored:oven",
+    "chocolateflavored:mud_kiln",
     "#chocolateflavored:tray_heat_sources"
   ]
 }

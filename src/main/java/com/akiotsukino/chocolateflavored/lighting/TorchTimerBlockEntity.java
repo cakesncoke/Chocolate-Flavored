@@ -18,7 +18,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 public final class TorchTimerBlockEntity extends BlockEntity {
-    public static final long BURN_TICKS = 20L * 60 * 20;
+    public static final long BURN_TICKS = 35L * 60 * 20;
     private long burnUntil;
     public TorchTimerBlockEntity(BlockPos pos, BlockState state) { super(LightingContent.TORCH_TIMER.get(), pos, state); }
     public long burnUntil() { return burnUntil; }

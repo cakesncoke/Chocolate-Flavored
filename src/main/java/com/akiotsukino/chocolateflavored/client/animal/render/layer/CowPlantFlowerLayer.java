@@ -20,7 +20,7 @@ public class CowPlantFlowerLayer extends RenderLayer<MoobloomRenderState, CowMod
 
     @Override
     public void submit(PoseStack p_117256_, SubmitNodeCollector p_432964_, int p_117258_, MoobloomRenderState state, float p_117260_, float p_117261_) {
-        if (!state.isBaby) {
+        if (!state.isBaby && (!state.isInvisible || state.appearsGlowing())) {
             p_117256_.pushPose();
             p_117256_.translate(0.2F, -0.35F, 0.5F);
             p_117256_.mulPose(Axis.YP.rotationDegrees(-48.0F));
@@ -58,9 +58,9 @@ public class CowPlantFlowerLayer extends RenderLayer<MoobloomRenderState, CowMod
         int overlayCoords = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
 
         if (state.appearsGlowing() && state.isInvisible) {
-            state.plantBlock.submitOnlyOutline(poseStack, submitNodeCollector, lightCoords, state.outlineColor, overlayCoords);
+            state.plantBlock.submitOnlyOutline(poseStack, submitNodeCollector, lightCoords, overlayCoords, state.outlineColor);
         } else {
-            state.plantBlock.submit(poseStack, submitNodeCollector, lightCoords, state.outlineColor, overlayCoords);
+            state.plantBlock.submit(poseStack, submitNodeCollector, lightCoords, overlayCoords, state.outlineColor);
         }
     }
 }

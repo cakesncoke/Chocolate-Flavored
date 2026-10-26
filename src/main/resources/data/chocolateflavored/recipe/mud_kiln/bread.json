@@ -1,5 +1,5 @@
 {
-  "type": "chocolateflavored:oven",
+  "type": "chocolateflavored:mud_kiln",
   "ingredient": "minecraft:wheat",
   "input_count": 3,
   "result": {

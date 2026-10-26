@@ -15,6 +15,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class DuneOutlineClientVerification {
     private static int ticks;
+    public static boolean completed;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) throws ReflectiveOperationException {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TrimOutlineClientVerification.completed || ++ticks<60)return;
         var mc=Minecraft.getInstance();if(mc.player==null || mc.getSingleplayerServer()==null)return;
@@ -32,6 +33,6 @@ public final class DuneOutlineClientVerification {
             var field=com.akiotsukino.chocolateflavored.client.trim.TrimOutlines.class.getDeclaredField("positions");field.setAccessible(true);
             if(((java.util.List<?>)field.get(null)).size()!=4)throw new IllegalStateException("Dune must retain four suspicious-block borders through automatic refresh");
         }
-        if(ticks==220)ChocolateFlavored.LOGGER.info("DUNE_OUTLINE_CLIENT_VERIFICATION_PASSED: suspicious sand/gravel share Eye emissive outlines, visible and behind stone, with automatic brush refresh");
+        if(ticks==220){completed=true;ChocolateFlavored.LOGGER.info("DUNE_OUTLINE_CLIENT_VERIFICATION_PASSED: suspicious sand/gravel share Eye emissive outlines, visible and behind stone, with automatic brush refresh");}
     }
 }

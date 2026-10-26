@@ -1,10 +1,10 @@
-# Supplied resource provenance
+# Supplied resource prmud_kilnance
 
 The README credits all identified resource projects and creators. THIRD_PARTY_NOTICES.md records confirmed source paths and retained licenses. Newly imported resources in this cleanup are copied unchanged from the documented source archives. A source project's contributor list is credited collectively where individual PNG authorship is not recorded; no file-specific artist is invented.
 
 ## Confirmed supplied texture matches
 
-- Farmer's Delight: `textures/item/flint_knife.png`, `iron_knife.png`, `cooking_pot.png`, `empty_container_slot_bowl.png`, plus the oven/pot resources documented in THIRD_PARTY_NOTICES.md.
+- Farmer's Delight: `textures/item/flint_knife.png`, `iron_knife.png`, `cooking_pot.png`, `empty_container_slot_bowl.png`, plus the mud_kiln/pot resources documented in THIRD_PARTY_NOTICES.md.
 - Hardcore Torches: `textures/block/lit_torch.png`, `unlit_torch.png`, `unlit_lantern.png`. All three have identical Git blob hashes to the inspected Forge upstream. Upstream metadata declares All Rights Reserved; the Forge boilerplate license is not taken as permission to relicense those images.
 - EarthMobs, Earth2Java, Earth Animals and Ultimate Earth & Dungeons Variants: selected resources and exact revisions/paths are recorded in THIRD_PARTY_NOTICES.md and the baby texture audit.
 
@@ -12,7 +12,7 @@ The README credits all identified resource projects and creators. THIRD_PARTY_NO
 
 The project owner explicitly credits Modern Better Than Wolves for some supplied textures. The original archive/revision and a per-file author mapping were not included. Comparing byte hashes and RGBA pixels with the public eragaxshim/ModernBTW branches did not establish an exact match. This is recorded as an unresolved attribution detail rather than asserting that unrelated authors made these files.
 
-Remaining originally supplied item texture files whose individual provenance is not established here:
+Remaining originally supplied item texture files whose individual prmud_kilnance is not established here:
 
 - `coal_dust.png`, `copper_ore_pile.png`, `iron_ore_pile.png`
 - `stone_pebble.png`, `deepslate_pebble.png`

@@ -26,7 +26,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 /** Material items and primitive hammers; existing iron equipment keeps its vanilla identity. */
 public final class SteelContent {
-    public static final DeferredItem<Item> STEEL_INGOT = material("steel_ingot");
+    public static final DeferredItem<Item> STEEL_INGOT = ModContent.ITEMS.registerSimpleItem("steel_ingot", p -> p.trimMaterial(net.minecraft.resources.ResourceKey.create(Registries.TRIM_MATERIAL, Identifier.parse("chocolateflavored:steel"))));
     public static final DeferredItem<Item> STEEL_NUGGET = material("steel_nugget");
     public static final DeferredItem<Item> STEEL_PLATE = material("steel_plate");
     public static final DeferredItem<Item> DIAMOND_PLATE = material("diamond_plate");

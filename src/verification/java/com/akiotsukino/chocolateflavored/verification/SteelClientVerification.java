@@ -27,7 +27,7 @@ public final class SteelClientVerification {
     @SubscribeEvent public static void tick(ClientTickEvent.Post e) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!DyedWoodClientVerification.completed||++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;
-        for(Item item:equipment())if(!item.getDefaultInstance().getHoverName().getString().startsWith("Steel "))throw new IllegalStateException("Steel name: "+item);
+        for(Item item:equipment())if(item==ModContent.IRON_KNIFE.get() ? !item.getDefaultInstance().getHoverName().getString().equals("Iron Knife") : !item.getDefaultInstance().getHoverName().getString().startsWith("Steel "))throw new IllegalStateException("Steel name: "+item);
         var models=mc.getModelManager().getBlockStateModelSet();
         if(models.get(SteelContent.STEEL_BLOCK.get().defaultBlockState())==models.missingModel())throw new IllegalStateException("Steel block model");
         CreativeModeTabs.tryRebuildTabContents(mc.level.enabledFeatures(),true,mc.level.registryAccess());

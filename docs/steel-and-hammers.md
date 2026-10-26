@@ -4,7 +4,7 @@ Targets Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Standalone.
 
 ## Steel appearance
 
-Vanilla iron swords, pickaxes, axes, shovels, hoes, spears, helmets, chestplates, leggings, boots, horse armor and nautilus armor display as Steel equipment in English. The existing mod iron knife displays as Steel Knife. The supplied native item, held-spear and humanoid/leggings/horse/nautilus equipment textures are used through their Minecraft resource paths. The knife retains its existing supplied sprite because no replacement knife texture was provided.
+Vanilla iron swords, pickaxes, axes, shovels, hoes, spears, helmets, chestplates, leggings, boots, horse armor and nautilus armor display as Steel equipment in English. The existing mod iron knife displays as Iron Knife. The supplied native item, held-spear and humanoid/leggings/horse/nautilus equipment textures are used through their Minecraft resource paths. The knife retains its existing supplied sprite because no replacement knife texture was provided.
 
 Registry IDs, recipes, repair ingredients, attributes, entity equipment, loot and existing saved stacks stay intact: this is a name/appearance change, not a second set of duplicate equipment. Iron ingots, nuggets, blocks and trim materials retain their original identities. Supplied `steel` trim palettes remain available as source assets; this request does not introduce a new armor-trim material. No custom baby humanoid armor texture was supplied; that native layer remains vanilla.
 

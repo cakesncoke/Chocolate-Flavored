@@ -20,13 +20,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-public final class OvenBlockEntity extends BlockEntity {
+public final class MudKilnBlockEntity extends BlockEntity {
     private final NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private final int[] progress = new int[6];
-    private final RecipeManager.CachedCheck<SingleRecipeInput, CookingRecipes.OvenRecipe> custom = RecipeManager.createCheck(CookingRecipes.OVEN.get());
+    private final RecipeManager.CachedCheck<SingleRecipeInput, CookingRecipes.MudKilnRecipe> custom = RecipeManager.createCheck(CookingRecipes.MUD_KILN.get());
     private final RecipeManager.CachedCheck<SingleRecipeInput, CampfireCookingRecipe> campfire = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
     public record CookingResult(ItemStack result, int inputCount, int time, float experience) {}
-    public OvenBlockEntity(BlockPos pos, BlockState state) { super(CookingContent.OVEN_ENTITY.get(), pos, state); }
+    public MudKilnBlockEntity(BlockPos pos, BlockState state) { super(CookingContent.MUD_KILN_ENTITY.get(), pos, state); }
     public NonNullList<ItemStack> items() { return items; }
     public int progress(int slot) { return progress[slot]; }
     public Optional<CookingResult> recipe(ServerLevel level, ItemStack stack) {
@@ -47,20 +47,20 @@ public final class OvenBlockEntity extends BlockEntity {
         }
         return false;
     }
-    public static void tick(ServerLevel level, BlockPos pos, BlockState state, OvenBlockEntity oven) {
-        if (OvenBlock.isCovered(level, pos)) {
-            if (oven.items.stream().anyMatch(s -> !s.isEmpty())) { oven.dropItems(); oven.changed(); }
+    public static void tick(ServerLevel level, BlockPos pos, BlockState state, MudKilnBlockEntity mud_kiln) {
+        if (MudKilnBlock.isCovered(level, pos)) {
+            if (mud_kiln.items.stream().anyMatch(s -> !s.isEmpty())) { mud_kiln.dropItems(); mud_kiln.changed(); }
             return;
         }
         boolean changed = false;
         for (int slot = 0; slot < 6; slot++) {
-            var ingredient = oven.items.get(slot);
+            var ingredient = mud_kiln.items.get(slot);
             if (ingredient.isEmpty()) continue;
             changed = true;
-            if (!state.getValue(OvenBlock.LIT)) { oven.progress[slot] = Math.max(0, oven.progress[slot] - 2); continue; }
-            var recipe = oven.recipe(level, ingredient);
-            if (recipe.isEmpty()) { Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, ingredient); oven.items.set(slot, ItemStack.EMPTY); oven.changed(); continue; }
-            if (++oven.progress[slot] < recipe.get().time()) continue;
+            if (!state.getValue(MudKilnBlock.LIT)) { mud_kiln.progress[slot] = Math.max(0, mud_kiln.progress[slot] - 2); continue; }
+            var recipe = mud_kiln.recipe(level, ingredient);
+            if (recipe.isEmpty()) { Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, ingredient); mud_kiln.items.set(slot, ItemStack.EMPTY); mud_kiln.changed(); continue; }
+            if (++mud_kiln.progress[slot] < recipe.get().time()) continue;
             var result = recipe.get();
             if (result.result().isEmpty() || !result.result().isItemEnabled(level.enabledFeatures())) continue;
             Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.05, pos.getZ() + 0.5, result.result());
@@ -71,9 +71,9 @@ public final class OvenBlockEntity extends BlockEntity {
             float xp = result.experience(); int whole = (int)xp;
             if (level.getRandom().nextFloat() < xp - whole) whole++;
             if (whole > 0) ExperienceOrb.award(level, Vec3.atCenterOf(pos), whole);
-            oven.items.set(slot, ItemStack.EMPTY); oven.progress[slot] = 0; oven.changed();
+            mud_kiln.items.set(slot, ItemStack.EMPTY); mud_kiln.progress[slot] = 0; mud_kiln.changed();
         }
-        if (changed) oven.setChanged();
+        if (changed) mud_kiln.setChanged();
     }
     private void dropItems() { if (level != null) Containers.dropContents(level, worldPosition.above(), items); items.clear(); Arrays.fill(progress, 0); }
     private void changed() { setChanged(); if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3); }

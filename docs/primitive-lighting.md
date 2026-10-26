@@ -6,13 +6,13 @@ Target: Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. No external mod dependen
 
 `chocolateflavored:unlit_torch` and `chocolateflavored:lit_torch` support standing and wall placement, with separate matching wall block IDs. Unlit torches emit no light or flame/smoke particles. Lit torches use vanilla torch light level and particles.
 
-A placed lit torch burns for 24,000 game ticks (20 minutes at 20 TPS). Its absolute game-time deadline is saved in a block entity. Server shutdown pauses game time; unloaded chunks do not reset deadlines, and an expired torch extinguishes when its chunk next ticks. Wall orientation is preserved. Burnout plays vanilla's fire-extinguish sound and changes the block to its unlit counterpart. Relighting starts a fresh 24,000-tick timer.
+A placed lit torch burns for 42,000 game ticks (35 minutes at 20 TPS). Its absolute game-time deadline is saved in a block entity. Server shutdown pauses game time; unloaded chunks do not reset deadlines, and an expired torch extinguishes when its chunk next ticks. Wall orientation is preserved. Burnout plays vanilla's fire-extinguish sound and changes the block to its unlit counterpart. Relighting starts a fresh 42,000-tick timer.
 
 Breaking a lit standing or wall torch drops a lit torch item with its exact remaining burn time. Its inventory durability bar and tooltip show the saved fuel; inventory storage pauses the timer and placement resumes it. Lit torches stack to one. Fuel uses a persistent item component rather than repairable tool damage. Unlit torches drop unlit torches. Creative mode exposes both item variants. Vanilla torches are left unchanged.
 
 ## Fire starter
 
-`chocolateflavored:fire_starter` has exactly two durability and a continuous 100-tick (5-second) use action. Hold use while aiming at an unlit mod torch or dry, unlit campfire. Both normal and extinguished soul campfires, and unlit ovens, are supported. Both block-use and normal right-click entry points start the action. Equivalent inventory stack copies do not interrupt the hold.
+`chocolateflavored:fire_starter` has exactly two durability and a continuous 100-tick (5-second) use action. Hold use while aiming at an unlit mod torch or dry, unlit campfire. Both normal and extinguished soul campfires, and unlit mud_kilns, are supported. Both block-use and normal right-click entry points start the action. Equivalent inventory stack copies do not interrupt the hold.
 
 The tool repeats use swings, high-pitched vanilla eating sounds, and item-chip particles. These are the primitive fire-plough cues found in [the original Better Than Wolves primitive fire starter](https://github.com/BetterThanWolves/BetterThanWolves/blob/master/Src/FCItemFireStarterPrimitive.java). The behavior is implemented using current APIs, without copying its Java implementation or requiring BTW. A client-only mixin applies vanilla's existing swing transform while the item is in its sustained use action; server swing updates also animate other players.
 
@@ -22,7 +22,7 @@ Only completing the entire hold lights the target and consumes one durability. R
 
 `chocolateflavored:unlit_lantern` supports standing, hanging and waterlogged placement using vanilla lantern geometry. The inventory item uses the dedicated unlit lantern item texture. Right-click a dry unlit lantern with flint and steel or a fire charge to convert it into a vanilla lit lantern, preserving its hanging state. Flint and steel loses one durability; fire charges consume one item, following vanilla creative-mode rules. Lit lanterns have no burnout timer. A waterlogged unlit lantern cannot be ignited.
 
-Flint and steel and fire charges can also ignite the custom unlit torches. The fire starter can light torches, campfires and ovens.
+Flint and steel and fire charges can also ignite the custom unlit torches. The fire starter can light torches, campfires and mud_kilns.
 
 Normal campfires are placed unlit. Soul campfires retain vanilla placement behavior, including being lit when placed dry. Their vanilla ignition, cooking, smoke, damage, waterlogging and extinguishing mechanics are retained. Once ignited, they burn indefinitely without added fuel or a burnout timer, and can still be deliberately extinguished through vanilla mechanics. World-generated or command-created campfire states are not globally rewritten.
 

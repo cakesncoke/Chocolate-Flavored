@@ -33,8 +33,8 @@ public class ChocolateFlavored {
     static {
         TABS.register("chocolate_flavored", () -> CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup.chocolateflavored"))
-                .icon(() -> com.akiotsukino.chocolateflavored.cake.CakeContent.CHOCOLATE.item().get().getDefaultInstance())
-                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().forEach(item -> output.accept(item.get())))
+                .icon(() -> ModContent.CHOCOLATE_CAKE_SLICE.get().getDefaultInstance())
+                .displayItems((parameters, output) -> ModContent.ITEMS.getEntries().stream().map(entry -> entry.get()).sorted(java.util.Comparator.comparingInt((net.minecraft.world.item.Item item) -> com.akiotsukino.chocolateflavored.content.CreativeOrder.group(item)).thenComparing(item -> item.getName(item.getDefaultInstance()).getString())).forEach(output::accept))
                 .build());
     }
 

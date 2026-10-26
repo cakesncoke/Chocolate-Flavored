@@ -2,7 +2,7 @@
 
 ## Farmer's Delight
 
-The supplied oven and cooking-pot models, textures, GUI, empty-bowl slot sprite, Flint Knife/Iron Knife textures, sounds and steam textures originate from [Farmer's Delight](https://github.com/vectorwing/FarmersDelight). Steam particle behavior and cooking interaction/layout concepts are adapted from that project. Reference revision: `22fe987639a9813f5b5474579518571ce91ed5d5` (26.1 branch).
+The supplied mud_kiln and cooking-pot models, textures, GUI, empty-bowl slot sprite, Flint Knife/Iron Knife textures, sounds and steam textures originate from [Farmer's Delight](https://github.com/vectorwing/FarmersDelight). Steam particle behavior and cooking interaction/layout concepts are adapted from that project. Reference revision: `22fe987639a9813f5b5474579518571ce91ed5d5` (26.1 branch).
 
 Copyright (c) 2020 vectorwing. MIT License. The complete notice is distributed in the mod JAR at `META-INF/licenses/FarmersDelight-MIT.txt`.
 
@@ -38,7 +38,7 @@ Wolfie_Waffle (GitHub WolfieWaffle), [Hardcore Torches Forge](https://github.com
 
 ## Better Than Wolves / Modern Better Than Wolves
 
-FlowerChild is credited for original Better Than Wolves and the primitive fire-plough interaction reference (ordinary swings, high-pitched eating sounds and item-chip particles), inspected in the [original source repository](https://github.com/BetterThanWolves/BetterThanWolves). The project owner also identifies Modern Better Than Wolves as a source of supplied textures. No upstream revision, per-file artist list or original download accompanied that supplied collection; do not interpret the repository's MIT license as relicensing it. The inspected [eragaxshim/ModernBTW](https://github.com/eragaxshim/mbtw) 1.16/1.18/1.19/1.20/1.21 sources did not establish exact file matches. [Resource provenance](docs/resource-provenance.md) lists the remaining supplied files, without inventing a definite per-file attribution. Source-level credit is retained while those records remain unverified.
+FlowerChild is credited for original Better Than Wolves and the primitive fire-plough interaction reference (ordinary swings, high-pitched eating sounds and item-chip particles), inspected in the [original source repository](https://github.com/BetterThanWolves/BetterThanWolves). The project owner also identifies Modern Better Than Wolves as a source of supplied textures. No upstream revision, per-file artist list or original download accompanied that supplied collection; do not interpret the repository's MIT license as relicensing it. The inspected [eragaxshim/ModernBTW](https://github.com/eragaxshim/mbtw) 1.16/1.18/1.19/1.20/1.21 sources did not establish exact file matches. [Resource prmud_kilnance](docs/resource-prmud_kilnance.md) lists the remaining supplied files, without inventing a definite per-file attribution. Source-level credit is retained while those records remain unverified.
 
 ## Friends & Foes — Tuff Golem restart
 
@@ -73,7 +73,7 @@ The precise asset list and original/bundled SHA-256 hashes are in [docs/crop-ass
 
 ## Project-owner-supplied cake textures
 
-The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added by the project owner in main commit `c66392874998898cc315ba973a02137b8ea418cf`. They are reused unchanged; [docs/cake-assets.json](docs/cake-assets.json) records the twenty exact paths and hashes. No upstream artist, source project or per-file license accompanied this addition; existing supplied-resource provenance notices remain applicable, and no new attribution or MIT relicensing of third-party artwork is inferred. Models reference Minecraft 26.1.2's existing cake/slice/candle geometry and native candle textures rather than importing external models or artwork.
+The Pomegranate, Coffee, Cherry, and Chocolate Cake block/item PNGs were added by the project owner in main commit `c66392874998898cc315ba973a02137b8ea418cf`. They are reused unchanged; [docs/cake-assets.json](docs/cake-assets.json) records the twenty exact paths and hashes. No upstream artist, source project or per-file license accompanied this addition; existing supplied-resource prmud_kilnance notices remain applicable, and no new attribution or MIT relicensing of third-party artwork is inferred. Models reference Minecraft 26.1.2's existing cake/slice/candle geometry and native candle textures rather than importing external models or artwork.
 
 ## Pastel wood rendering
 

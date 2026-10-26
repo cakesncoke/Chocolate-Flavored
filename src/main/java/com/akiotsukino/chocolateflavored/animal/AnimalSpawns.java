@@ -43,7 +43,7 @@ public final class AnimalSpawns {
         replacement.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), reason, null);
         replacement.getPersistentData().putBoolean(CHECKED, true);
         if (mob instanceof AgeableMob original && replacement instanceof AgeableMob ageable) ageable.setAge(original.getAge());
-        if (mob instanceof Sheep original && replacement instanceof Sheep sheep) sheep.setColor(original.getColor());
+        if (mob instanceof Sheep original && replacement instanceof Sheep sheep) sheep.setColor(original.getColor() == net.minecraft.world.item.DyeColor.PINK ? original.getColor() : type == AnimalContent.LONG_NOSE_SHEEP.get() && mob.getRandom().nextBoolean() ? net.minecraft.world.item.DyeColor.BROWN : net.minecraft.world.item.DyeColor.WHITE);
         if (mob instanceof Pig && replacement instanceof Pig pig) MuddyPigRules.copy((MuddyPig) mob, (MuddyPig) pig);
         // Add first: a third-party cancellation must not erase the original animal.
         if (level.addFreshEntity(replacement)) event.setCanceled(true);

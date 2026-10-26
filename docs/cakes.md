@@ -8,6 +8,6 @@ Every full cake accepts any of the seventeen vanilla candles. Internal candle-ca
 
 The vanilla eating routine is reused for candle-cake eating as well. The small candle attachment/return adapter exists because vanilla hardcodes the ordinary cake during these transitions. The internal forms inherit `AbstractCandleBlock` rather than mutating `CandleCakeBlock`'s global candle lookup.
 
-Texture paths/hashes and the source main commit are recorded in [cake-assets.json](cake-assets.json). Artwork is project-owner-supplied; no upstream artist or license is invented. Existing resource-provenance notices continue to apply. The model JSON references vanilla geometry rather than redistributing new external models. No mod dependency is added.
+Texture paths/hashes and the source main commit are recorded in [cake-assets.json](cake-assets.json). Artwork is project-owner-supplied; no upstream artist or license is invented. Existing resource-prmud_kilnance notices continue to apply. The model JSON references vanilla geometry rather than redistributing new external models. No mod dependency is added.
 
 CI-only checks compare all four flavors against vanilla eating, hunger/saturation, slice shapes, signals, support and loot behavior; exercise all 68 candle combinations, lighting/extinguishing, flavor preservation and vanilla candle-map integrity; and verify the creative-tab icon. Client checks bake every plain/sliced/lit/unlit model and render the four item textures. Verification code is excluded from the release JAR.

@@ -2,7 +2,7 @@ package com.akiotsukino.chocolateflavored.lighting;
 
 import net.minecraft.core.BlockPos;
 import com.akiotsukino.chocolateflavored.cooking.CookingContent;
-import com.akiotsukino.chocolateflavored.cooking.OvenBlock;
+import com.akiotsukino.chocolateflavored.cooking.MudKilnBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -25,7 +25,7 @@ public final class LightingIgnition {
     public static boolean unlitTorch(BlockState state) {
         return state.is(LightingContent.UNLIT_TORCH.get()) || state.is(LightingContent.UNLIT_WALL_TORCH.get());
     }
-    public static boolean fireStarterTarget(BlockState state) { return unlitTorch(state) || CampfireBlock.canLight(state) || state.is(CookingContent.OVEN.get()) && !state.getValue(OvenBlock.LIT); }
+    public static boolean fireStarterTarget(BlockState state) { return unlitTorch(state) || CampfireBlock.canLight(state) || state.is(CookingContent.MUD_KILN.get()) && !state.getValue(MudKilnBlock.LIT); }
     public static boolean canIgnite(BlockState state) {
         return fireStarterTarget(state) || state.is(LightingContent.UNLIT_LANTERN.get()) && !state.getValue(LanternBlock.WATERLOGGED);
     }
@@ -43,7 +43,7 @@ public final class LightingIgnition {
         else if (state.is(LightingContent.UNLIT_LANTERN.get())) {
             lit = Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, state.getValue(LanternBlock.HANGING))
                     .setValue(LanternBlock.WATERLOGGED, state.getValue(LanternBlock.WATERLOGGED));
-        } else if (state.is(CookingContent.OVEN.get())) lit = state.setValue(OvenBlock.LIT, true);
+        } else if (state.is(CookingContent.MUD_KILN.get())) lit = state.setValue(MudKilnBlock.LIT, true);
         else lit = state.setValue(CampfireBlock.LIT, true);
         if (!level.setBlock(pos, lit, Block.UPDATE_ALL)) return false;
         if (level.getBlockEntity(pos) instanceof TorchTimerBlockEntity timer) timer.reset();

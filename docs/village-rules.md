@@ -20,7 +20,7 @@ Old growth pine taigas keep their vanilla zombie weight of 100 and zombie-villag
 
 Villagers cannot summon iron golems through panic or gossip. Player-built iron golems and golems placed by pillager-outpost templates continue to work.
 
-Successful villager breeding gives both parents a **36,000-tick (30-minute)** cooldown. New baby villagers start at **-72,000 ticks (one hour)** and mature at zero. The longer initial age applies to bred babies and other newly initialized villager babies; animal growth remains vanilla. Age progression, saving/loading, and vanilla age-lock mechanics are retained. Previously saved villagers retain their remaining age/cooldown. These durations assume 20 TPS and normally ticking entities.
+Successful villager breeding gives both parents a **42,000-tick (35-minute)** cooldown. New baby villagers start at **-42,000 ticks (35 minutes)** and mature at zero. The longer initial age applies to bred babies and other newly initialized villager babies; animal growth remains vanilla. Age progression, saving/loading, and vanilla age-lock mechanics are retained. Previously saved villagers retain their remaining age/cooldown. These durations assume 20 TPS and normally ticking entities.
 
 ## Verification
 

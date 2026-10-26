@@ -78,7 +78,7 @@ final class LightingVerification {
             player.stopUsingItem();
             check(level.getBlockState(pos).is(LightingContent.LIT_TORCH.get()), "Fire starter lights torch");
             TorchTimerBlockEntity timer = (TorchTimerBlockEntity)level.getBlockEntity(pos);
-            check(timer != null && timer.burnUntil() == level.getGameTime() + 24000, "Fresh 20-minute timer on ignition");
+            check(timer != null && timer.burnUntil() == level.getGameTime() + 42000, "Fresh 35-minute timer on ignition");
         }
         check(tool.isEmpty(), "Fire starter breaks on its second successful ignition");
 
@@ -111,7 +111,7 @@ final class LightingVerification {
             if (wall) check(expired.getValue(WallTorchBlock.FACING) == Direction.EAST, "Wall orientation survives expiry");
             check(LightingIgnition.ignite(level, pos, player), "Extinguished torch can be relit");
             timer = (TorchTimerBlockEntity)level.getBlockEntity(pos);
-            check(timer.burnUntil() == level.getGameTime() + 24000, "Relighting resets full timer");
+            check(timer.burnUntil() == level.getGameTime() + 42000, "Relighting resets full timer");
             check(Blocks.TORCH.defaultBlockState().getLightEmission() == level.getBlockState(pos).getLightEmission(), "Lit torch light level");
         }
 
