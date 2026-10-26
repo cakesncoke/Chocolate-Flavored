@@ -26,8 +26,8 @@ final class HornVerification {
         var origin = player.position();
         try {
             wolf.setTame(true, true); wolf.setOwner(player); wolf.setOrderedToSit(true);
-            wolf.setPos(origin.add(20, 0, 0)); level.addFreshEntity(wolf);
-            horse.setTamed(true); horse.setOwner(player); horse.setPos(origin.add(20, 0, 0)); level.addFreshEntity(horse);
+            wolf.setPos(origin.add(2, 0, 0)); level.addFreshEntity(wolf);
+            horse.setTamed(true); horse.setOwner(player); horse.setPos(origin.add(2, 0, 0)); level.addFreshEntity(horse);
             check(!HornRecall.bind(player, horn, cow), "Non-pet must not link");
             player.setItemInHand(InteractionHand.MAIN_HAND, horn);
             var interaction = new PlayerInteractEvent.EntityInteract(player, InteractionHand.MAIN_HAND, wolf);
@@ -53,7 +53,8 @@ final class HornVerification {
             player.setItemInHand(InteractionHand.MAIN_HAND, horn);
             player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(horn));
             check(item.use(level, player, InteractionHand.MAIN_HAND).consumesAction(), "Horn plays");
-            check(wolf.position().distanceToSqr(player.position()) < .01 && wolf.isOrderedToSit(), "Recall preserves sitting state");
+            check(wolf.position().distanceToSqr(player.position()) < .01, "Recall reaches caller: " + wolf.position() + " -> " + player.position());
+            check(wolf.isOrderedToSit(), "Recall preserves sitting state");
             check(player.getCooldowns().isOnCooldown(horn), "Native horn cooldown");
             wolf.setPos(origin.add(20, 0, 0));
             check(!item.use(level, player, InteractionHand.MAIN_HAND).consumesAction() && wolf.position().distanceToSqr(origin) > 100, "Cooldown prevents repeated recall");

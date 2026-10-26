@@ -36,7 +36,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 @EventBusSubscriber(modid = ChocolateFlavored.MODID)
 public final class HornRecall {
-    private record Pending(UUID player, UUID target, int expires) {}
+    private record Pending(ServerPlayer player, UUID target, int expires) {}
     private static final Map<MinecraftServer, List<Pending>> PENDING = new WeakHashMap<>();
 
     public static boolean eligible(Player player, Entity target) {
@@ -45,7 +45,9 @@ public final class HornRecall {
                 && !ownable.getOwnerReference().matches(player)) return false;
         return target instanceof TamableAnimal pet && pet.isTame()
                 || target instanceof AbstractHorse horse && horse.isTamed()
-                || !living.getItemBySlot(EquipmentSlot.SADDLE).isEmpty();
+                || !living.getItemBySlot(EquipmentSlot.SADDLE).isEmpty()
+                || target.getType().is(net.minecraft.tags.EntityTypeTags.CAN_EQUIP_HARNESS)
+                    && !living.getItemBySlot(EquipmentSlot.BODY).isEmpty();
     }
 
     public static boolean bind(Player player, ItemStack horn, Entity target) {
@@ -83,8 +85,8 @@ public final class HornRecall {
         // Native portal tickets expire automatically; no permanent force-loaded chunks.
         level.getChunkSource().addTicketWithRadius(TicketType.PORTAL, ChunkPos.containing(location.pos()), 2);
         var pending = PENDING.computeIfAbsent(server, s -> new ArrayList<>());
-        pending.removeIf(p -> p.player().equals(player.getUUID()) && p.target().equals(target));
-        pending.add(new Pending(player.getUUID(), target, server.getTickCount() + 200));
+        pending.removeIf(p -> p.player() == player && p.target().equals(target));
+        pending.add(new Pending(player, target, server.getTickCount() + 200));
     }
 
     public static boolean recall(ServerPlayer player, Entity entity) {
@@ -110,9 +112,9 @@ public final class HornRecall {
         var iterator = pending.iterator();
         while (iterator.hasNext()) {
             var call = iterator.next();
-            var player = server.getPlayerList().getPlayer(call.player());
+            var player = call.player();
             var target = loaded(server, call.target());
-            if (player == null) iterator.remove();
+            if (player.isRemoved() || !player.isAlive()) iterator.remove();
             else if (target != null) { recall(player, target); iterator.remove(); }
             else if (server.getTickCount() >= call.expires()) { unavailable(player); iterator.remove(); }
         }

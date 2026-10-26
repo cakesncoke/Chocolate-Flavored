@@ -80,6 +80,7 @@ public final class SleepTimingVerification {
                 "Vanilla furnace smelts during the simulated night");
         // Allow CI scheduling jitter, but catch an accidental old five-second entry or 2x speed.
         check(seconds >= 17 && seconds <= 29, "Live wall time remains close to the twenty-second target: " + seconds);
+        check(HornUnloadedVerification.completed, "Unloaded horn recall fixture completed");
         fixture = null;
         f.level().removePlayerImmediately(f.sleeper(), Entity.RemovalReason.DISCARDED);
         for (var pos : new BlockPos[]{f.bed(), f.bed().east(), f.furnace()}) f.level().removeBlock(pos, false);

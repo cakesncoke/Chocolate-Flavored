@@ -165,6 +165,7 @@ public final class DevelopmentVerification {
         CropVerification.run(level, player);
         TraderVerification.run(level);
         TimeVerification.run(level);
+        HornUnloadedVerification.start(level);
         SleepTimingVerification.start(level);
     }
     private static void durability(Item item, int value) { check(new ItemStack(item).getMaxDamage() == value, "Durability: " + item); }
