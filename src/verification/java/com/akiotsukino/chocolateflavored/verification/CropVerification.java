@@ -75,7 +75,7 @@ public final class CropVerification {
         level.setBlockAndUpdate(pos, bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 2));
         var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
         check(!bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Blueberries require full maturity for picking");
-        bush.performBonemeal(level, level.random, pos, level.getBlockState(pos));
+        bush.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
         check(bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Pick blueberries");
         check(level.getBlockState(pos).getValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE) == 1, "Blueberries regrow from age one");
         check(Block.getDrops(bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 3), level, pos, null, player, ItemStack.EMPTY)

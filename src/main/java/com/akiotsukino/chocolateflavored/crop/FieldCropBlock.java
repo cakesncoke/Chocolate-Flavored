@@ -54,9 +54,9 @@ public class FieldCropBlock extends CropBlock {
                 net.minecraft.world.entity.player.Player player, net.minecraft.world.phys.BlockHitResult hit) {
             if (!isMaxAge(state)) return super.useWithoutItem(state, level, pos, player, hit);
             if (level instanceof ServerLevel server) {
-                popResource(level, pos, new net.minecraft.world.item.ItemStack(CropContent.COTTON_BOLL.get(), 1 + server.random.nextInt(2)));
+                popResource(level, pos, new net.minecraft.world.item.ItemStack(CropContent.COTTON_BOLL.get(), 1 + server.getRandom().nextInt(2)));
                 level.playSound(null, pos, net.minecraft.sounds.SoundEvents.CROP_BREAK, net.minecraft.sounds.SoundSource.BLOCKS,
-                        1, .8F + server.random.nextFloat() * .4F);
+                        1, .8F + server.getRandom().nextFloat() * .4F);
                 level.setBlock(pos, getStateForAge(5), 2);
             }
             return net.minecraft.world.InteractionResult.SUCCESS;
