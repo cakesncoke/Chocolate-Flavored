@@ -600,5 +600,8 @@
   "trim_material.chocolateflavored.steel": "Steel",
   "item.chocolateflavored.copper_horn": "Copper Horn",
   "tooltip.chocolateflavored.horn_call": "Call %s",
-  "tooltip.chocolateflavored.horn_companion": "linked companion"
+  "tooltip.chocolateflavored.horn_companion": "linked companion",
+  "item.chocolateflavored.circuit": "Circuit",
+  "item.chocolateflavored.casing": "Casing",
+  "item.chocolateflavored.precision_meter": "Precision Meter"
 }
