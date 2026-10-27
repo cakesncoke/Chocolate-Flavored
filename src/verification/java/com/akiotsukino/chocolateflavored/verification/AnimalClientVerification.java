@@ -27,7 +27,7 @@ public final class AnimalClientVerification {
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened) return;
         Minecraft mc=Minecraft.getInstance();
-        if(mc.player==null||mc.level==null||!(mc.screen instanceof CookingPotScreen)||++screenTicks<100) return;
+        if(mc.player==null||mc.level==null||!(mc.screen instanceof CookingPotScreen)||++screenTicks<300) return;
         opened=true;mc.player.closeContainer();mc.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {

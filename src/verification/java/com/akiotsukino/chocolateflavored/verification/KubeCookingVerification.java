@@ -34,9 +34,20 @@ public final class KubeCookingVerification {
         check(level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3)).stream().anyMatch(e -> e.getItem().is(Items.GOLDEN_CARROT)), "MudKiln executes KubeJS recipe");
         level.setBlockAndUpdate(pos.above(), CookingContent.COOKING_POT.get().defaultBlockState());
         var pot = (CookingPotBlockEntity)level.getBlockEntity(pos.above());
-        pot.setItem(0, new ItemStack(Items.APPLE)); pot.setItem(1, new ItemStack(Items.CARROT)); pot.setItem(7, new ItemStack(Items.BOWL));
-        for (int i = 0; i < 4; i++) CookingPotBlockEntity.tick(level, pot.getBlockPos(), pot.getBlockState(), pot);
-        check(pot.getItem(8).is(Items.MUSHROOM_STEW) && pot.getItem(7).isEmpty(), "Cooking pot executes KubeJS recipe and consumes serving bowl");
+        Item[] inputs={Items.APPLE,Items.CARROT,Items.POTATO,Items.BEETROOT,Items.WHEAT,Items.SUGAR};
+        int[] counts={2,1,3,4,5,6};
+        Item[] outputs={Items.GOLDEN_CARROT,Items.APPLE,Items.BREAD,Items.POTATO,Items.BEETROOT,Items.SUGAR};
+        for(int i=0;i<6;i++)pot.setItem(i,new ItemStack(inputs[i],counts[i]));
+        pot.setItem(11,new ItemStack(Items.DIRT,64));
+        for(int i=0;i<200;i++)CookingPotBlockEntity.tick(level,pot.getBlockPos(),pot.getBlockState(),pot);
+        for(int i=0;i<6;i++)check(pot.getItem(i).getCount()==counts[i],"One blocked result prevents every input consumption");
+        for(int i=6;i<11;i++)check(pot.getItem(i).isEmpty(),"No partial outputs when sixth result is blocked");
+        pot.setItem(11,ItemStack.EMPTY);
+        for(int i=0;i<199;i++)CookingPotBlockEntity.tick(level,pot.getBlockPos(),pot.getBlockState(),pot);
+        check(pot.getItem(6).isEmpty(),"KubeJS pot recipes retain fixed 200 tick timing");
+        CookingPotBlockEntity.tick(level,pot.getBlockPos(),pot.getBlockState(),pot);
+        for(int i=0;i<6;i++)check(pot.getItem(i).isEmpty()&&pot.getItem(6+i).is(outputs[i])&&pot.getItem(6+i).getCount()==i+2,
+                "All six counted inputs and six output stacks execute atomically");
         ChocolateFlavored.LOGGER.info("KUBEJS_COOKING_VERIFICATION_PASSED: real KubeJS recipe removal and custom JSON recipes execute in mud_kiln and pot without Farmer's Delight");
         event.getServer().halt(false);
     }

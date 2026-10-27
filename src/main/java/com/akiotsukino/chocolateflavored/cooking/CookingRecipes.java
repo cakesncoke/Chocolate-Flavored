@@ -55,37 +55,43 @@ public final class CookingRecipes {
         @Override public int size() { return items.size(); }
         @Override public ItemStack getItem(int slot) { return items.get(slot); }
     }
-    public record PotRecipe(List<Ingredient> ingredients, ItemStackTemplate result, Optional<ItemStackTemplate> container, int cookingTime, float experience) implements ProcessingRecipe<PotInput> {
-        public PotRecipe { ingredients = List.copyOf(ingredients); }
+    public record PotIngredient(Ingredient ingredient, int count) {
+        public static final Codec<PotIngredient> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Ingredient.CODEC.fieldOf("ingredient").forGetter(PotIngredient::ingredient),
+                Codec.intRange(1, 64).optionalFieldOf("count", 1).forGetter(PotIngredient::count)
+        ).apply(i, PotIngredient::new));
+        public boolean test(ItemStack stack) { return ingredient.test(stack) && stack.getCount() >= count; }
+    }
+    public record PotRecipe(List<PotIngredient> ingredients, List<ItemStackTemplate> results, float experience) implements ProcessingRecipe<PotInput> {
+        public static final int COOKING_TIME = 200;
+        public PotRecipe { ingredients = List.copyOf(ingredients); results = List.copyOf(results); }
+        private static final Codec<List<ItemStackTemplate>> RESULTS = ItemStackTemplate.CODEC.listOf(1, 6);
         public static final MapCodec<PotRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-                Ingredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(PotRecipe::ingredients),
-                ItemStackTemplate.CODEC.fieldOf("result").forGetter(PotRecipe::result),
-                ItemStackTemplate.CODEC.optionalFieldOf("container").forGetter(PotRecipe::container),
-                Codec.intRange(1, 32767).optionalFieldOf("cookingtime", 200).forGetter(PotRecipe::cookingTime),
+                PotIngredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(PotRecipe::ingredients),
+                RESULTS.fieldOf("results").forGetter(PotRecipe::results),
                 Codec.floatRange(0, 1000).optionalFieldOf("experience", 0.0F).forGetter(PotRecipe::experience)
         ).apply(i, PotRecipe::new));
-        @Override public boolean matches(PotInput input, Level level) {
-            var stacks = input.items().stream().filter(s -> !s.isEmpty()).toList();
-            return stacks.size() == ingredients.size() && match(stacks, 0, 0);
+        @Override public boolean matches(PotInput input, Level level) { return assignment(input) != null; }
+        /** Every ingredient occupies one input slot. Backtracking handles overlapping tags and counts. */
+        public int[] assignment(PotInput input) {
+            if (input.items().stream().filter(stack -> !stack.isEmpty()).count() != ingredients.size()) return null;
+            int[] slots = new int[ingredients.size()];
+            return match(input, slots, 0, 0) ? slots : null;
         }
-        // Backtracking avoids greedily misassigning overlapping tag/item ingredients (at most six).
-        private boolean match(List<ItemStack> stacks, int index, int used) {
+        private boolean match(PotInput input, int[] slots, int index, int used) {
             if (index == ingredients.size()) return true;
-            for (int slot = 0; slot < stacks.size(); slot++) {
+            for (int slot = 0; slot < input.size(); slot++) {
                 int bit = 1 << slot;
-                if ((used & bit) == 0 && ingredients.get(index).test(stacks.get(slot)) && match(stacks, index + 1, used | bit)) return true;
+                if ((used & bit) == 0 && ingredients.get(index).test(input.getItem(slot))) {
+                    slots[index] = slot;
+                    if (match(input, slots, index + 1, used | bit)) return true;
+                }
             }
             return false;
         }
-        @Override public ItemStack assemble(PotInput input) { return result.create(); }
-        public ItemStack servingContainer() {
-            if (container.isPresent()) return container.get().withCount(1).create();
-            var stack = result.create();
-            var remainder = stack.getCraftingRemainder();
-            if (remainder != null) return remainder.withCount(1).create();
-            var use = stack.get(net.minecraft.core.component.DataComponents.USE_REMAINDER);
-            return use == null ? ItemStack.EMPTY : use.convertInto().withCount(1).create();
-        }
+        public int cookingTime() { return COOKING_TIME; }
+        public List<ItemStack> outputs() { return results.stream().map(ItemStackTemplate::create).toList(); }
+        @Override public ItemStack assemble(PotInput input) { return results.getFirst().create(); }
         @Override public RecipeSerializer<PotRecipe> getSerializer() { return POT_SERIALIZER.get(); }
         @Override public RecipeType<PotRecipe> getType() { return COOKING_POT.get(); }
     }

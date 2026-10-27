@@ -1,5 +1,6 @@
 package com.akiotsukino.chocolateflavored.cooking;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.*;
 import net.minecraft.core.component.*;
@@ -18,7 +19,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,41 +27,39 @@ import net.minecraft.world.level.storage.*;
 import net.minecraft.world.phys.Vec3;
 
 public final class CookingPotBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
-    public static final int MEAL = 6, CONTAINER = 7, OUTPUT = 8;
+    public static final int INPUTS = 6, OUTPUT = 6, SIZE = 12;
     public static final TagKey<Block> HEAT_SOURCES = tag("heat_sources"), HEAT_CONDUCTORS = tag("heat_conductors"), TRAY_HEAT_SOURCES = tag("tray_heat_sources");
-    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
-    private ItemStack servingContainer = ItemStack.EMPTY;
-    private ItemStack servingTemplate = ItemStack.EMPTY;
-    private int progress, total = 200;
+    private NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+    // Only used to return contents migrated from the previous nine-slot/meal-buffer design.
+    private final List<ItemStack> legacyReturns = new ArrayList<>();
+    private int progress;
     private float experience;
     private String activeRecipe = "";
     private CookingRecipes.PotRecipe lastRecipe;
     private final RecipeManager.CachedCheck<CookingRecipes.PotInput, CookingRecipes.PotRecipe> recipes = RecipeManager.createCheck(CookingRecipes.COOKING_POT.get());
     public final ContainerData data = new ContainerData() {
-        @Override public int get(int index) { return switch (index) { case 0 -> progress; case 1 -> total; case 2 -> isHeated() ? 1 : 0; default -> 0; }; }
-        @Override public void set(int index, int value) { if (index == 0) progress = value; if (index == 1) total = value; }
+        @Override public int get(int index) { return switch (index) { case 0 -> progress; case 1 -> CookingRecipes.PotRecipe.COOKING_TIME; case 2 -> isHeated() ? 1 : 0; default -> 0; }; }
+        @Override public void set(int index, int value) { if (index == 0) progress = value; }
         @Override public int getCount() { return 3; }
     };
     public CookingPotBlockEntity(BlockPos pos, BlockState state) { super(CookingContent.POT_ENTITY.get(), pos, state); }
     private static TagKey<Block> tag(String path) { return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath("chocolateflavored", path)); }
-    @Override public int getContainerSize() { return 9; }
+    @Override public int getContainerSize() { return SIZE; }
     @Override protected NonNullList<ItemStack> getItems() { return items; }
     @Override protected void setItems(NonNullList<ItemStack> value) { items = value; }
-    @Override public int getMaxStackSize(ItemStack stack) { return 64; }
     @Override protected Component getDefaultName() { return Component.translatable("container.chocolateflavored.cooking_pot"); }
     @Override protected AbstractContainerMenu createMenu(int id, Inventory inventory) { return new CookingPotMenu(id, inventory, this, data); }
-    public ItemStack meal() { return items.get(MEAL); }
-    public ItemStack servingContainer() { return servingContainer.copy(); }
-    public CookingRecipes.PotInput input() { return new CookingRecipes.PotInput(items.subList(0, 6)); }
+    public boolean hasOutputs() { return !legacyReturns.isEmpty() || items.subList(OUTPUT, SIZE).stream().anyMatch(stack -> !stack.isEmpty()); }
+    public CookingRecipes.PotInput input() { return new CookingRecipes.PotInput(items.subList(0, INPUTS)); }
     @Override public void setItem(int slot, ItemStack stack) {
-        boolean changed = slot < 6 && !ItemStack.isSameItemSameComponents(items.get(slot), stack);
-        items.set(slot, stack); stack.limitSize(slot == MEAL ? 64 : Math.min(64, stack.getMaxStackSize()));
+        boolean changed = slot < INPUTS && !ItemStack.isSameItemSameComponents(items.get(slot), stack);
+        items.set(slot, stack); stack.limitSize(Math.min(64, stack.getMaxStackSize()));
         if (changed) progress = 0;
         markUpdated();
     }
     @Override public ItemStack removeItem(int slot, int count) {
         var taken = super.removeItem(slot, count);
-        if (slot < 6 && items.get(slot).isEmpty()) progress = 0;
+        if (slot < INPUTS && items.get(slot).isEmpty()) progress = 0;
         if (!taken.isEmpty()) markUpdated();
         return taken;
     }
@@ -72,69 +70,79 @@ public final class CookingPotBlockEntity extends BaseContainerBlockEntity implem
         return isHeatSource(below) || below.is(HEAT_CONDUCTORS) && isHeatSource(level.getBlockState(worldPosition.below(2)));
     }
     public static void tick(ServerLevel level, BlockPos pos, BlockState state, CookingPotBlockEntity pot) {
+        boolean changed = pot.flushLegacy();
         var matching = pot.recipes.getRecipeFor(pot.input(), level);
-        boolean changed = false;
-        if (matching.isPresent() && pot.isHeated() && pot.canCook(matching.get().value())) {
+        if (matching.isPresent() && pot.isHeated() && pot.legacyReturns.isEmpty()) {
             var holder = matching.get(); var recipe = holder.value();
-            String id = holder.id().identifier().toString();
-            if (!id.equals(pot.activeRecipe) || pot.lastRecipe != null && pot.lastRecipe != recipe) pot.progress = 0;
-            pot.activeRecipe = id; pot.lastRecipe = recipe; pot.total = recipe.cookingTime();
-            if (++pot.progress >= pot.total) { pot.cook(recipe); pot.progress = 0; }
-            changed = true;
+            var plan = pot.planOutputs(recipe);
+            if (plan != null) {
+                String id = holder.id().identifier().toString();
+                if (!id.equals(pot.activeRecipe) || pot.lastRecipe != null && pot.lastRecipe != recipe) pot.progress = 0;
+                pot.activeRecipe = id; pot.lastRecipe = recipe;
+                if (++pot.progress >= CookingRecipes.PotRecipe.COOKING_TIME) { pot.cook(recipe, plan); pot.progress = 0; }
+                changed = true;
+            } else if (pot.progress > 0) { pot.progress = Math.max(0, pot.progress - 2); changed = true; }
         } else if (pot.progress > 0) { pot.progress = Math.max(0, pot.progress - 2); changed = true; }
-        if (pot.serveStored()) changed = true;
         if (changed) pot.setChanged();
     }
-    private boolean canCook(CookingRecipes.PotRecipe recipe) {
-        var result = recipe.assemble(input());
-        if (result.isEmpty() || level == null || !result.isItemEnabled(level.enabledFeatures()) || result.getCount() > 64 || result.has(DataComponents.MAX_DAMAGE)) return false;
-        return meal().isEmpty() || ItemStack.isSameItemSameComponents(servingTemplate, result) && meal().getCount() + result.getCount() <= 64
-                && ItemStack.matches(servingContainer, recipe.servingContainer());
+    /** Simulate all outputs before consuming any input; blocked batches are atomic. */
+    private List<ItemStack> planOutputs(CookingRecipes.PotRecipe recipe) {
+        if (level == null) return null;
+        var plan = new ArrayList<ItemStack>();
+        for (int slot = OUTPUT; slot < SIZE; slot++) plan.add(items.get(slot).copy());
+        for (var result : recipe.outputs()) {
+            if (result.isEmpty() || !result.isItemEnabled(level.enabledFeatures()) || result.getCount() > Math.min(64, result.getMaxStackSize())) return null;
+            if (insert(plan, result) > 0) return null;
+        }
+        return plan;
     }
-    private void cook(CookingRecipes.PotRecipe recipe) {
-        var result = recipe.assemble(input());
-        if (meal().isEmpty()) {
-            servingTemplate = result.copyWithCount(1);
-            result.set(DataComponents.MAX_STACK_SIZE, 64);
-            items.set(MEAL, result);
-        } else meal().grow(result.getCount());
-        servingContainer = recipe.servingContainer();
-        for (int slot = 0; slot < 6; slot++) {
-            var ingredient = items.get(slot);
-            if (ingredient.isEmpty()) continue;
+    private static int insert(List<ItemStack> slots, ItemStack value) {
+        int remaining = value.getCount();
+        for (int pass = 0; pass < 2; pass++) for (int slot = 0; slot < slots.size(); slot++) {
+            var existing = slots.get(slot);
+            if (pass == 0 && !existing.isEmpty() && ItemStack.isSameItemSameComponents(existing, value)) {
+                int amount = Math.min(remaining, Math.min(64, existing.getMaxStackSize()) - existing.getCount());
+                if (amount > 0) { existing.grow(amount); remaining -= amount; }
+            } else if (pass == 1 && existing.isEmpty()) {
+                int amount = Math.min(remaining, Math.min(64, value.getMaxStackSize()));
+                if (amount > 0) { slots.set(slot, value.copyWithCount(amount)); remaining -= amount; }
+            }
+            if (remaining == 0) return 0;
+        }
+        return remaining;
+    }
+    private void cook(CookingRecipes.PotRecipe recipe, List<ItemStack> plan) {
+        int[] assignment = recipe.assignment(input());
+        if (assignment == null) return;
+        for (int i = 0; i < assignment.length; i++) {
+            var ingredient = items.get(assignment[i]);
             var remainder = ingredient.getCraftingRemainder();
             if (remainder == null) {
                 var use = ingredient.get(DataComponents.USE_REMAINDER);
                 if (use != null) remainder = use.convertInto();
             }
-            ingredient.shrink(1);
-            if (remainder != null) Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.7, worldPosition.getZ() + 0.5, remainder.create());
+            int count = recipe.ingredients().get(i).count();
+            ingredient.shrink(count);
+            if (remainder != null) for (int used = 0; used < count; used++)
+                Containers.dropItemStack(level, worldPosition.getX() + .5, worldPosition.getY() + .7, worldPosition.getZ() + .5, remainder.create());
         }
+        for (int slot = 0; slot < INPUTS; slot++) items.set(OUTPUT + slot, plan.get(slot));
         experience += recipe.experience(); markUpdated();
     }
-    public boolean validContainer(ItemStack stack) {
-        return !servingContainer.isEmpty() && ItemStack.isSameItemSameComponents(servingContainer, stack);
-    }
-    private boolean serveStored() {
-        if (meal().isEmpty()) return false;
-        var output = items.get(OUTPUT);
-        if (!output.isEmpty() && !ItemStack.isSameItemSameComponents(servingTemplate, output)) return false;
-        int space = servingTemplate.getMaxStackSize() - output.getCount();
-        int amount = Math.min(space, meal().getCount());
-        var bowls = items.get(CONTAINER);
-        if (!servingContainer.isEmpty()) amount = validContainer(bowls) ? Math.min(amount, bowls.getCount()) : 0;
-        if (amount <= 0) return false;
-        if (!servingContainer.isEmpty()) bowls.shrink(amount);
-        if (output.isEmpty()) items.set(OUTPUT, servingTemplate.copyWithCount(amount)); else output.grow(amount);
-        meal().shrink(amount);
-        if (meal().isEmpty()) { servingContainer = ItemStack.EMPTY; servingTemplate = ItemStack.EMPTY; }
-        markUpdated(); return true;
-    }
-    public ItemStack serve(Player player, ItemStack held) {
-        if (meal().isEmpty() || !validContainer(held)) return ItemStack.EMPTY;
-        held.consume(1, player); var result = servingTemplate.copy(); meal().shrink(1);
-        if (meal().isEmpty()) { servingContainer = ItemStack.EMPTY; servingTemplate = ItemStack.EMPTY; }
-        awardExperience(player); markUpdated(); return result;
+    private boolean flushLegacy() {
+        if (legacyReturns.isEmpty()) return false;
+        var plan = new ArrayList<ItemStack>();
+        for (int slot = OUTPUT; slot < SIZE; slot++) plan.add(items.get(slot).copy());
+        boolean changed = false;
+        var iterator = legacyReturns.iterator();
+        while (iterator.hasNext()) {
+            var stack = iterator.next();
+            int left = insert(plan, stack);
+            if (left != stack.getCount()) { changed = true; stack.setCount(left); }
+            if (stack.isEmpty()) iterator.remove();
+        }
+        if (changed) for (int slot = 0; slot < INPUTS; slot++) items.set(OUTPUT + slot, plan.get(slot));
+        return changed;
     }
     public void awardExperience(Player player) {
         if (level instanceof ServerLevel server && experience > 0) {
@@ -143,45 +151,62 @@ public final class CookingPotBlockEntity extends BaseContainerBlockEntity implem
             experience = 0; setChanged();
         }
     }
-    @Override public boolean canPlaceItem(int slot, ItemStack stack) { return slot < 6 || slot == CONTAINER && (meal().isEmpty() || validContainer(stack)); }
-    @Override public int[] getSlotsForFace(Direction direction) { return direction == Direction.UP ? new int[]{0, 1, 2, 3, 4, 5} : direction == Direction.DOWN ? new int[]{OUTPUT} : new int[]{CONTAINER, OUTPUT}; }
-    @Override public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction face) { return face == Direction.UP ? slot < 6 : face != Direction.DOWN && slot == CONTAINER && canPlaceItem(slot, stack); }
-    @Override public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction face) { return slot == OUTPUT; }
+    @Override public boolean canPlaceItem(int slot, ItemStack stack) { return slot >= 0 && slot < INPUTS; }
+    @Override public int[] getSlotsForFace(Direction direction) { return direction == Direction.DOWN ? new int[]{6,7,8,9,10,11} : new int[]{0,1,2,3,4,5}; }
+    @Override public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction face) { return face != Direction.DOWN && canPlaceItem(slot, stack); }
+    @Override public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction face) { return slot >= OUTPUT && slot < SIZE; }
     private void markUpdated() {
         setChanged(); if (level != null) { level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3); level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock()); }
     }
+    private void queue(ItemStack template, int count) {
+        while (count > 0 && !template.isEmpty()) {
+            int amount = Math.min(count, template.getMaxStackSize());
+            legacyReturns.add(template.copyWithCount(amount)); count -= amount;
+        }
+    }
+    private void migrateLegacy(ItemStack template) {
+        var meal = items.get(6);
+        if (!meal.isEmpty()) {
+            if (template.isEmpty()) { template = meal.copyWithCount(1); template.remove(DataComponents.MAX_STACK_SIZE); }
+            queue(template, meal.getCount());
+        }
+        queue(items.get(7), items.get(7).getCount()); queue(items.get(8), items.get(8).getCount());
+        for (int i = 6; i < SIZE; i++) items.set(i, ItemStack.EMPTY);
+        progress = 0;
+        flushLegacy();
+    }
     @Override protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input); items.clear(); ContainerHelper.loadAllItems(input, items);
-        progress = Math.max(0, input.getIntOr("CookTime", 0)); total = Math.max(1, input.getIntOr("CookTimeTotal", 200));
-        servingContainer = input.read("ServingContainer", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
-        servingTemplate = input.read("MealTemplate", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        legacyReturns.clear(); legacyReturns.addAll(input.read("LegacyReturns", ItemStack.CODEC.listOf()).orElse(List.of()));
+        progress = Math.clamp(input.getIntOr("CookTime", 0), 0, CookingRecipes.PotRecipe.COOKING_TIME - 1);
         experience = Math.max(0, input.getFloatOr("Experience", 0)); activeRecipe = input.getStringOr("ActiveRecipe", ""); lastRecipe = null;
+        if (input.getIntOr("PotInventoryVersion", 1) < 2)
+            migrateLegacy(input.read("MealTemplate", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY));
     }
     @Override protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output); ContainerHelper.saveAllItems(output, items);
-        output.putInt("CookTime", progress); output.putInt("CookTimeTotal", total); output.store("ServingContainer", ItemStack.OPTIONAL_CODEC, servingContainer);
-        output.store("MealTemplate", ItemStack.OPTIONAL_CODEC, servingTemplate);
+        output.putInt("PotInventoryVersion", 2); output.putInt("CookTime", progress);
         output.putFloat("Experience", experience); output.putString("ActiveRecipe", activeRecipe);
+        output.store("LegacyReturns", ItemStack.CODEC.listOf(), legacyReturns);
     }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider registries) { return saveWithoutMetadata(registries); }
     @Override public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) {
-            for (int slot = 0; slot < 9; slot++) if (slot != MEAL) { Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, items.get(slot)); items.set(slot, ItemStack.EMPTY); }
-            awardExperience(null);
+            for (var stack : items) Containers.dropItemStack(level, pos.getX()+.5, pos.getY()+.5, pos.getZ()+.5, stack);
+            for (var stack : legacyReturns) Containers.dropItemStack(level, pos.getX()+.5, pos.getY()+.5, pos.getZ()+.5, stack);
+            items.clear(); legacyReturns.clear(); awardExperience(null);
         }
     }
     @Override protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
-        var packed = NonNullList.withSize(9, ItemStack.EMPTY); packed.set(MEAL, meal().copy());
-        components.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(packed));
-        components.set(CookingContent.MEAL_TEMPLATE.get(), ItemContainerContents.fromItems(List.of(servingTemplate)));
-        components.set(CookingContent.MEAL_CONTAINER.get(), ItemContainerContents.fromItems(List.of(servingContainer)));
+        // Contents drop separately, just as in a vanilla furnace; never also copy them into the pot item.
+        components.set(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
     }
     @Override protected void applyImplicitComponents(DataComponentGetter components) {
         super.applyImplicitComponents(components);
-        servingContainer = components.getOrDefault(CookingContent.MEAL_CONTAINER.get(), ItemContainerContents.EMPTY).copyOne();
-        servingTemplate = components.getOrDefault(CookingContent.MEAL_TEMPLATE.get(), ItemContainerContents.EMPTY).copyOne();
+        var old = components.get(CookingContent.MEAL_TEMPLATE.get());
+        if (old != null || components.get(CookingContent.MEAL_CONTAINER.get()) != null)
+            migrateLegacy(old == null ? ItemStack.EMPTY : old.copyOne());
     }
-    @Override public void removeComponentsFromTag(ValueOutput output) { super.removeComponentsFromTag(output); output.discard("ServingContainer"); output.discard("MealTemplate"); }
 }

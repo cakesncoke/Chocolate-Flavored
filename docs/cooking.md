@@ -23,20 +23,21 @@ Campfire fallback recipes retain their own cooking times. No crafting recipes fo
 
 ID: `chocolateflavored:cooking_pot`. Right-click to open its normal container screen. It has **no recipe book, recipe button, ghost recipes or automatic recipe-placement interface**.
 
-The pot has six ingredient slots, a read-only meal display, a serving-container input, and an output slot. Recipes are shapeless: put each listed ingredient in its own slot. Stacks allow repeated batches. The meal buffer holds up to 64 portions, including normally unstackable soups. Supply bowls or the recipe's serving container to produce normal food items, or right-click the pot with the correct container for one serving. Served food keeps its original components and stack limits. Different meal types/components and serving containers cannot mix in one occupied buffer.
+The pot has six input slots and six output slots. Recipes are shapeless: each counted ingredient occupies one slot, and each batch produces one to six output stacks. Unlisted nonempty input slots prevent a match. Every result must fit its normal stack limit (at most 64). Existing compatible outputs are merged first, then empty output slots are filled. The whole batch is blocked if any output cannot fit; no inputs or partial outputs are consumed/created.
+
+Every batch takes **200 simulation ticks (10 seconds at 20 TPS)**, the vanilla furnace default. Accelerated sleep also accelerates cooking. There is no pot-specific `cookingtime` override. Bowls and other required containers are explicit ingredients. The old meal display, separate container slot, right-click serving and artificial 64-portion stack are removed. Input crafting/use remainders are returned into the world, one per consumed ingredient item.
+
+The GUI retains the 176×166 panel and player inventory at (8,84), without a recipe book. Input item positions are (7,16), (25,16), (43,16), (7,34), (25,34), (43,34). Outputs use (115,16), (133,16), (151,16), (115,34), (133,34), (151,34). Progress is at (76,26), heat at (79,62); original icon sizes/scales remain. The pot/custom name is right-aligned at the top.
 
 The pot requires heat below it. Default heat sources are a **lit mud_kiln**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
 
 Pot support changes between the regular, tray and hanging-handle models. Placement against a block's underside selects the handle; shift-right-click with an empty hand toggles it. Waterlogging is supported. Heated pots produce the supplied boiling sounds and steam particles.
 
-Breaking a pot drops its ingredients, empty containers and output separately. The dropped pot retains its unserved meal buffer and serving-container definition; replacing it restores those meals. Its custom name and vanilla lock component are retained. Hoppers insert ingredients from above, insert containers from the sides and extract served output from below/sides. The meal display is never extractable. Comparators read the inventory.
+Breaking a pot drops all inputs, outputs and any pending migrated contents separately, as a furnace does. The pot item retains its name and lock, not a second copy of its inventory. Hoppers insert inputs from above/sides and extract outputs from below; side hoppers access inputs. Comparators read all twelve slots.
 
-Default pot recipes (10 seconds per batch):
+Existing placed pots and previously filled pot items migrate their old meal buffer, container slot and output into the new outputs. Buffered meals regain normal stack limits. If all migrated items cannot fit, a saved return queue releases them as output space becomes available and blocks new cooking until drained. Breaking a pot drops the remaining queue too. Already cooked legacy meals are returned as completed items without requiring new bowls. Existing input items remain in their input slots; old input layouts may need rearranging for the updated recipes.
 
-| Ingredients | Result | Serving container |
-| --- | --- | --- |
-| Red mushroom + brown mushroom | Mushroom stew | Bowl |
-| Six beetroot in six slots | Beetroot soup | Bowl |
+Default mushroom stew now takes one red mushroom, one brown mushroom and one bowl. Beetroot soup takes a stack of six beetroot and one bowl. Both take 200 ticks. No crafting recipes are added.
 
 ## Datapack recipes
 
@@ -53,20 +54,21 @@ Place recipes under `data/<namespace>/recipe/<name>.json`. Current 26.1 ingredie
 }
 ```
 
-`input_count` defaults to 1 and accepts 1–64. Both recipe types accept `cookingtime` from 1–32767 game ticks (default 200) and `experience` from 0–1000 (default zero).
+`input_count` defaults to 1 and accepts 1–64. Mud kiln recipes accept `cookingtime` from 1–32767 game ticks (default 200) and `experience` from 0–1000 (default zero).
 
 ```json
 {
   "type": "chocolateflavored:cooking_pot",
-  "ingredients": ["minecraft:red_mushroom", "minecraft:brown_mushroom"],
-  "result": { "id": "minecraft:mushroom_stew" },
-  "container": { "id": "minecraft:bowl" },
-  "cookingtime": 200,
+  "ingredients": [
+    { "ingredient": "minecraft:beetroot", "count": 6 },
+    { "ingredient": "minecraft:bowl" }
+  ],
+  "results": [{ "id": "minecraft:beetroot_soup" }],
   "experience": 0.1
 }
 ```
 
-Pot recipes accept one to six ingredients, consume one item per occupied ingredient slot and reject extra inputs. Overlapping tag/item ingredients use full shapeless matching. `container` is optional; when omitted, the result's crafting/use remainder supplies it when available. Results without a container move straight to output. Meal results must be non-damageable and fit the 64-portion buffer; each output stack must also satisfy vanilla item validation. Output and container component identity are preserved.
+Pot recipes accept one to six `ingredients` objects (`ingredient`: native item/array/tag syntax, `count`: 1–64, default 1) and one to six `results` item stacks (`id`, `count`, optional `components`). Overlapping item/tag requirements use counted backtracking rather than greedy assignment. `experience` remains optional. Native item components and stack limits are preserved. The previous `result`/`container` pot format must be updated to this schema; old `cookingtime` fields have no effect. No change is required for mud kiln recipes.
 
 ## KubeJS
 
@@ -86,10 +88,12 @@ ServerEvents.recipes(event => {
 
   event.custom({
     type: 'chocolateflavored:cooking_pot',
-    ingredients: ['minecraft:red_mushroom', 'minecraft:brown_mushroom'],
-    result: { id: 'minecraft:mushroom_stew' },
-    container: { id: 'minecraft:bowl' },
-    cookingtime: 160
+    ingredients: [
+      { ingredient: 'minecraft:red_mushroom', count: 2 },
+      { ingredient: 'minecraft:brown_mushroom', count: 2 },
+      { ingredient: 'minecraft:bowl', count: 2 }
+    ],
+    results: [{ id: 'minecraft:mushroom_stew' }, { id: 'minecraft:mushroom_stew' }]
   }).id('kubejs:mushroom_stew')
 })
 ```
@@ -98,6 +102,4 @@ Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS r
 
 ## Verification
 
-Dedicated-server checks exercise custom and fallback mud_kiln recipes, six batches, ingredient counts, ignition/dousing, the fire starter's full use lifecycle on the mud_kiln, progress persistence, covered-top returns, heat requirements, shapeless matching, serving, full-buffer behavior, 64-portion save/load/drop/replacement, container consumption and sided automation policies. Client verification quick-plays the saved world, opens the pot through the integrated server, checks synchronized meal counts and heat data, and captures the recipe-book-free screen. A separate KubeJS server loads a script that removes a built-in mud_kiln recipe and executes new mud_kiln and pot recipes without Farmer's Delight installed.
-
-The verification source set is excluded from the release JAR. Other mods' automation, multiplayer latency/permissions integrations and seasonal-mod compatibility are not claimed as tested.
+Dedicated-server checks exercise native kiln behavior, counted shapeless matching, 200-tick pot batches, unstackable output distribution, full-output blocking without consumption, exact menu coordinates, shift-click extraction, sided automation, legacy migration/queued-return persistence, and nonduplicating inventory drops. Client verification opens the real twelve-slot server menu, checks synchronized outputs/heat and exact slot coordinates, verifies the absence of a recipe book, and captures cooking-pot.png. A separate KubeJS server executes a six-input/six-output counted recipe and verifies atomic blocking when the sixth output has no room.

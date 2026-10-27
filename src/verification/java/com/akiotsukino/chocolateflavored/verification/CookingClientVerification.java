@@ -34,8 +34,10 @@ public final class CookingClientVerification {
                     level.setBlockAndUpdate(pos.below(), CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
                     level.setBlockAndUpdate(pos, CookingContent.COOKING_POT.get().defaultBlockState());
                     var pot = (CookingPotBlockEntity)level.getBlockEntity(pos);
+                    pot.setItem(2, new ItemStack(Items.BOWL, 2));
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 2)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 2));
                     for (int i = 0; i < 400; i++) CookingPotBlockEntity.tick(level, pos, pot.getBlockState(), pot);
+                    pot.setItem(2, new ItemStack(Items.BOWL, 32));
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 32)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 32));
                     var displayPos = pos.relative(player.getDirection().getClockWise(), 2).below();
                     level.setBlockAndUpdate(displayPos, CookingContent.MUD_KILN.get().defaultBlockState());
@@ -50,7 +52,12 @@ public final class CookingClientVerification {
             });
         }
         if (minecraft.screen instanceof CookingPotScreen screen && ++screenTicks >= 40) {
-            if (screen.getMenu().getSlot(6).getItem().getCount() < 2) throw new IllegalStateException("Meal buffer lost servings during client synchronization");
+            if (!screen.getMenu().getSlot(6).getItem().is(Items.MUSHROOM_STEW)
+                    || !screen.getMenu().getSlot(7).getItem().is(Items.MUSHROOM_STEW)) throw new IllegalStateException("Multi-slot outputs lost during client synchronization");
+            for (int i=0;i<12;i++) {
+                var slot=screen.getMenu().getSlot(i); int j=i%6;
+                if(slot.x!=(i<6?7:115)+j%3*18 || slot.y!=16+j/3*18)throw new IllegalStateException("Pot slot coordinate mismatch");
+            }
             if (!screen.getMenu().isHeated()) throw new IllegalStateException("Pot heat state did not synchronize");
             if (screen.children().stream().anyMatch(child -> child.getClass().getSimpleName().contains("RecipeBook"))) throw new IllegalStateException("Cooking pot exposed a recipe-book widget");
             var kiln=(MudKilnBlockEntity)minecraft.level.getBlockEntity(unlitKilnPos);

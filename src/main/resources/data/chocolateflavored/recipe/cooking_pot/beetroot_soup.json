@@ -1,19 +1,19 @@
 {
   "type": "chocolateflavored:cooking_pot",
   "ingredients": [
-    "minecraft:beetroot",
-    "minecraft:beetroot",
-    "minecraft:beetroot",
-    "minecraft:beetroot",
-    "minecraft:beetroot",
-    "minecraft:beetroot"
+    {
+      "ingredient": "minecraft:beetroot",
+      "count": 6
+    },
+    {
+      "ingredient": "minecraft:bowl",
+      "count": 1
+    }
   ],
-  "result": {
-    "id": "minecraft:beetroot_soup"
-  },
-  "container": {
-    "id": "minecraft:bowl"
-  },
-  "cookingtime": 200,
-  "experience": 0.1
+  "experience": 0.1,
+  "results": [
+    {
+      "id": "minecraft:beetroot_soup"
+    }
+  ]
 }

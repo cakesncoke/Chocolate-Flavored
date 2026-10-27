@@ -9,9 +9,11 @@ ServerEvents.recipes(event => {
   }).id('kubejs:verification_mud_kiln')
   event.custom({
     type: 'chocolateflavored:cooking_pot',
-    ingredients: ['minecraft:apple', 'minecraft:carrot'],
-    result: { id: 'minecraft:mushroom_stew' },
-    container: { id: 'minecraft:bowl' },
-    cookingtime: 4
+    ingredients: [{ ingredient: 'minecraft:apple', count: 2 }, { ingredient: 'minecraft:carrot' },
+      { ingredient: 'minecraft:potato', count: 3 }, { ingredient: 'minecraft:beetroot', count: 4 },
+      { ingredient: 'minecraft:wheat', count: 5 }, { ingredient: 'minecraft:sugar', count: 6 }],
+    results: [{ id: 'minecraft:golden_carrot', count: 2 }, { id: 'minecraft:apple', count: 3 },
+      { id: 'minecraft:bread', count: 4 }, { id: 'minecraft:potato', count: 5 },
+      { id: 'minecraft:beetroot', count: 6 }, { id: 'minecraft:sugar', count: 7 }]
   }).id('kubejs:verification_pot')
 })
