@@ -1,0 +1,117 @@
+{
+  "repository": "AlabasterLeking/Hearth-And-Harvest",
+  "revision": "1bac712829eac167985ed3753f2d5ac66e04cce6",
+  "license": "MIT",
+  "files": [
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/cotton_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage0.png",
+      "sha256": "945bd7cd272ecfd730c6585d6fbe1ecba0a8c265499e0814d309901db1c41b3f"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/cotton_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage0.json",
+      "sha256": "1ba8c83d439be2771e072dac2167d96e35f5ba21a925c7945c5adefdd1a3d209"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/cotton_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage1.png",
+      "sha256": "edef92721ff45a8dcb329dbeaa7671fc2ed09df4fa86487ab25a05e1d8b1f065"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/cotton_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage1.json",
+      "sha256": "276828b46886bf97a3cc2e9664ae2cead2e565e1409d5c422cae0be4ab094b78"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/cotton_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage2.png",
+      "sha256": "91de903531820f17d927fe2121c619af0d481e5852e15f40466edc4b23f16d42"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/cotton_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage2.json",
+      "sha256": "c82d79af9d9bdc9a7ac8997bf1598e7e234da02fdeee42a285486eba7d8ea36d"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/cotton_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/cotton_stage3.png",
+      "sha256": "7eb5d53534d22046ac78fb6d23addaf4ecedd485c03ee9f8e263d1f39bd1ddbb"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/cotton_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/cotton_stage3.json",
+      "sha256": "6e10e2b4ae1db4eb39b004e14eb4dd7518e17f6de982126f561a78d3c12e7e0b"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/blockstates/cotton.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/cotton.json",
+      "sha256": "7b4e354949529d9c7d8cf4adcfdf2e84eeddf89eb2f7a354866620690371831a"
+    },
+    {
+      "source": "src/main/resources/data/hearthandharvest/loot_table/blocks/cotton.json",
+      "destination": "src/main/resources/data/chocolateflavored/loot_table/blocks/cotton.json",
+      "sha256": "dbbf72fcfa797d3a97f493d11a14a603e47976d42c7605a93c10f3b2b7d07c78"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/blueberry_bush_stage0.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/blueberry_bush_stage0.png",
+      "sha256": "efaf475a584179647264fe7b7376a056c08e17b1ec8571c9da5b14cd0f7c2324"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/blueberry_bush_stage0.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/blueberry_bush_stage0.json",
+      "sha256": "4685d2cb7a9dcae1004e4b7d46d0578d95509d7e614c5a7e2c81ead227e63302"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/blueberry_bush_stage1.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/blueberry_bush_stage1.png",
+      "sha256": "d4328c52bd18fcea19833c10c4b5ea0b00da423d2c836d289dfd132a35cbde8e"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/blueberry_bush_stage1.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/blueberry_bush_stage1.json",
+      "sha256": "baa5910b2c230e9683c57fdd04ec775d05cb7eb4c4bbb4b3e24d1bd0fb41bb05"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/blueberry_bush_stage2.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/blueberry_bush_stage2.png",
+      "sha256": "d5316813e588144574ec169866cb763b4b397e1ccb7437103f74b101ff63bafc"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/blueberry_bush_stage2.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/blueberry_bush_stage2.json",
+      "sha256": "c8b9591178dd10a22cce4490483de0a01091b4e61d85c964321b2e03ae73736b"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/block/blueberry_bush_stage3.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/block/blueberry_bush_stage3.png",
+      "sha256": "c5ac2ecb8819de9a58f9440390f83e4cbfc8dc70d8ea9886b90afb4e68c2a9cd"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/models/block/blueberry_bush_stage3.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/blueberry_bush_stage3.json",
+      "sha256": "0c5a778100536c5911d2f65adc9deb83e4a3e83b5f185b9fde8729d311bbac19"
+    },
+    {
+      "source": "src/generated/resources/assets/hearthandharvest/blockstates/blueberry_bush.json",
+      "destination": "src/main/resources/assets/chocolateflavored/blockstates/blueberry_bush.json",
+      "sha256": "fd1982187af13cb31369bc4b05728b2112fdfdb105addb3cf0138e791a563c51"
+    },
+    {
+      "source": "src/main/resources/data/hearthandharvest/loot_table/blocks/blueberry_bush.json",
+      "destination": "src/main/resources/data/chocolateflavored/loot_table/blocks/blueberry_bush.json",
+      "sha256": "b9587892b1f767c81071ab73b863428116d43cfaa2024e267257b0eda9bec5cc"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/models/block/crop_cross.json",
+      "destination": "src/main/resources/assets/chocolateflavored/models/block/hearth_crop_cross.json",
+      "sha256": "7c9fd2f9aa03ebe756cc061817c390c1c00d10b7a50bf3400e40332641412c3a"
+    },
+    {
+      "source": "src/main/resources/assets/hearthandharvest/textures/item/blueberries.png",
+      "destination": "src/main/resources/assets/chocolateflavored/textures/item/blueberries.png",
+      "sha256": "0ea5cdbf7ccaba44587758751d1134a25e886beb2dedfb08e53be3844d9787a1"
+    }
+  ]
+}

@@ -35,6 +35,12 @@ public final class CropContent {
     public static final DeferredItem<BlockItem> CHILI_SEEDS = seed("chili_seeds", CHILI_CROP);
     public static final DeferredItem<Item> CHILI = ModContent.ITEMS.registerSimpleItem("chili");
     public static final DeferredItem<BlockItem> COTTON_SEEDS = seed("cotton_seeds", COTTON);
+    public static final DeferredBlock<BlueberryBushBlock> BLUEBERRY_BUSH = ModContent.BLOCKS.registerBlock("blueberry_bush",
+            BlueberryBushBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)
+                    .overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Identifier.parse("chocolateflavored:blocks/blueberry_bush")))));
+    public static final DeferredItem<BlockItem> BLUEBERRIES = ModContent.ITEMS.registerItem("blueberries",
+            p -> new BlockItem(BLUEBERRY_BUSH.get(), p.food(new net.minecraft.world.food.FoodProperties.Builder()
+                    .nutrition(1).saturationModifier(.3F).build(), net.minecraft.world.item.component.Consumables.defaultFood().consumeSeconds(.8F).build())));
     public static final DeferredItem<Item> COTTON_BOLL = ModContent.ITEMS.registerSimpleItem("cotton_boll");
     public static final DeferredItem<BlockItem> COFFEE_BEANS = seed("coffee_beans", COFFEE);
     public static final DeferredItem<BlockItem> CABBAGE_SEEDS = seed("cabbage_seeds", CABBAGES);
