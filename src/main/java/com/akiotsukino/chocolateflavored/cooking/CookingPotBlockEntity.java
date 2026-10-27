@@ -91,7 +91,7 @@ public final class CookingPotBlockEntity extends BaseContainerBlockEntity implem
         var plan = new ArrayList<ItemStack>();
         for (int slot = OUTPUT; slot < SIZE; slot++) plan.add(items.get(slot).copy());
         for (var result : recipe.outputs()) {
-            if (result.isEmpty() || !result.isItemEnabled(level.enabledFeatures()) || result.getCount() > result.getMaxStackSize()) return null;
+            if (result.isEmpty() || !result.isItemEnabled(level.enabledFeatures()) || result.getCount() > Math.min(64, result.getMaxStackSize())) return null;
             if (insert(plan, result) > 0) return null;
         }
         return plan;

@@ -125,7 +125,18 @@ final class CookingVerification {
         check(drops.getFirst().getOrDefault(DataComponents.CONTAINER,ItemContainerContents.EMPTY).allItemsCopyStream().allMatch(ItemStack::isEmpty),"Pot item does not duplicate separately dropped inventory");
         level.removeBlock(potPos,false);
         check(count(level,potPos,Items.CARROT)==4&&count(level,potPos,Items.BREAD)==3,"Breaking pot drops both input and output inventory");
-        clear(level,potPos);level.setBlockAndUpdate(potPos,CookingContent.COOKING_POT.get().defaultBlockState());pot=(CookingPotBlockEntity)level.getBlockEntity(potPos);
+        clear(level,potPos);
+        var packed=new ItemStack(CookingContent.COOKING_POT_ITEM.get());
+        var oldContents=NonNullList.withSize(9,ItemStack.EMPTY);oldContents.set(6,legacyMeal.copyWithCount(3));
+        packed.set(DataComponents.CONTAINER,ItemContainerContents.fromItems(oldContents));
+        packed.set(CookingContent.MEAL_TEMPLATE.get(),ItemContainerContents.fromItems(List.of(new ItemStack(Items.MUSHROOM_STEW))));
+        packed.set(CookingContent.MEAL_CONTAINER.get(),ItemContainerContents.fromItems(List.of(new ItemStack(Items.BOWL))));
+        packed=ItemStack.CODEC.parse(ops,ItemStack.CODEC.encodeStart(ops,packed).getOrThrow()).getOrThrow();
+        player.setItemInHand(InteractionHand.MAIN_HAND,packed);
+        check(packed.getItem().useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,hit)).consumesAction(),"Old packed pot remains placeable");
+        pot=(CookingPotBlockEntity)level.getBlockEntity(potPos);
+        check(pot!=null&&pot.getItem(6).is(Items.MUSHROOM_STEW)&&pot.getItem(7).is(Items.MUSHROOM_STEW)&&pot.getItem(8).is(Items.MUSHROOM_STEW)
+                &&pot.getItem(6).getMaxStackSize()==1,"Item-packed legacy meals migrate into normal outputs");
         // A hopper conducts heat one block upward, as in Farmer's Delight.
         level.setBlockAndUpdate(pos.below(), CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
         level.setBlockAndUpdate(pos, Blocks.HOPPER.defaultBlockState()); check(pot.isHeated(), "Hopper conducts mud_kiln heat");
