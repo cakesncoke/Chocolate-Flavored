@@ -23,9 +23,9 @@ public final class CookingPotScreen extends AbstractContainerScreen<CookingPotMe
         // Replace only the old controls; retain the original panel border and player inventory.
         g.fill(leftPos+4, topPos+4, leftPos+imageWidth-4, topPos+80, 0xFFC6C6C6);
         for (int i=0;i<6;i++) { slot(g,7+i%3*18,19+i/3*18); slot(g,115+i%3*18,19+i/3*18); }
-        // Trim atlas padding: empty arrow starts at (90,26), filled arrow at (177,15).
+        // Trim atlas padding: empty arrow starts at (77,30), filled arrow at (177,15).
         // Both visible arrow shapes now start at panel-relative (76,29), at native pixel scale.
-        g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos+76, topPos+29, 90,26,CookingPotMenu.ARROW_WIDTH,15,256,256);
+        g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos+76, topPos+29, 77,30,CookingPotMenu.ARROW_WIDTH,15,256,256);
         g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos+79, topPos+55, 47,55,17,15,256,256);
         if (menu.isHeated()) g.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos+79, topPos+55,176,0,17,15,256,256);
         int width=menu.progressWidth();
