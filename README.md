@@ -126,3 +126,7 @@ All 18 vanilla trim patterns now grant per-piece and exact-pattern full-set abil
 ### Hearth and Harvest crop resources
 
 **AlabasterLeking and Hearth and Harvest contributors**: cultivated cotton and blueberry bush growth-stage textures, crop-cross model, blockstate/model mappings and block loot tables; cotton harvesting and blueberry bush behavior adapted for Minecraft 26.1.2. Blueberries item texture is also reused. These resources and reference code are MIT-licensed. Existing cotton boll/seeds and wild cotton remain unchanged. Exact revision and paths: [asset manifest](docs/hearth-crop-assets.json).
+
+### Lodestone Echo Shards
+
+Vanilla Echo Shards can link to Overworld lodestones, glint, and be consumed after a three-second charge to return there. Offworld use consumes the shard without teleporting. Broken lodestones invalidate all their shard links, including stored copies. See [linking, consumption and saved-world behavior](docs/echo-shards.md).
