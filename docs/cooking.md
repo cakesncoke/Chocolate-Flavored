@@ -33,7 +33,7 @@ The pot requires heat below it. Default heat sources are a **lit mud_kiln**, mag
 
 Pot support changes between the regular, tray and hanging-handle models. Placement against a block's underside selects the handle; shift-right-click with an empty hand toggles it. Waterlogging is supported. Heated pots produce the supplied boiling sounds and steam particles.
 
-Breaking a pot drops all inputs, outputs and any pending migrated contents separately, as a furnace does. The pot item retains its name and lock, not a second copy of its inventory. Hoppers insert inputs from above/sides and extract outputs from below; outputs can also be pulled from the sides. Comparators read all twelve slots.
+Breaking a pot drops all inputs, outputs and any pending migrated contents separately, as a furnace does. The pot item retains its name and lock, not a second copy of its inventory. Hoppers insert inputs from above/sides and extract outputs from below; side hoppers access inputs. Comparators read all twelve slots.
 
 Existing placed pots and previously filled pot items migrate their old meal buffer, container slot and output into the new outputs. Buffered meals regain normal stack limits. If all migrated items cannot fit, a saved return queue releases them as output space becomes available and blocks new cooking until drained. Breaking a pot drops the remaining queue too. Already cooked legacy meals are returned as completed items without requiring new bowls. Existing input items remain in their input slots; old input layouts may need rearranging for the updated recipes.
 

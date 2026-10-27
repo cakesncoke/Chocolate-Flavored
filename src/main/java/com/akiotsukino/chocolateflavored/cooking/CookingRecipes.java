@@ -65,10 +65,7 @@ public final class CookingRecipes {
     public record PotRecipe(List<PotIngredient> ingredients, List<ItemStackTemplate> results, float experience) implements ProcessingRecipe<PotInput> {
         public static final int COOKING_TIME = 200;
         public PotRecipe { ingredients = List.copyOf(ingredients); results = List.copyOf(results); }
-        private static final Codec<List<ItemStackTemplate>> RESULTS = ItemStackTemplate.CODEC.listOf(1, 6).validate(values ->
-                values.stream().map(ItemStackTemplate::create).anyMatch(stack -> stack.isEmpty() || stack.getCount() > Math.min(64, stack.getMaxStackSize()))
-                        ? com.mojang.serialization.DataResult.error(() -> "Each pot result must fit a normal output stack")
-                        : com.mojang.serialization.DataResult.success(values));
+        private static final Codec<List<ItemStackTemplate>> RESULTS = ItemStackTemplate.CODEC.listOf(1, 6);
         public static final MapCodec<PotRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
                 PotIngredient.CODEC.listOf(1, 6).fieldOf("ingredients").forGetter(PotRecipe::ingredients),
                 RESULTS.fieldOf("results").forGetter(PotRecipe::results),
