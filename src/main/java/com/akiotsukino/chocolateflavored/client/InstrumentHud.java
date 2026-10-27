@@ -33,12 +33,12 @@ public final class InstrumentHud {
             boolean clock = meter || overworld && has(Items.CLOCK);
             var lines = new java.util.ArrayList<String>();
             var pos = mc.player.blockPosition();
-            if (coordinates) lines.add(meter ? "X: " + pos.getX() + "  Y: " + pos.getY() + "  Z: " + pos.getZ()
-                    : "X: " + pos.getX() + "  Z: " + pos.getZ());
+            if (coordinates) lines.add(meter ? "XYZ: " + pos.getX() + " " + pos.getY() + " " + pos.getZ()
+                    : "XZ: " + pos.getX() + " " + pos.getZ());
             if (clock) {
                 long ticks = mc.level.clockManager().getTotalTicks(mc.level.registryAccess().getOrThrow(WorldClocks.OVERWORLD));
-                long seconds = Math.floorMod(ticks + 6000, 24000) * 86400 / 24000;
-                lines.add(String.format(java.util.Locale.ROOT, "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60));
+                long minutes = (Math.floorMod(ticks, 24000) + 6000) % 24000 * 1440 / 24000;
+                lines.add(String.format(java.util.Locale.ROOT, "Time: %02d:%02d", minutes / 60, minutes % 60));
             }
             int y = 6;
             for (String line : lines) {
