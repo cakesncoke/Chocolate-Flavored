@@ -52,7 +52,9 @@
     "TrimCooldownMixin",
     "TrimCooldownInstanceAccessor",
     "TrimLightningMixin",
-    "TrimCollisionContextMixin"
+    "TrimCollisionContextMixin",
+    "EchoShardItemMixin",
+    "EchoLodestoneRemovalMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -158,6 +158,7 @@ public final class DevelopmentVerification {
         SteelVerification.run(level, player);
         SurvivalRefinementVerification.run(level);
         HornVerification.run(level, player);
+        EchoShardVerification.run(level);
         DeepslateMiningVerification.run(level, player);
         TrimVerification.run(level, player);
         DyeingVerification.run(level, player);

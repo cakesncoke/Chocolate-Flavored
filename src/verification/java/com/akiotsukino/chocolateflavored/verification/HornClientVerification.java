@@ -13,6 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class HornClientVerification {
+ public static boolean completed;
  private static int ticks;private static boolean opened;
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){
   if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!SteelTrimClientVerification.completed||++ticks<100)return;
@@ -28,7 +29,7 @@ public final class HornClientVerification {
    g.item(plain,width/3-8,100);g.item(linked,width*2/3-8,100);
    g.centeredText(font,plain.getHoverName().getString(),width/2,150,-1);
    g.centeredText(font,new ItemStack(Items.GOAT_HORN).getHoverName().getString(),width/2,175,-1);
-   if(++frames==150){
+   if(++frames==150){completed=true;
     if(!new ItemStack(Items.GOAT_HORN).getHoverName().getString().equals("Horn")||plain.hasFoil()||!linked.hasFoil())throw new IllegalStateException("Horn client name/glint");
     ChocolateFlavored.LOGGER.info("HORN_CLIENT_VERIFICATION_PASSED: supplied copper horn sprite, linked enchantment glint, Horn rename");
    }
