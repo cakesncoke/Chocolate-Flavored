@@ -603,5 +603,7 @@
   "tooltip.chocolateflavored.horn_companion": "linked companion",
   "item.chocolateflavored.circuit": "Circuit",
   "item.chocolateflavored.casing": "Casing",
-  "item.chocolateflavored.precision_meter": "Precision Meter"
+  "item.chocolateflavored.precision_meter": "Precision Meter",
+  "item.chocolateflavored.blueberries": "Blueberries",
+  "block.chocolateflavored.blueberry_bush": "Blueberry Bush"
 }

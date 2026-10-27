@@ -63,6 +63,24 @@ public final class CropVerification {
         check(tomatoes.useWithoutItem(level.getBlockState(pos), level, pos, player,
                 new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false)).consumesAction(), "Pick tomato");
         check(tomatoes.getAge(level.getBlockState(pos)) == 4, "Tomato picking preserves fruiting bush");
+        var cotton = CropContent.COTTON.get();
+        check(cotton.getMaxAge() == 7, "Hearth cotton has eight ages");
+        level.setBlockAndUpdate(pos, cotton.getStateForAge(7));
+        check(cotton.useWithoutItem(level.getBlockState(pos), level, pos, player,
+                new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false)).consumesAction(), "Pick cotton");
+        check(cotton.getAge(level.getBlockState(pos)) == 5, "Cotton regrows from age five");
+        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        level.setBlockAndUpdate(pos.below(), Blocks.DIRT.defaultBlockState());
+        var bush = CropContent.BLUEBERRY_BUSH.get();
+        level.setBlockAndUpdate(pos, bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 2));
+        var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
+        check(!bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Blueberries require full maturity for picking");
+        bush.performBonemeal(level, level.random, pos, level.getBlockState(pos));
+        check(bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Pick blueberries");
+        check(level.getBlockState(pos).getValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE) == 1, "Blueberries regrow from age one");
+        check(Block.getDrops(bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 3), level, pos, null, player, ItemStack.EMPTY)
+                .stream().allMatch(stack -> stack.is(CropContent.BLUEBERRIES.get())), "Blueberry loot uses custom berries");
+        level.removeBlock(pos, false);
         rice(level, player, pos.offset(5, 0, 0));
 
         var chances = Map.ofEntries(Map.entry("wild_cabbages",120),Map.entry("wild_onions",480),Map.entry("wild_tomatoes",400),

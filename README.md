@@ -122,3 +122,7 @@ The Iron Hammer is now the Deepslate Hammer, with stone-pickaxe mining speed and
 ## Intrinsic armor trims
 
 All 18 vanilla trim patterns now grant per-piece and exact-pattern full-set abilities. Gold trim additionally counts as Piglin-safe armor. See [armor trim behavior, stacking, datapack tags and verification limits](docs/armor-trims.md) and the [complete feature specification](docs/armor-trims-spec.md). No additional mod is required.
+
+### Hearth and Harvest crop resources
+
+**AlabasterLeking and Hearth and Harvest contributors**: cultivated cotton and blueberry bush growth-stage textures, crop-cross model, blockstate/model mappings and block loot tables; cotton harvesting and blueberry bush behavior adapted for Minecraft 26.1.2. Blueberries item texture is also reused. These resources and reference code are MIT-licensed. Existing cotton boll/seeds and wild cotton remain unchanged. Exact revision and paths: [asset manifest](docs/hearth-crop-assets.json).
