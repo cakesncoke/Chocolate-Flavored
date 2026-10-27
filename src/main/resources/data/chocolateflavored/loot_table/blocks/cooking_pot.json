@@ -12,11 +12,8 @@
               "function": "minecraft:copy_components",
               "source": "block_entity",
               "include": [
-                "minecraft:container",
                 "minecraft:custom_name",
-                "minecraft:lock",
-                "chocolateflavored:meal_template",
-                "chocolateflavored:meal_container"
+                "minecraft:lock"
               ]
             }
           ]

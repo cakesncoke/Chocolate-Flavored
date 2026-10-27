@@ -46,20 +46,6 @@ public final class CookingPotBlock extends Block implements EntityBlock, SimpleW
     }
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return SHAPE; }
     @Override protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return state.getValue(SUPPORT) == Support.TRAY ? Shapes.or(SHAPE, Block.box(0, -1, 0, 16, 0, 16)) : SHAPE; }
-    @Override protected InteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot) {
-            if (!pot.canOpen(player)) return InteractionResult.TRY_WITH_EMPTY_HAND;
-            if (!level.isClientSide()) {
-                var serving = pot.serve(player, held);
-                if (!serving.isEmpty()) {
-                    if (!player.getInventory().add(serving)) player.drop(serving, false);
-                    level.playSound(null, pos, CookingContent.TAKE_PORTION.get(), SoundSource.BLOCKS, 1, 1);
-                    return InteractionResult.SUCCESS_SERVER;
-                }
-            }
-        }
-        return InteractionResult.TRY_WITH_EMPTY_HAND;
-    }
     @Override protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot) {
             if (player.isShiftKeyDown()) {
@@ -81,7 +67,7 @@ public final class CookingPotBlock extends Block implements EntityBlock, SimpleW
     @Override protected BlockState mirror(BlockState state, Mirror mirror) { return rotate(state, mirror.getRotation(state.getValue(FACING))); }
     @Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot && pot.isHeated()) {
-            if (random.nextInt(10) == 0) level.playLocalSound(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, pot.meal().isEmpty() ? CookingContent.POT_BOIL.get() : CookingContent.POT_SOUP.get(), SoundSource.BLOCKS, 0.5F, 0.9F + random.nextFloat() * 0.2F, false);
+            if (random.nextInt(10) == 0) level.playLocalSound(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, !pot.hasOutputs() ? CookingContent.POT_BOIL.get() : CookingContent.POT_SOUP.get(), SoundSource.BLOCKS, 0.5F, 0.9F + random.nextFloat() * 0.2F, false);
             if (random.nextInt(5) == 0) level.addParticle(CookingContent.STEAM.get(), pos.getX() + 0.3 + random.nextDouble() * 0.4, pos.getY() + 0.7, pos.getZ() + 0.3 + random.nextDouble() * 0.4, 0, 0.015, 0);
         }
     }

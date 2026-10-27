@@ -76,49 +76,62 @@ final class CookingVerification {
         check(pot.isHeated(), "Lit mud_kiln heats pot");
         level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(MudKilnBlock.LIT, false));
         pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 2)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 2));
-        tickPot(level, pot, 200); check(pot.meal().isEmpty(), "Unlit mud_kiln does not heat cooking pot");
-        check(LightingIgnition.ignite(level, pos, player), "Shared ignition supports mud_kiln");
-        tickPot(level, pot, 400);
-        check(pot.meal().getCount() == 2 && pot.getItem(8).isEmpty(), "Pot stores multiple unstackable meals until bowls are supplied");
+        pot.setItem(2, new ItemStack(Items.BOWL, 2));
+        tickPot(level, pot, 200); check(!pot.hasOutputs(), "Unlit kiln does not heat cooking pot");
+        check(LightingIgnition.ignite(level, pos, player), "Shared ignition supports kiln");
+        tickPot(level, pot, 199); check(!pot.hasOutputs(), "Pot needs full vanilla furnace cooking time");
+        tickPot(level, pot, 1); check(pot.getItem(6).is(Items.MUSHROOM_STEW) && pot.getItem(2).getCount()==1, "First batch completes at 200 ticks and consumes bowl ingredient");
+        tickPot(level, pot, 200); check(pot.getItem(7).is(Items.MUSHROOM_STEW) && pot.getItem(0).isEmpty(), "Unstackable results fill separate output slots");
         var menu = new CookingPotMenu(0, player.getInventory(), pot, pot.data);
         check(!((Object)menu instanceof RecipeBookMenu), "Cooking pot has no recipe-book menu");
-        check(!menu.getSlot(6).mayPickup(player) && !menu.getSlot(6).mayPlace(new ItemStack(Items.DIRT)) && menu.quickMoveStack(player, 6).isEmpty(), "Meal display cannot be taken or inserted into");
-        pot.setItem(7, new ItemStack(Items.BOWL, 2)); tickPot(level, pot, 1);
-        check(pot.getItem(8).getCount() == 1 && pot.meal().getCount() == 1 && pot.getItem(7).getCount() == 1, "One bowl produces one normally stacked serving");
-        var serving = menu.getSlot(8).remove(1); menu.getSlot(8).onTake(player, serving);
-        check(ItemStack.isSameItemSameComponents(serving, new ItemStack(Items.MUSHROOM_STEW)) && serving.getMaxStackSize() == 1, "Served food retains vanilla components and stack limit");
-        tickPot(level, pot, 1); check(pot.meal().isEmpty() && pot.getItem(8).getCount() == 1, "Second stored serving consumes second bowl");
-        pot.setItem(8, ItemStack.EMPTY); pot.setItem(7, ItemStack.EMPTY);
-        pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 64)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 64));
-        tickPot(level, pot, 200 * 64);
-        check(pot.meal().getCount() == 64 && pot.getItem(0).isEmpty(), "Meal buffer holds 64 completed portions");
-        pot.setItem(0, new ItemStack(Items.RED_MUSHROOM)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM)); tickPot(level, pot, 200);
-        check(pot.meal().getCount() == 64 && pot.getItem(0).getCount() == 1, "Full buffer does not consume more ingredients");
-        var tag = pot.saveWithFullMetadata(level.registryAccess());
-        pot = (CookingPotBlockEntity)BlockEntity.loadStatic(potPos, pot.getBlockState(), tag, level.registryAccess()); pot.setLevel(level); level.setBlockEntity(pot);
-        check(pot.meal().getCount() == 64 && pot.servingContainer().is(Items.BOWL), "64-portion buffer survives block-entity save/load");
-        var drops = Block.getDrops(pot.getBlockState(), level, potPos, pot, player, ItemStack.EMPTY);
-        check(drops.size() == 1 && drops.getFirst().is(CookingContent.COOKING_POT_ITEM.get()), "Pot loot drops pot item");
-        var packed = drops.getFirst();
-        var ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
-        packed = ItemStack.CODEC.parse(ops, ItemStack.CODEC.encodeStart(ops, packed).getOrThrow()).getOrThrow();
-        check(packed.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).allItemsCopyStream().skip(6).findFirst().orElseThrow().getCount() == 64, "Dropped pot and serialized item preserve 64 portions");
-        level.removeBlock(potPos, false);
-        check(count(level, potPos, Items.RED_MUSHROOM) == 1 && count(level, potPos, Items.MUSHROOM_STEW) == 0, "Breaking pot drops ingredients separately without duplicating its stored meals");
-        player.setItemInHand(InteractionHand.MAIN_HAND, packed);
-        packed.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit));
-        pot = (CookingPotBlockEntity)level.getBlockEntity(potPos);
-        check(pot != null && pot.meal().getCount() == 64, "Replacing filled pot restores its meals");
-        var bowl = new ItemStack(Items.BOWL, 2); serving = pot.serve(player, bowl);
-        check(bowl.getCount() == 1 && pot.meal().getCount() == 63 && ItemStack.isSameItemSameComponents(serving, new ItemStack(Items.MUSHROOM_STEW)), "Held bowl serves preserved meal with normal components");
-        check(!pot.canTakeItemThroughFace(6, pot.meal(), Direction.DOWN) && pot.canTakeItemThroughFace(8, serving, Direction.DOWN), "Automation cannot extract the unserved meal buffer");
-        check(!pot.canPlaceItemThroughFace(7, bowl, Direction.UP) && pot.canPlaceItemThroughFace(7, bowl, Direction.EAST), "Automation separates ingredients from serving containers");
+        for(int i=0;i<12;i++) {
+            var slot=menu.getSlot(i); int j=i%6;
+            check(slot.x==(i<6?7:115)+j%3*18 && slot.y==16+j/3*18, "Exact slot layout");
+            if(i>=6)check(slot.mayPickup(player)&&!slot.mayPlace(new ItemStack(Items.DIRT)), "All outputs extractable and insertion protected");
+        }
+        check(menu.getSlot(12).x==8 && menu.getSlot(12).y==84, "Player inventory unchanged");
+        check(!menu.quickMoveStack(player,6).isEmpty() && pot.getItem(6).isEmpty(), "Shift-click output extraction");
+        for(int i=0;i<12;i++)pot.setItem(i,ItemStack.EMPTY);
+        pot.setItem(0,new ItemStack(Items.RED_MUSHROOM));pot.setItem(1,new ItemStack(Items.BROWN_MUSHROOM));pot.setItem(2,new ItemStack(Items.BOWL));
+        for(int i=6;i<12;i++)pot.setItem(i,new ItemStack(Items.DIRT,64));
+        tickPot(level,pot,400);check(pot.getItem(0).getCount()==1 && pot.getItem(2).getCount()==1,"Blocked output does not consume any ingredients");
+        pot.setItem(6,ItemStack.EMPTY);tickPot(level,pot,200);check(pot.getItem(6).is(Items.MUSHROOM_STEW),"Cleared output resumes cooking");
+        check(pot.canPlaceItemThroughFace(0,new ItemStack(Items.BOWL),Direction.EAST)
+                && !pot.canPlaceItemThroughFace(6,new ItemStack(Items.BOWL),Direction.UP)
+                && pot.canTakeItemThroughFace(11,pot.getItem(11),Direction.DOWN),"Sided automation separates six inputs and six outputs");
+        // Simulate a saved v1 pot with 64 buffered, normally unstackable meals.
+        for(int i=0;i<12;i++)pot.setItem(i,ItemStack.EMPTY);
+        var legacyMeal=new ItemStack(Items.MUSHROOM_STEW);legacyMeal.set(DataComponents.MAX_STACK_SIZE,64);legacyMeal.setCount(64);
+        pot.setItem(6,legacyMeal);pot.setItem(7,new ItemStack(Items.BOWL,2));pot.setItem(8,new ItemStack(Items.BREAD,3));
+        var tag=pot.saveWithFullMetadata(level.registryAccess());tag.putInt("PotInventoryVersion",1);
+        var ops=level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+        tag.put("MealTemplate",ItemStack.CODEC.encodeStart(ops,new ItemStack(Items.MUSHROOM_STEW)).getOrThrow());
+        pot=(CookingPotBlockEntity)BlockEntity.loadStatic(potPos,pot.getBlockState(),tag,level.registryAccess());pot.setLevel(level);level.setBlockEntity(pot);
+        var savedMigration=pot.saveWithFullMetadata(level.registryAccess());
+        pot=(CookingPotBlockEntity)BlockEntity.loadStatic(potPos,pot.getBlockState(),savedMigration,level.registryAccess());pot.setLevel(level);level.setBlockEntity(pot);
+        int meals=0,bowls=0,bread=0;
+        for(int round=0;round<20;round++) {
+            for(int i=6;i<12;i++) {
+                var stack=pot.removeItem(i,64);
+                if(stack.is(Items.MUSHROOM_STEW)){check(stack.getCount()==1&&stack.getMaxStackSize()==1,"Legacy meals restore normal stack limits");meals+=stack.getCount();}
+                if(stack.is(Items.BOWL))bowls+=stack.getCount();if(stack.is(Items.BREAD))bread+=stack.getCount();
+            }
+            tickPot(level,pot,1);
+        }
+        check(meals==64&&bowls==2&&bread==3,"Legacy migration and queued-return reload lose or duplicate no items");
+        pot.setItem(0,new ItemStack(Items.CARROT,4));pot.setItem(11,new ItemStack(Items.BREAD,3));
+        var drops=Block.getDrops(pot.getBlockState(),level,potPos,pot,player,ItemStack.EMPTY);
+        check(drops.size()==1&&drops.getFirst().is(CookingContent.COOKING_POT_ITEM.get()),"Pot drops itself");
+        check(drops.getFirst().getOrDefault(DataComponents.CONTAINER,ItemContainerContents.EMPTY).allItemsCopyStream().allMatch(ItemStack::isEmpty),"Pot item does not duplicate separately dropped inventory");
+        level.removeBlock(potPos,false);
+        check(count(level,potPos,Items.CARROT)==4&&count(level,potPos,Items.BREAD)==3,"Breaking pot drops both input and output inventory");
+        clear(level,potPos);level.setBlockAndUpdate(potPos,CookingContent.COOKING_POT.get().defaultBlockState());pot=(CookingPotBlockEntity)level.getBlockEntity(potPos);
         // A hopper conducts heat one block upward, as in Farmer's Delight.
         level.setBlockAndUpdate(pos.below(), CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
         level.setBlockAndUpdate(pos, Blocks.HOPPER.defaultBlockState()); check(pot.isHeated(), "Hopper conducts mud_kiln heat");
         level.setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState()); check(!pot.isHeated(), "Unheated conductor does not create heat");
         level.removeBlock(potPos, false); level.removeBlock(pos, false); level.removeBlock(pos.below(), false); clear(level, pos);
-        ChocolateFlavored.LOGGER.info("COOKING_VERIFICATION_PASSED: custom/campfire mud_kiln recipes, six positions, ignition/dousing/cooldown, persistence, heated pot recipes, meal serving and 64-portion save/drop/replace, no recipe book, sided automation and heat conductors");
+        ChocolateFlavored.LOGGER.info("COOKING_VERIFICATION_PASSED: custom/campfire mud_kiln recipes, six positions, ignition/dousing/cooldown, persistence, counted stack recipes, 200-tick cooking, normal outputs, atomic capacity, legacy migration/save/drop, no recipe book, sided automation and heat conductors");
     }
     private static void codecs(ServerLevel level) {
         var ops = level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
@@ -132,9 +145,20 @@ final class CookingVerification {
             check(decoded.inputCount() == 3 && decoded.cookingTime() == 20, "Recipe network codec round trip");
         } finally { bytes.release(); }
         check(Recipe.CODEC.parse(ops, JsonParser.parseString(json.replace("\"cookingtime\":20", "\"cookingtime\":0"))).error().isPresent(), "Invalid processing time is rejected");
-        var recipe = new CookingRecipes.PotRecipe(List.of(Ingredient.of(Items.CARROT, Items.POTATO), Ingredient.of(Items.CARROT)), new ItemStackTemplate(Items.BREAD), Optional.empty(), 20, 0);
-        check(recipe.matches(new CookingRecipes.PotInput(List.of(new ItemStack(Items.CARROT), new ItemStack(Items.POTATO))), level), "Shapeless matching handles overlapping ingredients without a greedy mismatch");
-        check(!recipe.matches(new CookingRecipes.PotInput(List.of(new ItemStack(Items.CARROT, 2))), level), "Separate recipe ingredients require separate input slots");
+        var recipe = new CookingRecipes.PotRecipe(List.of(
+                new CookingRecipes.PotIngredient(Ingredient.of(Items.CARROT,Items.POTATO),2),
+                new CookingRecipes.PotIngredient(Ingredient.of(Items.CARROT),1)),
+                List.of(new ItemStackTemplate(Items.BREAD),new ItemStackTemplate(Items.APPLE)),0);
+        check(recipe.matches(new CookingRecipes.PotInput(List.of(new ItemStack(Items.CARROT),new ItemStack(Items.POTATO,2))),level),"Counted overlapping ingredients backtrack");
+        check(!recipe.matches(new CookingRecipes.PotInput(List.of(new ItemStack(Items.CARROT),new ItemStack(Items.POTATO))),level),"Count shortfall rejected");
+        var encoded=CookingRecipes.PotRecipe.CODEC.codec().encodeStart(ops,recipe).getOrThrow();
+        var decoded=CookingRecipes.PotRecipe.CODEC.codec().parse(ops,encoded).getOrThrow();
+        check(decoded.results().size()==2&&decoded.ingredients().getFirst().count()==2&&decoded.cookingTime()==200,"Multi-output JSON round trip and fixed furnace duration");
+        var potBytes=new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
+        try{CookingRecipes.POT_SERIALIZER.get().streamCodec().encode(potBytes,recipe);
+            check(CookingRecipes.POT_SERIALIZER.get().streamCodec().decode(potBytes).results().size()==2,"Multi-output recipe network round trip");
+        }finally{potBytes.release();}
+
     }
     private static void tickPot(ServerLevel level, CookingPotBlockEntity pot, int ticks) { for (int i = 0; i < ticks; i++) CookingPotBlockEntity.tick(level, pot.getBlockPos(), pot.getBlockState(), pot); }
     private static int count(ServerLevel level, BlockPos pos, Item item) { return level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(4)).stream().filter(e -> e.getItem().is(item)).mapToInt(e -> e.getItem().getCount()).sum(); }

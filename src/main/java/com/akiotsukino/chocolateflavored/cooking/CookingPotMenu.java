@@ -7,27 +7,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.*;
 
-/** Deliberately a plain container menu, without recipe-book state or recipe placement packets. */
+/** Six ingredient stacks and six normal, extractable output stacks; no recipe book. */
 public final class CookingPotMenu extends AbstractContainerMenu {
     private final Container inventory;
     private final ContainerData data;
     public CookingPotMenu(int id, Inventory player) {
-        this(id, player, new SimpleContainer(9) { @Override public int getMaxStackSize(ItemStack stack) { return 64; } }, new SimpleContainerData(3));
+        this(id, player, new SimpleContainer(CookingPotBlockEntity.SIZE), new SimpleContainerData(3));
     }
     public CookingPotMenu(int id, Inventory player, Container inventory, ContainerData data) {
-        super(CookingContent.POT_MENU.get(), id); checkContainerSize(inventory, 9); checkContainerDataCount(data, 3);
+        super(CookingContent.POT_MENU.get(), id);
+        checkContainerSize(inventory, CookingPotBlockEntity.SIZE); checkContainerDataCount(data, 3);
         this.inventory = inventory; this.data = data;
-        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, slot, 30 + slot % 3 * 18, 17 + slot / 3 * 18));
-        addSlot(new Slot(inventory, CookingPotBlockEntity.MEAL, 124, 26) {
-            @Override public boolean mayPickup(Player player) { return false; }
+        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, slot, 7 + slot % 3 * 18, 16 + slot / 3 * 18));
+        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, 6 + slot, 115 + slot % 3 * 18, 16 + slot / 3 * 18) {
             @Override public boolean mayPlace(ItemStack stack) { return false; }
-        });
-        addSlot(new Slot(inventory, CookingPotBlockEntity.CONTAINER, 92, 55) {
-            @Override public boolean mayPlace(ItemStack stack) { return inventory.canPlaceItem(CookingPotBlockEntity.CONTAINER, stack); }
-        });
-        addSlot(new Slot(inventory, CookingPotBlockEntity.OUTPUT, 124, 55) {
-            @Override public boolean mayPlace(ItemStack stack) { return false; }
-            @Override public void onTake(Player player, ItemStack stack) { if (inventory instanceof CookingPotBlockEntity pot) pot.awardExperience(player); super.onTake(player, stack); }
+            @Override public void onTake(Player player, ItemStack stack) {
+                if (inventory instanceof CookingPotBlockEntity pot) pot.awardExperience(player);
+                super.onTake(player, stack);
+            }
         });
         addStandardInventorySlots(player, 8, 84); addDataSlots(data);
     }
@@ -35,17 +32,14 @@ public final class CookingPotMenu extends AbstractContainerMenu {
     public boolean isHeated() { return data.get(2) != 0; }
     @Override public boolean stillValid(Player player) { return inventory.stillValid(player); }
     @Override public ItemStack quickMoveStack(Player player, int index) {
-        if (index < 0 || index >= slots.size() || index == CookingPotBlockEntity.MEAL) return ItemStack.EMPTY;
+        if (index < 0 || index >= slots.size()) return ItemStack.EMPTY;
         var slot = slots.get(index); if (!slot.hasItem() || !slot.mayPickup(player)) return ItemStack.EMPTY;
         var stack = slot.getItem(); var original = stack.copy();
-        if (index < 9) { if (!moveItemStackTo(stack, 9, slots.size(), true)) return ItemStack.EMPTY; }
-        else {
-            boolean serving = inventory instanceof CookingPotBlockEntity pot && pot.validContainer(stack)
-                    || stack.is(Items.BOWL) || stack.is(Items.GLASS_BOTTLE) || stack.is(Items.BUCKET);
-            if (!moveItemStackTo(stack, serving ? 7 : 0, serving ? 8 : 6, false)) return ItemStack.EMPTY;
-        }
+        if (index < 12) { if (!moveItemStackTo(stack, 12, slots.size(), true)) return ItemStack.EMPTY; }
+        else if (!moveItemStackTo(stack, 0, 6, false)) return ItemStack.EMPTY;
         if (stack.getCount() == original.getCount()) return ItemStack.EMPTY;
+        var taken = original.copyWithCount(original.getCount() - stack.getCount());
         if (stack.isEmpty()) slot.setByPlayer(ItemStack.EMPTY); else slot.setChanged();
-        slot.onTake(player, original); return original;
+        slot.onTake(player, taken); return original;
     }
 }
