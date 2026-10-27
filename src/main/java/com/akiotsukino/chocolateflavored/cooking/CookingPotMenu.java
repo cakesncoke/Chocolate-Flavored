@@ -9,6 +9,7 @@ import net.minecraft.world.item.*;
 
 /** Six ingredient stacks and six normal, extractable output stacks; no recipe book. */
 public final class CookingPotMenu extends AbstractContainerMenu {
+    public static final int ARROW_WIDTH = 22;
     private final Container inventory;
     private final ContainerData data;
     public CookingPotMenu(int id, Inventory player) {
@@ -28,7 +29,7 @@ public final class CookingPotMenu extends AbstractContainerMenu {
         });
         addStandardInventorySlots(player, 8, 84); addDataSlots(data);
     }
-    public int progressWidth() { return data.get(1) <= 0 ? 0 : Math.min(24, data.get(0) * 24 / data.get(1)); }
+    public int progressWidth() { return data.get(1) <= 0 ? 0 : Math.min(ARROW_WIDTH, data.get(0) * ARROW_WIDTH / data.get(1)); }
     public boolean isHeated() { return data.get(2) != 0; }
     @Override public boolean stillValid(Player player) { return inventory.stillValid(player); }
     @Override public ItemStack quickMoveStack(Player player, int index) {
