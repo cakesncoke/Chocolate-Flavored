@@ -24,6 +24,7 @@ public record EchoLinkPayload(boolean reset, List<UUID> added, List<UUID> remove
         @Override public EchoLinkPayload decode(RegistryFriendlyByteBuf buf) { return new EchoLinkPayload(buf.readBoolean(),read(buf),read(buf)); }
         @Override public void encode(RegistryFriendlyByteBuf buf,EchoLinkPayload value) { buf.writeBoolean(value.reset()); write(buf,value.added());write(buf,value.removed()); }
     };
+    @Override public Type<EchoLinkPayload> type() { return TYPE; }
     // This cache has no Minecraft client classes, keeping common item hooks dedicated-server safe.
     private static final Set<UUID> CLIENT_VALID = java.util.concurrent.ConcurrentHashMap.newKeySet();
     public static boolean clientValid(UUID id) { return id != null && CLIENT_VALID.contains(id); }

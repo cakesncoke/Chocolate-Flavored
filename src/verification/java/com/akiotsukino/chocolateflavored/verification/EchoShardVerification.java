@@ -19,6 +19,10 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 final class EchoShardVerification {
     private static final class UsePlayer extends FakePlayer {
         UsePlayer(ServerLevel level){super(level,new GameProfile(UUID.randomUUID(),"EchoCheck"));}
+        Vec3 requestedTeleport;
+        @Override public net.minecraft.server.level.ServerPlayer teleport(net.minecraft.world.level.portal.TeleportTransition transition){
+            requestedTeleport=transition.position();return super.teleport(transition);
+        }
         void advance(){if(isUsingItem()){useItem=getItemInHand(getUsedItemHand());super.updateUsingItem(useItem);}}
     }
     static void run(ServerLevel level){
@@ -51,7 +55,9 @@ final class EchoShardVerification {
         for(int i=0;i<59;i++)player.advance();
         check(player.position().equals(origin)&&player.getMainHandItem().getCount()==2,"No teleport or consumption at 59 ticks");
         player.advance();
-        check(player.position().distanceToSqr(pos.above().getBottomCenter())<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 60 ticks teleport to lodestone and consume one shard");
+        check(player.requestedTeleport!=null&&player.requestedTeleport.distanceToSqr(pos.above().getBottomCenter())<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 60 ticks request native teleport to lodestone and consume one shard");
+        // FakePlayer intentionally suppresses network teleports; the client fixture verifies actual arrival.
+        player.requestedTeleport=null;
         player.setPos(origin);check(Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND).consumesAction(),"Remaining linked shard can charge");
         for(int i=0;i<20;i++)player.advance();player.releaseUsingItem();
         check(player.getMainHandItem().getCount()==1&&player.position().equals(origin),"Early release cancels without spending shard");
