@@ -25,6 +25,7 @@ final class HornVerification {
         check(wolf != null && horse != null && cow != null, "Entity creation");
         var origin = player.position();
         try {
+            wolf.setCustomName(net.minecraft.network.chat.Component.literal("Copper Companion"));
             wolf.setTame(true, true); wolf.setOwner(player); wolf.setOrderedToSit(true);
             wolf.setPos(origin.add(2, 0, 0)); level.addFreshEntity(wolf);
             horse.setTamed(true); horse.setOwner(player); horse.setPos(origin.add(2, 0, 0)); level.addFreshEntity(horse);
@@ -38,6 +39,10 @@ final class HornVerification {
             var saved = ItemStack.CODEC.encodeStart(ops, horn).getOrThrow();
             horn = ItemStack.CODEC.parse(ops, saved).getOrThrow();
             check(wolf.getUUID().equals(CopperHornItem.target(horn)) && horn.hasFoil(), "Item save round trip");
+            var tooltip = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+            item.appendHoverText(horn, Item.TooltipContext.of(level), net.minecraft.world.item.component.TooltipDisplay.DEFAULT,
+                    tooltip::add, TooltipFlag.NORMAL);
+            check(tooltip.stream().anyMatch(line -> line.getString().equals("Call Copper Companion")), "Persisted linked-name tooltip");
             var memory = HornLinks.CODEC.encodeStart(JsonOps.INSTANCE, HornLinks.get(level.getServer())).getOrThrow();
             check(HornLinks.CODEC.parse(JsonOps.INSTANCE, memory).getOrThrow().find(wolf.getUUID()) != null, "Unloaded location save round trip");
             int variants = 0;

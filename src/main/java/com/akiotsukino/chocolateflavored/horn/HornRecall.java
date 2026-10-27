@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -53,9 +52,8 @@ public final class HornRecall {
     public static boolean bind(Player player, ItemStack horn, Entity target) {
         if (!(horn.getItem() instanceof CopperHornItem) || !eligible(player, target)) return false;
         if (player.level() instanceof ServerLevel level) {
-            CopperHornItem.link(horn, target.getUUID());
+            CopperHornItem.link(horn, target);
             HornLinks.get(level.getServer()).remember(target);
-            player.sendOverlayMessage(Component.translatable("message.chocolateflavored.horn_linked", target.getDisplayName()));
         }
         return true;
     }
@@ -81,7 +79,7 @@ public final class HornRecall {
         if (entity != null) { recall(player, entity); return; }
         var location = HornLinks.get(server).find(target);
         var level = location == null ? null : server.getLevel(ResourceKey.create(Registries.DIMENSION, location.dimension()));
-        if (level == null) { unavailable(player); return; }
+        if (level == null) { return; }
         // Native portal tickets expire automatically; no permanent force-loaded chunks.
         level.getChunkSource().addTicketWithRadius(TicketType.PORTAL, ChunkPos.containing(location.pos()), 2);
         var pending = PENDING.computeIfAbsent(server, s -> new ArrayList<>());
@@ -90,19 +88,15 @@ public final class HornRecall {
     }
 
     public static boolean recall(ServerPlayer player, Entity entity) {
-        if (!eligible(player, entity) || entity.isVehicle()) { unavailable(player); return false; }
+        if (!eligible(player, entity) || entity.isVehicle()) { return false; }
         // Do not transport passengers or detach another player's mount. Sitting state is preserved.
         if (entity instanceof Mob mob) mob.getNavigation().stop();
         var moved = entity.teleport(new TeleportTransition(player.level(), player.position(), Vec3.ZERO,
                 entity.getYRot(), entity.getXRot(), TeleportTransition.DO_NOTHING));
-        if (moved == null) { unavailable(player); return false; }
+        if (moved == null) { return false; }
         moved.fallDistance = 0;
         HornLinks.get(player.level().getServer()).remember(moved);
         return true;
-    }
-
-    private static void unavailable(Player player) {
-        player.sendOverlayMessage(Component.translatable("message.chocolateflavored.horn_unavailable"));
     }
 
     @SubscribeEvent public static void tick(ServerTickEvent.Post event) {
@@ -116,7 +110,7 @@ public final class HornRecall {
             var target = loaded(server, call.target());
             if (player.isRemoved() || !player.isAlive()) iterator.remove();
             else if (target != null) { recall(player, target); iterator.remove(); }
-            else if (server.getTickCount() >= call.expires()) { unavailable(player); iterator.remove(); }
+            else if (server.getTickCount() >= call.expires()) { iterator.remove(); }
         }
     }
 
