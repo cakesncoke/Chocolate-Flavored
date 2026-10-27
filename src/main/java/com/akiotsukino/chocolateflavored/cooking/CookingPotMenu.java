@@ -18,8 +18,8 @@ public final class CookingPotMenu extends AbstractContainerMenu {
         super(CookingContent.POT_MENU.get(), id);
         checkContainerSize(inventory, CookingPotBlockEntity.SIZE); checkContainerDataCount(data, 3);
         this.inventory = inventory; this.data = data;
-        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, slot, 7 + slot % 3 * 18, 16 + slot / 3 * 18));
-        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, 6 + slot, 115 + slot % 3 * 18, 16 + slot / 3 * 18) {
+        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, slot, 7 + slot % 3 * 18, 19 + slot / 3 * 18));
+        for (int slot = 0; slot < 6; slot++) addSlot(new Slot(inventory, 6 + slot, 115 + slot % 3 * 18, 19 + slot / 3 * 18) {
             @Override public boolean mayPlace(ItemStack stack) { return false; }
             @Override public void onTake(Player player, ItemStack stack) {
                 if (inventory instanceof CookingPotBlockEntity pot) pot.awardExperience(player);

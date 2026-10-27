@@ -27,7 +27,7 @@ The pot has six input slots and six output slots. Recipes are shapeless: each co
 
 Every batch takes **200 simulation ticks (10 seconds at 20 TPS)**, the vanilla furnace default. Accelerated sleep also accelerates cooking. There is no pot-specific `cookingtime` override. Bowls and other required containers are explicit ingredients. The old meal display, separate container slot, right-click serving and artificial 64-portion stack are removed. Input crafting/use remainders are returned into the world, one per consumed ingredient item.
 
-The GUI retains the 176×166 panel and player inventory at (8,84), without a recipe book. Input item positions are (7,16), (25,16), (43,16), (7,34), (25,34), (43,34). Outputs use (115,16), (133,16), (151,16), (115,34), (133,34), (151,34). Progress is at (76,26), heat at (79,62); original icon sizes/scales remain. The pot/custom name is right-aligned at the top.
+The GUI retains the 176×166 panel and player inventory at (8,84), without a recipe book. Input item positions are (7,19), (25,19), (43,19), (7,37), (25,37), (43,37). Outputs use (115,19), (133,19), (151,19), (115,37), (133,37), (151,37). Progress is at (76,29), heat at (79,55); original icon sizes/scales remain. The pot/custom name uses the vanilla top-left title position (8,6).
 
 The pot requires heat below it. Default heat sources are a **lit mud_kiln**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
 

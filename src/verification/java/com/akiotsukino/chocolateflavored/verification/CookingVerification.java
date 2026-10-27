@@ -86,7 +86,7 @@ final class CookingVerification {
         check(!((Object)menu instanceof RecipeBookMenu), "Cooking pot has no recipe-book menu");
         for(int i=0;i<12;i++) {
             var slot=menu.getSlot(i); int j=i%6;
-            check(slot.x==(i<6?7:115)+j%3*18 && slot.y==16+j/3*18, "Exact slot layout");
+            check(slot.x==(i<6?7:115)+j%3*18 && slot.y==19+j/3*18, "Exact slot layout");
             if(i>=6)check(slot.mayPickup(player)&&!slot.mayPlace(new ItemStack(Items.DIRT)), "All outputs extractable and insertion protected");
         }
         check(menu.getSlot(12).x==8 && menu.getSlot(12).y==84, "Player inventory unchanged");

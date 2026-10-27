@@ -56,7 +56,7 @@ public final class CookingClientVerification {
                     || !screen.getMenu().getSlot(7).getItem().is(Items.MUSHROOM_STEW)) throw new IllegalStateException("Multi-slot outputs lost during client synchronization");
             for (int i=0;i<12;i++) {
                 var slot=screen.getMenu().getSlot(i); int j=i%6;
-                if(slot.x!=(i<6?7:115)+j%3*18 || slot.y!=16+j/3*18)throw new IllegalStateException("Pot slot coordinate mismatch");
+                if(slot.x!=(i<6?7:115)+j%3*18 || slot.y!=19+j/3*18)throw new IllegalStateException("Pot slot coordinate mismatch");
             }
             if (!screen.getMenu().isHeated()) throw new IllegalStateException("Pot heat state did not synchronize");
             if (screen.children().stream().anyMatch(child -> child.getClass().getSimpleName().contains("RecipeBook"))) throw new IllegalStateException("Cooking pot exposed a recipe-book widget");
