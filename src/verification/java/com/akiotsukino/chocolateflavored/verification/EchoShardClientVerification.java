@@ -20,6 +20,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 @EventBusSubscriber(modid="chocolateflavored",value=Dist.CLIENT)
 public final class EchoShardClientVerification {
+    public static boolean completed;
     private static int ticks,phase,wait;
     private static ItemStack stale,linkedSnapshot;
     private static volatile BlockPos startFeet;
@@ -75,7 +76,7 @@ public final class EchoShardClientVerification {
             g.fill(0,0,width,height,0xFF243340);g.centeredText(font,"Echo Shards — live lodestone link synchronization",width/2,25,-1);
             g.centeredText(font,"Broken lodestone: unlinked",width/3,70,-1);g.centeredText(font,"New link: glint",width*2/3,70,-1);
             g.item(broken,width/3-8,100);g.item(linked,width*2/3-8,100);
-            if(++frames==150)ChocolateFlavored.LOGGER.info("ECHO_SHARD_CLIENT_VERIFICATION_PASSED: real server bind/break/rebind packets, linked glint, stored-copy invalidation, non-reviving replacement, real client hold-charge/consumption/teleport arrival");
+            if(++frames==150){completed=true;ChocolateFlavored.LOGGER.info("ECHO_SHARD_CLIENT_VERIFICATION_PASSED: real server bind/break/rebind packets, linked glint, stored-copy invalidation, non-reviving replacement, real client hold-charge/consumption/teleport arrival");}
         }
         @Override public boolean isPauseScreen(){return false;}
     }
