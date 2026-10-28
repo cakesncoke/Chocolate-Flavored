@@ -34,6 +34,12 @@ Custom recipes support datapacks. MudKiln and cooking-pot recipe compatibility i
 
 Before changing vanilla behavior, inspect the exact project's current Minecraft sources through the IDE. Minecraft 26.1 is unobfuscated; do not introduce old mapping configuration.
 
+## Copper tool oxidation
+
+Copper swords, pickaxes, axes, shovels and hoes visually oxidize as they wear: exposed at 25% damage, weathered at 50%, and oxidized at 75%. Repairs and Mending restore the appearance automatically. These are the same vanilla items with unchanged stats, recipes and enchantments. The native normalized damage model property respects the mod’s copper durability. Supplied oxidation textures are used in inventory, in hand, on the ground and in item frames.
+
+Appearance behavior is inspired by [Vanilla Tweaks — Copper Tool Oxidization](https://vanillatweaks.net/picker/resource-packs/). The fifteen textures were already supplied in this repository; no Vanilla Tweaks code or additional assets were downloaded into the mod.
+
 ## Earth animals
 
 Standalone Earth-style animal variants, white/rare-pink natural sheep, Buttercup and Pink Daisy are described in [docs/earth-animals.md](docs/earth-animals.md), including exact spawn percentages, item-limit adaptations and upstream attribution.
