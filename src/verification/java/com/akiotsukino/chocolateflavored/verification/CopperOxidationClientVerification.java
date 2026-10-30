@@ -33,7 +33,7 @@ public final class CopperOxidationClientVerification {
                     instanceof RangeSelectItemModel)) throw new IllegalStateException("Copper damage model missing: "+tool);
         }
         opened=true;
-        mc.setScreen(new Gallery());
+        mc.gui.setScreen(new Gallery());
     }
 
     private static final class Gallery extends Screen {

@@ -16,6 +16,7 @@ import net.minecraft.util.random.Weighted;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.behavior.VillagerMakeLove;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -43,7 +44,7 @@ final class VillageVerification {
     private static void poolsAndResidents(ServerLevel level) throws ReflectiveOperationException {
         var pools = level.registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
         var ops = level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
-        var normal = EntityType.ZOMBIE.create(level, EntitySpawnReason.COMMAND);
+        var normal = EntityTypes.ZOMBIE.create(level, EntitySpawnReason.COMMAND);
         check(normal.is(EntityTypeTags.BURN_IN_DAYLIGHT), "Normal zombies retain daylight burning tag");
         BlockPos pos = new BlockPos(48, 160, 0);
         var bounds = new AABB(pos).inflate(12);
@@ -65,14 +66,14 @@ final class VillageVerification {
                 var output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, level.registryAccess());
                 // A finalized baby resident may be a chicken jockey; save() skips passengers.
                 check(resident.saveAsPassenger(output), "Resident serialization includes mounted villagers");
-                var restored = EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), output.buildResult()), level, EntitySpawnReason.COMMAND).orElseThrow();
+                var restored = EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), output.buildResult()), level, new net.minecraft.world.entity.EntitySpawnRequest(EntitySpawnReason.COMMAND, false)).orElseThrow();
                 check(restored instanceof ZombieVillager zombie && zombie.isPersistenceRequired(), "Persistence survives entity save/load");
                 resident.checkDespawn();
                 check(!resident.isRemoved(), "Persistent resident survives despawn check");
                 level.getEntitiesOfClass(Entity.class, bounds).forEach(Entity::discard);
             }
         }
-        var natural = EntityType.ZOMBIE_VILLAGER.create(level, EntitySpawnReason.NATURAL);
+        var natural = EntityTypes.ZOMBIE_VILLAGER.create(level, EntitySpawnReason.NATURAL);
         check(!natural.isPersistenceRequired(), "Natural zombie villagers are not globally made persistent");
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(), "time set 6000");
         normal.setPos(48.5, 180, 0.5); natural.setPos(48.5, 180, 0.5);
@@ -87,7 +88,7 @@ final class VillageVerification {
         int checked = 0;
         for (var biome : biomes.listElements().toList()) {
             var entries = biome.value().getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
-            int zombies = weight(entries, EntityType.ZOMBIE), villagers = weight(entries, EntityType.ZOMBIE_VILLAGER);
+            int zombies = weight(entries, EntityTypes.ZOMBIE), villagers = weight(entries, EntityTypes.ZOMBIE_VILLAGER);
             if (biome.is(Biomes.OLD_GROWTH_PINE_TAIGA)) {
                 check(zombies == 100 && villagers == 25, "Old growth pine taiga retains vanilla weights");
             } else if (zombies > 0 && villagers > 0) {
@@ -95,21 +96,21 @@ final class VillageVerification {
             }
         }
         check(checked > 30, "Spawn modifier ran across overworld biomes");
-        var original = List.of(new Weighted<>(new SpawnerData(EntityType.ZOMBIE, 4, 4), 90),
-                new Weighted<>(new SpawnerData(EntityType.ZOMBIE_VILLAGER, 1, 1), 5),
-                new Weighted<>(new SpawnerData(EntityType.ZOMBIE_HORSE, 1, 1), 5),
-                new Weighted<>(new SpawnerData(EntityType.SPIDER, 4, 4), 100));
+        var original = List.of(new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE, 4, 4), 90),
+                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1), 5),
+                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_HORSE, 1, 1), 5),
+                new Weighted<>(new SpawnerData(EntityTypes.SPIDER, 4, 4), 100));
         var adjusted = ZombieVillagerSpawnModifier.rebalance(original);
         int total = adjusted.stream().mapToInt(Weighted::weight).sum();
-        check((long)weight(adjusted, EntityType.SPIDER) * 200 == 100L * total, "Other monster probability unchanged");
-        check((long)weight(adjusted, EntityType.ZOMBIE_HORSE) * 200 == 5L * total, "Zombie horse probability unchanged");
+        check((long)weight(adjusted, EntityTypes.SPIDER) * 200 == 100L * total, "Other monster probability unchanged");
+        check((long)weight(adjusted, EntityTypes.ZOMBIE_HORSE) * 200 == 5L * total, "Zombie horse probability unchanged");
     }
     @SuppressWarnings("unchecked")
     private static void breedingAndGolems(ServerLevel level) throws ReflectiveOperationException {
         BlockPos pos = new BlockPos(80, 160, 0);
         var bounds = new AABB(pos).inflate(20);
-        var first = EntityType.VILLAGER.create(level, EntitySpawnReason.COMMAND);
-        var second = EntityType.VILLAGER.create(level, EntitySpawnReason.COMMAND);
+        var first = EntityTypes.VILLAGER.create(level, EntitySpawnReason.COMMAND);
+        var second = EntityTypes.VILLAGER.create(level, EntitySpawnReason.COMMAND);
         first.setPos(80.5, 160, 0.5); second.setPos(81.5, 160, 0.5);
         var breed = VillagerMakeLove.class.getDeclaredMethod("breed", ServerLevel.class, Villager.class, Villager.class); breed.setAccessible(true);
         var newborn = ((Optional<Villager>)breed.invoke(new VillagerMakeLove(), level, first, second)).orElseThrow();
@@ -118,9 +119,9 @@ final class VillageVerification {
         first.setNoAi(true); newborn.setNoAi(true); first.aiStep(); newborn.aiStep();
         check(first.getAge() == 41999 && newborn.getAge() == -71999, "Timers advance by one game tick");
         newborn.setAge(-1); newborn.aiStep(); check(!newborn.isBaby(), "Baby matures at age zero");
-        var eggBaby = EntityType.VILLAGER.create(level, EntitySpawnReason.SPAWN_ITEM_USE); eggBaby.setBaby(true);
+        var eggBaby = EntityTypes.VILLAGER.create(level, EntitySpawnReason.SPAWN_ITEM_USE); eggBaby.setBaby(true);
         check(eggBaby.getAge() == -72000, "Other newly initialized villager babies also take one hour");
-        var cow = EntityType.COW.create(level, EntitySpawnReason.COMMAND); cow.setBaby(true);
+        var cow = EntityTypes.COW.create(level, EntitySpawnReason.COMMAND); cow.setBaby(true);
         check(cow.getAge() == -24000, "Animal maturation remains vanilla");
         newborn.discard();
         for (int x = -10; x <= 10; x++) for (int z = -10; z <= 10; z++) level.setBlockAndUpdate(pos.offset(x, -1, z), Blocks.STONE.defaultBlockState());

@@ -108,7 +108,7 @@ final class TrimRefinementVerification {
         level.getGameRules().set(rule,-1,level.getServer());
         try {
         BlockPos pos=new BlockPos(410,161,0);level.setBlockAndUpdate(pos.below(),Blocks.STONE.defaultBlockState());level.removeBlock(pos,false);
-        var bolt=EntityType.LIGHTNING_BOLT.create(level,EntitySpawnReason.TRIGGERED);bolt.setPos(Vec3.atBottomCenterOf(pos));
+        var bolt=EntityTypes.LIGHTNING_BOLT.create(level,EntitySpawnReason.TRIGGERED);bolt.setPos(Vec3.atBottomCenterOf(pos));
         var fire=LightningBolt.class.getDeclaredMethod("spawnFire",int.class);fire.setAccessible(true);
         bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"),true);fire.invoke(bolt,4);check(level.getBlockState(pos).isAir(),"Trim bolt does not ignite");
         bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"),false);fire.invoke(bolt,0);check(level.getBlockState(pos).is(Blocks.FIRE),"Natural lightning ignition unchanged");

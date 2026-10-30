@@ -20,7 +20,7 @@ import java.util.*;
 @EventBusSubscriber(modid=ChocolateFlavored.MODID,value=Dist.CLIENT)
 public final class TuffGolemClientVerification {
     public static boolean completed;private static boolean opened;private static int ticks;
-    @SubscribeEvent public static void tick(ClientTickEvent.Post event){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!MobClientVerification.completed||++ticks<160)return;if(Minecraft.getInstance().level==null)return;com.akiotsukino.chocolateflavored.client.tuff.TuffAnimationVerification.run();opened=true;Minecraft.getInstance().setScreen(new Gallery());}
+    @SubscribeEvent public static void tick(ClientTickEvent.Post event){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!MobClientVerification.completed||++ticks<160)return;if(Minecraft.getInstance().level==null)return;com.akiotsukino.chocolateflavored.client.tuff.TuffAnimationVerification.run();opened=true;Minecraft.getInstance().gui.setScreen(new Gallery());}
     private static final class Gallery extends Screen {
         private final List<TuffGolem> golems=new ArrayList<>();private int frames;
         private final String[] clips={"","idleWithItem","sleep","sleepWithItem","showItem","hideItem","wake","wakeWithItem","wakeAndShowItem","wakeAndHideItem","walk","walkWithItem","","idleWithItem","sleep","sleepWithItem"};

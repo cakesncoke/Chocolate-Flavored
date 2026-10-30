@@ -31,7 +31,7 @@ public final class CleanupVerification {
         var balls = new ItemStack(MobContent.TROPICAL_BALL.get(), 2);
         balls.finishUsingItem(level, player);
         check(balls.getCount() == 1 && player.getAirSupply() == player.getMaxAirSupply() && player.getEffect(MobEffects.WATER_BREATHING).getDuration() == 300, "One ball consumed; air and 15 seconds water breathing restored");
-        var fish = EntityType.TROPICAL_FISH.create(level, EntitySpawnReason.COMMAND); fish.setAirSupply(0);
+        var fish = EntityTypes.TROPICAL_FISH.create(level, EntitySpawnReason.COMMAND); fish.setAirSupply(0);
         MobContent.TROPICAL_BALL.get().interactLivingEntity(balls, player, fish, InteractionHand.MAIN_HAND);
         check(balls.isEmpty() && fish.getAirSupply() == fish.getMaxAirSupply(), "Ball rescues stranded aquatic animals");
         var rabbit = MobContent.HUSK_RABBIT.get().create(level, EntitySpawnReason.COMMAND);
@@ -41,14 +41,14 @@ public final class CleanupVerification {
         var desert = level.registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(net.minecraft.world.level.biome.Biomes.DESERT).value();
         var desertSpawns = desert.getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
         long rabbitWeight = desertSpawns.stream().filter(e -> e.value().type() == MobContent.HUSK_RABBIT.get()).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
-        long creeperWeight = desertSpawns.stream().filter(e -> e.value().type() == EntityType.CREEPER).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
+        long creeperWeight = desertSpawns.stream().filter(e -> e.value().type() == EntityTypes.CREEPER).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
         // The zombie-villager rule rescales all integer weights while preserving their ratios.
         check(rabbitWeight > 0 && rabbitWeight * 100 == creeperWeight * 15, "Reference desert spawn weight relative to vanilla creepers");
         check(SpawnEggContent.EGGS.size() == 15, "Fifteen retained spawn eggs");
         for (var egg : SpawnEggContent.EGGS) check(SpawnEggItem.getType(egg.get().getDefaultInstance()) != null, "Valid spawn egg entity data");
         var muddyEgg = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("chocolateflavored", "muddy_pig_spawn_egg")).getDefaultInstance();
         level.getChunkAt(pos);
-        var pig = EntityType.PIG.spawn(level, muddyEgg, player, pos, EntitySpawnReason.SPAWN_ITEM_USE, false, false);
+        var pig = EntityTypes.PIG.spawn(level, muddyEgg, player, pos, EntitySpawnReason.SPAWN_ITEM_USE, false, false);
         check(pig != null && ((MuddyPig)pig).chocolateflavored$isMuddy(), "Native egg entity data restores muddy pig state");
         pig.discard();
         // Vanilla Silk Touch and Fortune III branches must still take precedence over the 50% baseline.

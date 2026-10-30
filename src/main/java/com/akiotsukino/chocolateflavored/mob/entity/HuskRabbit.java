@@ -95,7 +95,7 @@ public class HuskRabbit extends Rabbit implements Enemy {
     }
 
     public void makeRider(ServerLevelAccessor p_479493_, DifficultyInstance p_481210_, EntitySpawnReason p_482098_) {
-        Husk zombie = EntityType.HUSK.create(this.level(), EntitySpawnReason.JOCKEY);
+        Husk zombie = EntityTypes.HUSK.create(this.level(), EntitySpawnReason.JOCKEY);
         if (zombie != null && !this.isBaby()) {
             zombie.setBaby(true);
             zombie.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);

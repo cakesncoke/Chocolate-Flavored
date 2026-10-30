@@ -19,7 +19,7 @@ public final class RefinementClientVerification {
  private static java.util.List<Item> items(){return java.util.List.of(ModContent.BREAD_DOUGH.get(),ModContent.FLOUR.get(),ModContent.SALT.get(),ModContent.COCOA_POWDER.get(),ModContent.CARBON_IRON.get(),ModContent.UNBAKED_CAKE.get(),ModContent.CAKE_SLICE.get(),ModContent.CHOCOLATE_CAKE_SLICE.get(),ModContent.CHERRY_CAKE_SLICE.get(),ModContent.COFFEE_CAKE_SLICE.get(),ModContent.POMEGRANATE_CAKE_SLICE.get(),ModContent.IRON_KNIFE.get(),ModContent.ROSE_GOLD_UPGRADE.get());}
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){
   if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!DuneOutlineClientVerification.completed||++ticks<100)return;
-  opened=true;Minecraft.getInstance().setScreen(new Gallery());
+  opened=true;Minecraft.getInstance().gui.setScreen(new Gallery());
  }
  private static final class Gallery extends Screen {
   private final java.util.List<LivingEntity> cows=new java.util.ArrayList<>();private int frames;

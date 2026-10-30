@@ -20,6 +20,7 @@ import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.equine.TraderLlama;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTraderSpawner;
@@ -106,7 +107,7 @@ final class TraderVerification {
         for (int i = 0; i < 1200; i++) spawner.tick(level, true);
         check(vanilla.spawnDelay() == 1200, "Kept trader stops even vanilla spawn attempts/countdowns");
 
-        var boat = EntityType.OAK_BOAT.create(level, EntitySpawnReason.COMMAND);
+        var boat = EntityTypes.OAK_BOAT.create(level, EntitySpawnReason.COMMAND);
         boat.snapTo(POS.getX(), POS.getY(), POS.getZ(), 0, 0); level.addFreshEntity(boat);
         var passenger = trader(level, 3);
         check(passenger.startRiding(boat, true, false), "Trader boards boat");
@@ -123,7 +124,7 @@ final class TraderVerification {
         var encoded = TraderState.CODEC.encodeStart(JsonOps.INSTANCE, TraderState.get(server)).getOrThrow();
         server.getDataStorage().set(TraderState.TYPE, TraderState.CODEC.parse(JsonOps.INSTANCE, encoded).getOrThrow());
         check(TraderState.get(server).blocksSpawning(), "Kept UUID survives saved-data roundtrip");
-        var restored = (WanderingTrader)EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), out.buildResult()), level, EntitySpawnReason.LOAD).orElseThrow();
+        var restored = (WanderingTrader)EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), out.buildResult()), level, new net.minecraft.world.entity.EntitySpawnRequest(EntitySpawnReason.LOAD, false)).orElseThrow();
         level.addFreshEntity(restored); TraderRules.synchronize(server);
         check(TraderState.get(server).lastSpawnClock() == lastSpawn, "Reload does not count as a new spawn");
         // Unnamed trader has left its vehicle: its original timer resumes, but the lock lasts until removal.
@@ -131,7 +132,7 @@ final class TraderVerification {
         for (int i = 0; i < 3; i++) restored.aiStep();
         check(restored.isRemoved() && !TraderState.get(server).blocksSpawning(), "Actual despawn releases the last kept UUID");
 
-        var minecart = EntityType.MINECART.create(level, EntitySpawnReason.COMMAND);
+        var minecart = EntityTypes.MINECART.create(level, EntitySpawnReason.COMMAND);
         minecart.snapTo(POS.getX(), POS.getY(), POS.getZ(), 0, 0); level.addFreshEntity(minecart);
         var cartTrader = trader(level, 1);
         check(cartTrader.startRiding(minecart, true, false), "Trader boards minecart");
@@ -183,7 +184,7 @@ final class TraderVerification {
     }
 
     private static WanderingTrader trader(ServerLevel level, int delay) {
-        var trader = EntityType.WANDERING_TRADER.create(level, EntitySpawnReason.COMMAND);
+        var trader = EntityTypes.WANDERING_TRADER.create(level, EntitySpawnReason.COMMAND);
         trader.snapTo(POS.getX(), POS.getY(), POS.getZ(), 0, 0);
         trader.setNoAi(true); trader.setNoGravity(true); trader.setDespawnDelay(delay);
         level.addFreshEntity(trader); TraderRules.synchronize(level.getServer());

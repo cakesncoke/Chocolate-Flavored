@@ -15,5 +15,5 @@ public class EarthSheep extends Sheep {
     }
     /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
     @Override
-    public boolean is(EntityType<?> type) { return type == EntityType.SHEEP || super.is(type); }
+    public boolean is(EntityType<?> type) { return type == EntityTypes.SHEEP || super.is(type); }
 }

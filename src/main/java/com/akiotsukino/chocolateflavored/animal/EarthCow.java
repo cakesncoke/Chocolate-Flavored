@@ -14,5 +14,5 @@ public class EarthCow extends Cow {
     }
     /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
     @Override
-    public boolean is(EntityType<?> type) { return type == EntityType.COW || super.is(type); }
+    public boolean is(EntityType<?> type) { return type == EntityTypes.COW || super.is(type); }
 }

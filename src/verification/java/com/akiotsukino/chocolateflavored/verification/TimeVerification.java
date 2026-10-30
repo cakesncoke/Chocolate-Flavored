@@ -180,7 +180,7 @@ final class TimeVerification {
         level.getChunkAt(foot);
         level.setBlock(foot.below(), Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(foot.east().below(), Blocks.STONE.defaultBlockState(), 3);
-        var state = Blocks.RED_BED.defaultBlockState().setValue(BedBlock.FACING, Direction.EAST);
+        var state = Blocks.BED.red().defaultBlockState().setValue(BedBlock.FACING, Direction.EAST);
         level.setBlock(foot, state.setValue(BedBlock.PART, BedPart.FOOT), 3);
         level.setBlock(foot.east(), state.setValue(BedBlock.PART, BedPart.HEAD), 3);
     }

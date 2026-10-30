@@ -34,16 +34,16 @@ public final class SteelClientVerification {
         var tab=mc.level.registryAccess().lookupOrThrow(Registries.CREATIVE_MODE_TAB).getOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,Identifier.parse("chocolateflavored:chocolate_flavored"))).value();
         for(Item item:additions())if(tab.getDisplayItems().stream().noneMatch(s->s.is(item)))throw new IllegalStateException("New material missing from creative: "+item);
         if(tab.getDisplayItems().stream().anyMatch(s->BuiltInRegistries.ITEM.getKey(s.getItem()).getPath().equals("knapped_flint")))throw new IllegalStateException("Obsolete creative item");
-        mc.setScreen(new Gallery());
+        mc.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {
         private final List<LivingEntity> wearers=new ArrayList<>();private int frames;
         Gallery(){super(Component.literal("Steel equipment and hammers"));}
         @Override protected void init(){
             if(!wearers.isEmpty())return;
-            var zombie=EntityType.ZOMBIE.create(minecraft.level,EntitySpawnReason.COMMAND);zombie.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));zombie.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.IRON_CHESTPLATE));zombie.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.IRON_LEGGINGS));zombie.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.IRON_BOOTS));zombie.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.IRON_SPEAR));wearers.add(zombie);
-            var horse=EntityType.HORSE.create(minecraft.level,EntitySpawnReason.COMMAND);horse.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_HORSE_ARMOR));wearers.add(horse);
-            var nautilus=EntityType.NAUTILUS.create(minecraft.level,EntitySpawnReason.COMMAND);nautilus.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_NAUTILUS_ARMOR));wearers.add(nautilus);
+            var zombie=EntityTypes.ZOMBIE.create(minecraft.level,EntitySpawnReason.COMMAND);zombie.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));zombie.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.IRON_CHESTPLATE));zombie.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.IRON_LEGGINGS));zombie.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.IRON_BOOTS));zombie.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.IRON_SPEAR));wearers.add(zombie);
+            var horse=EntityTypes.HORSE.create(minecraft.level,EntitySpawnReason.COMMAND);horse.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_HORSE_ARMOR));wearers.add(horse);
+            var nautilus=EntityTypes.NAUTILUS.create(minecraft.level,EntitySpawnReason.COMMAND);nautilus.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_NAUTILUS_ARMOR));wearers.add(nautilus);
         }
         @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial){
             g.fill(0,0,width,height,0xFF252D38);g.centeredText(font,"Steel equipment, supplied armor textures, new materials and hammers",width/2,5,-1);

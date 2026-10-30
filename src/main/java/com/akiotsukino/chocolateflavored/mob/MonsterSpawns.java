@@ -13,12 +13,12 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 public final class MonsterSpawns {
  private static final String PENDING="chocolateflavored:monster_spawn_pending", CHECKED="chocolateflavored:monster_spawn_checked";
  public static EntityType<?> select(EntityType<?> original,int y,Holder<Biome> biome,RandomSource random){
-  if(original==EntityType.ZOMBIE&&(y<0||(biome.is(Tags.Biomes.IS_MOUNTAIN)&&random.nextInt(100)<10)))return MobContent.BOULDERING_ZOMBIE.get();
-  if(original==EntityType.SPIDER){int chance=biome.is(Biomes.DARK_FOREST)||biome.is(Biomes.PALE_GARDEN)?33:y<0?25:0;if(chance>0&&random.nextInt(100)<chance)return MobContent.BONE_SPIDER.get();}
+  if(original==EntityTypes.ZOMBIE&&(y<0||(biome.is(Tags.Biomes.IS_MOUNTAIN)&&random.nextInt(100)<10)))return MobContent.BOULDERING_ZOMBIE.get();
+  if(original==EntityTypes.SPIDER){int chance=biome.is(Biomes.DARK_FOREST)||biome.is(Biomes.PALE_GARDEN)?33:y<0?25:0;if(chance>0&&random.nextInt(100)<chance)return MobContent.BONE_SPIDER.get();}
   return null;
  }
  public static void join(EntityJoinLevelEvent event){
-  if(!(event.getLevel() instanceof ServerLevel level)||!(event.getEntity() instanceof Mob original)||(original.getType()!=EntityType.ZOMBIE&&original.getType()!=EntityType.SPIDER))return;
+  if(!(event.getLevel() instanceof ServerLevel level)||!(event.getEntity() instanceof Mob original)||(original.getType()!=EntityTypes.ZOMBIE&&original.getType()!=EntityTypes.SPIDER))return;
   if(event.loadedFromDisk()&&!original.getPersistentData().getBooleanOr(PENDING,false))return;
   original.getPersistentData().remove(PENDING);
   EntitySpawnReason reason=original.getSpawnType();

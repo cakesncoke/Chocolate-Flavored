@@ -36,7 +36,7 @@ public final class BlueberryBushBlock extends SweetBerryBushBlock {
     }
     @Override protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity,
             InsideBlockEffectApplier effects, boolean precise) {
-        if (entity instanceof LivingEntity && !entity.is(EntityType.FOX) && !entity.is(EntityType.BEE))
+        if (entity instanceof LivingEntity && !entity.is(EntityTypes.FOX) && !entity.is(EntityTypes.BEE))
             entity.makeStuckInBlock(state, new Vec3(.8F, .75F, .8F));
     }
 }

@@ -12,7 +12,7 @@ public abstract class AnimalSpawnMarkerMixin {
     private void chocolateflavored$prepare(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason, SpawnGroupData data, CallbackInfoReturnable<SpawnGroupData> cir) {
         Mob mob = (Mob) (Object) this;
         if ((reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION)
-                && (mob.getType() == EntityType.COW || mob.getType() == EntityType.PIG || mob.getType() == EntityType.SHEEP || mob.getType() == EntityType.CHICKEN || mob.getType() == EntityType.RABBIT))
+                && (mob.getType() == EntityTypes.COW || mob.getType() == EntityTypes.PIG || mob.getType() == EntityTypes.SHEEP || mob.getType() == EntityTypes.CHICKEN || mob.getType() == EntityTypes.RABBIT))
             mob.getPersistentData().putBoolean("chocolateflavored:animal_spawn_pending", true);
     }
 }

@@ -23,7 +23,7 @@ public final class TideJumpClientVerification {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || completed || !TrimClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.player==null || mc.level==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
-            setup=true;mc.setScreen(null);
+            setup=true;mc.gui.setScreen(null);
             mc.getSingleplayerServer().execute(()->{
                 var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());
                 var level=p.level();

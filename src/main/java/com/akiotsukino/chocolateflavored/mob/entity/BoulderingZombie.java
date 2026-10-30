@@ -14,6 +14,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -51,7 +52,7 @@ public class BoulderingZombie extends Zombie {
 
 	@Override
     protected void doUnderWaterConversion(ServerLevel serverLevel) {
-        this.convertToZombieType(serverLevel, EntityType.DROWNED);
+        this.convertToZombieType(serverLevel, EntityTypes.DROWNED);
 		if (!this.isSilent()) {
 			this.level().levelEvent((Player) null, 1040, this.blockPosition(), 0);
 		}

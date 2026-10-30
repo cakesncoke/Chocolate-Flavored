@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.PigRenderer;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.DyeColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -62,7 +63,7 @@ public final class AnimalClient {
         event.registerLayerDefinition(ModModelLayers.LEGACY_WOOL_BABY, () -> SheepFurModel.createFurLayer().apply(new BabyModelTransform(java.util.Set.of("head"))));
     }
     @SubscribeEvent public static void addLayers(EntityRenderersEvent.AddLayers event) {
-        PigRenderer pig = event.getRenderer(EntityType.PIG);
+        PigRenderer pig = event.getRenderer(EntityTypes.PIG);
         if (pig != null) { pig.addLayer(new MuddyPigMudLayer<>(pig,event.getEntityModels())); pig.addLayer(new MuddyPigFlowerLayer<>(pig,event.getEntityModels())); }
         EarthPigRenderer pale = event.getRenderer(AnimalContent.PALE_PIG.get());
         if (pale != null) { pale.addLayer(new MuddyPigMudLayer<>(pale,event.getEntityModels())); pale.addLayer(new MuddyPigFlowerLayer<>(pale,event.getEntityModels())); }

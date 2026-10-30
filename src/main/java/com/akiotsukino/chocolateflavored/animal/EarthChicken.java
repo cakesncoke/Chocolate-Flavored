@@ -14,5 +14,5 @@ public class EarthChicken extends Chicken {
     }
     /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
     @Override
-    public boolean is(EntityType<?> type) { return type == EntityType.CHICKEN || super.is(type); }
+    public boolean is(EntityType<?> type) { return type == EntityTypes.CHICKEN || super.is(type); }
 }

@@ -33,7 +33,7 @@ public final class CropClientVerification {
                 if (models.get(state) == models.missingModel() || models.get(state).particleMaterial().sprite().contents().name().getPath().equals("missingno")) throw new IllegalStateException("Missing crop model: " + state);
             }
         }
-        minecraft.setScreen(new Gallery());
+        minecraft.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {
         private final List<ItemStack> items = new ArrayList<>();

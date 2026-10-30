@@ -26,7 +26,7 @@ public final class InstrumentHud {
     @SubscribeEvent public static void register(RegisterGuiLayersEvent event) {
         event.registerAboveAll(Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "instruments"), (g, delta) -> {
             var mc = Minecraft.getInstance();
-            if (mc.player == null || mc.level == null || mc.options.hideGui) return;
+            if (mc.player == null || mc.level == null || mc.gui.hud.isHidden()) return;
             boolean meter = precision();
             boolean overworld = mc.level.dimension().equals(Level.OVERWORLD);
             boolean coordinates = meter || overworld && has(Items.COMPASS);

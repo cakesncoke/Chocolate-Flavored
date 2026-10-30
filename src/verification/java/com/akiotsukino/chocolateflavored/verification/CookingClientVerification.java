@@ -51,7 +51,7 @@ public final class CookingClientVerification {
                 }
             });
         }
-        if (minecraft.screen instanceof CookingPotScreen screen && ++screenTicks >= 40) {
+        if (minecraft.gui.screen() instanceof CookingPotScreen screen && ++screenTicks >= 40) {
             if (!screen.getMenu().getSlot(6).getItem().is(Items.MUSHROOM_STEW)
                     || !screen.getMenu().getSlot(7).getItem().is(Items.MUSHROOM_STEW)) throw new IllegalStateException("Multi-slot outputs lost during client synchronization");
             for (int i=0;i<12;i++) {
@@ -63,7 +63,7 @@ public final class CookingClientVerification {
             var kiln=(MudKilnBlockEntity)minecraft.level.getBlockEntity(unlitKilnPos);
             net.minecraft.client.renderer.blockentity.BlockEntityRenderer<MudKilnBlockEntity,net.minecraft.client.renderer.blockentity.state.CampfireRenderState> renderer=minecraft.getBlockEntityRenderDispatcher().getRenderer(kiln);
             var renderState=renderer.createRenderState();renderer.extractRenderState(kiln,renderState,0,net.minecraft.world.phys.Vec3.ZERO,null);
-            int expected=net.minecraft.client.renderer.LevelRenderer.getLightCoords(minecraft.level,unlitKilnPos.above());
+            int expected=net.minecraft.util.LightCoordsUtil.getLightCoords(minecraft.level,unlitKilnPos.above());
             if(renderState.lightCoords!=expected || renderState.items.stream().allMatch(net.minecraft.client.renderer.item.ItemStackRenderState::isEmpty))throw new IllegalStateException("Unlit kiln food lighting or synchronization failed");
             ChocolateFlavored.LOGGER.info("UNLIT_KILN_LIGHT_VERIFICATION_PASSED: six visible food slots use above-block ambient light");
             ChocolateFlavored.LOGGER.info("COOKING_CLIENT_VERIFICATION_PASSED: integrated world, real server-opened menu, multi-serving synchronization, heat data, recipe-book-free screen and cooking renderers");

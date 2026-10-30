@@ -33,7 +33,7 @@ public final class CakeClientVerification {
         var tab=mc.level.registryAccess().lookupOrThrow(Registries.CREATIVE_MODE_TAB).getOrThrow(ResourceKey.create(Registries.CREATIVE_MODE_TAB,Identifier.parse("chocolateflavored:chocolate_flavored"))).value();
         if(!tab.getIconItem().is(com.akiotsukino.chocolateflavored.content.ModContent.CHOCOLATE_CAKE_SLICE.get()))throw new IllegalStateException("Chocolate cake tab icon");
         for(var flavor:CakeContent.FLAVORS)if(tab.getDisplayItems().stream().noneMatch(s->s.is(flavor.item().get())))throw new IllegalStateException("Cake absent from mod creative tab");
-        mc.setScreen(new Gallery());
+        mc.gui.setScreen(new Gallery());
     }
     private static void verify(Minecraft mc,Block block) {
         var models=mc.getModelManager().getBlockStateModelSet();

@@ -32,9 +32,9 @@ public final class HornUnloadedVerification {
         level.addNewPlayer(caller);
         level.setChunkForced(REMOTE.getX() >> 4, REMOTE.getZ() >> 4, true);
         level.getChunkAt(REMOTE);
-        var wolf = EntityType.WOLF.create(level, EntitySpawnReason.COMMAND);
+        var wolf = EntityTypes.WOLF.create(level, EntitySpawnReason.COMMAND);
         wolf.setTame(true, true); wolf.setOwner(caller); wolf.setNoAi(true); wolf.setNoGravity(true); wolf.setInvulnerable(true);
-        wolf.setPos(REMOTE.getCenter()); level.addFreshEntity(wolf);
+        wolf.setPos(net.minecraft.world.phys.Vec3.atCenterOf(REMOTE)); level.addFreshEntity(wolf);
         target = wolf.getUUID();
         check(HornRecall.bind(caller, new ItemStack(ModContent.COPPER_HORN.get()), wolf), "Bind fixture");
     }

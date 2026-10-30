@@ -45,7 +45,7 @@ public final class HornRecall {
         return target instanceof TamableAnimal pet && pet.isTame()
                 || target instanceof AbstractHorse horse && horse.isTamed()
                 || !living.getItemBySlot(EquipmentSlot.SADDLE).isEmpty()
-                || target.getType() == net.minecraft.world.entity.EntityType.HAPPY_GHAST
+                || target.getType() == net.minecraft.world.entity.EntityTypes.HAPPY_GHAST
                     && !living.getItemBySlot(EquipmentSlot.BODY).isEmpty();
     }
 

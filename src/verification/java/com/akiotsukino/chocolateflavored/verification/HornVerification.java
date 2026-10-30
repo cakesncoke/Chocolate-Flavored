@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -19,9 +20,9 @@ final class HornVerification {
         var item = ModContent.COPPER_HORN.get();
         var horn = new ItemStack(item);
         check(!horn.hasFoil(), "Unlinked horn must not glint");
-        var wolf = EntityType.WOLF.create(level, EntitySpawnReason.COMMAND);
-        var horse = EntityType.HORSE.create(level, EntitySpawnReason.COMMAND);
-        var cow = EntityType.COW.create(level, EntitySpawnReason.COMMAND);
+        var wolf = EntityTypes.WOLF.create(level, EntitySpawnReason.COMMAND);
+        var horse = EntityTypes.HORSE.create(level, EntitySpawnReason.COMMAND);
+        var cow = EntityTypes.COW.create(level, EntitySpawnReason.COMMAND);
         check(wolf != null && horse != null && cow != null, "Entity creation");
         var origin = player.position();
         try {
@@ -31,7 +32,7 @@ final class HornVerification {
             horse.setTamed(true); horse.setOwner(player); horse.setPos(origin.add(2, 0, 0)); level.addFreshEntity(horse);
             check(!HornRecall.bind(player, horn, cow), "Non-pet must not link");
             player.setItemInHand(InteractionHand.MAIN_HAND, horn);
-            var interaction = new PlayerInteractEvent.EntityInteract(player, InteractionHand.MAIN_HAND, wolf);
+            var interaction = new PlayerInteractEvent.EntityInteract(player, InteractionHand.MAIN_HAND, wolf, net.minecraft.world.phys.Vec3.ZERO);
             HornRecall.interact(interaction);
             check(interaction.isCanceled() && interaction.getCancellationResult().consumesAction(), "Binding intercepts sitting/mount interaction");
             check(wolf.getUUID().equals(CopperHornItem.target(horn)) && horn.hasFoil(), "Link and glint");

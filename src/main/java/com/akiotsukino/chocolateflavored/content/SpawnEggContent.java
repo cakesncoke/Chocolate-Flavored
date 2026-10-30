@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TypedEntityData;
 import net.neoforged.bus.api.IEventBus;
@@ -39,8 +40,8 @@ public final class SpawnEggContent {
             attachments.put("chocolateflavored:muddy_pig_state", state);
             CompoundTag data = new CompoundTag();
             data.put("neoforge:attachments", attachments);
-            return new Item.Properties().spawnEgg(EntityType.PIG)
-                    .component(DataComponents.ENTITY_DATA, TypedEntityData.of(EntityType.PIG, data));
+            return new Item.Properties().spawnEgg(EntityTypes.PIG)
+                    .component(DataComponents.ENTITY_DATA, TypedEntityData.of(EntityTypes.PIG, data));
         }));
     }
     private static void egg(String name, Supplier<? extends EntityType<?>> type) {

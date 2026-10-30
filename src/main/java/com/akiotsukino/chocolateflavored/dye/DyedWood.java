@@ -14,7 +14,7 @@ import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.*;
 import net.neoforged.bus.api.IEventBus;
@@ -90,9 +90,9 @@ public final class DyedWood {
     }
     private static void blockEntities(BlockEntityTypeAddBlocksEvent e) {
         for (Family f : FAMILIES.values()) {
-            e.modify(BlockEntityType.SIGN, f.block("sign"), f.block("wall_sign"));
-            e.modify(BlockEntityType.HANGING_SIGN, f.block("hanging_sign"), f.block("wall_hanging_sign"));
-            e.modify(BlockEntityType.SHELF, f.block("shelf"));
+            e.modify(BlockEntityTypes.SIGN, f.block("sign"), f.block("wall_sign"));
+            e.modify(BlockEntityTypes.HANGING_SIGN, f.block("hanging_sign"), f.block("wall_hanging_sign"));
+            e.modify(BlockEntityTypes.SHELF, f.block("shelf"));
         }
     }
     private DyedWood() {}

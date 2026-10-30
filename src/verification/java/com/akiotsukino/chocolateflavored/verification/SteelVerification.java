@@ -49,7 +49,7 @@ final class SteelVerification {
             }
             // The native successful-hit lifecycle charges one durability, not a second mining charge.
             stack=new ItemStack(hammer);player.setItemInHand(InteractionHand.MAIN_HAND,stack);
-            var target=net.minecraft.world.entity.EntityType.COW.create(level,EntitySpawnReason.COMMAND);
+            var target=net.minecraft.world.entity.EntityTypes.COW.create(level,EntitySpawnReason.COMMAND);
             check(stack.hurtEnemy(target,player),"Native weapon hit component");stack.postHurtEnemy(target,player);check(stack.getDamageValue()==1,"One wear per successful weapon hit");
             var broken=new ItemStack(hammer);broken.setDamageValue(broken.getMaxDamage()-1);player.setItemInHand(InteractionHand.MAIN_HAND,broken);level.setBlockAndUpdate(pos,Blocks.STONE.defaultBlockState());player.gameMode.destroyBlock(pos);check(player.getMainHandItem().isEmpty(),"Final conversion breaks hammer");
             var repair=new ItemStack(hammer);repair.setDamageValue(20);var menu=new AnvilMenu(5,player.getInventory());menu.getSlot(0).set(repair);menu.getSlot(1).set(new ItemStack(index==0?Items.COBBLESTONE:Items.IRON_INGOT));menu.createResult();check(menu.getSlot(2).hasItem()&&menu.getCost()==0,"Native material repair uses existing free anvil rule");

@@ -27,8 +27,8 @@ public final class AnimalClientVerification {
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened) return;
         Minecraft mc=Minecraft.getInstance();
-        if(mc.player==null||mc.level==null||!(mc.screen instanceof CookingPotScreen)||++screenTicks<300) return;
-        opened=true;mc.player.closeContainer();mc.setScreen(new Gallery());
+        if(mc.player==null||mc.level==null||!(mc.gui.screen() instanceof CookingPotScreen)||++screenTicks<300) return;
+        opened=true;mc.player.closeContainer();mc.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {
         private final List<Mob> animals=new ArrayList<>();
@@ -45,7 +45,7 @@ public final class AnimalClientVerification {
                 animals.add(animal);
             }
             for(boolean baby:new boolean[]{false,true}) {
-                var pig=EntityType.PIG.create(minecraft.level,EntitySpawnReason.COMMAND);pig.setBaby(baby);
+                var pig=EntityTypes.PIG.create(minecraft.level,EntitySpawnReason.COMMAND);pig.setBaby(baby);
                 MuddyPigRules.becomeMuddy(pig);((MuddyPig)pig).chocolateflavored$setFlowerColor(DyeColor.PINK);animals.add(pig);
             }
         }
@@ -57,7 +57,7 @@ public final class AnimalClientVerification {
                 int card=i/2, x=(card%columns)*cellW,y=22+(card/columns)*cellH;
                 Mob animal=animals.get(i);
                 if(i%2==0) graphics.fill(x+2,y+1,x+cellW-2,y+cellH-2,0xFF3D5143);
-                String label=animal.getType()==EntityType.PIG?"Muddy Pig":animal.getType().getDescription().getString();
+                String label=animal.getType()==EntityTypes.PIG?"Muddy Pig":animal.getType().getDescription().getString();
                 if(i%2==0) graphics.centeredText(font,label,x+cellW/2,y+3,0xFFFFFFFF);
                 int left=x+5+(i%2)*(cellW/2),right=left+cellW/2-10;
                 InventoryScreen.extractEntityInInventoryFollowsMouse(graphics,left,y+15,right,y+cellH-4,28,.025F,(left+right)/2F-120,y+cellH/2F,animal);

@@ -5,8 +5,7 @@
       "textures": [
         "minecraft:block/oak_door_top",
         "minecraft:block/oak_door_bottom",
-        "minecraft:block/oak_trapdoor",
-        "minecraft:item/oak_door"
+        "minecraft:block/oak_trapdoor"
       ],
       "palette_key": "chocolateflavored:palette/oak_key",
       "permutations": {

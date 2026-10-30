@@ -95,7 +95,7 @@ public final class EchoShards {
         // Prefer the top of the lodestone, then nearby supported spaces if that is obstructed.
         for(int radius=0;radius<=2;radius++)for(int dx=-radius;dx<=radius;dx++)for(int dz=-radius;dz<=radius;dz++){
             if(Math.max(Math.abs(dx),Math.abs(dz))!=radius)continue;
-            var feet=anchor.offset(dx,1,dz);var location=feet.getBottomCenter();
+            var feet=anchor.offset(dx,1,dz);var location=net.minecraft.world.phys.Vec3.atBottomCenterOf(feet);
             if(!level.isInsideBuildHeight(feet.above())||!level.getWorldBorder().isWithinBounds(feet)
                     ||!level.getBlockState(feet.below()).isFaceSturdy(level,feet.below(),Direction.UP)
                     ||!level.getFluidState(feet).isEmpty()||!level.getFluidState(feet.above()).isEmpty())continue;

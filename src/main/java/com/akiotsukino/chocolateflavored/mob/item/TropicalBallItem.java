@@ -2,7 +2,7 @@
 // Adapted from baguchi/EarthMobs, 26.1.x.
 package com.akiotsukino.chocolateflavored.mob.item;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;

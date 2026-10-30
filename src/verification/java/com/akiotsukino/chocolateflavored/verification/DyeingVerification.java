@@ -49,13 +49,13 @@ final class DyeingVerification {
                 check(level.getBlockState(pos).getValue(LayeredCauldronBlock.LEVEL)==2,"Exactly one water level per stack");
                 check(DyeingCauldrons.target(f.item(kind),DyeColor.RED)==DyedWood.FAMILIES.get(DyeColor.RED).item(kind),"Recolor existing dyed wood");
             }
-            for (Item input:List.of(Items.WHITE_WOOL,Items.RED_CONCRETE,Items.GLASS,Items.GLASS_PANE,Items.TERRACOTTA,Items.CANDLE,Items.BLUE_STAINED_GLASS,Items.BLACK_STAINED_GLASS_PANE,Items.RED_TERRACOTTA,Items.BLUE_CANDLE,Items.YELLOW_CONCRETE_POWDER)) {
+            for (Item input:List.of(Items.WOOL.white(),Items.CONCRETE.red(),Items.GLASS,Items.GLASS_PANE,Items.TERRACOTTA,Items.CANDLE,Items.STAINED_GLASS.blue(),Items.STAINED_GLASS_PANE.black(),Items.DYED_TERRACOTTA.red(),Items.DYED_CANDLE.blue(),Items.CONCRETE_POWDER.yellow())) {
                 level.setBlockAndUpdate(pos,f.block("water_cauldron").defaultBlockState());
                 player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(input,64));click(level,player,pos);
                 check(player.getMainHandItem().is(DyeingCauldrons.target(input,color))&&player.getMainHandItem().getCount()==64,"Colored material stack");
                 check(level.getBlockState(pos).is(Blocks.CAULDRON),"Final water use empties cauldron");
             }
-            check(DyeingCauldrons.target(Items.YELLOW_CONCRETE_POWDER,color)==item(color.getName()+"_concrete"),"Powder becomes concrete");
+            check(DyeingCauldrons.target(Items.CONCRETE_POWDER.yellow(),color)==item(color.getName()+"_concrete"),"Powder becomes concrete");
             for(String kind:List.of("sign","wall_sign","hanging_sign","wall_hanging_sign","shelf")) {
                 level.setBlock(pos,f.block(kind).defaultBlockState(),2);
                 var be=level.getBlockEntity(pos);

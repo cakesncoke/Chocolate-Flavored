@@ -37,30 +37,30 @@ public final class AnimalVerification {
         var plains=biomes.getOrThrow(Biomes.PLAINS);var flowers=biomes.getOrThrow(Biomes.FLOWER_FOREST);
         var jungle=biomes.getOrThrow(Biomes.JUNGLE);var snowy=biomes.getOrThrow(Biomes.SNOWY_PLAINS);
         var savanna=biomes.getOrThrow(Biomes.SAVANNA);var peaks=biomes.getOrThrow(Biomes.JAGGED_PEAKS);
-        expect(EntityType.COW,plains,true,new Rolls(4999),AnimalContent.DAIRY_COW.get());
-        expect(EntityType.COW,plains,true,new Rolls(5000),null);
-        expect(EntityType.COW,plains,false,new Rolls(0),null);
-        expect(EntityType.COW,flowers,true,new Rolls(499,32),AnimalContent.MOOLIP.get());
-        expect(EntityType.COW,flowers,true,new Rolls(499,33),AnimalContent.MOOBLOOM.get());
-        expect(EntityType.COW,flowers,true,new Rolls(500),AnimalContent.DAIRY_COW.get());
-        expect(EntityType.COW,flowers,true,new Rolls(5499),AnimalContent.DAIRY_COW.get());
-        expect(EntityType.COW,flowers,true,new Rolls(5500),null);
-        expect(EntityType.PIG,plains,true,new Rolls(9999),AnimalContent.PALE_PIG.get());
-        expect(EntityType.PIG,plains,true,new Rolls(10000),null);
-        expect(EntityType.PIG,plains,false,new Rolls(0),null);
-        expect(EntityType.CHICKEN,plains,false,new Rolls(249),AnimalContent.FANCY_CHICKEN.get());
-        expect(EntityType.CHICKEN,plains,false,new Rolls(250),null);
-        expect(EntityType.CHICKEN,jungle,false,new Rolls(250),AnimalContent.BRONZED_CHICKEN.get());
-        expect(EntityType.CHICKEN,jungle,false,new Rolls(5249),AnimalContent.BRONZED_CHICKEN.get());
-        expect(EntityType.CHICKEN,jungle,false,new Rolls(5250),null);
-        expect(EntityType.SHEEP,snowy,false,new Rolls(99999,4),AnimalContent.PATCHED_SHEEP.get());
-        expect(EntityType.SHEEP,snowy,false,new Rolls(99999,5),AnimalContent.FUZZY_SHEEP.get());
-        expect(EntityType.SHEEP,savanna,false,new Rolls(99999),AnimalContent.LONG_NOSE_SHEEP.get());
-        expect(EntityType.SHEEP,peaks,false,new Rolls(2999),AnimalContent.HORNED_SHEEP.get());
-        expect(EntityType.SHEEP,peaks,false,new Rolls(3000,99),AnimalContent.FUZZY_SHEEP.get());
-        expect(EntityType.RABBIT,flowers,false,new Rolls(249),AnimalContent.JUMBO_RABBIT.get());
-        expect(EntityType.RABBIT,flowers,false,new Rolls(250),null);
-        expect(EntityType.RABBIT,plains,false,new Rolls(0),null);
+        expect(EntityTypes.COW,plains,true,new Rolls(4999),AnimalContent.DAIRY_COW.get());
+        expect(EntityTypes.COW,plains,true,new Rolls(5000),null);
+        expect(EntityTypes.COW,plains,false,new Rolls(0),null);
+        expect(EntityTypes.COW,flowers,true,new Rolls(499,32),AnimalContent.MOOLIP.get());
+        expect(EntityTypes.COW,flowers,true,new Rolls(499,33),AnimalContent.MOOBLOOM.get());
+        expect(EntityTypes.COW,flowers,true,new Rolls(500),AnimalContent.DAIRY_COW.get());
+        expect(EntityTypes.COW,flowers,true,new Rolls(5499),AnimalContent.DAIRY_COW.get());
+        expect(EntityTypes.COW,flowers,true,new Rolls(5500),null);
+        expect(EntityTypes.PIG,plains,true,new Rolls(9999),AnimalContent.PALE_PIG.get());
+        expect(EntityTypes.PIG,plains,true,new Rolls(10000),null);
+        expect(EntityTypes.PIG,plains,false,new Rolls(0),null);
+        expect(EntityTypes.CHICKEN,plains,false,new Rolls(249),AnimalContent.FANCY_CHICKEN.get());
+        expect(EntityTypes.CHICKEN,plains,false,new Rolls(250),null);
+        expect(EntityTypes.CHICKEN,jungle,false,new Rolls(250),AnimalContent.BRONZED_CHICKEN.get());
+        expect(EntityTypes.CHICKEN,jungle,false,new Rolls(5249),AnimalContent.BRONZED_CHICKEN.get());
+        expect(EntityTypes.CHICKEN,jungle,false,new Rolls(5250),null);
+        expect(EntityTypes.SHEEP,snowy,false,new Rolls(99999,4),AnimalContent.PATCHED_SHEEP.get());
+        expect(EntityTypes.SHEEP,snowy,false,new Rolls(99999,5),AnimalContent.FUZZY_SHEEP.get());
+        expect(EntityTypes.SHEEP,savanna,false,new Rolls(99999),AnimalContent.LONG_NOSE_SHEEP.get());
+        expect(EntityTypes.SHEEP,peaks,false,new Rolls(2999),AnimalContent.HORNED_SHEEP.get());
+        expect(EntityTypes.SHEEP,peaks,false,new Rolls(3000,99),AnimalContent.FUZZY_SHEEP.get());
+        expect(EntityTypes.RABBIT,flowers,false,new Rolls(249),AnimalContent.JUMBO_RABBIT.get());
+        expect(EntityTypes.RABBIT,flowers,false,new Rolls(250),null);
+        expect(EntityTypes.RABBIT,plains,false,new Rolls(0),null);
         for (var biome:java.util.List.of(plains,snowy,savanna)) {
             int pink=0;
             var random=new LegacyRandomSource(6142);
@@ -88,7 +88,7 @@ public final class AnimalVerification {
         try {
         for(var reason:java.util.List.of(EntitySpawnReason.NATURAL,EntitySpawnReason.CHUNK_GENERATION)) {
             joined.clear();
-            Sheep original=EntityType.SHEEP.create(level,reason); original.snapTo(72.5,164,72.5,0,0);
+            Sheep original=EntityTypes.SHEEP.create(level,reason); original.snapTo(72.5,164,72.5,0,0);
             original.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),reason,null);original.setAge(-1234);original.setColor(DyeColor.PINK);
             if(reason==EntitySpawnReason.NATURAL) check(!level.addFreshEntity(original),"Natural original replaced through event bus");
             else {
@@ -103,7 +103,7 @@ public final class AnimalVerification {
             check(!loadEvent.isCanceled()&&loaded.getType()==sheep.getType(),"Saved animals do not reroll");sheep.discard();
         }
         } finally { net.neoforged.neoforge.common.NeoForge.EVENT_BUS.unregister(observer); }
-        var command=EntityType.SHEEP.create(level,EntitySpawnReason.COMMAND);command.snapTo(72.5,164,72.5,0,0);
+        var command=EntityTypes.SHEEP.create(level,EntitySpawnReason.COMMAND);command.snapTo(72.5,164,72.5,0,0);
         command.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),EntitySpawnReason.COMMAND,null);
         check(level.addFreshEntity(command),"Command sheep not randomly replaced");command.discard();
         for(var holder:AnimalContent.ENTITIES.getEntries()) {
@@ -130,7 +130,7 @@ public final class AnimalVerification {
             var drops=cow.onSheared(player,new ItemStack(Items.SHEARS),level,cow.blockPosition());
             check(drops.size()==4&&drops.stream().allMatch(s->s.is(cow.getFlower().asItem())),"Shearing yields four matching flowers");
         }
-        Pig pig=EntityType.PIG.create(level,EntitySpawnReason.COMMAND);pig.snapTo(72.5,164,72.5,0,0);
+        Pig pig=EntityTypes.PIG.create(level,EntitySpawnReason.COMMAND);pig.snapTo(72.5,164,72.5,0,0);
         level.setBlockAndUpdate(pig.blockPosition().below(),Blocks.MUD.defaultBlockState());
         for(int i=0;i<40;i++) MuddyPigRules.tick(new EntityTickEvent.Post(pig));
         MuddyPig state=(MuddyPig)pig;check(state.chocolateflavored$isMuddy(),"Pig becomes muddy after rolling in vanilla mud");
@@ -177,14 +177,14 @@ public final class AnimalVerification {
                     .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.DAMAGE_SOURCE,level.damageSources().playerAttack(player))
                     .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ENTITY);
             var sheepTable=level.getServer().reloadableRegistries().getLootTable(sheep.getType().getDefaultLootTable().orElseThrow());
-            check(sheepTable.getRandomItems(sheepParams,1L).stream().anyMatch(stack->stack.is(Items.PINK_WOOL)),"Custom sheep death loot honors wool color");
+            check(sheepTable.getRandomItems(sheepParams,1L).stream().anyMatch(stack->stack.is(Items.WOOL.pink())),"Custom sheep death loot honors wool color");
             sheep.setSheared(true);
-            check(sheepTable.getRandomItems(sheepParams,1L).stream().noneMatch(stack->stack.is(Items.PINK_WOOL)),"Sheared sheep cannot duplicate wool on death");
+            check(sheepTable.getRandomItems(sheepParams,1L).stream().noneMatch(stack->stack.is(Items.WOOL.pink())),"Sheared sheep cannot duplicate wool on death");
         }
     }
     private static Entity restore(ServerLevel level,Entity entity) {
         var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());entity.save(out);
-        return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();
+        return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,new net.minecraft.world.entity.EntitySpawnRequest(EntitySpawnReason.LOAD, false)).orElseThrow();
     }
     private static void expect(EntityType<?> type,Holder<Biome> biome,boolean temperate,Rolls rolls,EntityType<?> expected) {
         check(AnimalSpawns.select(type,biome,temperate,rolls)==expected,"Spawn boundary: "+type+" in "+biome);

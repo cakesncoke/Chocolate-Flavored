@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -135,7 +136,7 @@ public final class DevelopmentVerification {
         check(level.getBlockState(pos).isAir(), "Rose gold retains vanilla removal");
         check(level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3)).stream().anyMatch(i -> i.getItem().is(Items.COBBLED_DEEPSLATE)), "Rose gold retains vanilla cobbled deepslate loot");
 
-        var villager = EntityType.VILLAGER.create(level, EntitySpawnReason.COMMAND);
+        var villager = EntityTypes.VILLAGER.create(level, EntitySpawnReason.COMMAND);
         check(villager != null, "Test villager creation");
         var offers = new MerchantOffers();
         offers.add(new MerchantOffer(new ItemCost(Items.EMERALD), new ItemStack(Items.STONE_SWORD), 10, 1, 0.0F));

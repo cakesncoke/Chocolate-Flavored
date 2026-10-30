@@ -46,12 +46,12 @@ abstract class TrimLivingMixin {
     private void cf$resurrection(DamageSource source, CallbackInfoReturnable<Boolean> cir) { if (!cir.getReturnValue() && TrimTriggers.resurrect(cf$self(), source)) cir.setReturnValue(true); }
     @Inject(method="getVisibilityPercent", at=@At("RETURN"), cancellable=true)
     private void cf$detection(Entity observer, CallbackInfoReturnable<Double> cir) {
-        var e = cf$self(); if (!(e instanceof Player) || observer == null || observer.getType() == EntityType.WARDEN) return;
+        var e = cf$self(); if (!(e instanceof Player) || observer == null || observer.getType() == EntityTypes.WARDEN) return;
         double scale = 1;
         if (TrimCombat.hostile(observer) && has(e, HEAD, "silence")) scale = full(e, "silence") ? .6 : .85;
         if (observer.is(net.minecraft.tags.EntityTypeTags.ILLAGER) && has(e, HEAD, "vex")) scale = Math.min(scale, .5);
         if (observer instanceof net.minecraft.world.entity.monster.piglin.AbstractPiglin && has(e, HEAD, "snout")) scale = Math.min(scale, .5);
-        if (observer.getType() == EntityType.DROWNED && has(e, HEAD, "coast")) scale = Math.min(scale, .5);
+        if (observer.getType() == EntityTypes.DROWNED && has(e, HEAD, "coast")) scale = Math.min(scale, .5);
         if (observer.is(NETHER_HOSTILES) && has(e, HEAD, "rib")) scale = Math.min(scale, .75);
         cir.setReturnValue(cir.getReturnValue() * scale);
     }

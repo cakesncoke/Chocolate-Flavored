@@ -22,7 +22,7 @@ public final class TrimOutlineClientVerification {
         if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
-            setup=true;mc.setScreen(null);
+            setup=true;mc.gui.setScreen(null);
             mc.getSingleplayerServer().execute(()->{
                 var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());if(p==null)throw new IllegalStateException("Missing outline fixture player");
                 var level=p.level();

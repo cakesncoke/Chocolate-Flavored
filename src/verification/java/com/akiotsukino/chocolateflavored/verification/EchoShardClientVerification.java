@@ -36,7 +36,7 @@ public final class EchoShardClientVerification {
                 var player=server.getPlayerList().getPlayer(playerId);var level=player.level();anchor=player.blockPosition().offset(8,0,0);
                 level.getChunkAt(anchor);level.setBlockAndUpdate(anchor,Blocks.LODESTONE.defaultBlockState());
                 player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.ECHO_SHARD));
-                Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(anchor.getCenter(),Direction.UP,anchor,false)));
+                Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(anchor),Direction.UP,anchor,false)));
                 ready=true;
             });return;
         }
@@ -51,7 +51,7 @@ public final class EchoShardClientVerification {
             phase=3;wait=0;server.execute(()->{
                 var player=server.getPlayerList().getPlayer(playerId);var level=player.level();
                 level.setBlockAndUpdate(anchor,Blocks.LODESTONE.defaultBlockState());
-                Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(anchor.getCenter(),Direction.UP,anchor,false)));
+                Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(anchor),Direction.UP,anchor,false)));
             });
         }else if(phase==3&&id!=null&&!id.equals(oldId)&&EchoLinkPayload.clientValid(id)){
             if(stale.hasFoil()||!held.hasFoil())throw new IllegalStateException("Lodestone replacement revived an obsolete link");
@@ -60,13 +60,13 @@ public final class EchoShardClientVerification {
                 var player=server.getPlayerList().getPlayer(playerId);var level=player.level();
                 startFeet=anchor.offset(0,1,-4);level.setBlockAndUpdate(startFeet.below(),Blocks.STONE.defaultBlockState());
                 level.removeBlock(startFeet,false);level.removeBlock(startFeet.above(),false);
-                player.teleport(new net.minecraft.world.level.portal.TeleportTransition(level,startFeet.getBottomCenter(),net.minecraft.world.phys.Vec3.ZERO,
+                player.teleport(new net.minecraft.world.level.portal.TeleportTransition(level,net.minecraft.world.phys.Vec3.atBottomCenterOf(startFeet),net.minecraft.world.phys.Vec3.ZERO,
                         0,-90,net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
             });
-        }else if(phase==4&&startFeet!=null&&mc.player.position().distanceToSqr(startFeet.getBottomCenter())<.1){
-            mc.setScreen(null);mc.player.setXRot(-90);mc.options.keyUse.setDown(true);phase=5;wait=0;
-        }else if(phase==5&&held.isEmpty()&&mc.player.position().distanceToSqr(anchor.above().getBottomCenter())<.1){
-            mc.options.keyUse.setDown(false);phase=6;mc.setScreen(new Gallery(stale.copy(),linkedSnapshot.copy()));
+        }else if(phase==4&&startFeet!=null&&mc.player.position().distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(startFeet))<.1){
+            mc.gui.setScreen(null);mc.player.setXRot(-90);mc.options.keyUse.setDown(true);phase=5;wait=0;
+        }else if(phase==5&&held.isEmpty()&&mc.player.position().distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(anchor.above()))<.1){
+            mc.options.keyUse.setDown(false);phase=6;mc.gui.setScreen(new Gallery(stale.copy(),linkedSnapshot.copy()));
         }
     }
     private static final class Gallery extends Screen {

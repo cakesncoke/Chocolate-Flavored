@@ -17,7 +17,7 @@ public final class HornClientVerification {
  private static int ticks;private static boolean opened;
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){
   if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!SteelTrimClientVerification.completed||++ticks<100)return;
-  opened=true;Minecraft.getInstance().setScreen(new Gallery());
+  opened=true;Minecraft.getInstance().gui.setScreen(new Gallery());
  }
  private static final class Gallery extends Screen {
   private final ItemStack plain=new ItemStack(ModContent.COPPER_HORN.get());

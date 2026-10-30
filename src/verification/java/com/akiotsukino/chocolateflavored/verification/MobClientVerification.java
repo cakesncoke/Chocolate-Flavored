@@ -18,7 +18,7 @@ import java.util.*;
 public final class MobClientVerification {
  public static boolean completed;
  private static boolean opened;private static int ticks;
- @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<160)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.setScreen(new Gallery());}
+ @SubscribeEvent public static void tick(ClientTickEvent.Post e){if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!AnimalClientVerification.completed||++ticks<160)return;var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.gui.setScreen(new Gallery());}
  private static final class Gallery extends Screen {
   private final List<Mob> mobs=new ArrayList<>();private int frames;
   private net.minecraft.world.item.ItemStack shard;
@@ -37,7 +37,7 @@ public final class MobClientVerification {
     if(mob instanceof net.minecraft.world.entity.monster.zombie.Zombie){mob.setBaby(variant==1);mob.setItemSlot(EquipmentSlot.HEAD,new net.minecraft.world.item.ItemStack(Items.IRON_HELMET));mob.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(Items.IRON_AXE));}
     if(mob instanceof com.akiotsukino.chocolateflavored.mob.entity.HuskRabbit rabbit)rabbit.setBaby(variant==1);
     if(mob instanceof BoulderingZombie z)z.setClimbing(variant==1);
-    if(mob instanceof SkeletonWolf wolf&&variant==1){wolf.tame(minecraft.player);wolf.startPersistentAngerTimer();wolf.setBodyArmorItem(new net.minecraft.world.item.ItemStack(Items.WOLF_ARMOR));}
+    if(mob instanceof SkeletonWolf wolf&&variant==1){wolf.tame(minecraft.player);wolf.startPersistentAngerTimer();wolf.setItemSlot(net.minecraft.world.entity.EquipmentSlot.BODY, new net.minecraft.world.item.ItemStack(Items.WOLF_ARMOR));}
     if(mob instanceof TropicalSlime slime){slime.setSize(2,true);slime.setHasFish(variant==0);}
     if(mob instanceof BoneSpider spider&&variant==1)spider.setPotionContents(new net.minecraft.world.item.alchemy.PotionContents(net.minecraft.world.item.alchemy.Potions.SLOWNESS));
     mobs.add(mob);

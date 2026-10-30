@@ -27,7 +27,7 @@ public final class SunkenVerification {
     private static final AABB AREA=new AABB(POS).inflate(8);
     public static void run(ServerLevel level,FakePlayer player){
         player.setGameMode(GameType.SURVIVAL);
-        var sunken=spawn(level);var skeleton=EntityType.SKELETON.create(level,EntitySpawnReason.COMMAND);
+        var sunken=spawn(level);var skeleton=EntityTypes.SKELETON.create(level,EntitySpawnReason.COMMAND);
         for(var attribute:java.util.List.of(Attributes.MOVEMENT_SPEED,Attributes.ATTACK_DAMAGE,Attributes.ARMOR,Attributes.FOLLOW_RANGE))check(sunken.getAttributeValue(attribute)==skeleton.getAttributeValue(attribute),"Skeleton base stats");
         check(sunken.getMaxHealth()==16&&!sunken.canFreeze()&&!sunken.isShaking(),"Murk health and freeze immunity");
         check(sunken.getNavigation() instanceof AmphibiousPathNavigation,"Amphibious navigation");
@@ -60,7 +60,7 @@ public final class SunkenVerification {
     }
     private static void verifyDrowning(ServerLevel level){
         for(var p:BlockPos.betweenClosed(POS.offset(-2,-1,-2),POS.offset(2,4,2)))level.setBlock(p,Blocks.WATER.defaultBlockState(),3);
-        for(var type:java.util.List.of(EntityType.SKELETON,EntityType.STRAY,EntityType.BOGGED,EntityType.WITHER_SKELETON,EntityType.PARCHED)){
+        for(var type:java.util.List.of(EntityTypes.SKELETON,EntityTypes.STRAY,EntityTypes.BOGGED,EntityTypes.WITHER_SKELETON,EntityTypes.PARCHED)){
             var original=(AbstractSkeleton)type.create(level,EntitySpawnReason.COMMAND);original.snapTo(POS.getX()+.5,POS.getY(),POS.getZ()+.5,0,0);original.setNoGravity(true);
             original.setCustomName(Component.literal("Drowning fixture"));original.setPersistenceRequired();original.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.BOW));original.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));
             original.tick();original.tick();level.addFreshEntity(original);
@@ -73,10 +73,10 @@ public final class SunkenVerification {
             var result=converted.getFirst();check(result.getMainHandItem().is(Items.BOW)&&result.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_HELMET)&&result.isPersistenceRequired()&&result.getCustomName().getString().equals("Drowning fixture"),"Conversion preserves gear, name and persistence");
             for(int i=0;i<1000;i++)SkeletonDrowning.tick(new EntityTickEvent.Post(result));check(!result.isRemoved(),"Sunken never reconverts");result.discard();
         }
-        var swimmer=spawn(level);swimmer.tick();swimmer.tick();var target=EntityType.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+1,POS.getY()+1,POS.getZ(),0,0);target.tick();target.tick();swimmer.setTarget(target);swimmer.updateSwimming();check(swimmer.isSwimming(),"Swims toward submerged target");
+        var swimmer=spawn(level);swimmer.tick();swimmer.tick();var target=EntityTypes.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+1,POS.getY()+1,POS.getZ(),0,0);target.tick();target.tick();swimmer.setTarget(target);swimmer.updateSwimming();check(swimmer.isSwimming(),"Swims toward submerged target");
         swimmer.setDeltaMovement(Vec3.ZERO);swimmer.getNavigation().moveTo(POS.getX()+1,POS.getY()+1,POS.getZ(),1);swimmer.getMoveControl().setWantedPosition(POS.getX()+1,POS.getY()+1,POS.getZ(),1);swimmer.getMoveControl().tick();check(swimmer.getDeltaMovement().y>0,"Swimming controller ascends toward target");swimmer.discard();target.discard();
         for(var p:BlockPos.betweenClosed(POS.offset(-2,-1,-2),POS.offset(2,4,2)))level.removeBlock(p,false);
-        var dry=EntityType.SKELETON.create(level,EntitySpawnReason.COMMAND);dry.snapTo(POS.getX(),POS.getY(),POS.getZ(),0,0);dry.getPersistentData().putInt(SkeletonDrowning.SUBMERGED,599);SkeletonDrowning.tick(new EntityTickEvent.Post(dry));check(dry.getPersistentData().getIntOr(SkeletonDrowning.SUBMERGED,0)==-1,"Leaving water resets exposure before conversion");dry.discard();
+        var dry=EntityTypes.SKELETON.create(level,EntitySpawnReason.COMMAND);dry.snapTo(POS.getX(),POS.getY(),POS.getZ(),0,0);dry.getPersistentData().putInt(SkeletonDrowning.SUBMERGED,599);SkeletonDrowning.tick(new EntityTickEvent.Post(dry));check(dry.getPersistentData().getIntOr(SkeletonDrowning.SUBMERGED,0)==-1,"Leaving water resets exposure before conversion");dry.discard();
     }
     private static void verifyTargeting(ServerLevel level,FakePlayer player){
         var sunken=spawn(level);
@@ -94,7 +94,7 @@ public final class SunkenVerification {
     private static void verifyCombat(ServerLevel level){
         level.getServer().getCommands().performPrefixedCommand(level.getServer().createCommandSourceStack(),"time set 18000");
         for(var pos:BlockPos.betweenClosed(POS.offset(-6,-1,-6),POS.offset(6,-1,6)))level.setBlock(pos,Blocks.STONE.defaultBlockState(),3);
-        var sunken=spawn(level);level.addFreshEntity(sunken);var target=EntityType.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);level.addFreshEntity(target);sunken.setTarget(target);
+        var sunken=spawn(level);level.addFreshEntity(sunken);var target=EntityTypes.IRON_GOLEM.create(level,EntitySpawnReason.COMMAND);target.snapTo(POS.getX()+4,POS.getY(),POS.getZ(),0,0);level.addFreshEntity(target);sunken.setTarget(target);
         sunken.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.BOW));
         boolean drewBow=false;
         for(int i=0;i<160;i++){sunken.tick();drewBow|=sunken.isUsingItem();}
@@ -102,7 +102,7 @@ public final class SunkenVerification {
         level.getEntitiesOfClass(AbstractArrow.class,AREA).forEach(Entity::discard);sunken.discard();target.discard();
     }
     private static Sunken spawn(ServerLevel level){var result=SunkenContent.SUNKEN.get().create(level,EntitySpawnReason.COMMAND);result.snapTo(POS.getX()+.5,POS.getY(),POS.getZ()+.5,0,0);return result;}
-    private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Entity saved");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();}
+    private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Entity saved");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,new net.minecraft.world.entity.EntitySpawnRequest(EntitySpawnReason.LOAD, false)).orElseThrow();}
     private static void check(boolean value,String message){if(!value)throw new IllegalStateException("Sunken verification: "+message);}
     private SunkenVerification(){}
 }

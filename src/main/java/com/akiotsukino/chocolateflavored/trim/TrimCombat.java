@@ -47,7 +47,7 @@ public final class TrimCombat {
                 if (has(p, FEET, "flow")) amount *= .75f;
                 if (has(p, FEET, "eye") && p.level().getBlockState(p.getBlockPosBelowThatAffectsMyMovement()).is(STONE_LANDINGS)) amount *= .5f;
             }
-            if (has(p, HEAD, "flow") && source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityType.WIND_CHARGE) amount = 0;
+            if (has(p, HEAD, "flow") && source.getDirectEntity() != null && source.getDirectEntity().getType() == EntityTypes.WIND_CHARGE) amount = 0;
             if (source.getEntity() instanceof AbstractPiglin && has(p, CHEST, "snout")) amount *= .7f;
             if (weapon(source).is(BOLT_WEAPONS) && has(p, LEGS, "bolt")) amount *= .5f;
         }
@@ -83,7 +83,7 @@ public final class TrimCombat {
         data.putInt("chocolateflavored:trim/bolt_hits", hits % 5);
         if (hits < 5 || !(p.level() instanceof ServerLevel level)) return;
         if (storm(p)) {
-            var bolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
+            var bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
             if (bolt != null) { bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"), true); bolt.setPos(e.getEntity().position()); if (p instanceof net.minecraft.server.level.ServerPlayer sp) bolt.setCause(sp); level.addFreshEntity(bolt); }
         } else if (e.getEntity().isAlive()) {
             DISCHARGING.set(true);

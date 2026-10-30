@@ -18,7 +18,7 @@ public final class TuffGolemVerification {
         TestGolem golem=new TestGolem(level);golem.snapTo(210.5,180,210.5,90,0);for(int i=0;i<201;i++)golem.step(level);
         check(golem.getMaxHealth()==20&&!golem.sleeping()&&!golem.immobilized(),"20 health and standing after initial ten seconds");
         golem.setHealth(10);held(player,Items.TUFF,2);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(golem.getHealth()==15&&player.getMainHandItem().getCount()==1,"Tuff heals five and consumes one");
-        held(player,Items.BLUE_DYE,2);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(golem.color()==DyeColor.BLUE.getId()&&player.getMainHandItem().getCount()==1,"Dye colors cloth and consumes once");
+        held(player,Items.DYE.blue(),2);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(golem.color()==DyeColor.BLUE.getId()&&player.getMainHandItem().getCount()==1,"Dye colors cloth and consumes once");
         held(player,Items.HONEYCOMB,2);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(golem.glued()&&golem.immobilized()&&player.getMainHandItem().getCount()==1,"Wax immobilizes without consuming extra");
         held(player,Items.IRON_AXE,1);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(!golem.glued()&&player.getMainHandItem().getDamageValue()==1,"Axe removes wax with one durability");
         held(player,Items.DIAMOND,3);golem.mobInteract(player,InteractionHand.MAIN_HAND);check(golem.holding()&&golem.getMainHandItem().getCount()==1&&player.getMainHandItem().getCount()==2&&golem.animation().equals("showItem"),"Transfer exactly one displayed item with original animation");
@@ -49,13 +49,13 @@ public final class TuffGolemVerification {
             check(golem.home().distanceToSqr(golem.position())<.001,"Construction sets home");golem.discard();
         }
         level.setBlock(head.below(2),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
-        level.setBlock(head.below(),net.minecraft.world.level.block.Blocks.WHITE_WOOL.defaultBlockState(),3);
+        level.setBlock(head.below(),net.minecraft.world.level.block.Blocks.WOOL.white().defaultBlockState(),3);
         level.setBlock(head,net.minecraft.world.level.block.Blocks.CARVED_PUMPKIN.defaultBlockState(),3);
         check(!level.isEmptyBlock(head)&&!TuffGolemConstruction.canBuild(level,head),"Invalid base remains intact");
         for(int i=0;i<3;i++)level.removeBlock(head.below(i),false);
     }
     private static void held(FakePlayer player,Item item,int count){player.setItemInHand(InteractionHand.MAIN_HAND,item==Items.AIR?ItemStack.EMPTY:new ItemStack(item,count));}
-    private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Save entity");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,EntitySpawnReason.LOAD).orElseThrow();}
+    private static Entity restore(ServerLevel level,Entity entity){var out=TagValueOutput.createWithContext(ProblemReporter.DISCARDING,level.registryAccess());check(entity.saveAsPassenger(out),"Save entity");return EntityType.create(TagValueInput.create(ProblemReporter.DISCARDING,level.registryAccess(),out.buildResult()),level,new net.minecraft.world.entity.EntitySpawnRequest(EntitySpawnReason.LOAD, false)).orElseThrow();}
     private static void check(boolean value,String message){if(!value)throw new IllegalStateException("Tuff Golem verification: "+message);}
     private static final class TestGolem extends TuffGolem {TestGolem(ServerLevel level){super(TuffGolemContent.TUFF_GOLEM.get(),level);}void step(ServerLevel level){super.customServerAiStep(level);}}
     private TuffGolemVerification(){}

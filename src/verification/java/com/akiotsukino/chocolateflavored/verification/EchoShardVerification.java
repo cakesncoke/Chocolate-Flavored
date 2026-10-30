@@ -55,7 +55,7 @@ final class EchoShardVerification {
         for(int i=0;i<59;i++)player.advance();
         check(player.position().equals(origin)&&player.getMainHandItem().getCount()==2,"No teleport or consumption at 59 ticks");
         player.advance();
-        check(player.requestedTeleport!=null&&player.requestedTeleport.distanceToSqr(pos.above().getBottomCenter())<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 60 ticks request native teleport to lodestone and consume one shard");
+        check(player.requestedTeleport!=null&&player.requestedTeleport.distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(pos.above()))<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 60 ticks request native teleport to lodestone and consume one shard");
         // FakePlayer intentionally suppresses network teleports; the client fixture verifies actual arrival.
         player.requestedTeleport=null;
         player.setPos(origin);check(Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND).consumesAction(),"Remaining linked shard can charge");
@@ -94,6 +94,6 @@ final class EchoShardVerification {
         EchoLinkPayload.clearClient();player.stopUsingItem();
         ChocolateFlavored.LOGGER.info("ECHO_SHARD_VERIFICATION_PASSED: native binding/splitting, shared links, item/world persistence, glint cache, 60-tick use/cancel, consumption, cross-dimension failure, incarnation invalidation, mid-charge removal, obstructed arrival");
     }
-    private static InteractionResult link(UsePlayer player,BlockPos pos){return Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(pos.getCenter(),Direction.UP,pos,false)));}
+    private static InteractionResult link(UsePlayer player,BlockPos pos){return Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(pos),Direction.UP,pos,false)));}
     private static void check(boolean ok,String message){if(!ok)throw new IllegalStateException("Echo shard: "+message);}
 }

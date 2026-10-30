@@ -7,6 +7,7 @@ import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -39,15 +40,15 @@ public record ZombieVillagerSpawnModifier() implements BiomeModifier {
         SpawnerData zombie = null, villager = null;
         long combined = 0;
         for (var entry : original) {
-            if (entry.value().type() == EntityType.ZOMBIE) { zombie = entry.value(); combined += entry.weight(); }
-            else if (entry.value().type() == EntityType.ZOMBIE_VILLAGER) { villager = entry.value(); combined += entry.weight(); }
+            if (entry.value().type() == EntityTypes.ZOMBIE) { zombie = entry.value(); combined += entry.weight(); }
+            else if (entry.value().type() == EntityTypes.ZOMBIE_VILLAGER) { villager = entry.value(); combined += entry.weight(); }
         }
         // Do not introduce either entity in biomes that don't already spawn both.
         if (zombie == null || villager == null || combined == 0) return original;
         var values = new ArrayList<SpawnerData>();
         var weights = new ArrayList<Long>();
         for (var entry : original) {
-            if (entry.value().type() != EntityType.ZOMBIE && entry.value().type() != EntityType.ZOMBIE_VILLAGER) {
+            if (entry.value().type() != EntityTypes.ZOMBIE && entry.value().type() != EntityTypes.ZOMBIE_VILLAGER) {
                 values.add(entry.value()); weights.add(entry.weight() * 100L);
             }
         }

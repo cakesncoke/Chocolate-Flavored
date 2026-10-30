@@ -16,6 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -93,7 +94,7 @@ public class MelonGolem extends AbstractGolem implements RangedAttackMob, IShear
 
 	@Override
 	public boolean canAttack(LivingEntity target) {
-		return !target.is(EntityType.CREEPER) && super.canAttack(target);
+		return !target.is(EntityTypes.CREEPER) && super.canAttack(target);
 	}
 
 	@Override

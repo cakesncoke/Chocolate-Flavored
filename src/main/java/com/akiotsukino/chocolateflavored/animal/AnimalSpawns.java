@@ -21,8 +21,8 @@ public final class AnimalSpawns {
         if (!(event.getLevel() instanceof ServerLevel level)
                 || !(event.getEntity() instanceof Mob mob)) return;
         EntityType<?> originalType = mob.getType();
-        if (originalType != EntityType.COW && originalType != EntityType.PIG && originalType != EntityType.CHICKEN
-                && originalType != EntityType.SHEEP && originalType != EntityType.RABBIT) return;
+        if (originalType != EntityTypes.COW && originalType != EntityTypes.PIG && originalType != EntityTypes.CHICKEN
+                && originalType != EntityTypes.SHEEP && originalType != EntityTypes.RABBIT) return;
         if (event.loadedFromDisk() && !mob.getPersistentData().getBooleanOr("chocolateflavored:animal_spawn_pending", false)) return;
         mob.getPersistentData().remove("chocolateflavored:animal_spawn_pending");
         EntitySpawnReason reason = mob.getSpawnType();
@@ -52,20 +52,20 @@ public final class AnimalSpawns {
     /** Integer thresholds keep the listed unconditional probabilities exact where rules overlap. */
     public static EntityType<?> select(EntityType<?> original, Holder<Biome> biome, boolean temperate, RandomSource random) {
         int roll = random.nextInt(100_000);
-        if (original == EntityType.COW) {
+        if (original == EntityTypes.COW) {
             boolean flowers = biome.is(Biomes.FLOWER_FOREST);
             if (flowers && roll < 500) return random.nextInt(100) < 33 ? AnimalContent.MOOLIP.get() : AnimalContent.MOOBLOOM.get();
             if (temperate && roll >= (flowers ? 500 : 0) && roll < (flowers ? 5500 : 5000)) return AnimalContent.DAIRY_COW.get();
-        } else if (original == EntityType.PIG) {
+        } else if (original == EntityTypes.PIG) {
             if (temperate && roll < 10_000) return AnimalContent.PALE_PIG.get();
-        } else if (original == EntityType.CHICKEN) {
+        } else if (original == EntityTypes.CHICKEN) {
             if (roll < 250) return AnimalContent.FANCY_CHICKEN.get();
             if (biome.is(BiomeTags.IS_JUNGLE) && roll >= 250 && roll < 5250) return AnimalContent.BRONZED_CHICKEN.get();
-        } else if (original == EntityType.SHEEP) {
+        } else if (original == EntityTypes.SHEEP) {
             if (biome.is(net.neoforged.neoforge.common.Tags.Biomes.IS_MOUNTAIN) && roll < 3000) return AnimalContent.HORNED_SHEEP.get();
             if (biome.is(BiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)) return AnimalContent.LONG_NOSE_SHEEP.get();
             if (biome.is(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)) return random.nextInt(100) < 5 ? AnimalContent.PATCHED_SHEEP.get() : AnimalContent.FUZZY_SHEEP.get();
-        } else if (original == EntityType.RABBIT && biome.is(Biomes.FLOWER_FOREST) && roll < 250) return AnimalContent.JUMBO_RABBIT.get();
+        } else if (original == EntityTypes.RABBIT && biome.is(Biomes.FLOWER_FOREST) && roll < 250) return AnimalContent.JUMBO_RABBIT.get();
         return null;
     }
     private AnimalSpawns() {}

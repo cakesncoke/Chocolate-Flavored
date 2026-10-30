@@ -27,7 +27,7 @@ public final class DyedWoodClientVerification {
         var models=mc.getModelManager().getBlockStateModelSet();
         for(var f:DyedWood.FAMILIES.values())for(var b:f.blocks.values())for(var s:b.get().getStateDefinition().getPossibleStates())
             if(models.get(s)==models.missingModel()||models.get(s).particleMaterial().sprite().contents().name().getPath().equals("missingno"))throw new IllegalStateException("Missing dyed wood model: "+s);
-        mc.setScreen(new Gallery());
+        mc.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {
         final List<Boat> boats=new ArrayList<>();int frames;

@@ -35,7 +35,7 @@ public final class SleepTimingVerification {
         level.getChunkAt(bed);
         level.setBlock(bed.below(), Blocks.STONE.defaultBlockState(), 3);
         level.setBlock(bed.east().below(), Blocks.STONE.defaultBlockState(), 3);
-        var state = Blocks.RED_BED.defaultBlockState().setValue(BedBlock.FACING, Direction.EAST);
+        var state = Blocks.BED.red().defaultBlockState().setValue(BedBlock.FACING, Direction.EAST);
         level.setBlock(bed, state.setValue(BedBlock.PART, BedPart.FOOT), 3);
         level.setBlock(bed.east(), state.setValue(BedBlock.PART, BedPart.HEAD), 3);
         level.setBlock(furnacePos, Blocks.FURNACE.defaultBlockState(), 3);

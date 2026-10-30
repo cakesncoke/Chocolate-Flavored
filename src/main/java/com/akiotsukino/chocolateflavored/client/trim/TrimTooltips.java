@@ -18,7 +18,7 @@ public final class TrimTooltips {
         var id=BuiltInRegistries.ITEM.getKey(stack.getItem());
         if(pattern.isEmpty() && id.getNamespace().equals("minecraft") && id.getPath().endsWith("_armor_trim_smithing_template")){pattern="minecraft:"+id.getPath().replace("_armor_trim_smithing_template","");template=true;}
         if(!pattern.startsWith("minecraft:"))return;String name=pattern.substring(10);String key="trim.chocolateflavored."+name+".";
-        if(!net.minecraft.client.resources.language.I18n.exists(key+"theme"))return;
+        if(!net.minecraft.locale.Language.getInstance().has(key+"theme"))return;
         var eq=stack.get(DataComponents.EQUIPPABLE);
         if(template){e.getToolTip().add(Component.translatable(key+"theme").withStyle(ChatFormatting.GRAY));e.getToolTip().add(Component.translatable(key+"full").withStyle(ChatFormatting.DARK_AQUA));return;}
         if(eq==null)return;
