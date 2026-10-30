@@ -26,7 +26,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import java.util.*;
 public final class MobVerification {
  public static void run(ServerLevel level,FakePlayer player){
-  spawning(level); replacement(level);
+  spawning(level); replacement(level); loot(level);
   FakePlayer combat=new CombatPlayer(level);interactions(level,combat);projectilesAndConversion(level,combat);
   ChocolateFlavored.LOGGER.info("MOB_VERIFICATION_PASSED: replacement boundaries and state, 1.5% wolf weights, golem shearing/building, climbing, poison, bone payloads, bucket persistence and fish release");
  }
@@ -52,6 +52,23 @@ public final class MobVerification {
   long z=adjusted.stream().filter(e->e.value().type()==EntityTypes.ZOMBIE).mapToLong(Weighted::weight).sum();long zv=adjusted.stream().filter(e->e.value().type()==EntityTypes.ZOMBIE_VILLAGER).mapToLong(Weighted::weight).sum();check(z==99*zv,"Existing zombie-villager ratio preserved");
   var actual=registry.getOrThrow(Biomes.FOREST).value().getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
   long at=actual.stream().mapToLong(Weighted::weight).sum(),aw=actual.stream().filter(e->e.value().type()==MobContent.SKELETON_WOLF.get()).mapToLong(Weighted::weight).sum();check(aw*1000==at*15,"Actual loaded forest biome weights");
+ }
+ private static void loot(ServerLevel level){
+  for(var type:List.of(MobContent.BOULDERING_ZOMBIE.get(),MobContent.SWAMPED.get(),MobContent.TROPICAL_SLIME.get()))
+   check(level.getServer().reloadableRegistries().getLootTable(type.getDefaultLootTable().orElseThrow())!=net.minecraft.world.level.storage.loot.LootTable.EMPTY,"Custom mob loot table loads: "+type);
+  var slime=MobContent.TROPICAL_SLIME.get().create(level,EntitySpawnReason.COMMAND);
+  var frog=EntityTypes.FROG.create(level,EntitySpawnReason.COMMAND);
+  var table=level.getServer().reloadableRegistries().getLootTable(slime.getType().getDefaultLootTable().orElseThrow());
+  for(int size:List.of(1,2)){
+   slime.setSize(size,true);
+   var params=new net.minecraft.world.level.storage.loot.LootParams.Builder(level)
+    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.THIS_ENTITY,slime)
+    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN,slime.position())
+    .withParameter(net.minecraft.world.level.storage.loot.parameters.LootContextParams.DAMAGE_SOURCE,level.damageSources().mobAttack(frog))
+    .create(net.minecraft.world.level.storage.loot.parameters.LootContextParamSets.ENTITY);
+   var drops=table.getRandomItems(params,1L);
+   check(size==1?drops.size()==1&&drops.getFirst().is(MobContent.TROPICAL_BALL.get())&&drops.getFirst().getCount()==1:drops.isEmpty(),"Frog drops exactly one ball only from a tiny slime");
+  }
  }
  private static void replacement(ServerLevel level){
   BlockPos pos=new BlockPos(80,-20,80);level.getChunkAt(pos);

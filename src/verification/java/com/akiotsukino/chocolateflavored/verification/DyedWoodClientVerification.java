@@ -27,6 +27,18 @@ public final class DyedWoodClientVerification {
         var models=mc.getModelManager().getBlockStateModelSet();
         for(var f:DyedWood.FAMILIES.values())for(var b:f.blocks.values())for(var s:b.get().getStateDefinition().getPossibleStates())
             if(models.get(s)==models.missingModel()||models.get(s).particleMaterial().sprite().contents().name().getPath().equals("missingno"))throw new IllegalStateException("Missing dyed wood model: "+s);
+        for(var f:DyedWood.FAMILIES.values())for(String kind:List.of("sign","wall_sign","hanging_sign","wall_hanging_sign"))
+            for(var state:f.block(kind).getStateDefinition().getPossibleStates()) {
+                var parts=new ArrayList<net.minecraft.client.renderer.block.dispatch.BlockStateModelPart>();
+                models.get(state).collectParts(net.minecraft.util.RandomSource.create(0),parts);
+                var quads=new ArrayList<net.minecraft.client.resources.model.geometry.BakedQuad>();
+                for(var part:parts) {
+                    quads.addAll(part.getQuads(null));
+                    for(var direction:net.minecraft.core.Direction.values())quads.addAll(part.getQuads(direction));
+                }
+                if(quads.isEmpty()||quads.stream().anyMatch(q->q.materialInfo().tintIndex()!=0))
+                    throw new IllegalStateException("Pastel sign must have tinted wood geometry: "+state);
+            }
         mc.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {

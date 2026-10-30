@@ -74,7 +74,7 @@
               "is_baby": true
             },
             "vehicle": {
-              "type": "minecraft:chicken"
+              "minecraft:entity_type": "minecraft:chicken"
             }
           }
         }

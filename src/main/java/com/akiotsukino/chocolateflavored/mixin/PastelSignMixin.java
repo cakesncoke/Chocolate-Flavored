@@ -1,25 +1,29 @@
 package com.akiotsukino.chocolateflavored.mixin;
 
 import com.akiotsukino.chocolateflavored.dye.DyedWood;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.AbstractSignRenderer;
-import net.minecraft.client.renderer.blockentity.state.SignRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.AbstractSignEditScreen;
+import net.minecraft.client.gui.screens.inventory.HangingSignEditScreen;
+import net.minecraft.client.gui.screens.inventory.SignEditScreen;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.entity.SignBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
-/** Tint the wood only. Native front/back text, glow ink, wax and editing stay untouched. */
-@Mixin(AbstractSignRenderer.class)
-public abstract class PastelSignMixin {
-    @Unique private int chocolateflavored$woodColor = -1;
-    @Inject(method="submit(Lnet/minecraft/client/renderer/blockentity/state/SignRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V", at=@At("HEAD"))
-    private void chocolateflavored$color(SignRenderState state, PoseStack poses, SubmitNodeCollector collector, CameraRenderState camera, CallbackInfo ci) {
-        var dye = DyedWood.BLOCK_COLORS.get(((BlockEntityRenderStateAccessor)state).chocolateflavored$blockState().getBlock());
-        chocolateflavored$woodColor = dye == null ? -1 : DyedWood.pastel(dye);
+/** 26.2 renders placed wood as tinted block models; keep the editor's wood tinted too. */
+@Mixin({SignEditScreen.class, HangingSignEditScreen.class})
+public abstract class PastelSignMixin extends AbstractSignEditScreen {
+    protected PastelSignMixin(SignBlockEntity sign, boolean front, boolean filter) {
+        super(sign, front, filter);
     }
-    @ModifyArg(method="submitSign", at=@At(value="INVOKE", target="Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;IIILnet/minecraft/client/resources/model/sprite/SpriteId;Lnet/minecraft/client/resources/model/sprite/SpriteGetter;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V"), index=5)
-    private int chocolateflavored$tint(int original) { return chocolateflavored$woodColor; }
+
+    @Redirect(method="extractSignBackground", at=@At(value="INVOKE", target="Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+    private void chocolateflavored$tint(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier texture,
+            int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
+        var dye = DyedWood.BLOCK_COLORS.get(this.sign.getBlockState().getBlock());
+        graphics.blit(pipeline, texture, x, y, u, v, width, height, textureWidth, textureHeight,
+                dye == null ? -1 : DyedWood.pastel(dye));
+    }
 }
