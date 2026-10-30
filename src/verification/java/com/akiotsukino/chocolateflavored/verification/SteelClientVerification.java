@@ -41,9 +41,9 @@ public final class SteelClientVerification {
         Gallery(){super(Component.literal("Steel equipment and hammers"));}
         @Override protected void init(){
             if(!wearers.isEmpty())return;
-            var zombie=EntityTypes.ZOMBIE.create(minecraft.level,EntitySpawnReason.COMMAND);zombie.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));zombie.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.IRON_CHESTPLATE));zombie.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.IRON_LEGGINGS));zombie.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.IRON_BOOTS));zombie.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.IRON_SPEAR));wearers.add(zombie);
-            var horse=EntityTypes.HORSE.create(minecraft.level,EntitySpawnReason.COMMAND);horse.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_HORSE_ARMOR));wearers.add(horse);
-            var nautilus=EntityTypes.NAUTILUS.create(minecraft.level,EntitySpawnReason.COMMAND);nautilus.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_NAUTILUS_ARMOR));wearers.add(nautilus);
+            var zombie=ClientVerificationEntities.create(EntityTypes.ZOMBIE,minecraft.level);zombie.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));zombie.setItemSlot(EquipmentSlot.CHEST,new ItemStack(Items.IRON_CHESTPLATE));zombie.setItemSlot(EquipmentSlot.LEGS,new ItemStack(Items.IRON_LEGGINGS));zombie.setItemSlot(EquipmentSlot.FEET,new ItemStack(Items.IRON_BOOTS));zombie.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(Items.IRON_SPEAR));wearers.add(zombie);
+            var horse=ClientVerificationEntities.create(EntityTypes.HORSE,minecraft.level);horse.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_HORSE_ARMOR));wearers.add(horse);
+            var nautilus=ClientVerificationEntities.create(EntityTypes.NAUTILUS,minecraft.level);nautilus.setItemSlot(EquipmentSlot.BODY,new ItemStack(Items.IRON_NAUTILUS_ARMOR));wearers.add(nautilus);
         }
         @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial){
             g.fill(0,0,width,height,0xFF252D38);g.centeredText(font,"Steel equipment, supplied armor textures, new materials and hammers",width/2,5,-1);

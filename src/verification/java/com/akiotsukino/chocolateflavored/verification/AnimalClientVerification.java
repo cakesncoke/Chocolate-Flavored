@@ -37,7 +37,7 @@ public final class AnimalClientVerification {
         @Override protected void init() {
             if(!animals.isEmpty()) return;
             for(var holder:AnimalContent.ENTITIES.getEntries()) for(boolean baby:new boolean[]{false,true}) {
-                Mob animal=(Mob)holder.get().create(minecraft.level,EntitySpawnReason.COMMAND);
+                Mob animal=(Mob)ClientVerificationEntities.create(holder.get(),minecraft.level);
                 if(animal==null) throw new IllegalStateException("Missing client entity");
                 if(animal instanceof AgeableMob ageable) ageable.setBaby(baby);
                 if(animal instanceof Sheep sheep) sheep.setColor(DyeColor.WHITE);
@@ -45,7 +45,7 @@ public final class AnimalClientVerification {
                 animals.add(animal);
             }
             for(boolean baby:new boolean[]{false,true}) {
-                var pig=EntityTypes.PIG.create(minecraft.level,EntitySpawnReason.COMMAND);pig.setBaby(baby);
+                var pig=ClientVerificationEntities.create(EntityTypes.PIG,minecraft.level);pig.setBaby(baby);
                 MuddyPigRules.becomeMuddy(pig);((MuddyPig)pig).chocolateflavored$setFlowerColor(DyeColor.PINK);animals.add(pig);
             }
         }

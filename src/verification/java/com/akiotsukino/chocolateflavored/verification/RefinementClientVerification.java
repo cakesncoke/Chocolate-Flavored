@@ -24,7 +24,7 @@ public final class RefinementClientVerification {
  private static final class Gallery extends Screen {
   private final java.util.List<LivingEntity> cows=new java.util.ArrayList<>();private int frames;
   Gallery(){super(Component.literal("Survival refinements"));}
-  @Override protected void init(){if(cows.isEmpty()){cows.add(AnimalContent.MOOBLOOM.get().create(minecraft.level,EntitySpawnReason.COMMAND));cows.add(AnimalContent.MOOLIP.get().create(minecraft.level,EntitySpawnReason.COMMAND));}}
+  @Override protected void init(){if(cows.isEmpty()){cows.add(ClientVerificationEntities.create(AnimalContent.MOOBLOOM.get(),minecraft.level));cows.add(ClientVerificationEntities.create(AnimalContent.MOOLIP.get(),minecraft.level));}}
   @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial){
    g.fill(0,0,width,height,0xFF253A31);g.centeredText(font,"New materials, cake slices and corrected flower layers",width/2,8,-1);
    var list=items();int cw=width/7;

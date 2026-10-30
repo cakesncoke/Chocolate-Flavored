@@ -32,7 +32,7 @@ public final class SteelTrimClientVerification {
    var material=minecraft.level.registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL,Identifier.parse("chocolateflavored:steel")));
    var pattern=minecraft.level.registryAccess().lookupOrThrow(Registries.TRIM_PATTERN).getOrThrow(ResourceKey.create(Registries.TRIM_PATTERN,Identifier.withDefaultNamespace("sentry")));
    for(boolean steel:new boolean[]{true,false}){
-    var mob=EntityTypes.ZOMBIE.create(minecraft.level,EntitySpawnReason.COMMAND);
+    var mob=ClientVerificationEntities.create(EntityTypes.ZOMBIE,minecraft.level);
     Item[] armor=steel?new Item[]{Items.IRON_HELMET,Items.IRON_CHESTPLATE,Items.IRON_LEGGINGS,Items.IRON_BOOTS}:new Item[]{Items.DIAMOND_HELMET,Items.DIAMOND_CHESTPLATE,Items.DIAMOND_LEGGINGS,Items.DIAMOND_BOOTS};
     EquipmentSlot[] slots={EquipmentSlot.HEAD,EquipmentSlot.CHEST,EquipmentSlot.LEGS,EquipmentSlot.FEET};
     for(int i=0;i<4;i++){var stack=new ItemStack(armor[i]);stack.set(DataComponents.TRIM,new ArmorTrim(material,pattern));mob.setItemSlot(slots[i],stack);stacks.add(stack);}

@@ -33,7 +33,7 @@ public final class MobClientVerification {
    shard=new com.akiotsukino.chocolateflavored.mob.entity.projectile.BoneShard(MobContent.BONE_SHARD.get(),minecraft.level).getItem();
    for(String key:List.of("ambient","growl","hurt","death","pant","whine","step","shake"))if(!net.minecraft.locale.Language.getInstance().has("subtitles.mob.skeleton_wolf."+key))throw new IllegalStateException("Missing wolf subtitle: "+key);
    for(var holder:List.of(MobContent.MELON_GOLEM,MobContent.BOULDERING_ZOMBIE,MobContent.SWAMPED,MobContent.SKELETON_WOLF,MobContent.BONE_SPIDER,MobContent.TROPICAL_SLIME,MobContent.HUSK_RABBIT))for(int variant=0;variant<2;variant++){
-    Mob mob=(Mob)holder.get().create(minecraft.level,EntitySpawnReason.COMMAND);mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);mob.setAggressive(variant==1);
+    Mob mob=(Mob)ClientVerificationEntities.create(holder.get(),minecraft.level);mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);mob.setAggressive(variant==1);
     if(mob instanceof net.minecraft.world.entity.monster.zombie.Zombie){mob.setBaby(variant==1);mob.setItemSlot(EquipmentSlot.HEAD,new net.minecraft.world.item.ItemStack(Items.IRON_HELMET));mob.setItemSlot(EquipmentSlot.MAINHAND,new net.minecraft.world.item.ItemStack(Items.IRON_AXE));}
     if(mob instanceof com.akiotsukino.chocolateflavored.mob.entity.HuskRabbit rabbit)rabbit.setBaby(variant==1);
     if(mob instanceof BoulderingZombie z)z.setClimbing(variant==1);

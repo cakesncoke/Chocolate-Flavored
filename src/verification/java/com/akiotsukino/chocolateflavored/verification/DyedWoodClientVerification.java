@@ -44,7 +44,7 @@ public final class DyedWoodClientVerification {
     private static final class Gallery extends Screen {
         final List<Boat> boats=new ArrayList<>();int frames;
         Gallery(){super(Component.literal("Pastel wood families"));}
-        @Override protected void init(){if(!boats.isEmpty())return;for(var f:DyedWood.FAMILIES.values())boats.add(f.boat.get().create(minecraft.level,EntitySpawnReason.COMMAND));}
+        @Override protected void init(){if(!boats.isEmpty())return;for(var f:DyedWood.FAMILIES.values())boats.add(ClientVerificationEntities.create(f.boat.get(),minecraft.level));}
         @Override public void extractRenderState(GuiGraphicsExtractor g,int mx,int my,float partial) {
             g.fill(0,0,width,height,0xFF20252D);g.centeredText(font,"Pastel wood: all 16 dyes / 13 items / native boats",width/2,4,-1);
             int rowH=(height-29)/16,colW=(width-105)/13;

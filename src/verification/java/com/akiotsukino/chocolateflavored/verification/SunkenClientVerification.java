@@ -38,7 +38,7 @@ public final class SunkenClientVerification {
         @Override protected void init(){
             if(!mobs.isEmpty())return;
             for(int i=0;i<9;i++){
-                var mob=SunkenContent.SUNKEN.get().create(minecraft.level,EntitySpawnReason.COMMAND);mob.setCoralColor(i%3);mob.setSheared(i>=3&&i<6);mob.setAggressive(true);
+                var mob=ClientVerificationEntities.create(SunkenContent.SUNKEN.get(),minecraft.level);mob.setCoralColor(i%3);mob.setSheared(i>=3&&i<6);mob.setAggressive(true);
                 mob.setItemSlot(EquipmentSlot.MAINHAND,(i>=3&&i<6?ItemStack.EMPTY:new ItemStack(Items.BOW)));
                 mob.snapTo(minecraft.player.getX(),minecraft.player.getY(),minecraft.player.getZ(),0,0);mobs.add(mob);
             }
