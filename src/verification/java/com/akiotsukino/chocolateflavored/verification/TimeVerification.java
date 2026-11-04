@@ -41,9 +41,9 @@ final class TimeVerification {
         clocks.setPaused(clock, false);
         clocks.setTotalTicks(clock, 0);
         for (int i = 0; i < 24_000; i++) { DayNightCycle.update(server); clocks.tick(); }
-        check(clocks.getTotalTicks(clock) == 12_000, "Day is exactly 24,000 simulation ticks / 20 minutes");
+        check(clocks.getInstance(clock).totalTicks() == 12_000, "Day is exactly 24,000 simulation ticks / 20 minutes");
         for (int i = 0; i < 18_000; i++) { DayNightCycle.update(server); clocks.tick(); }
-        check(clocks.getTotalTicks(clock) == 24_000, "Night is exactly 18,000 simulation ticks / 15 minutes");
+        check(clocks.getInstance(clock).totalTicks() == 24_000, "Night is exactly 18,000 simulation ticks / 15 minutes");
         check(server.registryAccess().getOrThrow(Timelines.OVERWORLD_DAY).value().getPeriodCount(clocks) == 1, "Vanilla timeline counts one 35-minute day");
         // Fractional clock position is saved by vanilla, including during the slower daytime phase.
         DayNightCycle.update(server); clocks.tick();
@@ -54,13 +54,13 @@ final class TimeVerification {
         loaded.init(server);
         check(loaded.packState().equals(before), "Native save/load retains fractional time and clock rate");
         clocks.setPaused(clock, true);
-        long frozen = clocks.getTotalTicks(clock);
+        long frozen = clocks.getInstance(clock).totalTicks();
         for (int i = 0; i < 20; i++) { DayNightCycle.update(server); clocks.tick(); }
-        check(clocks.getTotalTicks(clock) == frozen, "Time pause respected");
+        check(clocks.getInstance(clock).totalTicks() == frozen, "Time pause respected");
         clocks.setPaused(clock, false);
         server.getGlobalGameRules().set(GameRules.ADVANCE_TIME, false, server);
         for (int i = 0; i < 20; i++) { DayNightCycle.update(server); clocks.tick(); }
-        check(clocks.getTotalTicks(clock) == frozen, "advance_time false respected");
+        check(clocks.getInstance(clock).totalTicks() == frozen, "advance_time false respected");
         server.getGlobalGameRules().set(GameRules.ADVANCE_TIME, true, server);
         clocks.setTotalTicks(clock, 18_000); DayNightCycle.update(server);
         check(clocks.packState().clocks().get(clock).rate() == 2.0F / 3, "Time commands select the correct phase rate");
@@ -86,7 +86,7 @@ final class TimeVerification {
             level.addNewPlayer(first); level.addNewPlayer(second);
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 100, server);
             manager.setTickRate(20);
-            check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Real bed accepts sleep at night");
+            check(CompatibilityVerification.startSleep(first, firstBed.east()).right().isPresent(), "Real bed accepts sleep at night");
             SleepAcceleration.update(server);
             check(manager.tickrate() == 20, "One of two sleepers cannot meet a 100% threshold");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 50, server);
@@ -94,16 +94,16 @@ final class TimeVerification {
             check(manager.tickrate() == 450, "Half of the 15-minute night targets twenty seconds immediately on bed entry");
             for (int i = 0; i < 20; i++) SleepAcceleration.update(server);
             check(manager.tickrate() == 450, "Acceleration never compounds or restarts");
-            long time = server.clockManager().getTotalTicks(clock);
+            long time = server.clockManager().getInstance(clock).totalTicks();
             long gameTime = level.getGameTime();
             for (int i = 0; i < 6; i++) {
                 DayNightCycle.update(server); server.clockManager().tick(); level.tick(() -> true);
             }
-            check(first.isSleeping() && server.clockManager().getTotalTicks(clock) == time + 4, "Actual level ticks neither skip the night nor eject the sleeper");
+            check(first.isSleeping() && server.clockManager().getInstance(clock).totalTicks() == time + 4, "Actual level ticks neither skip the night nor eject the sleeper");
             check(level.getGameTime() == gameTime + 6, "Scheduled world processes continue ticking during sleep");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 100, server);
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Threshold change restores baseline");
-            check(second.startSleepInBed(secondBed.east()).right().isPresent(), "Second real bed accepts sleep");
+            check(CompatibilityVerification.startSleep(second, secondBed.east()).right().isPresent(), "Second real bed accepts sleep");
             SleepAcceleration.update(server);
             check(manager.tickrate() > 400 && manager.tickrate() <= 450, "Both sleepers start one rate sized to the remaining night");
             second.stopSleepInBed(true, true);
@@ -120,7 +120,7 @@ final class TimeVerification {
             check(manager.tickrate() == 30, "Restore the custom baseline");
             manager.setTickRate(20);
             server.clockManager().setPaused(clock, true);
-            check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Bed can be reused");
+            check(CompatibilityVerification.startSleep(first, firstBed.east()).right().isPresent(), "Bed can be reused");
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Paused clock does not accelerate indefinitely");
             server.clockManager().setPaused(clock, false);
             SleepAcceleration.update(server); check(manager.tickrate() > 400, "Resuming time permits sleep acceleration");
@@ -133,7 +133,7 @@ final class TimeVerification {
             // Run a complete half-night through the real clock and Player sleep lifecycle.
             // The sum of native scheduler periods must be twenty seconds, with no clock jumps.
             server.clockManager().setTotalTicks(clock, 18_000); DayNightCycle.update(server); level.updateSkyBrightness();
-            check(first.startSleepInBed(firstBed.east()).right().isPresent(), "Full-cycle fixture starts sleeping");
+            check(CompatibilityVerification.startSleep(first, firstBed.east()).right().isPresent(), "Full-cycle fixture starts sleeping");
             SleepAcceleration.update(server);
             long schedulerNanos = 0;
             for (int i = 0; i < 9_000; i++) {
@@ -143,7 +143,7 @@ final class TimeVerification {
                 if (i < 8_999) check(first.isSleeping(), "No premature dawn wake");
             }
             check(Math.abs(schedulerNanos - 20_000_000_000L) < 1_000_000, "Remaining night is exactly twenty scheduler seconds");
-            check(server.clockManager().getTotalTicks(clock) == 24_000 && !first.isSleeping() && manager.tickrate() == 20, "All remaining simulation ticks finish at morning");
+            check(server.clockManager().getInstance(clock).totalTicks() == 24_000 && !first.isSleeping() && manager.tickrate() == 20, "All remaining simulation ticks finish at morning");
             level.getGameRules().set(GameRules.PLAYERS_SLEEPING_PERCENTAGE, 0, server);
             SleepAcceleration.update(server); check(manager.tickrate() == 20, "Zero-percent rule still needs an actual sleeper");
         } finally {

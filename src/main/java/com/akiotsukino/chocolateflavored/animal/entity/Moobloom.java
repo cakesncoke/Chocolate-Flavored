@@ -92,7 +92,7 @@ public class Moobloom extends Cow implements IShearable, IFlowerCow, IHasFlower 
 				cow.setPersistenceRequired();
 			}
 
-			cow.setInvulnerable(this.isInvulnerable());
+			cow.setPermanentlyInvulnerable(this.isInvulnerable());
 			this.level().addFreshEntity(cow);
 
 			java.util.List<ItemStack> items = new java.util.ArrayList<>();

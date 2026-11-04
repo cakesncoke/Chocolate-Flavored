@@ -9,30 +9,28 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "ability": "shears_harvest",
-                  "condition": "neoforge:can_item_perform_ability"
-                }
-              ],
-              "name": "chocolateflavored:wild_potatoes"
+              "name": "chocolateflavored:wild_potatoes",
+              "condition": {
+                "ability": "shears_harvest",
+                "type": "neoforge:can_item_perform_ability"
+              }
             },
             {
               "type": "minecraft:item",
-              "functions": [
+              "name": "minecraft:potato",
+              "modifier": [
                 {
-                  "function": "minecraft:explosion_decay"
+                  "type": "minecraft:explosion_decay"
                 },
                 {
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:uniform_bonus_count",
-                  "function": "minecraft:apply_bonus",
                   "parameters": {
                     "bonusMultiplier": 2
-                  }
+                  },
+                  "type": "minecraft:apply_bonus"
                 }
-              ],
-              "name": "minecraft:potato"
+              ]
             }
           ]
         }

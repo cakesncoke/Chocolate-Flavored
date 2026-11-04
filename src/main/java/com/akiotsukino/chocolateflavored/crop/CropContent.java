@@ -1,5 +1,7 @@
 package com.akiotsukino.chocolateflavored.crop;
 
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +15,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -31,9 +32,9 @@ public final class CropContent {
     public static final DeferredBlock<RiceCropBlock> RICE_CROP = field("rice_crop", RiceCropBlock::new);
     public static final DeferredBlock<RicePaniclesBlock> RICE_PANICLES = field("rice_panicles", RicePaniclesBlock::new);
     public static final DeferredItem<BlockItem> SOYBEANS = seed("soybeans", SOYBEAN_CROP);
-    public static final DeferredItem<Item> SOYBEAN_POD = ModContent.ITEMS.registerSimpleItem("soybean_pod");
+    public static final DeferredItem<Item> SOYBEAN_POD = ModContent.ITEMS.registerSimpleItem("soybean_pod", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredItem<BlockItem> CHILI_SEEDS = seed("chili_seeds", CHILI_CROP);
-    public static final DeferredItem<Item> CHILI = ModContent.ITEMS.registerSimpleItem("chili");
+    public static final DeferredItem<Item> CHILI = ModContent.ITEMS.registerSimpleItem("chili", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredItem<BlockItem> COTTON_SEEDS = seed("cotton_seeds", COTTON);
     public static final DeferredBlock<BlueberryBushBlock> BLUEBERRY_BUSH = ModContent.BLOCKS.registerBlock("blueberry_bush",
             BlueberryBushBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)
@@ -41,15 +42,15 @@ public final class CropContent {
     public static final DeferredItem<BlockItem> BLUEBERRIES = ModContent.ITEMS.registerItem("blueberries",
             p -> new BlockItem(BLUEBERRY_BUSH.get(), p.food(new net.minecraft.world.food.FoodProperties.Builder()
                     .nutrition(1).saturationModifier(.3F).build(), net.minecraft.world.item.component.Consumables.defaultFood().consumeSeconds(.8F).build())));
-    public static final DeferredItem<Item> COTTON_BOLL = ModContent.ITEMS.registerSimpleItem("cotton_boll");
+    public static final DeferredItem<Item> COTTON_BOLL = ModContent.ITEMS.registerSimpleItem("cotton_boll", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredItem<BlockItem> COFFEE_BEANS = seed("coffee_beans", COFFEE);
     public static final DeferredItem<BlockItem> CABBAGE_SEEDS = seed("cabbage_seeds", CABBAGES);
-    public static final DeferredItem<Item> CABBAGE = ModContent.ITEMS.registerSimpleItem("cabbage");
+    public static final DeferredItem<Item> CABBAGE = ModContent.ITEMS.registerSimpleItem("cabbage", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredItem<BlockItem> ONION = seed("onion", ONIONS);
     public static final DeferredItem<BlockItem> TOMATO_SEEDS = seed("tomato_seeds", TOMATOES);
-    public static final DeferredItem<Item> TOMATO = ModContent.ITEMS.registerSimpleItem("tomato");
+    public static final DeferredItem<Item> TOMATO = ModContent.ITEMS.registerSimpleItem("tomato", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredItem<BlockItem> RICE = seed("rice", RICE_CROP);
-    public static final DeferredItem<Item> RICE_PANICLE = ModContent.ITEMS.registerSimpleItem("rice_panicle");
+    public static final DeferredItem<Item> RICE_PANICLE = ModContent.ITEMS.registerSimpleItem("rice_panicle", p -> p.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM));
     public static final DeferredBlock<WildCropBlock> WILD_SOYBEAN = wild("wild_soybean");
     public static final DeferredBlock<WildCropBlock> WILD_CHILI = wild("wild_chili");
     public static final DeferredBlock<WildCropBlock> WILD_COTTON = wild("wild_cotton");
@@ -61,22 +62,22 @@ public final class CropContent {
     public static final DeferredBlock<WildCropBlock> WILD_POTATOES = wild("wild_potatoes");
     public static final DeferredBlock<WildCropBlock> WILD_BEETROOTS = wild("wild_beetroots");
     public static final DeferredBlock<WildRiceBlock> WILD_RICE = field("wild_rice", WildRiceBlock::new);
-    public static final DeferredItem<BlockItem> WILD_RICE_ITEM = ModContent.ITEMS.registerSimpleBlockItem(WILD_RICE);
+    public static final DeferredItem<BlockItem> WILD_RICE_ITEM = ModContent.ITEMS.registerSimpleBlockItem(WILD_RICE, p -> p.compostable(ContextIntProviders.COMPOSTABLE_LOW));
     public static final List<DeferredBlock<? extends FieldCropBlock>> FIELDS = List.of(SOYBEAN_CROP, CHILI_CROP, COTTON, COFFEE, CABBAGES, ONIONS, TOMATOES);
 
     private static <T extends Block> DeferredBlock<T> field(String name, Function<BlockBehaviour.Properties, T> factory) {
-        return ModContent.BLOCKS.registerBlock(name, factory, () -> BlockBehaviour.Properties.of().mapColor(net.minecraft.world.level.material.MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)
+        return ModContent.BLOCKS.registerBlock(name, factory, () -> BlockBehaviour.Properties.of().mapColor(net.minecraft.world.level.material.MapColor.PLANT).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(net.minecraft.world.level.material.PushReaction.POPPED)
                 .overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("chocolateflavored", "blocks/" + name)))));
     }
     private static DeferredBlock<WildCropBlock> wild(String name) {
         var block = ModContent.BLOCKS.registerBlock(name, WildCropBlock::new, () -> BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
                 .sound(SoundType.CROP).overrideLootTable(Optional.of(ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath("chocolateflavored", "blocks/" + name)))));
-        ModContent.ITEMS.registerSimpleBlockItem(block);
+        ModContent.ITEMS.registerSimpleBlockItem(block, p -> p.compostable(ContextIntProviders.COMPOSTABLE_LOW));
         return block;
     }
     private static DeferredItem<BlockItem> seed(String name, DeferredBlock<? extends Block> block) {
         // Deliberately no FOOD or CONSUMABLE components, including raw produce used as seed.
-        return ModContent.ITEMS.registerItem(name, p -> new BlockItem(block.get(), p));
+        return ModContent.ITEMS.registerItem(name, p -> new BlockItem(block.get(), p.compostable(name.equals("onion") ? ContextIntProviders.COMPOSTABLE_MEDIUM : ContextIntProviders.COMPOSTABLE_LOW)));
     }
     public static Item seedFor(Block block) {
         if (block == SOYBEAN_CROP.get()) return SOYBEANS.get();

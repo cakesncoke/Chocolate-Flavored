@@ -10,16 +10,14 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "chocolateflavored:cotton",
-                  "properties": {
-                    "age": "7"
-                  }
+              "name": "chocolateflavored:cotton_boll",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "chocolateflavored:cotton",
+                "state": {
+                  "age": "7"
                 }
-              ],
-              "name": "chocolateflavored:cotton_boll"
+              }
             },
             {
               "type": "minecraft:item",
@@ -35,34 +33,32 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "name": "chocolateflavored:cotton_seeds",
+          "modifier": [
             {
-              "function": "minecraft:apply_bonus",
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
               "parameters": {
                 "extra": 3,
                 "probability": 0.5714286
-              }
+              },
+              "type": "minecraft:apply_bonus"
             }
-          ],
-          "name": "chocolateflavored:cotton_seeds"
+          ]
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "chocolateflavored:cotton",
-          "properties": {
-            "age": "7"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "chocolateflavored:cotton",
+        "state": {
+          "age": "7"
         }
-      ]
+      }
     }
   ],
-  "functions": [
+  "modifier": [
     {
-      "function": "minecraft:explosion_decay"
+      "type": "minecraft:explosion_decay"
     }
   ]
 }

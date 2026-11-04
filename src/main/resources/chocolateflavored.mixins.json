@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AbstractVillagerMixin",
+    "RecipeRestrictionsMixin",
     "CampfirePlacementMixin",
     "TuffGolemConstructionMixin",
     "AnvilMenuMixin",

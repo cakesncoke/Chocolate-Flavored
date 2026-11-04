@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 
-
 public class MelonGolemHeadLayer extends RenderLayer<MelonGolemRenderState, SnowGolemModel> {
     public MelonGolemHeadLayer(RenderLayerParent<MelonGolemRenderState, SnowGolemModel> p_234871_) {
         super(p_234871_);
@@ -24,7 +23,7 @@ public class MelonGolemHeadLayer extends RenderLayer<MelonGolemRenderState, Snow
             this.getParentModel().getHead().translateAndRotate(poseStack);
             float f = 0.625F;
             poseStack.translate(0.0F, -0.34375F, 0.0F);
-            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+            poseStack.rotate(Axis.YP.rotationDegrees(180.0F));
             poseStack.scale(0.625F, -0.625F, -0.625F);
             poseStack.translate(-0.5F, -0.5F, -0.5F);
             int overlayCoords = LivingEntityRenderer.getOverlayCoords(state, 0.0F);

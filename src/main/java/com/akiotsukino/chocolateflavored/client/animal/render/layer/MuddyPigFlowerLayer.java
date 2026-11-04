@@ -15,13 +15,10 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.DyeColor;
-
 
 public class MuddyPigFlowerLayer<T extends LivingEntityRenderState, S extends EntityModel<? super T>> extends RenderLayer<T, S> {
     private static final Identifier LOCATION = Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "textures/entity/muddypig/pig_muddy_flower.png");
@@ -48,7 +45,7 @@ public class MuddyPigFlowerLayer<T extends LivingEntityRenderState, S extends En
                 boolean flag = entityRenderState.appearsGlowing();
                 if (flag) {
                     pigModel.setupAnim(entityRenderState);
-                    submitNodeCollector.submitModel(pigModel, entityRenderState, poseStack, RenderTypes.outline(LOCATION), i, LivingEntityRenderer.getOverlayCoords(entityRenderState, 0.0F), -16777216, (TextureAtlasSprite) null, entityRenderState.outlineColor, (ModelFeatureRenderer.CrumblingOverlay) null);
+                    submitNodeCollector.submitModel(pigModel, entityRenderState, poseStack, RenderTypes.outline(LOCATION), i, LivingEntityRenderer.getOverlayCoords(entityRenderState, 0.0F), -16777216, null, entityRenderState.outlineColor);
                 }
 
             } else {

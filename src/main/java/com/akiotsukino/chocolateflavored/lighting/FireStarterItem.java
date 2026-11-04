@@ -79,7 +79,7 @@ public final class FireStarterItem extends Item {
         if (attempt.elapsed % 4 != 0) return;
         // BTW's primitive starter uses ordinary use swings, high-pitched eating sounds,
         // and item-chip particles. Repeat those effects over the requested hold duration.
-        player.swing(attempt.hand, true);
+        player.swing(attempt.hand, player.getItemInHand(attempt.hand).getInteractAnimation(), true);
         if (level instanceof ServerLevel server) {
             server.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT,
                     SoundSource.PLAYERS, 0.5F + 0.5F * server.getRandom().nextInt(2), 1.75F + server.getRandom().nextFloat() * 0.25F);

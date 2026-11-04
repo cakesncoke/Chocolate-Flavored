@@ -19,11 +19,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FarmlandBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -32,6 +29,7 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 
 public final class CropVerification {
     public static void run(ServerLevel level, FakePlayer player) {
+        verifyComposting();
         BlockPos pos = new BlockPos(160, 160, 0);
         for (int x = -16; x <= 16; x += 16) for (int z = -16; z <= 16; z += 16) level.getChunk(pos.offset(x, 0, z));
         for (var entry : CropContent.FIELDS) {
@@ -47,9 +45,9 @@ public final class CropVerification {
             check(player.getMainHandItem().getCount() == 1, "Planting consumes one seed");
             var immature = Block.getDrops(crop.defaultBlockState(), level, pos, null, player, ItemStack.EMPTY);
             check(immature.stream().anyMatch(s -> s.is(seed)), "Immature crop returns seed");
-            for (int i = 0; i < 16 && !crop.isMaxAge(level.getBlockState(pos)); i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
+            for (int i = 0; i < 16 && !crop.isMaxAge(level.getBlockState(pos)); i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos), net.minecraft.world.level.block.BonemealSource.INTERACTION);
             check(crop.isMaxAge(level.getBlockState(pos)), "Bonemeal matures " + crop);
-            check(!crop.isValidBonemealTarget(level, pos, level.getBlockState(pos)), "Mature crop rejects bonemeal");
+            check(!crop.isValidBonemealTarget(level, pos, level.getBlockState(pos), net.minecraft.world.level.block.BonemealSource.INTERACTION), "Mature crop rejects bonemeal");
             var mature = Block.getDrops(level.getBlockState(pos), level, pos, null, player, ItemStack.EMPTY);
             check(!mature.isEmpty(), "Mature crop loot " + crop);
             level.setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState());
@@ -75,7 +73,7 @@ public final class CropVerification {
         level.setBlockAndUpdate(pos, bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 2));
         var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
         check(!bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Blueberries require full maturity for picking");
-        bush.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
+        bush.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos), net.minecraft.world.level.block.BonemealSource.INTERACTION);
         check(bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Pick blueberries");
         check(level.getBlockState(pos).getValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE) == 1, "Blueberries regrow from age one");
         check(Block.getDrops(bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 3), level, pos, null, player, ItemStack.EMPTY)
@@ -96,14 +94,14 @@ public final class CropVerification {
         // Place every land feature on real soil through its configured codec; also exercise its actual loot table.
         BlockPos origin = new BlockPos(192,160,0);
         for (var p : BlockPos.betweenClosed(origin.offset(-12,-1,-12), origin.offset(12,-1,12))) level.setBlockAndUpdate(p, Blocks.GRASS_BLOCK.defaultBlockState());
-        var configured = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
+        var configured = level.registryAccess().lookupOrThrow(Registries.FEATURE);
         for (String name : chances.keySet()) {
             if (name.equals("wild_rice")) continue;
             for (var p : BlockPos.betweenClosed(origin.offset(-12,0,-12), origin.offset(12,1,12))) level.setBlock(p, Blocks.AIR.defaultBlockState(), 2);
             // Coastal crops require sand. Others use dirt.
             var soil = name.equals("wild_cabbages") || name.equals("wild_beetroots") ? Blocks.SAND : Blocks.GRASS_BLOCK;
             for (var p : BlockPos.betweenClosed(origin.offset(-12,-1,-12), origin.offset(12,-1,12))) level.setBlock(p, soil.defaultBlockState(), 2);
-            var feature = configured.getValueOrThrow(ResourceKey.create(Registries.CONFIGURED_FEATURE, id("patch_"+name)));
+            var feature = configured.getValueOrThrow(ResourceKey.create(Registries.FEATURE, id("patch_"+name)));
             check(feature.place(level, level.getChunkSource().getGenerator(), level.getRandom(), origin), "Configured wild patch actually places " + name);
             var block = BuiltInRegistries.BLOCK.getValue(id(name));
             boolean found = false;
@@ -125,7 +123,7 @@ public final class CropVerification {
         check(CropContent.RICE.get().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(pos.below()), Direction.UP, pos.below(), false))).consumesAction(), "Plant rice underwater");
         check(level.getBlockState(pos).is(crop) && level.getFluidState(pos).isFull(), "Rice retains water");
-        for (int i = 0; i < 16; i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos));
+        for (int i = 0; i < 16; i++) crop.performBonemeal(level, level.getRandom(), pos, level.getBlockState(pos), net.minecraft.world.level.block.BonemealSource.INTERACTION);
         var top = CropContent.RICE_PANICLES.get();
         check(level.getBlockState(pos.above()).is(top) && top.isMaxAge(level.getBlockState(pos.above())), "Rice grows mature upper panicles");
         check(level.getBlockState(pos).getValue(RiceCropBlock.SUPPORTING), "Rice supporting model state");
@@ -147,4 +145,15 @@ public final class CropVerification {
     private static Identifier id(String path) { return Identifier.fromNamespaceAndPath("chocolateflavored",path); }
     private static void check(boolean value, String message) { if (!value) throw new IllegalStateException("Crops: "+message); }
     private CropVerification() {}
+    private static void verifyComposting() {
+        for (String name : java.util.List.of("soybeans", "chili_seeds", "cotton_seeds", "coffee_beans", "cabbage_seeds", "tomato_seeds", "rice", "wild_soybean", "wild_chili", "wild_cotton", "wild_coffee", "wild_cabbages", "wild_onions", "wild_tomatoes", "wild_carrots", "wild_potatoes", "wild_beetroots", "wild_rice")) {
+            var stack = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("chocolateflavored", name)).getDefaultInstance();
+            check(java.util.Objects.equals(stack.get(net.minecraft.core.component.DataComponents.COMPOSTABLE), net.minecraft.world.item.Items.WHEAT_SEEDS.getDefaultInstance().get(net.minecraft.core.component.DataComponents.COMPOSTABLE)), "Preserved compost probability for " + name);
+        }
+        for (String name : java.util.List.of("soybean_pod", "chili", "cotton_boll", "cabbage", "onion", "tomato", "rice_panicle")) {
+            var stack = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.fromNamespaceAndPath("chocolateflavored", name)).getDefaultInstance();
+            check(java.util.Objects.equals(stack.get(net.minecraft.core.component.DataComponents.COMPOSTABLE), net.minecraft.world.item.Items.WHEAT.getDefaultInstance().get(net.minecraft.core.component.DataComponents.COMPOSTABLE)), "Preserved compost probability for " + name);
+        }
+    }
+
 }

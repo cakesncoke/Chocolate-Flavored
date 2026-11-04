@@ -1,10 +1,7 @@
 {
-  "asset_name": "chocolateflavored_steel",
   "description": {
     "translate": "trim_material.chocolateflavored.steel",
     "color": "#ECECEC"
   },
-  "override_armor_assets": {
-    "minecraft:iron": "chocolateflavored_steel_darker"
-  }
+  "palette_id": "chocolateflavored:trims/color_palettes/steel"
 }

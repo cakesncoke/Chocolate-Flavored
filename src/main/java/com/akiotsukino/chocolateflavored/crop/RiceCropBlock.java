@@ -1,10 +1,8 @@
 package com.akiotsukino.chocolateflavored.crop;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,10 +19,8 @@ import net.neoforged.neoforge.common.CommonHooks;
 
 /** A source-water root, with a separately harvestable and regrowing panicle above water. */
 public final class RiceCropBlock extends FieldCropBlock implements LiquidBlockContainer {
-    public static final MapCodec<RiceCropBlock> CODEC = simpleCodec(RiceCropBlock::new);
     public static final BooleanProperty SUPPORTING = BooleanProperty.create("supporting");
     public RiceCropBlock(Properties p) { super(p); registerDefaultState(defaultBlockState().setValue(SUPPORTING, false)); }
-    @Override public MapCodec<RiceCropBlock> codec() { return CODEC; }
     @Override public IntegerProperty getAgeProperty() { return BlockStateProperties.AGE_3; }
     @Override public int getMaxAge() { return 3; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(BlockStateProperties.AGE_3, SUPPORTING); }
@@ -56,17 +52,17 @@ public final class RiceCropBlock extends FieldCropBlock implements LiquidBlockCo
         if (getAge(state) < 3) level.setBlock(pos, state.setValue(getAgeProperty(), getAge(state) + 1), 2);
         else if (canAdvance(level, pos, state)) level.setBlockAndUpdate(pos.above(), CropContent.RICE_PANICLES.get().defaultBlockState());
     }
-    @Override public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    @Override public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, net.minecraft.world.level.block.BonemealSource source) {
         var above = level.getBlockState(pos.above());
         return canAdvance(level, pos, state) || above.is(CropContent.RICE_PANICLES.get()) && !CropContent.RICE_PANICLES.get().isMaxAge(above);
     }
-    @Override public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+    @Override public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, net.minecraft.world.level.block.BonemealSource source) {
         for (int i = 0, count = 1 + random.nextInt(4); i < count; i++) {
             state = level.getBlockState(pos);
             if (canAdvance(level, pos, state)) advance(level, pos, state);
             else {
                 var top = level.getBlockState(pos.above());
-                if (top.is(CropContent.RICE_PANICLES.get())) CropContent.RICE_PANICLES.get().performBonemeal(level, random, pos.above(), top);
+                if (top.is(CropContent.RICE_PANICLES.get())) CropContent.RICE_PANICLES.get().performBonemeal(level, random, pos.above(), top, source);
                 break;
             }
         }

@@ -42,7 +42,7 @@ public final class TraderState extends SavedData {
         return server.getDataStorage().computeIfAbsent(TYPE);
     }
     public static long clock(MinecraftServer server) {
-        return server.clockManager().getTotalTicks(server.registryAccess().getOrThrow(WorldClocks.OVERWORLD));
+        return server.clockManager().getInstance(server.registryAccess().getOrThrow(WorldClocks.OVERWORLD)).totalTicks();
     }
     public void initialize(long now) {
         if (lastSpawnClock < 0 || now < lastSpawnClock) { lastSpawnClock = now; setDirty(); }

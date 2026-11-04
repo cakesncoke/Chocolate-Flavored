@@ -2,13 +2,11 @@
 // Adapted from baguchi/EarthMobs 26.1.x, d5acab9846bd3400ac5f093bfec7439351a1bd61.
 package com.akiotsukino.chocolateflavored.mob.entity;
 
-import com.akiotsukino.chocolateflavored.mob.MobContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -21,7 +19,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -51,12 +48,9 @@ public class BoulderingZombie extends Zombie {
 	}
 
 	@Override
-    protected void doUnderWaterConversion(ServerLevel serverLevel) {
-        this.convertToZombieType(serverLevel, EntityTypes.DROWNED);
-		if (!this.isSilent()) {
-			this.level().levelEvent((Player) null, 1040, this.blockPosition(), 0);
-		}
-	}
+    protected net.minecraft.world.entity.EntityType<? extends Zombie> convertsToWhenDrowning() {
+        return EntityTypes.DROWNED;
+    }
 
 	public boolean onClimbable() {
 		return this.isClimbing();

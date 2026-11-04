@@ -36,7 +36,7 @@ public final class InstrumentHud {
             if (coordinates) lines.add(meter ? "XYZ: " + pos.getX() + " " + pos.getY() + " " + pos.getZ()
                     : "XZ: " + pos.getX() + " " + pos.getZ());
             if (clock) {
-                long ticks = mc.level.clockManager().getTotalTicks(mc.level.registryAccess().getOrThrow(WorldClocks.OVERWORLD));
+                long ticks = mc.level.clockManager().getInstance(mc.level.registryAccess().getOrThrow(WorldClocks.OVERWORLD)).totalTicks();
                 long minutes = (Math.floorMod(ticks, 24000) + 6000) % 24000 * 1440 / 24000;
                 lines.add(String.format(java.util.Locale.ROOT, "Time: %02d:%02d", minutes / 60, minutes % 60));
             }

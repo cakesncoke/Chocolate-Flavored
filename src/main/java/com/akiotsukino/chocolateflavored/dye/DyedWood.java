@@ -1,10 +1,11 @@
 package com.akiotsukino.chocolateflavored.dye;
 
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import com.akiotsukino.chocolateflavored.mob.MobContent;
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -48,11 +49,11 @@ public final class DyedWood {
             addBlock("wall_sign", Blocks.OAK_WALL_SIGN, p -> new WallSignBlock(WoodType.PALE_OAK, p));
             addBlock("hanging_sign", Blocks.OAK_HANGING_SIGN, p -> new CeilingHangingSignBlock(WoodType.PALE_OAK, p));
             addBlock("wall_hanging_sign", Blocks.OAK_WALL_HANGING_SIGN, p -> new WallHangingSignBlock(WoodType.PALE_OAK, p));
-            items.put("sign", ModContent.ITEMS.registerItem(id("sign"), p -> new SignItem(block("sign"), block("wall_sign"), p.stacksTo(16).useBlockDescriptionPrefix())));
-            items.put("hanging_sign", ModContent.ITEMS.registerItem(id("hanging_sign"), p -> new HangingSignItem(block("hanging_sign"), block("wall_hanging_sign"), p.stacksTo(16).useBlockDescriptionPrefix())));
+            items.put("sign", ModContent.ITEMS.registerItem(id("sign"), p -> new StandingAndWallBlockItem(block("sign"), block("wall_sign"), net.minecraft.core.Direction.DOWN, p.cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE).stacksTo(16).signText().useBlockDescriptionPrefix())));
+            items.put("hanging_sign", ModContent.ITEMS.registerItem(id("hanging_sign"), p -> new HangingSignItem(block("hanging_sign"), block("wall_hanging_sign"), p.cookingFuel(ContextIntProviders.COOKING_TIME_HANGING_SIGNS).signText().stacksTo(16).useBlockDescriptionPrefix())));
             boat = MobContent.ENTITIES.registerEntityType(id("boat"), (type, level) -> new Boat(type, level, () -> item("boat")), MobCategory.MISC,
                     b -> b.noLootTable().sized(1.375F, .5625F).eyeHeight(.5625F).clientTrackingRange(10));
-            items.put("boat", ModContent.ITEMS.registerItem(id("boat"), p -> new BoatItem(boat.get(), p.stacksTo(1))));
+            items.put("boat", ModContent.ITEMS.registerItem(id("boat"), p -> new BoatItem(boat.get(), p.cookingFuel(ContextIntProviders.COOKING_TIME_BOATS).stacksTo(1))));
             addBlock("water_cauldron", Blocks.WATER_CAULDRON, p -> new LayeredCauldronBlock(Biome.Precipitation.RAIN, CauldronInteractions.WATER, p));
         }
         public String id(String kind) { return "dyed_" + color.getName() + "_" + kind; }
@@ -60,7 +61,15 @@ public final class DyedWood {
         public Item item(String kind) { return items.get(kind).get(); }
         private void add(String kind, Block template, Function<BlockBehaviour.Properties, Block> factory) {
             addBlock(kind, template, factory);
-            items.put(kind, ModContent.ITEMS.registerItem(id(kind), p -> kind.equals("door") ? new DoubleHighBlockItem(block(kind), p.useBlockDescriptionPrefix()) : new BlockItem(block(kind), p.useBlockDescriptionPrefix())));
+            items.put(kind, ModContent.ITEMS.registerItem(id(kind), p -> {
+                p.cookingFuel(switch (kind) {
+                    case "door" -> ContextIntProviders.COOKING_TIME_WOOD_ITEMS_LARGE;
+                    case "slab" -> ContextIntProviders.COOKING_TIME_WOOD_SLABS;
+                    case "button" -> ContextIntProviders.COOKING_TIME_WOOD_ITEMS_EXTRA_SMALL;
+                    default -> ContextIntProviders.COOKING_TIME_WOOD_BLOCKS;
+                });
+                return kind.equals("door") ? new DoubleHighBlockItem(block(kind), p.useBlockDescriptionPrefix()) : new BlockItem(block(kind), p.useBlockDescriptionPrefix());
+            }));
         }
         private void addBlock(String kind, Block template, Function<BlockBehaviour.Properties, Block> factory) {
             String loot = kind.equals("water_cauldron") ? "minecraft:blocks/cauldron" : "chocolateflavored:blocks/" + id(kind.replace("wall_", ""));

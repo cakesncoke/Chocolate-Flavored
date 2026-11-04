@@ -73,6 +73,13 @@ public final class DevelopmentVerification {
             check(copper.getDestroySpeed(block.defaultBlockState()) == 1.0F, "Copper hand speed on " + block);
             check(!copper.isCorrectToolForDrops(block.defaultBlockState()), "Copper cannot harvest " + block);
         }
+        // 26.3 advancement references must remain bound even when the recipe manager excludes crafting.
+        check(event.getServer().reloadableRegistries().lookup().lookupOrThrow(Registries.RECIPE).get(ResourceKey.create(Registries.RECIPE,
+                Identifier.withDefaultNamespace("golden_pickaxe"))).isPresent(), "Restricted recipe registry reference remains valid");
+        check(!ItemRestrictions.forbiddenRecipe(com.google.gson.JsonParser.parseString(
+                "{\"type\":\"minecraft:smelting\",\"result\":{\"id\":\"minecraft:golden_pickaxe\"}}")), "Gold non-crafting outputs retained");
+        check(ItemRestrictions.forbiddenRecipe(com.google.gson.JsonParser.parseString(
+                "{\"type\":\"minecraft:crafting_shapeless\",\"result\":{\"id\":\"minecraft:wooden_pickaxe\"}}")), "Restriction follows output regardless of recipe filename");
         for (String name : ItemRestrictions.REMOVED) {
             check(event.getServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE,
                     Identifier.withDefaultNamespace(name))).isEmpty(), "Removed recipe " + name);

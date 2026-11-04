@@ -111,9 +111,9 @@ public final class SleepAcceleration {
         if (session == null || !session.levels.contains(player.level())) return;
         // 26.1.2 uses OTHER_PROBLEM for both daylight and a missing bed. Only override daylight.
         boolean hasBed = player.getSleepingPos().filter(pos -> player.level().hasChunkAt(pos))
-                .map(pos -> player.level().getBlockState(pos).isBed(player.level(), pos, player)).orElse(false);
+                .map(pos -> { var state = player.level().getBlockState(pos); return state.getBlock() instanceof net.minecraft.world.level.block.AbstractBedBlock bed && bed.getSleepHeight(state, player.level(), pos).isPresent(); }).orElse(false);
         var clock = server.registryAccess().getOrThrow(WorldClocks.OVERWORLD);
-        if (hasBed && server.clockManager().getTotalTicks(clock) < session.morning)
+        if (hasBed && server.clockManager().getInstance(clock).totalTicks() < session.morning)
             event.setContinueSleeping(true);
     }
 

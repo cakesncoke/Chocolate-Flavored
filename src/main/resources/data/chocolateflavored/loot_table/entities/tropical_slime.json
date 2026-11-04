@@ -8,15 +8,26 @@
         {
           "type": "minecraft:item",
           "name": "chocolateflavored:tropical_ball",
-          "functions": [
+          "condition": {
+            "term": {
+              "predicate": {
+                "source_entity": {
+                  "minecraft:entity_type": "minecraft:frog"
+                }
+              },
+              "type": "minecraft:damage_source_properties"
+            },
+            "type": "minecraft:inverted"
+          },
+          "modifier": [
             {
-              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0,
                 "max": 2
               },
-              "add": false
+              "add": false,
+              "type": "minecraft:set_count"
             },
             {
               "count": {
@@ -25,56 +36,39 @@
                 "min": 0.0
               },
               "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:inverted",
-              "term": {
-                "condition": "minecraft:damage_source_properties",
-                "predicate": {
-                  "source_entity": {
-                    "minecraft:entity_type": "minecraft:frog"
-                  }
-                }
-              }
+              "type": "minecraft:enchanted_count_increase"
             }
           ]
         },
         {
           "type": "minecraft:item",
           "name": "chocolateflavored:tropical_ball",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1,
-              "add": false
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:damage_source_properties",
-              "predicate": {
-                "source_entity": {
-                  "minecraft:entity_type": "minecraft:frog"
-                }
+          "condition": {
+            "predicate": {
+              "source_entity": {
+                "minecraft:entity_type": "minecraft:frog"
               }
+            },
+            "type": "minecraft:damage_source_properties"
+          },
+          "modifier": [
+            {
+              "count": 1,
+              "add": false,
+              "type": "minecraft:set_count"
             }
           ]
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "this",
-          "predicate": {
-            "minecraft:type_specific/cube_mob": {
-              "size": 1
-            }
+      "condition": {
+        "entity": "this",
+        "predicate": {
+          "minecraft:type_specific/cube_mob": {
+            "size": 1
           }
-        }
-      ]
+        },
+        "type": "minecraft:entity_properties"
+      }
     }
   ],
   "random_sequence": "chocolateflavored:entities/tropical_slime"

@@ -65,9 +65,9 @@ public final class ModContent {
     public static final DeferredItem<Item> IRON_KNIFE = knife("iron_knife", ToolMaterial.IRON);
     public static final DeferredItem<Item> ROSE_GOLD_SWORD = ITEMS.registerSimpleItem("rose_gold_sword", p -> p.sword(ROSE_GOLD, 3.0F, -2.4F));
     public static final DeferredItem<Item> ROSE_GOLD_PICKAXE = ITEMS.registerSimpleItem("rose_gold_pickaxe", p -> p.pickaxe(ROSE_GOLD, 1.0F, -2.8F));
-    public static final DeferredItem<ShovelItem> ROSE_GOLD_SHOVEL = ITEMS.registerItem("rose_gold_shovel", p -> new ShovelItem(ROSE_GOLD, 1.5F, -3.0F, p));
-    public static final DeferredItem<AxeItem> ROSE_GOLD_AXE = ITEMS.registerItem("rose_gold_axe", p -> new AxeItem(ROSE_GOLD, 6.0F, -3.1F, p));
-    public static final DeferredItem<HoeItem> ROSE_GOLD_HOE = ITEMS.registerItem("rose_gold_hoe", p -> new HoeItem(ROSE_GOLD, -2.0F, -1.0F, p));
+    public static final DeferredItem<Item> ROSE_GOLD_SHOVEL = ITEMS.registerItem("rose_gold_shovel", p -> new Item(p.shovel(ROSE_GOLD, 1.5F, -3.0F)));
+    public static final DeferredItem<Item> ROSE_GOLD_AXE = ITEMS.registerItem("rose_gold_axe", p -> new Item(p.axe(ROSE_GOLD, 6.0F, -3.1F)));
+    public static final DeferredItem<Item> ROSE_GOLD_HOE = ITEMS.registerItem("rose_gold_hoe", p -> new Item(p.hoe(ROSE_GOLD, -2.0F, -1.0F)));
     public static final DeferredItem<SmithingTemplateItem> ROSE_GOLD_UPGRADE = ITEMS.registerItem("rose_gold_upgrade_smithing_template", p -> new SmithingTemplateItem(
             Component.translatable("item.chocolateflavored.rose_gold_upgrade.applies_to"),
             Component.translatable("item.chocolateflavored.rose_gold_upgrade.ingredients"),

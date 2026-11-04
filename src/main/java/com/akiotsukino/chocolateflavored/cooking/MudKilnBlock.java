@@ -2,7 +2,6 @@ package com.akiotsukino.chocolateflavored.cooking;
 
 import com.akiotsukino.chocolateflavored.lighting.LightingContent;
 import com.akiotsukino.chocolateflavored.lighting.LightingIgnition;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,11 +27,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.*;
 
 public final class MudKilnBlock extends BaseEntityBlock {
-    public static final MapCodec<MudKilnBlock> CODEC = simpleCodec(MudKilnBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public MudKilnBlock(Properties properties) { super(properties); registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false)); }
-    @Override protected MapCodec<? extends BaseEntityBlock> codec() { return CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, LIT); }
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) { return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()); }
     @Override protected RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }

@@ -10,12 +10,10 @@
             {
               "type": "minecraft:item",
               "name": "chocolateflavored:wild_soybean",
-              "conditions": [
-                {
-                  "condition": "neoforge:can_item_perform_ability",
-                  "ability": "shears_harvest"
-                }
-              ]
+              "condition": {
+                "ability": "shears_harvest",
+                "type": "neoforge:can_item_perform_ability"
+              }
             },
             {
               "type": "minecraft:group",
@@ -35,9 +33,9 @@
       ]
     }
   ],
-  "functions": [
+  "modifier": [
     {
-      "function": "minecraft:explosion_decay"
+      "type": "minecraft:explosion_decay"
     }
   ]
 }

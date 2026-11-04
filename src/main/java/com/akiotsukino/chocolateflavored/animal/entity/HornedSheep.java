@@ -28,7 +28,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -153,7 +152,6 @@ public class HornedSheep extends Sheep {
     }
 
     public void aiStep() {
-        this.updateSwingTime();
         super.aiStep();
 
         if (this.level().isClientSide()) {
@@ -245,7 +243,6 @@ public class HornedSheep extends Sheep {
         public void tick() {
             LivingEntity livingentity = this.hornedSheep.getTarget();
 
-
             if (livingentity != null) {
                 this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
                 if (this.rushing) {
@@ -304,7 +301,7 @@ public class HornedSheep extends Sheep {
         protected void checkAndPerformAttack(LivingEntity livingEntity) {
             double d0 = this.getAttackReachSqr(livingEntity);
             if (this.hornedSheep.isWithinMeleeAttackRange(livingEntity) && (!this.attack || !this.rushing)) {
-                this.hornedSheep.swing(InteractionHand.MAIN_HAND);
+                this.hornedSheep.swingForAttack(InteractionHand.MAIN_HAND);
                 if (!this.rushing) {
                     this.hornedSheep.doHurtTarget(getServerLevel(this.hornedSheep), livingEntity);
                     this.attack = true;
@@ -339,7 +336,6 @@ public class HornedSheep extends Sheep {
             return p_217363_.getBlockState(blockpos).is(BlockTags.SNAPS_GOAT_HORN) || p_217363_.getBlockState(blockpos.above()).is(BlockTags.SNAPS_GOAT_HORN);
         }
     }
-
 
     /** Keep vanilla species-based predator AI through TypedInstance's supported override. */
     @Override

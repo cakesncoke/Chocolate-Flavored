@@ -41,7 +41,7 @@ final class TraderVerification {
     static void run(ServerLevel level) {
         var server = level.getServer();
         var clock = server.registryAccess().getOrThrow(WorldClocks.OVERWORLD);
-        long oldTime = server.clockManager().getTotalTicks(clock);
+        long oldTime = server.clockManager().getInstance(clock).totalTicks();
         var saved = TraderState.CODEC.encodeStart(JsonOps.INSTANCE, TraderState.get(server)).getOrThrow();
         var vanilla = server.getDataStorage().computeIfAbsent(WanderingTraderData.TYPE);
         int oldDelay = vanilla.spawnDelay(), oldChance = vanilla.spawnChance();

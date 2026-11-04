@@ -2,7 +2,7 @@
   "type": "chocolateflavored:small_crop_patch",
   "config": {
     "state": {
-      "Name": "chocolateflavored:wild_chili"
+      "id": "chocolateflavored:wild_chili"
     },
     "min_count": 2,
     "max_count": 5,

@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 import io.netty.buffer.Unpooled;
 import java.util.List;
-import java.util.Optional;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.NbtOps;
@@ -122,7 +121,7 @@ final class CookingVerification {
         pot.setItem(0,new ItemStack(Items.CARROT,4));pot.setItem(11,new ItemStack(Items.BREAD,3));
         var drops=Block.getDrops(pot.getBlockState(),level,potPos,pot,player,ItemStack.EMPTY);
         check(drops.size()==1&&drops.getFirst().is(CookingContent.COOKING_POT_ITEM.get()),"Pot drops itself");
-        check(drops.getFirst().getOrDefault(DataComponents.CONTAINER,ItemContainerContents.EMPTY).allItemsCopyStream().allMatch(ItemStack::isEmpty),"Pot item does not duplicate separately dropped inventory");
+        check(drops.getFirst().getOrDefault(DataComponents.CONTAINER,ItemContainerContents.EMPTY).itemCopies().allMatch(ItemStack::isEmpty),"Pot item does not duplicate separately dropped inventory");
         level.removeBlock(potPos,false);
         check(count(level,potPos,Items.CARROT)==4&&count(level,potPos,Items.BREAD)==3,"Breaking pot drops both input and output inventory");
         clear(level,potPos);
@@ -147,7 +146,7 @@ final class CookingVerification {
     private static void codecs(ServerLevel level) {
         var ops = level.registryAccess().createSerializationContext(JsonOps.INSTANCE);
         String json = "{\"type\":\"chocolateflavored:mud_kiln\",\"ingredient\":\"minecraft:wheat\",\"input_count\":3,\"result\":{\"id\":\"minecraft:bread\"},\"cookingtime\":20}";
-        var mud_kiln = (CookingRecipes.MudKilnRecipe)Recipe.CODEC.parse(ops, JsonParser.parseString(json)).getOrThrow();
+        var mud_kiln = (CookingRecipes.MudKilnRecipe)Recipe.CODEC.parse(ops, JsonParser.parseString(json)).getOrThrow().value();
         check(mud_kiln.matches(new SingleRecipeInput(new ItemStack(Items.WHEAT, 3)), level) && !mud_kiln.matches(new SingleRecipeInput(new ItemStack(Items.WHEAT, 2)), level), "MudKiln JSON count matching");
         var bytes = new RegistryFriendlyByteBuf(Unpooled.buffer(), level.registryAccess());
         try {

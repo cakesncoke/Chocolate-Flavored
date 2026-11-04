@@ -27,7 +27,7 @@ public final class SurvivalLootModifier extends LootModifier {
     private final float fiberChance;
     private final float extraStickChance;
 
-    public SurvivalLootModifier(LootItemCondition[] conditions, int priority, float fiberChance, float extraStickChance) {
+    public SurvivalLootModifier(java.util.Optional<net.minecraft.core.Holder<LootItemCondition>> conditions, int priority, float fiberChance, float extraStickChance) {
         super(conditions, priority);
         this.fiberChance = fiberChance;
         this.extraStickChance = extraStickChance;
@@ -35,10 +35,10 @@ public final class SurvivalLootModifier extends LootModifier {
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> loot, LootContext context) {
         loot.removeIf(ItemRestrictions::removed);
-        BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+        BlockState state = context.getOptional(LootContextParams.BLOCK_STATE);
         // Natural decay, explosions and structure loot retain their normal rules.
-        if (state == null || !(context.getOptionalParameter(LootContextParams.THIS_ENTITY) instanceof Player)) return loot;
-        ItemInstance tool = context.getOptionalParameter(LootContextParams.TOOL);
+        if (state == null || !(context.getOptional(LootContextParams.THIS_ENTITY) instanceof Player)) return loot;
+        ItemInstance tool = context.getOptional(LootContextParams.TOOL);
         if (tool == null) tool = ItemStack.EMPTY;
         if (state.is(BlockTags.LOGS) && !tool.is(ItemTags.AXES)) {
             loot.clear();

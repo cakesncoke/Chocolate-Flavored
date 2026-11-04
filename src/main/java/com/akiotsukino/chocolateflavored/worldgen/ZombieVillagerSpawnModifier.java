@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.Weighted;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -26,9 +25,10 @@ public record ZombieVillagerSpawnModifier() implements BiomeModifier {
     static { SERIALIZERS.register("zombie_villager_spawns", () -> CODEC); }
     public static void register(IEventBus bus) { SERIALIZERS.register(bus); }
 
-    @Override public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
+    @Override public void modify(net.minecraft.core.RegistryAccess registries, Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (phase != Phase.MODIFY || biome.is(Biomes.OLD_GROWTH_PINE_TAIGA)) return;
         var spawns = builder.getMobSpawnSettings().getSpawner(MobCategory.MONSTER);
+        if (spawns == null) return;
         var original = List.copyOf(spawns.getList());
         var adjusted = rebalance(original);
         if (adjusted == original) return;

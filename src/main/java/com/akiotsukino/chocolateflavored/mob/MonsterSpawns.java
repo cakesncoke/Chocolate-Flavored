@@ -33,7 +33,7 @@ public final class MonsterSpawns {
   replacement.setBaby(original.isBaby()); replacement.setCanPickUpLoot(original.canPickUpLoot());
   replacement.setCustomName(original.getCustomName()); replacement.setCustomNameVisible(original.isCustomNameVisible());
   if(original.isPersistenceRequired())replacement.setPersistenceRequired();
-  replacement.setLeftHanded(original.isLeftHanded()); replacement.setInvulnerable(original.isInvulnerable());
+  replacement.setLeftHanded(original.isLeftHanded()); replacement.setPermanentlyInvulnerable(original.isInvulnerable());
   for(EquipmentSlot slot:EquipmentSlot.values()){replacement.setItemSlot(slot,original.getItemBySlot(slot).copy());replacement.setDropChance(slot,original.getDropChances().byEquipment(slot));}
   for(MobEffectInstance effect:original.getActiveEffects())replacement.addEffect(new MobEffectInstance(effect));
   if(original instanceof Zombie z&&replacement instanceof Zombie rz)rz.setCanBreakDoors(z.canBreakDoors());

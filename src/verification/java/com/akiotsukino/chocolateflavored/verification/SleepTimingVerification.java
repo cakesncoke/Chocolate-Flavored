@@ -51,7 +51,7 @@ public final class SleepTimingVerification {
         // Enter at midnight, then position the fixture near dawn before starting its session.
         server.clockManager().setTotalTicks(clock, 18_000);
         DayNightCycle.update(server); level.updateSkyBrightness();
-        check(sleeper.startSleepInBed(bed.east()).right().isPresent(), "Live fixture enters a real bed");
+        check(CompatibilityVerification.startSleep(sleeper, bed.east()).right().isPresent(), "Live fixture enters a real bed");
         server.clockManager().setTotalTicks(clock, 23_300); level.updateSkyBrightness();
         SleepAcceleration.update(server);
         check(server.tickRateManager().tickrate() == 52.5F, "Live session targets 52.5 TPS");
@@ -68,7 +68,7 @@ public final class SleepTimingVerification {
         var server = event.getServer();
         SleepAcceleration.update(server);
         var clock = server.registryAccess().getOrThrow(WorldClocks.OVERWORLD);
-        long now = server.clockManager().getTotalTicks(clock);
+        long now = server.clockManager().getInstance(clock).totalTicks();
         double seconds = (System.nanoTime() - f.started()) / 1_000_000_000.0;
         check(seconds < 45, "Live sleep finishes within the runner's timing budget");
         if (now < 24_000) return;

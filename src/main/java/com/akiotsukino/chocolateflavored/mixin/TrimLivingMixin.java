@@ -35,7 +35,7 @@ abstract class TrimLivingMixin {
         }
     }
     @Inject(method="onEquippedItemBroken",at=@At("TAIL"))
-    private void cf$broken(net.minecraft.world.item.Item item,EquipmentSlot slot,CallbackInfo ci){if(cf$self() instanceof Player p && !p.level().isClientSide())TrimAttributes.update(p);}
+    private void cf$broken(net.minecraft.world.item.ItemStack item,EquipmentSlot slot,CallbackInfo ci){if(cf$self() instanceof Player p && !p.level().isClientSide())TrimAttributes.update(p);}
     @Inject(method="hasEffect", at=@At("RETURN"), cancellable=true)
     private void cf$has(Holder<MobEffect> effect, CallbackInfoReturnable<Boolean> cir) { if (cf$virtual(effect) != null) cir.setReturnValue(true); }
     @Inject(method="getEffect", at=@At("RETURN"), cancellable=true)
@@ -45,7 +45,7 @@ abstract class TrimLivingMixin {
     @Inject(method="checkTotemDeathProtection", at=@At("RETURN"), cancellable=true)
     private void cf$resurrection(DamageSource source, CallbackInfoReturnable<Boolean> cir) { if (!cir.getReturnValue() && TrimTriggers.resurrect(cf$self(), source)) cir.setReturnValue(true); }
     @Inject(method="getVisibilityPercent", at=@At("RETURN"), cancellable=true)
-    private void cf$detection(Entity observer, CallbackInfoReturnable<Double> cir) {
+    private void cf$detection(net.minecraft.server.level.ServerLevel level, Entity observer, CallbackInfoReturnable<Double> cir) {
         var e = cf$self(); if (!(e instanceof Player) || observer == null || observer.getType() == EntityTypes.WARDEN) return;
         double scale = 1;
         if (TrimCombat.hostile(observer) && has(e, HEAD, "silence")) scale = full(e, "silence") ? .6 : .85;

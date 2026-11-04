@@ -12,7 +12,6 @@ import com.akiotsukino.chocolateflavored.gameplay.MiningRules;
 import com.akiotsukino.chocolateflavored.loot.ModLoot;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.common.NeoForge;
@@ -66,7 +65,6 @@ public class ChocolateFlavored {
         TABS.register(modEventBus);
         modEventBus.addListener(EquipmentRules::modifyComponents);
         modEventBus.addListener(ItemRestrictions::creativeTab);
-        NeoForge.EVENT_BUS.addListener(ItemRestrictions::recipes);
         NeoForge.EVENT_BUS.addListener(ItemRestrictions::onJoin);
         NeoForge.EVENT_BUS.addListener(ItemRestrictions::entityTick);
         NeoForge.EVENT_BUS.addListener(ItemRestrictions::playerTick);

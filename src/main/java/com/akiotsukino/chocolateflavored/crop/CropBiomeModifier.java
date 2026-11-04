@@ -11,7 +11,6 @@ import net.neoforged.neoforge.common.world.BiomeGenerationSettingsBuilder;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
 
-
 import java.util.Optional;
 
 public record CropBiomeModifier(
@@ -33,7 +32,7 @@ public record CropBiomeModifier(
         GenerationStep.Decoration.CODEC.fieldOf("step").forGetter(CropBiomeModifier::step)
     ).apply(builder, CropBiomeModifier::new));
     @Override
-    public void modify(Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
+    public void modify(net.minecraft.core.RegistryAccess registries, Holder<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
 		if (phase == Phase.ADD && this.allowedBiomes.contains(biome)) {
 			if (deniedBiomes.isPresent() && this.deniedBiomes.get().contains(biome)) {
 				return;

@@ -1,6 +1,5 @@
 package com.akiotsukino.chocolateflavored.cooking;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.*;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -10,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.*;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -27,13 +25,11 @@ public final class CookingPotBlock extends Block implements EntityBlock, SimpleW
         private final String name; Support(String name) { this.name = name; }
         @Override public String getSerializedName() { return name; }
     }
-    public static final MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<Support> SUPPORT = EnumProperty.create("support", Support.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 10, 14);
     public CookingPotBlock(Properties properties) { super(properties); registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(SUPPORT, Support.NONE).setValue(WATERLOGGED, false)); }
-    @Override protected MapCodec<? extends Block> codec() { return CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, SUPPORT, WATERLOGGED); }
     private static Support tray(LevelReader level, BlockPos pos) { return level.getBlockState(pos.below()).is(CookingPotBlockEntity.TRAY_HEAT_SOURCES) ? Support.TRAY : Support.NONE; }
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) {

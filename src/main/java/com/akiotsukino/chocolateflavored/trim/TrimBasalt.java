@@ -1,13 +1,11 @@
 package com.akiotsukino.chocolateflavored.trim;
 
 import com.akiotsukino.chocolateflavored.content.ModContent;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.*;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -22,16 +20,14 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 
 /** Frost Walker-style crust. Unlike ice, it ages without sunlight and always restores lava. */
 public final class TrimBasalt extends Block {
-    public static final MapCodec<TrimBasalt> CODEC = simpleCodec(TrimBasalt::new);
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     public static final DeferredBlock<TrimBasalt> BLOCK = ModContent.BLOCKS.registerBlock("temporary_trim_basalt", TrimBasalt::new,
-            () -> BlockBehaviour.Properties.of().strength(.5f, 3600000).sound(SoundType.BASALT).noLootTable().pushReaction(PushReaction.BLOCK));
+            () -> BlockBehaviour.Properties.of().strength(.5f, 3600000).sound(SoundType.BASALT).noLootTable().pushReaction(PushReaction.IMMOVEABLE));
 
     public TrimBasalt(Properties properties) {
         super(properties);
         registerDefaultState(stateDefinition.any().setValue(BlockStateProperties.LEVEL, 0).setValue(AGE, 0));
     }
-    @Override protected MapCodec<? extends Block> codec() { return CODEC; }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(BlockStateProperties.LEVEL, AGE); }
     @Override public void onPlace(BlockState state, Level level, BlockPos pos, BlockState previous, boolean moved) {
         if (!previous.is(this)) level.scheduleTick(pos, this, Mth.nextInt(level.getRandom(), 60, 120));
@@ -65,7 +61,7 @@ public final class TrimBasalt extends Block {
         for (Direction direction : Direction.values()) if (level.getBlockState(pos.relative(direction)).is(this) && ++count >= limit) return false;
         return true;
     }
-    @Override public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity entity, ItemStack tool) {
+    @Override public void playerDestroy(ServerLevel level, net.minecraft.server.level.ServerPlayer player, BlockPos pos, BlockState state, BlockEntity entity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, entity, tool);
         melt(state, level, pos);
     }

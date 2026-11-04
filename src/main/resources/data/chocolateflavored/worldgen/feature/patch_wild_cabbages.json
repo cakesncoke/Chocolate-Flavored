@@ -1,51 +1,11 @@
 {
   "type": "chocolateflavored:crop_patch",
   "config": {
-    "floor_feature": {
-      "feature": {
-        "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "minecraft:coarse_dirt"
-            }
-          }
-        }
-      },
-      "placement": [
-        {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "minecraft:replaceable",
-                "offset": [
-                  0,
-                  1,
-                  0
-                ]
-              },
-              {
-                "type": "minecraft:matching_block_tag",
-                "tag": "chocolateflavored:crop_soil"
-              }
-            ]
-          }
-        }
-      ]
-    },
     "primary_feature": {
       "feature": {
         "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "chocolateflavored:wild_carrots"
-            }
-          }
+        "to_place": {
+          "id": "chocolateflavored:wild_cabbages"
         }
       },
       "placement": [
@@ -65,7 +25,7 @@
                   -1,
                   0
                 ],
-                "tag": "chocolateflavored:crop_soil"
+                "tag": "minecraft:sand"
               }
             ]
           }
@@ -75,13 +35,8 @@
     "secondary_feature": {
       "feature": {
         "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "minecraft:short_grass"
-            }
-          }
+        "to_place": {
+          "id": "minecraft:dead_bush"
         }
       },
       "placement": [
@@ -101,7 +56,7 @@
                   -1,
                   0
                 ],
-                "tag": "chocolateflavored:crop_soil"
+                "tag": "minecraft:sand"
               }
             ]
           }

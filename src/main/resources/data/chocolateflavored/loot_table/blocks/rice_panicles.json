@@ -9,45 +9,46 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "chocolateflavored:rice_panicles",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "3"
+              "name": "chocolateflavored:rice",
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:match_block",
+                    "blocks": "chocolateflavored:rice_panicles",
+                    "state": {
+                      "age": "3"
+                    }
+                  },
+                  {
+                    "predicate": {
+                      "items": "#chocolateflavored:knives"
+                    },
+                    "type": "minecraft:match_tool"
                   }
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "#chocolateflavored:knives"
-                  }
-                }
-              ],
-              "name": "chocolateflavored:rice"
+                ]
+              }
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "chocolateflavored:rice_panicles",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "3"
-                  }
+              "name": "chocolateflavored:rice_panicle",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "chocolateflavored:rice_panicles",
+                "state": {
+                  "age": "3"
                 }
-              ],
-              "name": "chocolateflavored:rice_panicle"
+              }
             }
           ]
         }
       ],
-      "functions": [
+      "rolls": 1.0,
+      "modifier": [
         {
-          "function": "minecraft:explosion_decay"
+          "type": "minecraft:explosion_decay"
         }
-      ],
-      "rolls": 1.0
+      ]
     }
   ],
   "random_sequence": "chocolateflavored:blocks/rice_panicles"

@@ -1,6 +1,5 @@
 package com.akiotsukino.chocolateflavored.lighting;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -19,11 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public final class TimedWallTorchBlock extends WallTorchBlock implements EntityBlock {
-    private static final MapCodec<WallTorchBlock> LIT_CODEC = simpleCodec(p -> new TimedWallTorchBlock(true, p));
-    private static final MapCodec<WallTorchBlock> UNLIT_CODEC = simpleCodec(p -> new TimedWallTorchBlock(false, p));
     private final boolean lit;
     public TimedWallTorchBlock(boolean lit, Properties properties) { super(ParticleTypes.FLAME, properties); this.lit = lit; }
-    @Override public MapCodec<WallTorchBlock> codec() { return lit ? LIT_CODEC : UNLIT_CODEC; }
     @Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (lit) super.animateTick(state, level, pos, random);
     }

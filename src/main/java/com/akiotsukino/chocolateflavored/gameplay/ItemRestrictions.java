@@ -14,7 +14,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.ModifyRecipeJsonsEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -43,23 +42,21 @@ public final class ItemRestrictions {
     public static void creativeTab(BuildCreativeModeTabContentsEvent event) {
         event.removeIf(ItemRestrictions::removed, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
-    public static void recipes(ModifyRecipeJsonsEvent event) {
-        // Filter outputs, not IDs: this also catches datapack recipes with different filenames.
-        // No recipes are added; gold smelting/recycling recipes are retained.
-        event.getRecipeJsons().entrySet().removeIf(entry -> {
-            if (!entry.getValue().isJsonObject()) return false;
-            JsonObject recipe = entry.getValue().getAsJsonObject();
-            JsonElement result = recipe.get("result");
-            if (result == null) return false;
-            String name = result.isJsonPrimitive() ? result.getAsString()
-                    : result.isJsonObject() && result.getAsJsonObject().has("id")
-                    ? result.getAsJsonObject().get("id").getAsString() : "";
-            Identifier id = Identifier.tryParse(name);
-            if (id == null) return false;
-            if (removed(id)) return true;
-            return id.getNamespace().equals("minecraft") && GOLD_EQUIPMENT.contains(id.getPath())
-                    && recipe.has("type") && recipe.get("type").getAsString().startsWith("minecraft:crafting");
-        });
+    /** Filter outputs, including recipes supplied by datapacks under other identifiers. */
+    public static boolean forbiddenRecipe(JsonElement json) {
+        if (!json.isJsonObject()) return false;
+        JsonObject recipe = json.getAsJsonObject();
+        JsonElement result = recipe.get("result");
+        if (result == null) return false;
+        String name = result.isJsonPrimitive() ? result.getAsString()
+                : result.isJsonObject() && result.getAsJsonObject().has("id")
+                ? result.getAsJsonObject().get("id").getAsString() : "";
+        Identifier id = Identifier.tryParse(name);
+        if (id == null) return false;
+        if (removed(id)) return true;
+        // Gold smelting and recycling remain available.
+        return id.getNamespace().equals("minecraft") && GOLD_EQUIPMENT.contains(id.getPath())
+                && recipe.has("type") && recipe.get("type").getAsString().startsWith("minecraft:crafting");
     }
     public static void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide()) return;

@@ -6,16 +6,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "chocolateflavored:chili_crop",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "age": "6"
-              }
+          "name": "chocolateflavored:chili_seeds",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "chocolateflavored:chili_crop",
+            "state": {
+              "age": "6"
             }
-          ],
-          "name": "chocolateflavored:chili_seeds"
+          }
         }
       ],
       "rolls": {
@@ -32,16 +30,14 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "chocolateflavored:chili_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "6"
-                  }
+              "name": "chocolateflavored:chili",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "chocolateflavored:chili_crop",
+                "state": {
+                  "age": "6"
                 }
-              ],
-              "name": "chocolateflavored:chili"
+              }
             },
             {
               "type": "minecraft:item",
@@ -54,33 +50,31 @@
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "chocolateflavored:chili_crop",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "6"
-          }
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "name": "chocolateflavored:chili",
+          "modifier": [
             {
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
               "parameters": {
                 "extra": 1,
                 "probability": 0.5714286
-              }
+              },
+              "type": "minecraft:apply_bonus"
             }
-          ],
-          "name": "chocolateflavored:chili"
+          ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1.0,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "chocolateflavored:chili_crop",
+        "state": {
+          "age": "6"
+        }
+      }
     }
   ],
   "random_sequence": "chocolateflavored:blocks/chili_crop"

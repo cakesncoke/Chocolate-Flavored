@@ -14,11 +14,8 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
-
 
 public class HornedSheepWoolLayer extends RenderLayer<HornedSheepRenderState, HornedSheepModel<HornedSheepRenderState>> {
     private static final Identifier SHEEP_FUR_LOCATION = Identifier.withDefaultNamespace("textures/entity/sheep/sheep_wool.png");
@@ -38,7 +35,7 @@ public class HornedSheepWoolLayer extends RenderLayer<HornedSheepRenderState, Ho
             EntityModel<HornedSheepRenderState> entitymodel = hornedSheepRenderState.isBaby ? this.babyModel : this.adultModel;
             if (hornedSheepRenderState.isInvisible) {
                 if (hornedSheepRenderState.appearsGlowing()) {
-                    submitNodeCollector.submitModel(entitymodel, hornedSheepRenderState, poseStack, RenderTypes.outline(hornedSheepRenderState.isBaby ? SHEEP_FUR_BABY_LOCATION : SHEEP_FUR_LOCATION), i, LivingEntityRenderer.getOverlayCoords(hornedSheepRenderState, 0.0F), -16777216, (TextureAtlasSprite) null, hornedSheepRenderState.outlineColor, (ModelFeatureRenderer.CrumblingOverlay) null);
+                    submitNodeCollector.submitModel(entitymodel, hornedSheepRenderState, poseStack, RenderTypes.outline(hornedSheepRenderState.isBaby ? SHEEP_FUR_BABY_LOCATION : SHEEP_FUR_LOCATION), i, LivingEntityRenderer.getOverlayCoords(hornedSheepRenderState, 0.0F), -16777216, null, hornedSheepRenderState.outlineColor);
                 }
             } else {
                 coloredCutoutModelCopyLayerRender(entitymodel, hornedSheepRenderState.isBaby ? SHEEP_FUR_BABY_LOCATION : SHEEP_FUR_LOCATION, poseStack, submitNodeCollector, i, hornedSheepRenderState, hornedSheepRenderState.getWoolColor(), 0);

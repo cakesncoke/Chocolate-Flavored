@@ -40,6 +40,7 @@ final class DyeingVerification {
             check(level.getBlockState(pos).getValue(LayeredCauldronBlock.LEVEL)==3,"Adding dye preserves water level");
             for (String kind:DyedWood.KINDS) {
                 Item source=item("oak_"+kind);
+                check(java.util.Objects.equals(f.item(kind).getDefaultInstance().get(DataComponents.COOKING_FUEL), source.getDefaultInstance().get(DataComponents.COOKING_FUEL)), "Dyed wood keeps vanilla oak fuel duration and fast-furnace scaling: " + kind);
                 int count=source.getDefaultInstance().getMaxStackSize();
                 var stack=new ItemStack(source,count);stack.set(DataComponents.CUSTOM_NAME,Component.literal("Keep my name"));
                 level.setBlockAndUpdate(pos,f.block("water_cauldron").defaultBlockState().setValue(LayeredCauldronBlock.LEVEL,3));

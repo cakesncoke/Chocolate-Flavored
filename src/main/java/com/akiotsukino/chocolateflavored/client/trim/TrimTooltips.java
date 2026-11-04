@@ -2,7 +2,6 @@ package com.akiotsukino.chocolateflavored.client.trim;
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.trim.TrimAbilities;
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.Minecraft;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,8 +23,7 @@ public final class TrimTooltips {
         if(eq==null)return;
         String slot=eq.slot().getName();
         e.getToolTip().add(Component.translatable(key+slot).withStyle(ChatFormatting.AQUA));
-        var window=Minecraft.getInstance().getWindow();
-        boolean shift=InputConstants.isKeyDown(window,340)||InputConstants.isKeyDown(window,344);
+        boolean shift=InputConstants.isKeyDown(InputConstants.KEY_LSHIFT)||InputConstants.isKeyDown(InputConstants.KEY_RSHIFT);
         if(shift){e.getToolTip().add(Component.translatable(key+"full").withStyle(ChatFormatting.DARK_AQUA));e.getToolTip().add(Component.translatable("trim.chocolateflavored.stacking").withStyle(ChatFormatting.GRAY));}
         else e.getToolTip().add(Component.translatable("trim.chocolateflavored.more").withStyle(ChatFormatting.DARK_GRAY));
         var trim=stack.get(DataComponents.TRIM);

@@ -5,14 +5,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-
 
 import java.util.Optional;
 
 public record CropPatchConfiguration(int tries, int xzSpread, int ySpread, Holder<PlacedFeature> primaryFeature, Holder<PlacedFeature> secondaryFeature, Holder<PlacedFeature> floorFeature
-) implements FeatureConfiguration
+)
 {
 	public static final Codec<CropPatchConfiguration> CODEC = RecordCodecBuilder.create((config) -> config.group(
 			ExtraCodecs.POSITIVE_INT.fieldOf("tries").orElse(64).forGetter(CropPatchConfiguration::tries),

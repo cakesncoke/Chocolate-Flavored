@@ -1,6 +1,5 @@
 package com.akiotsukino.chocolateflavored.crop;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -17,9 +16,7 @@ import net.minecraft.world.phys.*;
 
 /** Hearth and Harvest's thornless bush, adapted to native 26.1.2 growth and interaction APIs. */
 public final class BlueberryBushBlock extends SweetBerryBushBlock {
-    public static final MapCodec<SweetBerryBushBlock> CODEC = simpleCodec(BlueberryBushBlock::new);
     public BlueberryBushBlock(Properties properties) { super(properties); }
-    @Override public MapCodec<SweetBerryBushBlock> codec() { return CODEC; }
     @Override protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(CropContent.BLUEBERRIES.get());
     }

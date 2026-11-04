@@ -1,5 +1,7 @@
 package com.akiotsukino.chocolateflavored.cake;
 
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -36,7 +38,7 @@ public final class CakeContent {
     private static Flavor flavor(String name) {
         var cake = ModContent.BLOCKS.registerBlock(name + "_cake", FlavoredCakeBlock::new,
                 () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE).overrideLootTable(loot(name + "_cake")));
-        var item = ModContent.ITEMS.registerItem(name + "_cake", p -> new BlockItem(cake.get(), p.stacksTo(1).useBlockDescriptionPrefix()));
+        var item = ModContent.ITEMS.registerItem(name + "_cake", p -> new BlockItem(cake.get(), p.stacksTo(1).compostable(ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE).useBlockDescriptionPrefix()));
         Map<String, DeferredBlock<FlavoredCandleCakeBlock>> candles = new LinkedHashMap<>();
         for (String candle : CANDLES) {
             String id = candle + "_" + name + "_cake";

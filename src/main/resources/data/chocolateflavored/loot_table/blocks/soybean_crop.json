@@ -6,16 +6,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "chocolateflavored:soybean_crop",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "age": "7"
-              }
+          "name": "chocolateflavored:soybeans",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "chocolateflavored:soybean_crop",
+            "state": {
+              "age": "7"
             }
-          ],
-          "name": "chocolateflavored:soybeans"
+          }
         }
       ],
       "rolls": {
@@ -32,16 +30,14 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "chocolateflavored:soybean_crop",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "7"
-                  }
+              "name": "chocolateflavored:soybean_pod",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "chocolateflavored:soybean_crop",
+                "state": {
+                  "age": "7"
                 }
-              ],
-              "name": "chocolateflavored:soybean_pod"
+              }
             },
             {
               "type": "minecraft:item",
@@ -54,33 +50,31 @@
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "chocolateflavored:soybean_crop",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "7"
-          }
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "name": "chocolateflavored:soybean_pod",
+          "modifier": [
             {
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
               "parameters": {
                 "extra": 1,
                 "probability": 0.5714286
-              }
+              },
+              "type": "minecraft:apply_bonus"
             }
-          ],
-          "name": "chocolateflavored:soybean_pod"
+          ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1.0,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "chocolateflavored:soybean_crop",
+        "state": {
+          "age": "7"
+        }
+      }
     }
   ],
   "random_sequence": "chocolateflavored:blocks/soybean_crop"

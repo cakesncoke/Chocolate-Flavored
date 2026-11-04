@@ -1,7 +1,6 @@
 package com.akiotsukino.chocolateflavored.verification;
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.trim.*;
-import com.akiotsukino.chocolateflavored.content.ModContent;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -92,7 +91,7 @@ final class TrimVerification {
         set(l,p,"bolt");check(incoming(p,p.damageSources().lightningBolt())==0,"Bolt lightning immunity");
         p.setItemSlot(MAINHAND,new ItemStack(Items.COPPER_SPEAR));var spearSource=new net.minecraft.world.damagesource.DamageSource(l.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(net.minecraft.world.damagesource.DamageTypes.SPEAR),p);check(incoming(p,spearSource)==12,"Native spear type receives Bolt attack and defense modifiers once");p.setItemSlot(MAINHAND,ItemStack.EMPTY);
         var illager=EntityTypes.VINDICATOR.create(l,EntitySpawnReason.COMMAND);var drowned=EntityTypes.DROWNED.create(l,EntitySpawnReason.COMMAND);var zombie=EntityTypes.ZOMBIE.create(l,EntitySpawnReason.COMMAND);var warden=EntityTypes.WARDEN.create(l,EntitySpawnReason.COMMAND);var brute=EntityTypes.PIGLIN_BRUTE.create(l,EntitySpawnReason.COMMAND);
-        set(l,p,"vex");check(p.getVisibilityPercent(illager)==.5,"Vex detection");set(l,p,"snout");check(p.getVisibilityPercent(brute)==.5,"Snout brute detection");set(l,p,"coast");check(p.getVisibilityPercent(drowned)==.5,"Coast detection");set(l,p,"silence");check(p.getVisibilityPercent(zombie)==.6&&p.getVisibilityPercent(warden)==1,"Silence detection / Warden exception");
+        set(l,p,"vex");check(p.getVisibilityPercent(l,illager)==.5,"Vex detection");set(l,p,"snout");check(p.getVisibilityPercent(l,brute)==.5,"Snout brute detection");set(l,p,"coast");check(p.getVisibilityPercent(l,drowned)==.5,"Coast detection");set(l,p,"silence");check(p.getVisibilityPercent(l,zombie)==.6&&p.getVisibilityPercent(l,warden)==1,"Silence detection / Warden exception");
         clear(p);int load=CrossbowItem.getChargeDuration(new ItemStack(Items.CROSSBOW),p);set(l,p,"sentry");check(CrossbowItem.getChargeDuration(new ItemStack(Items.CROSSBOW),p)==(int)Math.ceil(load*.8),"Crossbow load duration");
         set(l,p,"wild");var leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);BlockPos leaves=p.blockPosition();check(leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Horizontal leaf collision removed");p.setPos(320.5,162,.5);leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);check(!leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Standing on leaf collision retained");p.setShiftKeyDown(true);leaf=net.minecraft.world.phys.shapes.CollisionContext.of(p);check(leaf.getCollisionShape(Blocks.OAK_LEAVES.defaultBlockState(),l,leaves).isEmpty(),"Crouch descends through leaves");p.setShiftKeyDown(false);
         archaeology(l,p);

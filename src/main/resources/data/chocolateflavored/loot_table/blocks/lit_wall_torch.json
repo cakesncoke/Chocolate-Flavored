@@ -3,26 +3,24 @@
   "pools": [
     {
       "rolls": 1,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "chocolateflavored:lit_torch",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:copy_components",
               "source": "block_entity",
               "include": [
                 "chocolateflavored:torch_burn_ticks"
-              ]
+              ],
+              "type": "minecraft:copy_components"
             }
           ]
         }
-      ]
+      ],
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

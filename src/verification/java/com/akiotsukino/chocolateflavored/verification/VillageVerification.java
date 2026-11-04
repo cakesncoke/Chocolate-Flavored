@@ -56,7 +56,7 @@ final class VillageVerification {
                 check(entry.getAsJsonObject().getAsJsonObject("element").get("location").getAsString().contains("/zombie/town_centers/"), "Every village start is abandoned: " + style);
             }
             for (String profession : List.of("nitwit", "unemployed")) {
-                var template = level.getStructureManager().getOrCreate(Identifier.withDefaultNamespace("village/" + style + "/zombie/villagers/" + profession));
+                var template = level.getStructureTemplateManager().getOrCreate(Identifier.withDefaultNamespace("village/" + style + "/zombie/villagers/" + profession));
                 check(template.placeInWorld(level, pos, pos, new StructurePlaceSettings().setIgnoreEntities(false).setFinalizeEntities(true), level.getRandom(), 3), "Resident template placed");
                 var residents = level.getEntitiesOfClass(ZombieVillager.class, bounds);
                 check(residents.size() == 1, "Abandoned template spawns zombie villager: " + style + "/" + profession);
@@ -87,7 +87,7 @@ final class VillageVerification {
         var biomes = level.registryAccess().lookupOrThrow(Registries.BIOME);
         int checked = 0;
         for (var biome : biomes.listElements().toList()) {
-            var entries = biome.value().getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
+            var entries = biome.value().getAttributes().applyModifier(net.minecraft.world.attribute.EnvironmentAttributes.NATURAL_MOB_SPAWNS, net.minecraft.world.level.biome.MobSpawnSettings.EMPTY).getMobsToSpawn(MobCategory.MONSTER).unwrap();
             int zombies = weight(entries, EntityTypes.ZOMBIE), villagers = weight(entries, EntityTypes.ZOMBIE_VILLAGER);
             if (biome.is(Biomes.OLD_GROWTH_PINE_TAIGA)) {
                 check(zombies == 100 && villagers == 25, "Old growth pine taiga retains vanilla weights");
@@ -96,10 +96,10 @@ final class VillageVerification {
             }
         }
         check(checked > 30, "Spawn modifier ran across overworld biomes");
-        var original = List.of(new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE, 4, 4), 90),
-                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1), 5),
-                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_HORSE, 1, 1), 5),
-                new Weighted<>(new SpawnerData(EntityTypes.SPIDER, 4, 4), 100));
+        var original = List.of(new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE,net.minecraft.util.valueproviders.UniformInt.of(4,4)), 90),
+                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_VILLAGER,net.minecraft.util.valueproviders.UniformInt.of(1,1)), 5),
+                new Weighted<>(new SpawnerData(EntityTypes.ZOMBIE_HORSE,net.minecraft.util.valueproviders.UniformInt.of(1,1)), 5),
+                new Weighted<>(new SpawnerData(EntityTypes.SPIDER,net.minecraft.util.valueproviders.UniformInt.of(4,4)), 100));
         var adjusted = ZombieVillagerSpawnModifier.rebalance(original);
         int total = adjusted.stream().mapToInt(Weighted::weight).sum();
         check((long)weight(adjusted, EntityTypes.SPIDER) * 200 == 100L * total, "Other monster probability unchanged");
@@ -138,7 +138,7 @@ final class VillageVerification {
         level.setBlockAndUpdate(pos.above(2), Blocks.CARVED_PUMPKIN.defaultBlockState());
         check(level.getEntitiesOfClass(IronGolem.class, bounds).stream().anyMatch(IronGolem::isPlayerCreated), "Player construction still creates iron golems");
         level.getEntitiesOfClass(Entity.class, bounds).forEach(Entity::discard);
-        var cage = level.getStructureManager().getOrCreate(Identifier.withDefaultNamespace("pillager_outpost/feature_cage1"));
+        var cage = level.getStructureTemplateManager().getOrCreate(Identifier.withDefaultNamespace("pillager_outpost/feature_cage1"));
         cage.placeInWorld(level, pos, pos, new StructurePlaceSettings().setIgnoreEntities(false).setFinalizeEntities(true), level.getRandom(), 3);
         check(level.getEntitiesOfClass(IronGolem.class, bounds).size() == 1, "Pillager outpost cage still spawns its golem");
         level.getEntitiesOfClass(Entity.class, bounds).forEach(Entity::discard);

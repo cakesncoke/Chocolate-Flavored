@@ -7,15 +7,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "name": "minecraft:bone",
+          "modifier": [
             {
-              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
                 "min": 0.0,
                 "max": 2.0
               },
-              "add": false
+              "add": false,
+              "type": "minecraft:set_count"
             },
             {
               "count": {
@@ -24,10 +25,9 @@
                 "min": 0.0
               },
               "enchantment": "minecraft:looting",
-              "function": "minecraft:enchanted_count_increase"
+              "type": "minecraft:enchanted_count_increase"
             }
-          ],
-          "name": "minecraft:bone"
+          ]
         }
       ]
     }

@@ -36,8 +36,8 @@ public final class MudKilnRenderer implements BlockEntityRenderer<MudKilnBlockEn
         for (int slot = 0; slot < state.items.size(); slot++) {
             var item = state.items.get(slot); if (item.isEmpty()) continue;
             poses.pushPose(); poses.translate(0.5F, 1.02F, 0.5F);
-            poses.mulPose(Axis.YP.rotationDegrees(-state.facing.getOpposite().toYRot()));
-            poses.mulPose(Axis.XP.rotationDegrees(90));
+            poses.rotate(Axis.YP.rotationDegrees(-state.facing.getOpposite().toYRot()));
+            poses.rotate(Axis.XP.rotationDegrees(90));
             poses.translate(0.3F - slot % 3 * 0.3F, slot < 3 ? 0.2F : -0.2F, 0);
             poses.scale(0.375F, 0.375F, 0.375F);
             item.submit(poses, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0); poses.popPose();

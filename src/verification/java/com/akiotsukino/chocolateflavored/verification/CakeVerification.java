@@ -26,6 +26,7 @@ final class CakeVerification {
         player.setPos(224.5,161,.5);
         for (var flavor : CakeContent.FLAVORS) {
             var cake = flavor.block().get();
+            check(java.util.Objects.equals(flavor.item().get().getDefaultInstance().get(DataComponents.COMPOSTABLE), Items.CAKE.getDefaultInstance().get(DataComponents.COMPOSTABLE)), "Cake retains guaranteed compost layer");
             check(flavor.item().get().getDefaultInstance().getMaxStackSize() == Items.CAKE.getDefaultInstance().getMaxStackSize(), "Vanilla stack size");
             check(!flavor.item().get().getDefaultInstance().has(DataComponents.CONSUMABLE), "Cake is placed to eat");
             level.setBlockAndUpdate(pos.below(), Blocks.STONE.defaultBlockState());

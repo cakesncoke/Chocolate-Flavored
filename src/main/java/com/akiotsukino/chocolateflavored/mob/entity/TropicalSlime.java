@@ -6,9 +6,7 @@ import com.akiotsukino.chocolateflavored.mob.MobContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,7 +33,6 @@ import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.monster.cubemob.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -114,7 +111,7 @@ public class TropicalSlime extends Slime implements Bucketable {
                 fish.setPersistenceRequired();
             }
             fish.finalizeSpawn(serverLevel, serverLevel.getCurrentDifficultyAt(this.blockPosition()), EntitySpawnReason.EVENT, null);
-            fish.setInvulnerable(this.isInvulnerable());
+            fish.setPermanentlyInvulnerable(this.isInvulnerable());
             fish.snapTo(this.getX() + (double) f1, this.getY() + f3, this.getZ() + (double) f2, this.random.nextFloat() * 360.0F, 0.0F);
             this.level().addFreshEntity(fish);
         }
@@ -159,7 +156,6 @@ public class TropicalSlime extends Slime implements Bucketable {
     public boolean checkSpawnObstruction(LevelReader p_32370_) {
         return p_32370_.isUnobstructed(this);
     }
-
 
     @Override
     public float getSoundPitch() {
@@ -253,11 +249,9 @@ public class TropicalSlime extends Slime implements Bucketable {
                 ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setWantedY(livingentity.getY());
             }
 
-
-            ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setDirection(this.slime.getYRot(), this.slime.isDealsDamage());
+            ((TropicalSlime.SlimeMoveControl) this.slime.getMoveControl()).setDirection(this.slime.getYRot(), this.slime.canDealDamage());
         }
     }
-
 
     static class SlimeKeepOnJumpingGoal extends Goal {
         private final Slime slime;
@@ -315,7 +309,6 @@ public class TropicalSlime extends Slime implements Bucketable {
         public void tick() {
             this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0.0D, -0.008D, 0.0D));
 
-
             this.mob.setYRot(this.rotlerp(this.mob.getYRot(), this.yRot, 90.0F));
             this.mob.yHeadRot = this.mob.getYRot();
             this.mob.yBodyRot = this.mob.getYRot();
@@ -325,7 +318,6 @@ public class TropicalSlime extends Slime implements Bucketable {
             } else {
                 this.operation = MoveControl.Operation.WAIT;
                 if (this.mob.isInWater() && !this.mob.onGround()) {
-
 
                     float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
 

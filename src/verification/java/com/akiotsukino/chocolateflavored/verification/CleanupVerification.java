@@ -39,7 +39,7 @@ public final class CleanupVerification {
         rabbit.makeRider(level, level.getCurrentDifficultyAt(pos), EntitySpawnReason.NATURAL);
         check(rabbit.getFirstPassenger() instanceof net.minecraft.world.entity.monster.zombie.Husk husk && husk.isBaby() && husk.getMainHandItem().is(Items.WOODEN_SWORD), "Baby Husk jockey with allowed equipment");
         var desert = level.registryAccess().lookupOrThrow(Registries.BIOME).getOrThrow(net.minecraft.world.level.biome.Biomes.DESERT).value();
-        var desertSpawns = desert.getMobSettings().getMobs(MobCategory.MONSTER).unwrap();
+        var desertSpawns = desert.getAttributes().applyModifier(net.minecraft.world.attribute.EnvironmentAttributes.NATURAL_MOB_SPAWNS, net.minecraft.world.level.biome.MobSpawnSettings.EMPTY).getMobsToSpawn(MobCategory.MONSTER).unwrap();
         long rabbitWeight = desertSpawns.stream().filter(e -> e.value().type() == MobContent.HUSK_RABBIT.get()).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
         long creeperWeight = desertSpawns.stream().filter(e -> e.value().type() == EntityTypes.CREEPER).mapToLong(net.minecraft.util.random.Weighted::weight).sum();
         // The zombie-villager rule rescales all integer weights while preserving their ratios.

@@ -1,10 +1,5 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -14,16 +9,14 @@
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "block": "chocolateflavored:cabbages",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "age": "7"
-                  }
+              "name": "chocolateflavored:cabbage",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "chocolateflavored:cabbages",
+                "state": {
+                  "age": "7"
                 }
-              ],
-              "name": "chocolateflavored:cabbage"
+              }
             },
             {
               "type": "minecraft:item",
@@ -36,34 +29,37 @@
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "chocolateflavored:cabbages",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "7"
-          }
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "name": "chocolateflavored:cabbage_seeds",
+          "modifier": [
             {
               "enchantment": "minecraft:fortune",
               "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
               "parameters": {
                 "extra": 3,
                 "probability": 0.5714286
-              }
+              },
+              "type": "minecraft:apply_bonus"
             }
-          ],
-          "name": "chocolateflavored:cabbage_seeds"
+          ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1.0,
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "chocolateflavored:cabbages",
+        "state": {
+          "age": "7"
+        }
+      }
     }
   ],
-  "random_sequence": "chocolateflavored:blocks/cabbages"
+  "random_sequence": "chocolateflavored:blocks/cabbages",
+  "modifier": [
+    {
+      "type": "minecraft:explosion_decay"
+    }
+  ]
 }

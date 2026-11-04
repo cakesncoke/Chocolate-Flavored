@@ -1,13 +1,13 @@
 package com.akiotsukino.chocolateflavored.client.mob;
 import com.akiotsukino.chocolateflavored.mob.MobContent;
 import com.akiotsukino.chocolateflavored.mixin.EntityPipelineAccessor;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import net.minecraft.client.renderer.rendertype.*;
 import net.minecraft.resources.Identifier;
 import org.joml.Matrix4f;
 /** Shared vanilla entity shader with the reference's 48-frame texture UV animation. */
 public final class SlimeRenderTypes {
- public static final RenderPipeline PIPELINE=RenderPipeline.builder(EntityPipelineAccessor.chocolateflavored$entitySnippet()).withLocation(MobContent.id("pipeline/tropical_slime")).withShaderDefine("APPLY_TEXTURE_MATRIX").withShaderDefine("ALPHA_CUTOUT",.1F).withBindGroupLayout(net.minecraft.client.renderer.BindGroupLayouts.SAMPLER1).withCull(false).build();
+ public static final RenderPipeline PIPELINE=RenderPipeline.builder(EntityPipelineAccessor.chocolateflavored$entitySnippet()).withLocation(MobContent.id("pipeline/tropical_slime")).withShaderDefine("APPLY_TEXTURE_MATRIX").withShaderDefine("ALPHA_CUTOUT",.1F).withBindGroupLayout(net.minecraft.client.renderer.BindGroupLayouts.SAMPLER1).withCull(false).withColorTargetState(com.mojang.renderpearl.api.pipeline.ColorTargetState.DEFAULT).build();
  private static final RenderType[] FRAMES=new RenderType[48];
  public static RenderType entityAnimationWithAllTexture(Identifier texture,int duration,int frames,int tick){
   int frame=Math.floorMod(tick*(frames-1)/duration,frames);

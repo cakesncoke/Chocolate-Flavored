@@ -1,6 +1,5 @@
 package com.akiotsukino.chocolateflavored.crop;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -10,7 +9,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
@@ -18,9 +16,7 @@ import net.neoforged.neoforge.common.CommonHooks;
 
 /** Four seedling stages followed by four fruiting stages; picking preserves the mature bush. */
 public final class TomatoCropBlock extends FieldCropBlock {
-    public static final MapCodec<TomatoCropBlock> CODEC = simpleCodec(TomatoCropBlock::new);
     public TomatoCropBlock(Properties properties) { super(properties); }
-    @Override public MapCodec<? extends CropBlock> codec() { return CODEC; }
     @Override public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!level.isAreaLoaded(pos, 1)) return;
         if (getAge(state) < 4) { super.randomTick(state, level, pos, random); return; }

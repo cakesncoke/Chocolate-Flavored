@@ -1,6 +1,5 @@
 package com.akiotsukino.chocolateflavored.cake;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,9 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 /** All eating, shapes, signals, support checks, and slice statistics come directly from vanilla. */
 public final class FlavoredCakeBlock extends CakeBlock {
-    public static final MapCodec<CakeBlock> CODEC = simpleCodec(FlavoredCakeBlock::new);
     public FlavoredCakeBlock(Properties properties) { super(properties); }
-    @Override public MapCodec<CakeBlock> codec() { return CODEC; }
     @Override protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
         if (stack.is(ItemTags.CANDLES) && state.getValue(BITES) == 0 && Block.byItem(stack.getItem()) instanceof CandleBlock candle) {

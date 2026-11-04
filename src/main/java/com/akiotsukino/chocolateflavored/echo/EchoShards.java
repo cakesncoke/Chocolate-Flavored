@@ -48,7 +48,7 @@ public final class EchoShards {
             if(held.getCount()==1)setLink(held,id);
             else {
                 var shard=held.copyWithCount(1);setLink(shard,id);held.shrink(1);
-                if(!player.getInventory().add(shard))player.drop(shard,false);
+                if(!player.getInventory().add(shard))player.drop(shard,false,net.minecraft.util.Prediction.SERVER_ONLY);
             }
             level.playSound(null,pos,SoundEvents.LODESTONE_COMPASS_LOCK,SoundSource.PLAYERS,1,1);
         }

@@ -4,13 +4,8 @@
     "primary_feature": {
       "feature": {
         "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "chocolateflavored:wild_onions"
-            }
-          }
+        "to_place": {
+          "id": "chocolateflavored:wild_onions"
         }
       },
       "placement": [
@@ -40,13 +35,8 @@
     "secondary_feature": {
       "feature": {
         "type": "minecraft:simple_block",
-        "config": {
-          "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "minecraft:allium"
-            }
-          }
+        "to_place": {
+          "id": "minecraft:allium"
         }
       },
       "placement": [

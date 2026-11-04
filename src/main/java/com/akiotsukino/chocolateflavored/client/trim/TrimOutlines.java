@@ -5,8 +5,8 @@ import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.mixin.EntityPipelineAccessor;
 import com.akiotsukino.chocolateflavored.mixin.TrimRenderTypeInvoker;
 import com.akiotsukino.chocolateflavored.trim.*;
-import com.mojang.blaze3d.pipeline.*;
-import com.mojang.blaze3d.platform.CompareOp;
+import com.mojang.renderpearl.api.pipeline.*;
+import com.mojang.renderpearl.api.pipeline.CompareOp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.rendertype.*;
@@ -26,6 +26,7 @@ public final class TrimOutlines {
     private static final RenderPipeline PIPELINE = RenderPipeline.builder(EntityPipelineAccessor.chocolateflavored$linesSnippet())
             .withLocation(TrimAbilities.id("pipeline/eye_outline"))
             .withFragmentShader(TrimAbilities.id("core/eye_outline"))
+            .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
             .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false)).build();
     private static final RenderType LINES = TrimRenderTypeInvoker.chocolateflavored$create("chocolateflavored_eye_outline", RenderSetup.builder(PIPELINE).createRenderSetup());
     private static final ContextKey<List<Vec3>> OUTLINES = new ContextKey<>(TrimAbilities.id("eye_outlines"));

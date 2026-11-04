@@ -29,7 +29,7 @@ public final class TuffGolemVerification {
         for(int i=0;i<29;i++)golem.step(level);
         var item=new ItemEntity(level,210.5,180,210.5,new ItemStack(Items.EMERALD,4));item.setNoPickUpDelay();check(golem.collect(item)&&item.getItem().getCount()==3&&golem.getMainHandItem().is(Items.EMERALD),"Collect exactly one loose item");check(!golem.collect(item)&&item.getItem().getCount()==3,"Occupied display cannot duplicate loose items");
         for(int i=0;i<11;i++)golem.step(level);golem.setSleeping(true);for(int i=0;i<5999;i++)golem.step(level);check(golem.sleeping(),"Sleep lasts at least five minutes");for(int i=0;i<6021;i++)golem.step(level);check(!golem.sleeping(),"Sleep ends within ten minutes");
-        level.registryAccess().lookupOrThrow(Registries.BIOME).listElements().forEach(h->{for(var category:MobCategory.values())check(h.value().getMobSettings().getMobs(category).unwrap().stream().noneMatch(e->e.value().type()==TuffGolemContent.TUFF_GOLEM.get()),"No natural Tuff Golem spawns");});
+        level.registryAccess().lookupOrThrow(Registries.BIOME).listElements().forEach(h->{for(var category:MobCategory.values())check(h.value().getAttributes().applyModifier(net.minecraft.world.attribute.EnvironmentAttributes.NATURAL_MOB_SPAWNS, net.minecraft.world.level.biome.MobSpawnSettings.EMPTY).getMobsToSpawn(category).unwrap().stream().noneMatch(e->e.value().type()==TuffGolemContent.TUFF_GOLEM.get()),"No natural Tuff Golem spawns");});
         golem.discard();reloaded.discard();item.discard();
         ChocolateFlavored.LOGGER.info("TUFF_GOLEM_VERIFICATION_PASSED: repair, dye, wax/scrape, exact item transfers, transitions, saved home/pose/item and sleep duration; no natural spawns");
     }
