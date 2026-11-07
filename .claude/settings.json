@@ -1,8 +1,26 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git push origin --delete:*)",
-      "Bash(java -jar /tmp/claude-0/*)"
+      "Bash(./gradlew:*)",
+      "Bash(bash ./gradlew:*)",
+      "Bash(bash scripts/client-smoke-test.sh:*)",
+      "Bash(xvfb-run:*)",
+      "Bash(javap:*)",
+      "Bash(java -jar /tmp/claude-0/*)",
+      "Bash(apt-get install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git fetch:*)",
+      "Bash(git merge --ff-only:*)",
+      "Bash(git push origin main:*)",
+      "Bash(git push origin --delete:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git rebase:*)"
     ]
   }
 }
