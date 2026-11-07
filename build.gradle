@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
 }
@@ -11,15 +10,6 @@ tasks.named('wrapper', Wrapper).configure {
 
 version = mod_version
 group = mod_group_id
-
-sourceSets.main.resources {
-    srcDir('src/generated/resources')
-
-    exclude("src/generated/**/.cache")
-}
-
-repositories {
-}
 
 base {
     archivesName = mod_id
@@ -47,13 +37,11 @@ neoForge {
                 systemProperty 'chocolateflavored.verify.client', 'true'
                 programArguments.addAll '--quickPlaySingleplayer', 'ClientVerification', '--width', '1280', '--height', '720'
             }
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
             server()
             programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         verificationServer {
@@ -68,16 +56,6 @@ neoForge {
             gameDirectory = project.file('run-kubejs-verification')
             programArgument '--nogui'
             systemProperty 'chocolateflavored.verify.kubejs', 'true'
-        }
-
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-
-        data {
-            clientData()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         configureEach {
@@ -95,11 +73,9 @@ neoForge {
     }
 }
 
+// Optional development-only mods (see the KubeJS block at the end) are added to localRuntime.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
-}
-
-dependencies {
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -120,19 +96,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
-        }
-    }
-}
-
 tasks.named('jar', Jar).configure {
     from(['LICENSE', 'TEMPLATE_LICENSE.txt', 'THIRD_PARTY_NOTICES.md']) {
         into 'META-INF'
@@ -140,7 +103,7 @@ tasks.named('jar', Jar).configure {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' 
+    options.encoding = 'UTF-8'
 }
 
 idea {
@@ -150,7 +113,8 @@ idea {
     }
 }
 
-// Optional development-only compatibility run. Neither mod is a release dependency.
+// Optional development-only KubeJS compatibility run. None of these mods is a release dependency.
+// These pins predate Minecraft 26.3 and must be updated before the KubeJS check is meaningful on 26.3.
 if (providers.gradleProperty('verifyKubeJS').map { it.toBoolean() }.getOrElse(false)) {
     repositories.maven {
         url = 'https://maven.latvian.dev/releases'

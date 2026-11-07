@@ -22,11 +22,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # This is needed to be able to run ./gradlew below
-      # You can run `git update-index --chmod +x gradlew` then remove this step.
-      - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
-
       - name: Build with Gradle
         run: ./gradlew clean build --no-daemon
 
@@ -75,9 +70,9 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
       - uses: gradle/actions/setup-gradle@v4
+      # The pinned KubeJS builds predate Minecraft 26.3; this job is informational until they are updated.
       - name: Verify optional KubeJS cooking recipes
         run: |
-          chmod +x ./gradlew
           mkdir -p run-kubejs-verification/kubejs/server_scripts
           echo 'eula=true' > run-kubejs-verification/eula.txt
           printf 'online-mode=false\nlevel-type=minecraft:flat\ngenerate-structures=false\n' > run-kubejs-verification/server.properties
