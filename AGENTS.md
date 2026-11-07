@@ -48,7 +48,7 @@ Ask the owner first before you:
    grep VERIFICATION_PASSED verification.log
    ```
    Gradle exits 0 even when a check throws, so always grep for the markers.
-3. Client or rendering changes need the client smoke test: run `xvfb-run -a -s "-screen 0 1280x720x24" bash scripts/client-smoke-test.sh` after the server run. If it cannot open a window in your container, say so and rely on CI.
+3. Client or rendering changes need the client smoke test: run `LIBGL_ALWAYS_SOFTWARE=true SDL_VIDEO_FORCE_EGL=1 xvfb-run -a -s "-screen 0 1280x720x24" bash scripts/client-smoke-test.sh` after the server run. `SDL_VIDEO_FORCE_EGL=1` is required on Xvfb, where 26.3's SDL window finds no GLX visual. If it still cannot open a window in your container, say so and rely on CI.
 4. New mechanics get a check in `src/verification` (wired into `DevelopmentVerification`). Where practical, show that the check fails before a fix and passes after it.
 5. For pure refactors or reformatting, compare `javap -c -p` output of the compiled classes before and after. Any difference must be explained in the commit message.
 6. Update the relevant `docs/` page in the same commit as a behavior change.
