@@ -64,33 +64,40 @@ final class LightingInteractionVerification {
             }
         }
 
-        for (var source : new BlockState[]{Blocks.CAMPFIRE.defaultBlockState(), Blocks.TORCH.defaultBlockState(),
-                LightingContent.LIT_TORCH.get().defaultBlockState()}) {
-            level.setBlockAndUpdate(pos, source);
-            boolean batch = !source.is(Blocks.CAMPFIRE);
-            player.setShiftKeyDown(batch);
-            var torches = new ItemStack(LightingContent.UNLIT_TORCH_ITEM.get(), 4);
-            player.setItemInHand(InteractionHand.OFF_HAND, torches);
-            var result = player.gameMode.useItemOn(player, level, torches, InteractionHand.OFF_HAND, hit);
-            check(result.consumesAction() && level.getBlockState(pos).equals(source), "Torch conversion uses the source without replacing it");
-            int litCount = 0;
-            for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
-                var output = player.getInventory().getItem(slot);
-                if (output.is(LightingContent.LIT_TORCH_ITEM.get())) {
-                    check(output.getCount() == 1 && LitTorchItem.remaining(output) == TorchTimerBlockEntity.BURN_TICKS,
-                            "Converted torches are individual items with full fuel");
-                    litCount++;
-                    player.getInventory().removeItem(slot, 1);
+        BlockState unlitCampfire = Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false);
+        BlockState unlitSoulCampfire = Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false);
+        BlockState unlitKiln = com.akiotsukino.chocolateflavored.cooking.CookingContent.MUD_KILN.get().defaultBlockState();
+        for (var source : new BlockState[]{unlitCampfire, unlitSoulCampfire, unlitKiln,
+                Blocks.TORCH.defaultBlockState(), Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH),
+                LightingContent.LIT_TORCH.get().defaultBlockState(),
+                LightingContent.LIT_WALL_TORCH.get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH)}) {
+            for (boolean sneaking : new boolean[]{false, true}) {
+                level.setBlockAndUpdate(pos, source);
+                if (source.hasProperty(WallTorchBlock.FACING)) level.setBlockAndUpdate(pos.south(), Blocks.STONE.defaultBlockState());
+                player.setShiftKeyDown(sneaking);
+                var torches = new ItemStack(LightingContent.UNLIT_TORCH_ITEM.get(), 4);
+                player.setItemInHand(InteractionHand.OFF_HAND, torches);
+                var result = player.gameMode.useItemOn(player, level, torches, InteractionHand.OFF_HAND, hit);
+                check(result.consumesAction() && level.getBlockState(pos).equals(source), "Torch conversion uses the source without replacing it");
+                int litCount = 0;
+                for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                    var output = player.getInventory().getItem(slot);
+                    if (output.is(LightingContent.LIT_TORCH_ITEM.get())) {
+                        check(output.getCount() == 1 && LitTorchItem.remaining(output) == TorchTimerBlockEntity.BURN_TICKS,
+                                "Converted torches are individual items with full fuel");
+                        litCount++;
+                        player.getInventory().removeItem(slot, 1);
+                    }
                 }
+                var offhand = player.getOffhandItem();
+                if (offhand.is(LightingContent.LIT_TORCH_ITEM.get())) {
+                    check(LitTorchItem.remaining(offhand) == TorchTimerBlockEntity.BURN_TICKS, "Converted offhand torch has full fuel");
+                    litCount++;
+                }
+                check(litCount == 1 && torches.getCount() == 3,
+                        "Right-click converts exactly one unlit torch regardless of sneak state");
+                player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             }
-            var offhand = player.getOffhandItem();
-            if (offhand.is(LightingContent.LIT_TORCH_ITEM.get())) {
-                check(LitTorchItem.remaining(offhand) == TorchTimerBlockEntity.BURN_TICKS, "Converted offhand torch has full fuel");
-                litCount++;
-            }
-            check(litCount == (batch ? 4 : 1) && torches.getCount() == (batch ? 0 : 3),
-                    "Sneak lights the whole stack and regular click lights one");
-            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         }
         player.setShiftKeyDown(false);
 
