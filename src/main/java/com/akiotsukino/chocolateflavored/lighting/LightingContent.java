@@ -10,7 +10,6 @@ import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
@@ -39,7 +38,7 @@ public final class LightingContent {
     public static final DeferredBlock<UnlitLanternBlock> UNLIT_LANTERN = ModContent.BLOCKS.registerBlock("unlit_lantern", UnlitLanternBlock::new,
             () -> BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).overrideLootTable(loot("unlit_lantern")).lightLevel(s -> 0));
     public static final DeferredItem<StandingAndWallBlockItem> UNLIT_TORCH_ITEM = ModContent.ITEMS.registerItem("unlit_torch",
-            p -> new StandingAndWallBlockItem(UNLIT_TORCH.get(), UNLIT_WALL_TORCH.get(), Direction.DOWN, p.useBlockDescriptionPrefix()));
+            p -> new UnlitTorchItem(p.useBlockDescriptionPrefix()));
     public static final DeferredItem<LitTorchItem> LIT_TORCH_ITEM = ModContent.ITEMS.registerItem("lit_torch", p -> new LitTorchItem(p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> UNLIT_LANTERN_ITEM = ModContent.ITEMS.registerSimpleBlockItem(UNLIT_LANTERN);
     public static final DeferredItem<FireStarterItem> FIRE_STARTER = ModContent.ITEMS.registerItem("fire_starter", FireStarterItem::new, p -> p.durability(2));

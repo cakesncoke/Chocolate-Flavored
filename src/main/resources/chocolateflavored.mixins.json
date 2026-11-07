@@ -70,6 +70,7 @@
     "TrimLocalPlayerMixin",
     "TrimBowVisualMixin",
     "TrimRenderTypeInvoker",
-    "InstrumentDebugMixin"
+    "InstrumentDebugMixin",
+    "CopperHornSubtitleMixin"
   ]
 }

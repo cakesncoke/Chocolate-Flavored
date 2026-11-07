@@ -14,6 +14,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
@@ -70,6 +71,12 @@ public final class CropVerification {
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         level.setBlockAndUpdate(pos.below(), Blocks.DIRT.defaultBlockState());
         var bush = CropContent.BLUEBERRY_BUSH.get();
+        var previousLeggings = player.getItemBySlot(EquipmentSlot.LEGS);
+        player.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.LEATHER_LEGGINGS));
+        float health = player.getHealth();
+        check(!player.hurtServer(level, level.damageSources().sweetBerryBush(), 1) && player.getHealth() == health,
+                "Leggings cancel berry bush damage");
+        player.setItemSlot(EquipmentSlot.LEGS, previousLeggings);
         level.setBlockAndUpdate(pos, bush.defaultBlockState().setValue(net.minecraft.world.level.block.SweetBerryBushBlock.AGE, 2));
         var hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
         check(!bush.useWithoutItem(level.getBlockState(pos), level, pos, player, hit).consumesAction(), "Blueberries require full maturity for picking");

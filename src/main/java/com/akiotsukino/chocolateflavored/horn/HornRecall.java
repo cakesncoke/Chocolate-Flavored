@@ -15,10 +15,11 @@ import net.minecraft.server.level.TicketType;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.PlayerRideable;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -42,9 +43,10 @@ public final class HornRecall {
         if (!(target instanceof LivingEntity living) || !target.isAlive()) return false;
         if (target instanceof OwnableEntity ownable && ownable.getOwnerReference() != null
                 && !ownable.getOwnerReference().matches(player)) return false;
-        return target instanceof TamableAnimal pet && pet.isTame()
-                || target instanceof AbstractHorse horse && horse.isTamed()
-                || !living.getItemBySlot(EquipmentSlot.SADDLE).isEmpty()
+        boolean saddledMount = (target instanceof PlayerRideable || target instanceof ItemSteerable)
+                && !living.getItemBySlot(EquipmentSlot.SADDLE).isEmpty();
+        return target instanceof AbstractHorse horse && horse.isTamed()
+                || saddledMount
                 || target.getType() == net.minecraft.world.entity.EntityTypes.HAPPY_GHAST
                     && !living.getItemBySlot(EquipmentSlot.BODY).isEmpty();
     }
@@ -89,7 +91,7 @@ public final class HornRecall {
 
     public static boolean recall(ServerPlayer player, Entity entity) {
         if (!eligible(player, entity) || entity.isVehicle()) { return false; }
-        // Do not transport passengers or detach another player's mount. Sitting state is preserved.
+        // Do not transport passengers or detach another player's mount.
         if (entity instanceof Mob mob) mob.getNavigation().stop();
         var moved = entity.teleport(new TeleportTransition(player.level(), player.position(), Vec3.ZERO,
                 entity.getYRot(), entity.getXRot(), TeleportTransition.DO_NOTHING));

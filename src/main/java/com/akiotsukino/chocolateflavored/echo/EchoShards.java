@@ -26,7 +26,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 @EventBusSubscriber(modid="chocolateflavored")
 public final class EchoShards {
-    public static final int CHARGE_TICKS = 60;
+    public static final int CHARGE_TICKS = 30;
     private static final String LINK = "chocolateflavored:echo_anchor";
     public static UUID target(ItemStack stack) {
         if (!stack.is(Items.ECHO_SHARD)) return null;
@@ -84,7 +84,15 @@ public final class EchoShards {
         server.playSound(null,player.blockPosition(),SoundEvents.ITEM_BREAK.value(),SoundSource.PLAYERS,.8F,.8F+server.getRandom().nextFloat()*.4F);
         stack.shrink(1);player.awardStat(Stats.ITEM_USED.get(Items.ECHO_SHARD));
         if(arrival!=null){
-            player.teleport(new TeleportTransition(server,arrival,Vec3.ZERO,player.getYRot(),player.getXRot(),TeleportTransition.PLACE_PORTAL_TICKET));
+            var teleported = player.teleport(new TeleportTransition(server,arrival,Vec3.ZERO,player.getYRot(),player.getXRot(),TeleportTransition.PLACE_PORTAL_TICKET));
+            if (teleported != null) {
+                // Match the vanilla ender pearl's 32 portal particles at the landing point.
+                var random = server.getRandom();
+                for (int i = 0; i < 32; i++) {
+                    server.sendParticles(ParticleTypes.PORTAL, arrival.x, arrival.y + random.nextDouble() * 2, arrival.z,
+                            0, random.nextGaussian(), 0, random.nextGaussian(), 1);
+                }
+            }
             player.resetFallDistance();player.resetCurrentImpulseContext();
             server.playSound(null,player.getX(),player.getY(),player.getZ(),SoundEvents.CHORUS_FRUIT_TELEPORT,SoundSource.PLAYERS,1,1);
             server.gameEvent(GameEvent.TELEPORT,arrival,GameEvent.Context.of(player));

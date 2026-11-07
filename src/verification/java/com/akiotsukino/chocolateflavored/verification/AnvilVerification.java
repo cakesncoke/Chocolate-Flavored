@@ -31,6 +31,9 @@ final class AnvilVerification {
         for (Item[] pair : new Item[][]{{Items.IRON_PICKAXE, Items.IRON_INGOT},
                 {Items.IRON_CHESTPLATE, Items.IRON_INGOT}, {Items.COPPER_PICKAXE, Items.COPPER_INGOT},
                 {Items.DIAMOND_PICKAXE, Items.DIAMOND}, {Items.ELYTRA, Items.PHANTOM_MEMBRANE},
+                {Items.NETHERITE_PICKAXE, Items.NETHERITE_SCRAP}, {Items.NETHERITE_SPEAR, Items.NETHERITE_SCRAP},
+                {Items.NETHERITE_LEGGINGS, Items.NETHERITE_SCRAP}, {Items.TRIDENT, Items.PRISMARINE_SHARD},
+                {Items.MACE, Items.BREEZE_ROD},
                 {ModContent.ROSE_GOLD_PICKAXE.get(), ModContent.ROSE_GOLD_INGOT.get()}}) {
             ItemStack input = new ItemStack(pair[0]);
             input.setDamageValue(input.getMaxDamage() - 1);
@@ -41,6 +44,12 @@ final class AnvilVerification {
             var repaired = take(menu, player);
             check(repaired.getDamageValue() == expected && player.experienceLevel == 0, "Vanilla material repair amount, no XP");
             check(menu.getSlot(0).getItem().isEmpty() && menu.getSlot(1).getItem().isEmpty(), "Material repair consumes inputs");
+        }
+        for (var item : new Item[]{Items.NETHERITE_PICKAXE, Items.NETHERITE_LEGGINGS}) {
+            var damaged = new ItemStack(item);
+            damaged.setDamageValue(100);
+            check(!menu(player, damaged, new ItemStack(Items.NETHERITE_INGOT)).getSlot(2).hasItem(),
+                    "Netherite ingots no longer repair " + item);
         }
         var menu = menu(player, new ItemStack(Items.STICK, 12), ItemStack.EMPTY);
         menu.setItemName("Named sticks");

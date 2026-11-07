@@ -2,27 +2,43 @@ package com.akiotsukino.chocolateflavored.client;
 
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
 import com.akiotsukino.chocolateflavored.content.ModContent;
+import com.akiotsukino.chocolateflavored.horn.CopperHornItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.clock.WorldClocks;
+import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 @EventBusSubscriber(modid = ChocolateFlavored.MODID, value = Dist.CLIENT)
 public final class InstrumentHud {
     public static boolean has(Item item) {
-        var player = Minecraft.getInstance().player;
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
         if (player == null) return false;
+        if (minecraft.hitResult instanceof EntityHitResult hit && hit.getEntity() instanceof ItemFrame frame
+                && frame.getItem().is(item)) return true;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++)
             if (player.getInventory().getItem(i).is(item)) return true;
         return false;
     }
     public static boolean precision() { return has(ModContent.PRECISION_METER.get()); }
+    @SubscribeEvent public static void hideHornName(RenderGuiLayerEvent.Pre event) {
+        if (!event.getName().equals(VanillaGuiLayers.SELECTED_ITEM_NAME)) return;
+        var player = Minecraft.getInstance().player;
+        if (player != null && player.isUsingItem() && player.getUseItem().getItem() instanceof CopperHornItem) {
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent public static void register(RegisterGuiLayersEvent event) {
         event.registerAboveAll(Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "instruments"), (g, delta) -> {
             var mc = Minecraft.getInstance();

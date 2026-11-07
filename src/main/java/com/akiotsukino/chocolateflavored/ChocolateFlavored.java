@@ -64,6 +64,7 @@ public class ChocolateFlavored {
         ModLoot.register(modEventBus);
         TABS.register(modEventBus);
         modEventBus.addListener(EquipmentRules::modifyComponents);
+        NeoForge.EVENT_BUS.addListener(EquipmentRules::protectFromBerryBushes);
         modEventBus.addListener(ItemRestrictions::creativeTab);
         NeoForge.EVENT_BUS.addListener(ItemRestrictions::onJoin);
         NeoForge.EVENT_BUS.addListener(ItemRestrictions::entityTick);

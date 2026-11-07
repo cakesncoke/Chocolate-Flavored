@@ -156,6 +156,9 @@ public final class DevelopmentVerification {
         level.removeBlock(pos, false);
         LightingVerification.run(level, player);
         AnvilVerification.run(level, player);
+        check(ModContent.ROSE_GOLD_BLOCK.get().defaultBlockState().is(net.minecraft.tags.BlockTags.BEACON_BASE_BLOCKS)
+                && com.akiotsukino.chocolateflavored.equipment.SteelContent.STEEL_BLOCK.get().defaultBlockState()
+                        .is(net.minecraft.tags.BlockTags.BEACON_BASE_BLOCKS), "Rose gold and steel are beacon base materials");
         VillageVerification.run(level);
         CookingVerification.run(level, player);
         AnimalVerification.run(level, player);

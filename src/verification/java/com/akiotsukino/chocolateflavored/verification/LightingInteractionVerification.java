@@ -64,6 +64,36 @@ final class LightingInteractionVerification {
             }
         }
 
+        for (var source : new BlockState[]{Blocks.CAMPFIRE.defaultBlockState(), Blocks.TORCH.defaultBlockState(),
+                LightingContent.LIT_TORCH.get().defaultBlockState()}) {
+            level.setBlockAndUpdate(pos, source);
+            boolean batch = !source.is(Blocks.CAMPFIRE);
+            player.setShiftKeyDown(batch);
+            var torches = new ItemStack(LightingContent.UNLIT_TORCH_ITEM.get(), 4);
+            player.setItemInHand(InteractionHand.OFF_HAND, torches);
+            var result = player.gameMode.useItemOn(player, level, torches, InteractionHand.OFF_HAND, hit);
+            check(result.consumesAction() && level.getBlockState(pos).equals(source), "Torch conversion uses the source without replacing it");
+            int litCount = 0;
+            for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
+                var output = player.getInventory().getItem(slot);
+                if (output.is(LightingContent.LIT_TORCH_ITEM.get())) {
+                    check(output.getCount() == 1 && LitTorchItem.remaining(output) == TorchTimerBlockEntity.BURN_TICKS,
+                            "Converted torches are individual items with full fuel");
+                    litCount++;
+                    player.getInventory().removeItem(slot, 1);
+                }
+            }
+            var offhand = player.getOffhandItem();
+            if (offhand.is(LightingContent.LIT_TORCH_ITEM.get())) {
+                check(LitTorchItem.remaining(offhand) == TorchTimerBlockEntity.BURN_TICKS, "Converted offhand torch has full fuel");
+                litCount++;
+            }
+            check(litCount == (batch ? 4 : 1) && torches.getCount() == (batch ? 0 : 3),
+                    "Sneak lights the whole stack and regular click lights one");
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        }
+        player.setShiftKeyDown(false);
+
         for (boolean wall : new boolean[]{false, true}) {
             if (wall) level.setBlockAndUpdate(pos.west(), Blocks.STONE.defaultBlockState());
             BlockState state = wall ? LightingContent.LIT_WALL_TORCH.get().defaultBlockState().setValue(WallTorchBlock.FACING, Direction.EAST)

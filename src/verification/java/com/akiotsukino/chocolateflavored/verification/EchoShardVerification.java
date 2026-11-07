@@ -49,13 +49,13 @@ final class EchoShardVerification {
         check(shard.hasFoil()&&second.hasFoil(),"Client cache supplies glint to every linked copy");
         player.setItemInHand(InteractionHand.MAIN_HAND,shard.copyWithCount(2));player.setPos(544.5,161,.5);
         var origin=player.position();check(Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND).consumesAction(),"Linked shard starts native hold use");
-        check(player.getUseItem().getUseDuration(player)==60,"Three-second use duration");
+        check(player.getUseItem().getUseDuration(player)==30,"One-and-a-half-second use duration");
         // Equivalent inventory stack replacement must not break native held-item progression.
         player.setItemInHand(InteractionHand.MAIN_HAND,player.getMainHandItem().copy());
-        for(int i=0;i<59;i++)player.advance();
-        check(player.position().equals(origin)&&player.getMainHandItem().getCount()==2,"No teleport or consumption at 59 ticks");
+        for(int i=0;i<29;i++)player.advance();
+        check(player.position().equals(origin)&&player.getMainHandItem().getCount()==2,"No teleport or consumption at 29 ticks");
         player.advance();
-        check(player.requestedTeleport!=null&&player.requestedTeleport.distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(pos.above()))<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 60 ticks request native teleport to lodestone and consume one shard");
+        check(player.requestedTeleport!=null&&player.requestedTeleport.distanceToSqr(net.minecraft.world.phys.Vec3.atBottomCenterOf(pos.above()))<.01&&player.getMainHandItem().getCount()==1&&!player.isUsingItem(),"At 30 ticks request native teleport to lodestone and consume one shard");
         // FakePlayer intentionally suppresses network teleports; the client fixture verifies actual arrival.
         player.requestedTeleport=null;
         player.setPos(origin);check(Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND).consumesAction(),"Remaining linked shard can charge");
@@ -78,7 +78,7 @@ final class EchoShardVerification {
             check(!link(traveler,pos).consumesAction()&&EchoShards.target(traveler.getMainHandItem())==null,"Cannot bind outside Overworld");
             traveler.setItemInHand(InteractionHand.OFF_HAND,fresh.copyWithCount(2));var before=traveler.position();
             check(Items.ECHO_SHARD.use(other,traveler,InteractionHand.OFF_HAND).consumesAction(),"Offworld linked shard starts charge");
-            for(int i=0;i<59;i++)traveler.advance();check(traveler.getOffhandItem().getCount()==2,"Offworld use also requires full charge");traveler.advance();
+            for(int i=0;i<29;i++)traveler.advance();check(traveler.getOffhandItem().getCount()==2,"Offworld use also requires full charge");traveler.advance();
             check(traveler.level()==other&&traveler.position().equals(before)&&traveler.getOffhandItem().getCount()==1,"Offworld completion breaks one shard without teleport, including creative and offhand");
             other.removeBlock(pos,false);
         }
@@ -88,11 +88,11 @@ final class EchoShardVerification {
         check(!player.isUsingItem()&&player.getMainHandItem().getCount()==1,"Broken anchor cancels pending charge without spending unlinked shard");
         level.setBlockAndUpdate(pos,Blocks.LODESTONE.defaultBlockState());player.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.ECHO_SHARD));link(player,pos);
         level.setBlockAndUpdate(pos.above(),Blocks.STONE.defaultBlockState());level.setBlockAndUpdate(pos.above(2),Blocks.STONE.defaultBlockState());player.setPos(origin);
-        Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND);for(int i=0;i<60;i++)player.advance();
+        Items.ECHO_SHARD.use(level,player,InteractionHand.MAIN_HAND);for(int i=0;i<30;i++)player.advance();
         check(player.getMainHandItem().isEmpty()&&player.position().equals(origin),"Blocked arrival spends shard without suffocating player");
         level.removeBlock(pos,false);level.removeBlock(pos.above(),false);level.removeBlock(pos.above(2),false);
         EchoLinkPayload.clearClient();player.stopUsingItem();
-        ChocolateFlavored.LOGGER.info("ECHO_SHARD_VERIFICATION_PASSED: native binding/splitting, shared links, item/world persistence, glint cache, 60-tick use/cancel, consumption, cross-dimension failure, incarnation invalidation, mid-charge removal, obstructed arrival");
+        ChocolateFlavored.LOGGER.info("ECHO_SHARD_VERIFICATION_PASSED: native binding/splitting, shared links, item/world persistence, glint cache, 30-tick use/cancel, consumption, cross-dimension failure, incarnation invalidation, mid-charge removal, obstructed arrival");
     }
     private static InteractionResult link(UsePlayer player,BlockPos pos){return Items.ECHO_SHARD.useOn(new UseOnContext(player,InteractionHand.MAIN_HAND,new BlockHitResult(net.minecraft.world.phys.Vec3.atCenterOf(pos),Direction.UP,pos,false)));}
     private static void check(boolean ok,String message){if(!ok)throw new IllegalStateException("Echo shard: "+message);}

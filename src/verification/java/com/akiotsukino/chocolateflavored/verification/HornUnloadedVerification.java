@@ -15,7 +15,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
-/** Lets the native entity/chunk managers save, unload, and reload a linked pet during the live server loop. */
+/** Lets the native entity/chunk managers save, unload, and reload a linked mount during the live server loop. */
 @EventBusSubscriber(modid = ChocolateFlavored.MODID)
 public final class HornUnloadedVerification {
     private static ServerLevel level;
@@ -32,11 +32,11 @@ public final class HornUnloadedVerification {
         level.addNewPlayer(caller);
         level.setChunkForced(REMOTE.getX() >> 4, REMOTE.getZ() >> 4, true);
         level.getChunkAt(REMOTE);
-        var wolf = EntityTypes.WOLF.create(level, EntitySpawnReason.COMMAND);
-        wolf.setTame(true, true); wolf.setOwner(caller); wolf.setNoAi(true); wolf.setNoGravity(true); wolf.setPermanentlyInvulnerable(true);
-        wolf.setPos(net.minecraft.world.phys.Vec3.atCenterOf(REMOTE)); level.addFreshEntity(wolf);
-        target = wolf.getUUID();
-        check(HornRecall.bind(caller, new ItemStack(ModContent.COPPER_HORN.get()), wolf), "Bind fixture");
+        var horse = EntityTypes.HORSE.create(level, EntitySpawnReason.COMMAND);
+        horse.setTamed(true); horse.setOwner(caller); horse.setNoAi(true); horse.setNoGravity(true); horse.setPermanentlyInvulnerable(true);
+        horse.setPos(net.minecraft.world.phys.Vec3.atCenterOf(REMOTE)); level.addFreshEntity(horse);
+        target = horse.getUUID();
+        check(HornRecall.bind(caller, new ItemStack(ModContent.COPPER_HORN.get()), horse), "Bind fixture");
     }
     @SubscribeEvent public static void tick(ServerTickEvent.Post event) {
         if (level == null || completed || event.getServer() != level.getServer()) return;
@@ -53,7 +53,7 @@ public final class HornUnloadedVerification {
             HornRecall.request(caller, target);
             stage = 2; ticks = 0;
         } else if (stage == 2) {
-            check(ticks < 240, "Recall reloads linked pet");
+            check(ticks < 240, "Recall reloads linked mount");
             var returned = HornRecall.loaded(level.getServer(), target);
             if (returned == null || returned.position().distanceToSqr(caller.position()) > .01) return;
             check(returned.getUUID().equals(target), "No duplicate or replacement UUID");

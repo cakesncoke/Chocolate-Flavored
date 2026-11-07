@@ -3,12 +3,17 @@ package com.akiotsukino.chocolateflavored.gameplay;
 import com.akiotsukino.chocolateflavored.content.ModTags;
 import java.util.ArrayList;
 import java.util.Optional;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.item.enchantment.Repairable;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public final class EquipmentRules {
     public static void modifyComponents(ModifyDefaultComponentsEvent event) {
@@ -22,6 +27,8 @@ public final class EquipmentRules {
                             : path.startsWith("golden_") ? original : original * 2;
                     components.set(DataComponents.MAX_DAMAGE, durability);
                 });
+        event.modify(Items.TRIDENT, (components, context, item) ->
+                components.set(DataComponents.REPAIRABLE, new Repairable(HolderSet.direct(Items.PRISMARINE_SHARD.builtInRegistryHolder()))));
         event.modify(Items.COPPER_PICKAXE, (components, context, item) -> {
             Tool previous = components.build().get(DataComponents.TOOL);
             if (previous == null) return;
@@ -34,5 +41,12 @@ public final class EquipmentRules {
                     previous.damagePerBlock(), previous.canDestroyBlocksInCreative()));
         });
     }
+    public static void protectFromBerryBushes(LivingIncomingDamageEvent event) {
+        if (event.getSource().is(DamageTypes.SWEET_BERRY_BUSH)
+                && !event.getEntity().getItemBySlot(EquipmentSlot.LEGS).isEmpty()) {
+            event.setCanceled(true);
+        }
+    }
+
     private EquipmentRules() {}
 }
