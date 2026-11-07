@@ -16,7 +16,7 @@ abstract class IceBlockMeltMixin {
     @Inject(method = "melt", at = @At("HEAD"), cancellable = true)
     private void chocolateflavored$preserveWaterNearCryingObsidian(BlockState state, Level level,
             BlockPos pos, CallbackInfo ci) {
-        if (!level.dimensionType().ultraWarm()) return;
+        if (level.dimension() != Level.NETHER) return;
         for (Direction direction : Direction.values()) {
             if (level.getBlockState(pos.relative(direction)).is(Blocks.CRYING_OBSIDIAN)) {
                 level.setBlock(pos, Blocks.WATER.defaultBlockState(), 3);
