@@ -98,7 +98,7 @@ ServerEvents.recipes(event => {
 })
 ```
 
-Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration (`-PverifyKubeJS=true`) still pins the 26.1.2-era KubeJS `26.1.2-8.0.7`, Rhino `2101.2.8-build.91` and Better Advanced Tooltips `2601.1.0-build.9`. These builds predate Minecraft 26.3, so KubeJS compatibility is **not verified on 26.3** until the pins are updated to 26.3 releases and the job passes. The standard build and mod metadata require neither.
+Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration (`-PverifyKubeJS=true`) still pins the 26.1.2-era KubeJS `26.1.2-8.0.7`, Rhino `2101.2.8-build.91` and Better Advanced Tooltips `2601.1.0-build.9`. These builds predate Minecraft 26.3, and KubeJS compatibility is **not verified on 26.3**. As of 2026-11-07 the newest published KubeJS is `26.1.2-8.0.8`. The pinned build fails to start on NeoForge 26.3.0.99 because its `RecipeManagerMixin` targets the removed `ContextAwareReloadListener` superclass. The CI job runs but does not block builds until a 26.3 KubeJS release exists. The standard build and mod metadata require neither.
 
 ## Verification
 

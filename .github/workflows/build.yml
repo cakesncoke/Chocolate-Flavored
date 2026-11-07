@@ -63,6 +63,9 @@ jobs:
   kubejs-compatibility:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # Informational until KubeJS publishes a 26.3 build: the pinned 26.1.2 KubeJS fails to start on
+    # NeoForge 26.3 (its RecipeManagerMixin targets a removed NeoForge superclass).
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -70,7 +73,6 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
       - uses: gradle/actions/setup-gradle@v4
-      # The pinned KubeJS builds predate Minecraft 26.3; this job is informational until they are updated.
       - name: Verify optional KubeJS cooking recipes
         run: |
           mkdir -p run-kubejs-verification/kubejs/server_scripts

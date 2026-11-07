@@ -114,7 +114,8 @@ idea {
 }
 
 // Optional development-only KubeJS compatibility run. None of these mods is a release dependency.
-// These pins predate Minecraft 26.3 and must be updated before the KubeJS check is meaningful on 26.3.
+// These pins predate Minecraft 26.3; KubeJS 26.1.2 fails to start on NeoForge 26.3 (checked 2026-11-07,
+// newest published build 26.1.2-8.0.8). Update them once a 26.3 KubeJS is released.
 if (providers.gradleProperty('verifyKubeJS').map { it.toBoolean() }.getOrElse(false)) {
     repositories.maven {
         url = 'https://maven.latvian.dev/releases'

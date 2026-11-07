@@ -27,7 +27,7 @@ Development-only checks live in the `verification` source set and are never pack
 | --- | --- |
 | `./gradlew runVerificationServer` | Dedicated-server gameplay checks in `run-verification/`. Success logs `CHOCOLATE_FLAVORED_VERIFICATION_PASSED`. |
 | `bash scripts/client-smoke-test.sh` (inside `xvfb-run`) | Starts the development client with `-PverifyClient=true`, opens the real cooking-pot menu and renders every entity, block and item gallery. It needs a world from the server run above. |
-| `./gradlew runKubejsVerificationServer -PverifyKubeJS=true` | Optional KubeJS recipe check. The pinned KubeJS builds predate 26.3, so this is currently unverified (see [cooking](docs/cooking.md#kubejs)). |
+| `./gradlew runKubejsVerificationServer -PverifyKubeJS=true` | Optional KubeJS recipe check. No 26.3 KubeJS exists yet and the pinned 26.1.2 build crashes on 26.3, so this is currently unverified and non-blocking in CI (see [cooking](docs/cooking.md#kubejs)). |
 
 CI ([.github/workflows/build.yml](.github/workflows/build.yml)) runs all three and uploads logs and screenshots. These checks do not replace exploratory or multiplayer gameplay testing.
 
