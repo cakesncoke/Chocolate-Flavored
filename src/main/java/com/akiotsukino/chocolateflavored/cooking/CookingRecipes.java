@@ -21,18 +21,18 @@ import net.minecraft.core.registries.Registries;
 public final class CookingRecipes {
     private static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, ChocolateFlavored.MODID);
     private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ChocolateFlavored.MODID);
-    public static final DeferredHolder<RecipeType<?>, RecipeType<MudKilnRecipe>> MUD_KILN = TYPES.register("mud_kiln", () -> new RecipeType<>() {
+    public static final DeferredHolder<RecipeType<?>, RecipeType<KilnRecipe>> KILN = TYPES.register("mud_kiln", () -> new RecipeType<>() {
         @Override public String toString() { return "chocolateflavored:mud_kiln"; }
     });
     public static final DeferredHolder<RecipeType<?>, RecipeType<PotRecipe>> COOKING_POT = TYPES.register("cooking_pot", () -> new RecipeType<>() {
         @Override public String toString() { return "chocolateflavored:cooking_pot"; }
     });
-    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MudKilnRecipe>> MUD_KILN_SERIALIZER = SERIALIZERS.register("mud_kiln", () -> new RecipeSerializer<>(MudKilnRecipe.CODEC, ByteBufCodecs.fromCodecWithRegistries(MudKilnRecipe.CODEC.codec())));
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<KilnRecipe>> KILN_SERIALIZER = SERIALIZERS.register("mud_kiln", () -> new RecipeSerializer<>(KilnRecipe.CODEC, ByteBufCodecs.fromCodecWithRegistries(KilnRecipe.CODEC.codec())));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<PotRecipe>> POT_SERIALIZER = SERIALIZERS.register("cooking_pot", () -> new RecipeSerializer<>(PotRecipe.CODEC, ByteBufCodecs.fromCodecWithRegistries(PotRecipe.CODEC.codec())));
     public static void register(IEventBus bus) {
         // Recipes written for the pre-rename "oven" type still load.
-        TYPES.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN.getId());
-        SERIALIZERS.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN_SERIALIZER.getId());
+        TYPES.addAlias(Identifier.parse("chocolateflavored:oven"), KILN.getId());
+        SERIALIZERS.addAlias(Identifier.parse("chocolateflavored:oven"), KILN_SERIALIZER.getId());
         TYPES.register(bus);
         SERIALIZERS.register(bus);
     }
@@ -44,18 +44,18 @@ public final class CookingRecipes {
         @Override default PlacementInfo placementInfo() { return PlacementInfo.NOT_PLACEABLE; }
         @Override default RecipeBookCategory recipeBookCategory() { return RecipeBookCategories.CRAFTING_MISC; }
     }
-    public record MudKilnRecipe(Ingredient ingredient, int inputCount, ItemStackTemplate result, int cookingTime, float experience) implements ProcessingRecipe<SingleRecipeInput> {
-        public static final MapCodec<MudKilnRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-                Ingredient.CODEC.fieldOf("ingredient").forGetter(MudKilnRecipe::ingredient),
-                Codec.intRange(1, 64).optionalFieldOf("input_count", 1).forGetter(MudKilnRecipe::inputCount),
-                ItemStackTemplate.CODEC.fieldOf("result").forGetter(MudKilnRecipe::result),
-                Codec.intRange(1, 32767).optionalFieldOf("cookingtime", 200).forGetter(MudKilnRecipe::cookingTime),
-                Codec.floatRange(0, 1000).optionalFieldOf("experience", 0.0F).forGetter(MudKilnRecipe::experience)
-        ).apply(i, MudKilnRecipe::new));
+    public record KilnRecipe(Ingredient ingredient, int inputCount, ItemStackTemplate result, int cookingTime, float experience) implements ProcessingRecipe<SingleRecipeInput> {
+        public static final MapCodec<KilnRecipe> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
+                Ingredient.CODEC.fieldOf("ingredient").forGetter(KilnRecipe::ingredient),
+                Codec.intRange(1, 64).optionalFieldOf("input_count", 1).forGetter(KilnRecipe::inputCount),
+                ItemStackTemplate.CODEC.fieldOf("result").forGetter(KilnRecipe::result),
+                Codec.intRange(1, 32767).optionalFieldOf("cookingtime", 200).forGetter(KilnRecipe::cookingTime),
+                Codec.floatRange(0, 1000).optionalFieldOf("experience", 0.0F).forGetter(KilnRecipe::experience)
+        ).apply(i, KilnRecipe::new));
         @Override public boolean matches(SingleRecipeInput input, Level level) { return ingredient.test(input.item()) && input.item().getCount() >= inputCount; }
         @Override public ItemStack assemble(SingleRecipeInput input) { return result.create(); }
-        @Override public RecipeSerializer<MudKilnRecipe> getSerializer() { return MUD_KILN_SERIALIZER.get(); }
-        @Override public RecipeType<MudKilnRecipe> getType() { return MUD_KILN.get(); }
+        @Override public RecipeSerializer<KilnRecipe> getSerializer() { return KILN_SERIALIZER.get(); }
+        @Override public RecipeType<KilnRecipe> getType() { return KILN.get(); }
     }
     public record PotInput(List<ItemStack> items) implements RecipeInput {
         public PotInput { items = List.copyOf(items); }

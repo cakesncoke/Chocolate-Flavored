@@ -28,7 +28,7 @@ final class UnlitTorchItem extends StandingAndWallBlockItem {
         boolean campfire = state.getBlock() instanceof CampfireBlock;
         boolean vanillaTorch = state.is(Blocks.TORCH) || state.is(Blocks.WALL_TORCH);
         boolean timedTorch = state.is(LightingContent.LIT_TORCH.get()) || state.is(LightingContent.LIT_WALL_TORCH.get());
-        boolean kiln = state.is(CookingContent.MUD_KILN.get());
+        boolean kiln = state.is(CookingContent.KILN.get());
         if (!campfire && !vanillaTorch && !timedTorch && !kiln) return InteractionResult.PASS;
         if (!LightingIgnition.permitted(player, level, pos, context.getClickedFace(), stack)) return InteractionResult.FAIL;
         if (level.isClientSide()) return InteractionResult.SUCCESS;

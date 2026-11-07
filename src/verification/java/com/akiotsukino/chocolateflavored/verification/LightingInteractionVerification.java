@@ -44,7 +44,7 @@ final class LightingInteractionVerification {
         for (BlockState unlit : new BlockState[]{LightingContent.UNLIT_TORCH.get().defaultBlockState(),
                 Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false),
                 Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false),
-                com.akiotsukino.chocolateflavored.cooking.CookingContent.MUD_KILN.get().defaultBlockState()}) {
+                com.akiotsukino.chocolateflavored.cooking.CookingContent.KILN.get().defaultBlockState()}) {
             for (boolean blockClick : new boolean[]{true, false}) {
                 level.setBlockAndUpdate(pos, unlit);
                 ItemStack starter = new ItemStack(LightingContent.FIRE_STARTER.get());
@@ -66,7 +66,7 @@ final class LightingInteractionVerification {
 
         BlockState unlitCampfire = Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false);
         BlockState unlitSoulCampfire = Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, false);
-        BlockState unlitKiln = com.akiotsukino.chocolateflavored.cooking.CookingContent.MUD_KILN.get().defaultBlockState();
+        BlockState unlitKiln = com.akiotsukino.chocolateflavored.cooking.CookingContent.KILN.get().defaultBlockState();
         for (var source : new BlockState[]{unlitCampfire, unlitSoulCampfire, unlitKiln,
                 Blocks.TORCH.defaultBlockState(), Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, Direction.NORTH),
                 LightingContent.LIT_TORCH.get().defaultBlockState(),

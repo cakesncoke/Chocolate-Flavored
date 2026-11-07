@@ -4,7 +4,7 @@ The README credits all identified resource projects and creators. THIRD_PARTY_NO
 
 ## Confirmed supplied texture matches
 
-- Farmer's Delight: `textures/item/flint_knife.png`, `iron_knife.png`, `cooking_pot.png`, `empty_container_slot_bowl.png`, plus the Mud Kiln and pot resources documented in THIRD_PARTY_NOTICES.md.
+- Farmer's Delight: `textures/item/flint_knife.png`, `iron_knife.png`, `cooking_pot.png`, `empty_container_slot_bowl.png`, plus the Kiln and pot resources documented in THIRD_PARTY_NOTICES.md.
 - Hardcore Torches: `textures/block/lit_torch.png`, `unlit_torch.png`, `unlit_lantern.png`. All three have identical Git blob hashes to the inspected Forge upstream. Upstream metadata declares All Rights Reserved; the Forge boilerplate license is not taken as permission to relicense those images.
 - EarthMobs, Earth2Java, Earth Animals and Ultimate Earth & Dungeons Variants: selected resources and exact revisions/paths are recorded in THIRD_PARTY_NOTICES.md and the baby texture audit.
 

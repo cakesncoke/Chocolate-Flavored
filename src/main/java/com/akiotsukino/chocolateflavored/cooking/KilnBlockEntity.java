@@ -20,19 +20,19 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
-public final class MudKilnBlockEntity extends BlockEntity {
+public final class KilnBlockEntity extends BlockEntity {
     private final NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private final int[] progress = new int[6];
-    private final RecipeManager.CachedCheck<SingleRecipeInput, CookingRecipes.MudKilnRecipe> custom = RecipeManager.createCheck(CookingRecipes.MUD_KILN.get());
+    private final RecipeManager.CachedCheck<SingleRecipeInput, CookingRecipes.KilnRecipe> custom = RecipeManager.createCheck(CookingRecipes.KILN.get());
     private final RecipeManager.CachedCheck<SingleRecipeInput, CampfireCookingRecipe> campfire = RecipeManager.createCheck(RecipeType.CAMPFIRE_COOKING);
     public record CookingResult(ItemStack result, int inputCount, int time, float experience) {}
 
-    public MudKilnBlockEntity(BlockPos pos, BlockState state) { super(CookingContent.MUD_KILN_ENTITY.get(), pos, state); }
+    public KilnBlockEntity(BlockPos pos, BlockState state) { super(CookingContent.KILN_ENTITY.get(), pos, state); }
 
     public NonNullList<ItemStack> items() { return items; }
     public int progress(int slot) { return progress[slot]; }
 
-    /** Custom mud_kiln recipes first, then vanilla campfire cooking. */
+    /** Custom kiln recipes first, then vanilla campfire cooking. */
     public Optional<CookingResult> recipe(ServerLevel level, ItemStack stack) {
         var input = new SingleRecipeInput(stack);
         var own = custom.getRecipeFor(input, level);
@@ -56,8 +56,8 @@ public final class MudKilnBlockEntity extends BlockEntity {
         return false;
     }
 
-    public static void tick(ServerLevel level, BlockPos pos, BlockState state, MudKilnBlockEntity kiln) {
-        if (MudKilnBlock.isCovered(level, pos)) {
+    public static void tick(ServerLevel level, BlockPos pos, BlockState state, KilnBlockEntity kiln) {
+        if (KilnBlock.isCovered(level, pos)) {
             if (kiln.items.stream().anyMatch(s -> !s.isEmpty())) {
                 kiln.dropItems();
                 kiln.changed();
@@ -69,7 +69,7 @@ public final class MudKilnBlockEntity extends BlockEntity {
             var ingredient = kiln.items.get(slot);
             if (ingredient.isEmpty()) continue;
             changed = true;
-            if (!state.getValue(MudKilnBlock.LIT)) {
+            if (!state.getValue(KilnBlock.LIT)) {
                 kiln.progress[slot] = Math.max(0, kiln.progress[slot] - 2);
                 continue;
             }

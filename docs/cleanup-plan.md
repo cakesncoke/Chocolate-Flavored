@@ -10,7 +10,7 @@ Audit of `main` at `c8f7906` (2026-11-07). This file records what was found, wha
 | --- | --- | --- |
 | D1 | README and 17 feature docs stated Minecraft 26.1.2 / NeoForge 26.1.2.122 as the target, though the build pins 26.3 / 26.3.0.99. | Fixed. The target is stated once in the README; per-doc headers are removed. Upstream source revisions such as EarthMobs 26.1.x are kept as provenance facts. |
 | D2 | A blanket "oven → mud_kiln" rename had corrupted the word *provenance* (into `prmud_kilnance`) in a file name, links and five documents. | Fixed. The file is now `docs/resource-provenance.md`. |
-| D3 | Prose used "MudKiln" / "mud_kiln"; the in-game name is **Mud Kiln**. | Fixed. Identifiers stay `mud_kiln`. |
+| D3 | Prose used "MudKiln" / "mud_kiln"; the in-game name was **Mud Kiln** (now **Kiln**). | Fixed. Identifiers stay `mud_kiln`. |
 | D4 | Undocumented gameplay: bundle limits, Nether ice by crying obsidian, horse-armor Frost Walker, rose gold/steel beacon blocks and payments, trident repair, berry-bush protection, unlit-torch conversion, and the crafting-table/smoker texture overrides. | Fixed in `survival-tweaks.md` and `primitive-lighting.md`. |
 | D5 | Docs claimed rose gold tools had no upgrade recipe, but five copper → rose gold smithing recipes ship. | Fixed in `equipment.md`. |
 | D6 | The old README said the Sunken egg was custom; the bundled file is the unchanged Variants & Ventures Murk egg (hash-verified). | Fixed in the README and notices. |
@@ -42,7 +42,7 @@ Audit of `main` at `c8f7906` (2026-11-07). This file records what was found, wha
 
 ## Deferred (needs owner input or wider testing)
 
-1. **Code style:** done for the densest shipped classes: TuffGolem, Sunken, SunkenSwimming, MonsterSpawns, MobContent, the Mud Kiln and pot block entities, CookingContent/CookingRecipes, the trim combat/trigger/basalt classes, TrimLivingMixin, the Blockbench/CEM loaders, TuffGolemRenderer and EchoShards. Every step was checked by comparing `javap -c` output: identical except two documented local-variable hoists. Remaining: the long model and registry builder lines in `client/**/model` and `*Content` (readable as is), and the `verification` source set, especially `MobVerification`. Do these the same way, one package per commit.
+1. **Code style:** done for the densest shipped classes: TuffGolem, Sunken, SunkenSwimming, MonsterSpawns, MobContent, the Kiln and pot block entities, CookingContent/CookingRecipes, the trim combat/trigger/basalt classes, TrimLivingMixin, the Blockbench/CEM loaders, TuffGolemRenderer and EchoShards. Every step was checked by comparing `javap -c` output: identical except two documented local-variable hoists. Remaining: the long model and registry builder lines in `client/**/model` and `*Content` (readable as is), and the `verification` source set, especially `MobVerification`. Do these the same way, one package per commit.
 2. **KubeJS on 26.3:** blocked upstream. As of 2026-11-07 the newest KubeJS is `26.1.2-8.0.8`, and the pinned build fails to start on NeoForge 26.3 (`RecipeManagerMixin` targets the removed `ContextAwareReloadListener`). The CI job is now `continue-on-error`. Update the pins and remove that flag once KubeJS ships for 26.3.
 3. **Nether ice scope:** the rule checks `Level.NETHER`. Vanilla uses the `WATER_EVAPORATES` environment attribute. Decide whether other evaporating dimensions should also keep water by crying obsidian.
 4. **Unused assets:** six Earth2Java `*_blink.png` textures are bundled but unused. Wire up blinking or remove them.

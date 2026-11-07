@@ -31,7 +31,7 @@ public final class CookingClientVerification {
                     player.setGameMode(net.minecraft.world.level.GameType.CREATIVE); // Protect the gallery viewer from ambient slimes.
                     var level = player.level();
                     var pos = player.blockPosition().relative(player.getDirection(), 3);
-                    level.setBlockAndUpdate(pos.below(), CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
+                    level.setBlockAndUpdate(pos.below(), CookingContent.KILN.get().defaultBlockState().setValue(KilnBlock.LIT, true));
                     level.setBlockAndUpdate(pos, CookingContent.COOKING_POT.get().defaultBlockState());
                     var pot = (CookingPotBlockEntity)level.getBlockEntity(pos);
                     pot.setItem(2, new ItemStack(Items.BOWL, 2));
@@ -40,10 +40,10 @@ public final class CookingClientVerification {
                     pot.setItem(2, new ItemStack(Items.BOWL, 32));
                     pot.setItem(0, new ItemStack(Items.RED_MUSHROOM, 32)); pot.setItem(1, new ItemStack(Items.BROWN_MUSHROOM, 32));
                     var displayPos = pos.relative(player.getDirection().getClockWise(), 2).below();
-                    level.setBlockAndUpdate(displayPos, CookingContent.MUD_KILN.get().defaultBlockState());
+                    level.setBlockAndUpdate(displayPos, CookingContent.KILN.get().defaultBlockState());
                     unlitKilnPos = displayPos;
-                    var mud_kiln = (MudKilnBlockEntity)level.getBlockEntity(displayPos);
-                    for (int i = 0; i < 6; i++) mud_kiln.placeFood(level, player, new ItemStack(Items.BEEF));
+                    var kiln = (KilnBlockEntity)level.getBlockEntity(displayPos);
+                    for (int i = 0; i < 6; i++) kiln.placeFood(level, player, new ItemStack(Items.BEEF));
                     player.openMenu(pot);
                 } catch (Throwable failure) {
                     ChocolateFlavored.LOGGER.error("COOKING_CLIENT_VERIFICATION_FAILED", failure);
@@ -60,8 +60,8 @@ public final class CookingClientVerification {
             }
             if (!screen.getMenu().isHeated()) throw new IllegalStateException("Pot heat state did not synchronize");
             if (screen.children().stream().anyMatch(child -> child.getClass().getSimpleName().contains("RecipeBook"))) throw new IllegalStateException("Cooking pot exposed a recipe-book widget");
-            var kiln=(MudKilnBlockEntity)minecraft.level.getBlockEntity(unlitKilnPos);
-            net.minecraft.client.renderer.blockentity.BlockEntityRenderer<MudKilnBlockEntity,net.minecraft.client.renderer.blockentity.state.CampfireRenderState> renderer=minecraft.getBlockEntityRenderDispatcher().getRenderer(kiln);
+            var kiln=(KilnBlockEntity)minecraft.level.getBlockEntity(unlitKilnPos);
+            net.minecraft.client.renderer.blockentity.BlockEntityRenderer<KilnBlockEntity,net.minecraft.client.renderer.blockentity.state.CampfireRenderState> renderer=minecraft.getBlockEntityRenderDispatcher().getRenderer(kiln);
             var renderState=renderer.createRenderState();renderer.extractRenderState(kiln,renderState,0,net.minecraft.world.phys.Vec3.ZERO,null);
             int expected=net.minecraft.util.LightCoordsUtil.getLightCoords(minecraft.level,unlitKilnPos.above());
             if(renderState.lightCoords!=expected || renderState.items.stream().allMatch(net.minecraft.client.renderer.item.ItemStackRenderState::isEmpty))throw new IllegalStateException("Unlit kiln food lighting or synchronization failed");

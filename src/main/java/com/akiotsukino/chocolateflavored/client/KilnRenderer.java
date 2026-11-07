@@ -1,7 +1,7 @@
 package com.akiotsukino.chocolateflavored.client;
 
-import com.akiotsukino.chocolateflavored.cooking.MudKilnBlock;
-import com.akiotsukino.chocolateflavored.cooking.MudKilnBlockEntity;
+import com.akiotsukino.chocolateflavored.cooking.KilnBlock;
+import com.akiotsukino.chocolateflavored.cooking.KilnBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 /** Uses vanilla 26.1 extraction/submission, with the six-position cooking layout. */
-public final class MudKilnRenderer implements BlockEntityRenderer<MudKilnBlockEntity, CampfireRenderState> {
+public final class KilnRenderer implements BlockEntityRenderer<KilnBlockEntity, CampfireRenderState> {
     private final ItemModelResolver resolver;
-    public MudKilnRenderer(BlockEntityRendererProvider.Context context) { resolver = context.itemModelResolver(); }
+    public KilnRenderer(BlockEntityRendererProvider.Context context) { resolver = context.itemModelResolver(); }
     @Override public CampfireRenderState createRenderState() { return new CampfireRenderState(); }
-    @Override public void extractRenderState(MudKilnBlockEntity mud_kiln, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
-        BlockEntityRenderer.super.extractRenderState(mud_kiln, state, partialTick, camera, overlay);
-        state.lightCoords = net.minecraft.util.LightCoordsUtil.getLightCoords(mud_kiln.getLevel(), mud_kiln.getBlockPos().above());
-        state.facing = mud_kiln.getBlockState().getValue(MudKilnBlock.FACING); state.items = new ArrayList<>();
+    @Override public void extractRenderState(KilnBlockEntity kiln, CampfireRenderState state, float partialTick, Vec3 camera, ModelFeatureRenderer.@Nullable CrumblingOverlay overlay) {
+        BlockEntityRenderer.super.extractRenderState(kiln, state, partialTick, camera, overlay);
+        state.lightCoords = net.minecraft.util.LightCoordsUtil.getLightCoords(kiln.getLevel(), kiln.getBlockPos().above());
+        state.facing = kiln.getBlockState().getValue(KilnBlock.FACING); state.items = new ArrayList<>();
         for (int slot = 0; slot < 6; slot++) {
             var item = new ItemStackRenderState();
-            resolver.updateForTopItem(item, mud_kiln.items().get(slot), ItemDisplayContext.FIXED, mud_kiln.getLevel(), null, (int)mud_kiln.getBlockPos().asLong() + slot);
+            resolver.updateForTopItem(item, kiln.items().get(slot), ItemDisplayContext.FIXED, kiln.getLevel(), null, (int)kiln.getBlockPos().asLong() + slot);
             state.items.add(item);
         }
     }

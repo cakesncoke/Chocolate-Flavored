@@ -23,15 +23,15 @@ public final class KubeCookingVerification {
         var level = event.getServer().overworld();
         check(ModList.get().isLoaded("kubejs") && !ModList.get().isLoaded("farmersdelight"), "KubeJS loaded without Farmer's Delight");
         var recipes = event.getServer().getRecipeManager();
-        check(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("chocolateflavored", "mud_kiln/bread"))).isEmpty(), "KubeJS removes built-in mud_kiln recipes");
-        var mud_kilnRecipe = recipes.getRecipeFor(CookingRecipes.MUD_KILN.get(), new SingleRecipeInput(new ItemStack(Items.CARROT)), level).orElseThrow();
-        check(mud_kilnRecipe.id().identifier().toString().equals("kubejs:verification_mud_kiln"), "KubeJS registers custom mud_kiln recipe");
+        check(recipes.byKey(ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath("chocolateflavored", "mud_kiln/bread"))).isEmpty(), "KubeJS removes built-in kiln recipes");
+        var kilnRecipe = recipes.getRecipeFor(CookingRecipes.KILN.get(), new SingleRecipeInput(new ItemStack(Items.CARROT)), level).orElseThrow();
+        check(kilnRecipe.id().identifier().toString().equals("kubejs:verification_mud_kiln"), "KubeJS registers custom kiln recipe");
         BlockPos pos = new BlockPos(0, 160, 0);
-        level.setBlockAndUpdate(pos, CookingContent.MUD_KILN.get().defaultBlockState().setValue(MudKilnBlock.LIT, true));
-        var mud_kiln = (MudKilnBlockEntity)level.getBlockEntity(pos);
-        check(mud_kiln.placeFood(level, FakePlayerFactory.getMinecraft(level), new ItemStack(Items.CARROT)), "MudKiln accepts KubeJS ingredient");
-        for (int i = 0; i < 4; i++) MudKilnBlockEntity.tick(level, pos, mud_kiln.getBlockState(), mud_kiln);
-        check(level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3)).stream().anyMatch(e -> e.getItem().is(Items.GOLDEN_CARROT)), "MudKiln executes KubeJS recipe");
+        level.setBlockAndUpdate(pos, CookingContent.KILN.get().defaultBlockState().setValue(KilnBlock.LIT, true));
+        var kiln = (KilnBlockEntity)level.getBlockEntity(pos);
+        check(kiln.placeFood(level, FakePlayerFactory.getMinecraft(level), new ItemStack(Items.CARROT)), "Kiln accepts KubeJS ingredient");
+        for (int i = 0; i < 4; i++) KilnBlockEntity.tick(level, pos, kiln.getBlockState(), kiln);
+        check(level.getEntitiesOfClass(ItemEntity.class, new AABB(pos).inflate(3)).stream().anyMatch(e -> e.getItem().is(Items.GOLDEN_CARROT)), "Kiln executes KubeJS recipe");
         level.setBlockAndUpdate(pos.above(), CookingContent.COOKING_POT.get().defaultBlockState());
         var pot = (CookingPotBlockEntity)level.getBlockEntity(pos.above());
         Item[] inputs={Items.APPLE,Items.CARROT,Items.POTATO,Items.BEETROOT,Items.WHEAT,Items.SUGAR};
@@ -48,7 +48,7 @@ public final class KubeCookingVerification {
         CookingPotBlockEntity.tick(level,pot.getBlockPos(),pot.getBlockState(),pot);
         for(int i=0;i<6;i++)check(pot.getItem(i).isEmpty()&&pot.getItem(6+i).is(outputs[i])&&pot.getItem(6+i).getCount()==i+2,
                 "All six counted inputs and six output stacks execute atomically");
-        ChocolateFlavored.LOGGER.info("KUBEJS_COOKING_VERIFICATION_PASSED: real KubeJS recipe removal and custom JSON recipes execute in mud_kiln and pot without Farmer's Delight");
+        ChocolateFlavored.LOGGER.info("KUBEJS_COOKING_VERIFICATION_PASSED: real KubeJS recipe removal and custom JSON recipes execute in kiln and pot without Farmer's Delight");
         event.getServer().halt(false);
     }
     private static void check(boolean ok, String message) { if (!ok) throw new IllegalStateException("KubeJS cooking verification failed: " + message); }

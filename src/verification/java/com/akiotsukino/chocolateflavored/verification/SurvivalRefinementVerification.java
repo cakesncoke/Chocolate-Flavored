@@ -23,7 +23,7 @@ final class SurvivalRefinementVerification {
   if(!new ItemStack(SteelContent.STEEL_INGOT.get()).has(DataComponents.PROVIDES_TRIM_MATERIAL))throw new IllegalStateException("Steel trim component missing");
   level.registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL).getOrThrow(ResourceKey.create(Registries.TRIM_MATERIAL,Identifier.parse("chocolateflavored:steel")));
   var old=ItemStack.CODEC.parse(ops,JsonParser.parseString("{\"id\":\"chocolateflavored:oven\",\"count\":1}")).getOrThrow();
-  if(!old.is(com.akiotsukino.chocolateflavored.cooking.CookingContent.MUD_KILN_ITEM.get()))throw new IllegalStateException("Legacy kiln alias failed");
+  if(!old.is(com.akiotsukino.chocolateflavored.cooking.CookingContent.KILN_ITEM.get()))throw new IllegalStateException("Legacy kiln alias failed");
   ChocolateFlavored.LOGGER.info("SURVIVAL_REFINEMENT_VERIFICATION_PASSED: five native copper upgrades preserve components, steel trim material, legacy kiln item alias");
  }
 }

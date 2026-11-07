@@ -33,17 +33,17 @@ public final class CookingContent {
     // Legacy pot item contents, read only to migrate old saves.
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemContainerContents>> MEAL_TEMPLATE = COMPONENTS.registerComponentType("meal_template", b -> b.persistent(ItemContainerContents.CODEC).networkSynchronized(ItemContainerContents.STREAM_CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemContainerContents>> MEAL_CONTAINER = COMPONENTS.registerComponentType("meal_container", b -> b.persistent(ItemContainerContents.CODEC).networkSynchronized(ItemContainerContents.STREAM_CODEC));
-    public static final DeferredBlock<MudKilnBlock> MUD_KILN = ModContent.BLOCKS.registerBlock("mud_kiln", MudKilnBlock::new,
-            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).overrideLootTable(loot("mud_kiln")).strength(3.5F).lightLevel(s -> s.getValue(MudKilnBlock.LIT) ? 13 : 0));
+    public static final DeferredBlock<KilnBlock> KILN = ModContent.BLOCKS.registerBlock("mud_kiln", KilnBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).overrideLootTable(loot("mud_kiln")).strength(3.5F).lightLevel(s -> s.getValue(KilnBlock.LIT) ? 13 : 0));
     public static final DeferredBlock<CookingPotBlock> COOKING_POT = ModContent.BLOCKS.registerBlock("cooking_pot", CookingPotBlock::new,
             () -> BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON).overrideLootTable(loot("cooking_pot")).strength(0.5F).sound(SoundType.LANTERN).noOcclusion());
-    public static final DeferredItem<BlockItem> MUD_KILN_ITEM = ModContent.ITEMS.registerSimpleBlockItem(MUD_KILN);
+    public static final DeferredItem<BlockItem> KILN_ITEM = ModContent.ITEMS.registerSimpleBlockItem(KILN);
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM = ModContent.ITEMS.registerItem("cooking_pot", p -> new BlockItem(COOKING_POT.get(), p.stacksTo(1).useBlockDescriptionPrefix()));
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MudKilnBlockEntity>> MUD_KILN_ENTITY = ENTITIES.register("mud_kiln", () -> new BlockEntityType<>(MudKilnBlockEntity::new, Set.of(MUD_KILN.get())));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<KilnBlockEntity>> KILN_ENTITY = ENTITIES.register("mud_kiln", () -> new BlockEntityType<>(KilnBlockEntity::new, Set.of(KILN.get())));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CookingPotBlockEntity>> POT_ENTITY = ENTITIES.register("cooking_pot", () -> new BlockEntityType<>(CookingPotBlockEntity::new, Set.of(COOKING_POT.get())));
     public static final DeferredHolder<MenuType<?>, MenuType<CookingPotMenu>> POT_MENU = MENUS.register("cooking_pot", () -> new MenuType<>(CookingPotMenu::new, FeatureFlags.DEFAULT_FLAGS));
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> STEAM = PARTICLES.register("steam", () -> new SimpleParticleType(false));
-    public static final DeferredHolder<SoundEvent, SoundEvent> MUD_KILN_CRACKLE = sound("block.mud_kiln.crackle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> KILN_CRACKLE = sound("block.mud_kiln.crackle");
     public static final DeferredHolder<SoundEvent, SoundEvent> POT_BOIL = sound("block.cooking_pot.boil");
     public static final DeferredHolder<SoundEvent, SoundEvent> POT_SOUP = sound("block.cooking_pot.boil_soup");
     public static final DeferredHolder<SoundEvent, SoundEvent> TAKE_PORTION = sound("block.food.take_portion");
@@ -54,10 +54,10 @@ public final class CookingContent {
 
     public static void register(IEventBus bus) {
         // Saved worlds from before the rename used "oven" IDs.
-        ModContent.BLOCKS.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN.getId());
-        ModContent.ITEMS.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN_ITEM.getId());
-        ENTITIES.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN_ENTITY.getId());
-        SOUNDS.addAlias(Identifier.parse("chocolateflavored:block.oven.crackle"), MUD_KILN_CRACKLE.getId());
+        ModContent.BLOCKS.addAlias(Identifier.parse("chocolateflavored:oven"), KILN.getId());
+        ModContent.ITEMS.addAlias(Identifier.parse("chocolateflavored:oven"), KILN_ITEM.getId());
+        ENTITIES.addAlias(Identifier.parse("chocolateflavored:oven"), KILN_ENTITY.getId());
+        SOUNDS.addAlias(Identifier.parse("chocolateflavored:block.oven.crackle"), KILN_CRACKLE.getId());
         COMPONENTS.register(bus);
         ENTITIES.register(bus);
         MENUS.register(bus);

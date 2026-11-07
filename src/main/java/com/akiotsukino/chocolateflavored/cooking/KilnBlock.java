@@ -26,16 +26,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.*;
 
-public final class MudKilnBlock extends BaseEntityBlock {
+public final class KilnBlock extends BaseEntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
-    public MudKilnBlock(Properties properties) { super(properties); registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false)); }
+    public KilnBlock(Properties properties) { super(properties); registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, false)); }
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { builder.add(FACING, LIT); }
     @Override public BlockState getStateForPlacement(BlockPlaceContext context) { return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()); }
     @Override protected RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
-    @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new MudKilnBlockEntity(pos, state); }
+    @Override public BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new KilnBlockEntity(pos, state); }
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level instanceof ServerLevel ? createTickerHelper(type, CookingContent.MUD_KILN_ENTITY.get(), (world, pos, block, mud_kiln) -> MudKilnBlockEntity.tick((ServerLevel)world, pos, block, mud_kiln)) : null;
+        return level instanceof ServerLevel ? createTickerHelper(type, CookingContent.KILN_ENTITY.get(), (world, pos, block, kiln) -> KilnBlockEntity.tick((ServerLevel)world, pos, block, kiln)) : null;
     }
     public static boolean isCovered(Level level, BlockPos pos) {
         var above = level.getBlockState(pos.above());
@@ -56,7 +56,7 @@ public final class MudKilnBlock extends BaseEntityBlock {
         }
         if (stack.is(LightingContent.FIRE_STARTER.get()) || isCovered(level, pos)) return InteractionResult.PASS;
         if (level.isClientSide() && !(stack.getItem() instanceof BlockItem)) return InteractionResult.CONSUME;
-        if (level instanceof ServerLevel server && level.getBlockEntity(pos) instanceof MudKilnBlockEntity mud_kiln && mud_kiln.placeFood(server, player, stack)) {
+        if (level instanceof ServerLevel server && level.getBlockEntity(pos) instanceof KilnBlockEntity kiln && kiln.placeFood(server, player, stack)) {
             level.playSound(null, pos, SoundEvents.MUD_BRICKS_PLACE, SoundSource.BLOCKS, 0.5F, 1);
             return InteractionResult.SUCCESS_SERVER;
         }
@@ -68,12 +68,12 @@ public final class MudKilnBlock extends BaseEntityBlock {
     }
     @Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (!state.getValue(LIT)) return;
-        if (random.nextInt(10) == 0) level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, CookingContent.MUD_KILN_CRACKLE.get(), SoundSource.BLOCKS, 0.5F, 1, false);
+        if (random.nextInt(10) == 0) level.playLocalSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, CookingContent.KILN_CRACKLE.get(), SoundSource.BLOCKS, 0.5F, 1, false);
         Direction facing = state.getValue(FACING);
         double x = pos.getX() + 0.5 + facing.getStepX() * 0.52, z = pos.getZ() + 0.5 + facing.getStepZ() * 0.52;
         level.addParticle(ParticleTypes.SMOKE, x, pos.getY() + 0.2, z, 0, 0, 0);
         level.addParticle(ParticleTypes.FLAME, x, pos.getY() + 0.2, z, 0, 0, 0);
-        if (!isCovered(level, pos) && level.getBlockEntity(pos) instanceof MudKilnBlockEntity mud_kiln && mud_kiln.items().stream().anyMatch(s -> !s.isEmpty())) level.addParticle(ParticleTypes.SMOKE, pos.getX() + random.nextDouble(), pos.getY() + 1.02, pos.getZ() + random.nextDouble(), 0, 0.003, 0);
+        if (!isCovered(level, pos) && level.getBlockEntity(pos) instanceof KilnBlockEntity kiln && kiln.items().stream().anyMatch(s -> !s.isEmpty())) level.addParticle(ParticleTypes.SMOKE, pos.getX() + random.nextDouble(), pos.getY() + 1.02, pos.getZ() + random.nextDouble(), 0, 0.003, 0);
     }
     @Override protected BlockState rotate(BlockState state, Rotation rotation) { return state.setValue(FACING, rotation.rotate(state.getValue(FACING))); }
     @Override protected BlockState mirror(BlockState state, Mirror mirror) { return rotate(state, mirror.getRotation(state.getValue(FACING))); }

@@ -41,7 +41,7 @@ CI ([.github/workflows/build.yml](.github/workflows/build.yml)) runs all three a
 | Armor trims | All 18 trim patterns grant per-piece and full-set abilities; gold trim is Piglin-safe | [armor trims](docs/armor-trims.md), [design](docs/armor-trims-design.md) |
 | Anvils | Flat 3-level enchanting cost, free repairs and naming, iron-ingot anvil repair | [anvil rules](docs/anvil-rules.md) |
 | Primitive lighting | Timed torches, fire starter, unlit lanterns, campfires placed unlit | [primitive lighting](docs/primitive-lighting.md) |
-| Cooking | Mud Kiln and cooking pot with datapack/KubeJS recipe types | [cooking](docs/cooking.md) |
+| Cooking | Kiln and cooking pot with datapack/KubeJS recipe types | [cooking](docs/cooking.md) |
 | Crops | Soybean, chili, cotton, coffee, cabbage, tomato, onion, rice and blueberries, with wild patches | [crops](docs/crops.md) |
 | Cakes | Pomegranate, Coffee, Cherry and Chocolate cakes with candle support | [cakes](docs/cakes.md) |
 | Pastel wood | Sixteen dyed wood families and dyeing cauldrons | [dyed wood](docs/dyed-wood.md) |
@@ -86,7 +86,7 @@ Chocolate Flavored is noncommercial. Thanks to these creators and projects. Exac
 | Slexom and contributors — [Earth2Java](https://github.com/Slexom/earth2java) | Adult Dairy Cow, Pale Pig, Bronzed Chicken and Fuzzy/Long Nosed/Patched Sheep textures | MIT |
 | MintRefresh — [Earth Animals](https://modrinth.com/datapack/earth-animals) | Modern baby textures and spawn eggs for several Earth animals | LGPL-3.0-or-later |
 | TheFancyFedora — [Ultimate Earth & Dungeons Variants](https://www.curseforge.com/minecraft/texture-packs/ultimate-earth-dungeons-variants) (based on GillsBills / ReCrafted Mobs) | Modern baby sheep body and wool textures | CC BY-NC 3.0 |
-| vectorwing and contributors — [Farmer's Delight](https://github.com/vectorwing/FarmersDelight) | Mud Kiln (adapted Stove) and cooking-pot assets, GUI, sounds and steam; knife textures and stats; cabbage, tomato, onion, rice and wild crop artwork | MIT |
+| vectorwing and contributors — [Farmer's Delight](https://github.com/vectorwing/FarmersDelight) | Kiln (adapted Stove) and cooking-pot assets, GUI, sounds and steam; knife textures and stats; cabbage, tomato, onion, rice and wild crop artwork | MIT |
 | Lance5057 — Extra Delight | Soybean and chili artwork | CC BY-NC-SA 4.0 |
 | PhantomWing — Rustic Delight | Cotton and coffee artwork | MIT |
 | AlabasterLeking and contributors — Hearth and Harvest | Cultivated cotton and blueberry bush assets and behavior reference; blueberries texture | MIT |

@@ -33,7 +33,7 @@ Rose gold and steel blocks count as beacon base blocks (`minecraft:beacon_base_b
 
 ## Interactions documented elsewhere
 
-Right-clicking a campfire (lit or unlit), a vanilla torch, a lit timed torch or a Mud Kiln with an unlit torch converts one torch into a fully fueled lit torch. See [primitive lighting](primitive-lighting.md#torches).
+Right-clicking a campfire (lit or unlit), a vanilla torch, a lit timed torch or a Kiln with an unlit torch converts one torch into a fully fueled lit torch. See [primitive lighting](primitive-lighting.md#torches).
 
 ## Resource overrides
 
