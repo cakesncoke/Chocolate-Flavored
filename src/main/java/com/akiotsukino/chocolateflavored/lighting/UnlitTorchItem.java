@@ -10,6 +10,8 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
+import com.akiotsukino.chocolateflavored.cooking.CookingContent;
+import com.akiotsukino.chocolateflavored.lighting.LightingContent;
 
 final class UnlitTorchItem extends StandingAndWallBlockItem {
     UnlitTorchItem(Properties properties) {
@@ -23,22 +25,19 @@ final class UnlitTorchItem extends StandingAndWallBlockItem {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         var state = level.getBlockState(pos);
-        boolean batch = player.isShiftKeyDown();
-        boolean campfire = state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT);
+        boolean campfire = state.getBlock() instanceof CampfireBlock;
         boolean vanillaTorch = state.is(Blocks.TORCH) || state.is(Blocks.WALL_TORCH);
         boolean timedTorch = state.is(LightingContent.LIT_TORCH.get()) || state.is(LightingContent.LIT_WALL_TORCH.get());
-        if (!campfire && !vanillaTorch && !(batch && timedTorch)) return InteractionResult.PASS;
+        boolean kiln = state.is(CookingContent.MUD_KILN.get());
+        if (!campfire && !vanillaTorch && !timedTorch && !kiln) return InteractionResult.PASS;
         if (!LightingIgnition.permitted(player, level, pos, context.getClickedFace(), stack)) return InteractionResult.FAIL;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-        int count = batch ? stack.getCount() : 1;
-        stack.shrink(count);
+        // One unlit torch produces one individually timed lit torch item.
+        stack.shrink(1);
         if (stack.isEmpty()) {
             player.setItemInHand(context.getHand(), new ItemStack(LightingContent.LIT_TORCH_ITEM.get()));
-            count--;
-        }
-        // Lit torches carry individual fuel timers and use one inventory slot apiece.
-        for (int i = 0; i < count; i++) {
+        } else {
             var lit = new ItemStack(LightingContent.LIT_TORCH_ITEM.get());
             int slot = player.getInventory().getFreeSlot();
             if (slot < 0) player.drop(lit, false, Prediction.SERVER_ONLY);
