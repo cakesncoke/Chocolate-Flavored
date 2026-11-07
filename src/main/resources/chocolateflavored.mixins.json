@@ -58,8 +58,7 @@
     "EchoLodestoneRemovalMixin",
     "BundleContentsMixin",
     "BundleMutableMixin",
-    "IceBlockMeltMixin",
-    "AbstractHorseFrostWalkerMixin"
+    "IceBlockMeltMixin"
   ],
   "injectors": {
     "defaultRequire": 1
