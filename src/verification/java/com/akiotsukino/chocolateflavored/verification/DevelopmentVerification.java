@@ -177,6 +177,7 @@ public final class DevelopmentVerification {
         CropVerification.run(level, player);
         TraderVerification.run(level);
         TimeVerification.run(level);
+        SurvivalTweaksVerification.run(level);
         HornUnloadedVerification.start(level);
         SleepTimingVerification.start(level);
     }
