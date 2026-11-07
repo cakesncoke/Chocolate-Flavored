@@ -3,6 +3,8 @@ package com.akiotsukino.chocolateflavored.trim;
 import com.akiotsukino.chocolateflavored.content.ModContent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import java.util.Map;
+import java.util.WeakHashMap;
 import net.minecraft.server.level.*;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -45,7 +47,10 @@ public final class TrimBasalt extends Block {
     }
     private boolean age(BlockState state, Level level, BlockPos pos) {
         int age = state.getValue(AGE);
-        if (age < 3) { level.setBlock(pos, state.setValue(AGE, age + 1), 2); return false; }
+        if (age < 3) {
+            level.setBlock(pos, state.setValue(AGE, age + 1), 2);
+            return false;
+        }
         melt(state, level, pos);
         return true;
     }
@@ -61,18 +66,22 @@ public final class TrimBasalt extends Block {
         for (Direction direction : Direction.values()) if (level.getBlockState(pos.relative(direction)).is(this) && ++count >= limit) return false;
         return true;
     }
-    @Override public void playerDestroy(ServerLevel level, net.minecraft.server.level.ServerPlayer player, BlockPos pos, BlockState state, BlockEntity entity, ItemStack tool) {
+    @Override public void playerDestroy(ServerLevel level, ServerPlayer player, BlockPos pos, BlockState state, BlockEntity entity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, entity, tool);
         melt(state, level, pos);
     }
     @Override protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) { return ItemStack.EMPTY; }
     private record Step(ServerLevel level, BlockPos pos) {}
-    private static final java.util.Map<ServerPlayer, Step> STEPS = new java.util.WeakHashMap<>();
+    private static final Map<ServerPlayer, Step> STEPS = new WeakHashMap<>();
     public static void reset(ServerPlayer player) { STEPS.remove(player); }
+    /** Called from the mod constructor so BLOCK is added to ModContent.BLOCKS before it registers. */
     public static void register() {}
     public static void walk(ServerPlayer player) {
         // Same disk and source-fluid/air/ground requirements as native Frost Walker I.
-        if (!player.onGround() || player.isPassenger()) { reset(player); return; }
+        if (!player.onGround() || player.isPassenger()) {
+            reset(player);
+            return;
+        }
         Step step = new Step(player.level(), player.blockPosition());
         if (step.equals(STEPS.put(player, step))) return;
         var level = player.level();

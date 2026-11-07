@@ -1,7 +1,10 @@
 package com.akiotsukino.chocolateflavored.trim;
 
 import com.akiotsukino.chocolateflavored.ChocolateFlavored;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.*;
@@ -21,10 +24,13 @@ import static net.minecraft.world.entity.EquipmentSlot.*;
 public final class TrimCombat {
     private static final ThreadLocal<Boolean> DISCHARGING = ThreadLocal.withInitial(() -> false);
     public static boolean hostile(Entity e) { return e instanceof Enemy; }
-    public static final net.minecraft.tags.TagKey<DamageType> MELEE=net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,id("trim/melee_attacks"));
+    public static final TagKey<DamageType> MELEE = TagKey.create(Registries.DAMAGE_TYPE, id("trim/melee_attacks"));
+
     public static ItemStack weapon(DamageSource source) {
         if (!source.is(MELEE) && !source.is(DamageTypeTags.IS_PROJECTILE)) return ItemStack.EMPTY;
-        var direct=source.getDirectEntity();var stack=direct==null?null:direct.getWeaponItem();return stack==null?ItemStack.EMPTY:stack;
+        var direct = source.getDirectEntity();
+        var stack = direct == null ? null : direct.getWeaponItem();
+        return stack == null ? ItemStack.EMPTY : stack;
     }
     public static float protection(LivingEntity p, DamageSource s) {
         float points = 0;
@@ -34,8 +40,11 @@ public final class TrimCombat {
         if (full(p, "rib") && s.is(DamageTypeTags.IS_FIRE)) points += 8;
         return points;
     }
-    @SubscribeEvent public static void incoming(LivingIncomingDamageEvent e) {
-        var victim = e.getEntity(); var source = e.getSource(); float amount = e.getAmount();
+    @SubscribeEvent
+    public static void incoming(LivingIncomingDamageEvent e) {
+        var victim = e.getEntity();
+        var source = e.getSource();
+        float amount = e.getAmount();
         if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
         if (victim instanceof Player p) {
             if (source.is(DamageTypes.LIGHTNING_BOLT) && has(p, HEAD, "bolt")) amount = 0;
@@ -58,17 +67,18 @@ public final class TrimCombat {
                 if (victim.is(EntityTypeTags.ILLAGER) && has(p, CHEST, "vex")) bonus += .25;
                 if (victim instanceof Mob && has(p, CHEST, "silence")) bonus += full(p, "silence") ? .2 : .1;
                 if (p.isUnderWater() && full(p, "tide")) bonus += .5;
-
             }
-            if(has(p,CHEST,"bolt") && weapon(source).is(BOLT_WEAPONS))bonus+=.2;
+            if (has(p, CHEST, "bolt") && weapon(source).is(BOLT_WEAPONS)) bonus += .2;
             amount *= (float)(1 + bonus);
         }
         e.setAmount(amount);
     }
-    @SubscribeEvent public static void damaged(LivingDamageEvent.Post e) {
+    @SubscribeEvent
+    public static void damaged(LivingDamageEvent.Post e) {
         if (e.getHealthDamage() <= 0) return;
         if (e.getEntity() instanceof Player p && has(p, FEET, "vex") && p.isAlive() && p.getHealth() < 10 && TrimTriggers.ready(p, "vex")) {
-            TrimTriggers.start(p, "vex", 600); TrimTriggers.duration(p, "vex_speed", 100);
+            TrimTriggers.start(p, "vex", 600);
+            TrimTriggers.duration(p, "vex_speed", 100);
         }
         var s = e.getSource();
         if (DISCHARGING.get() || !(s.getEntity() instanceof Player p) || s.getDirectEntity() != p || !s.is(MELEE)) return;
@@ -82,21 +92,36 @@ public final class TrimCombat {
         int hits = data.getIntOr("chocolateflavored:trim/bolt_hits", 0) + 1;
         data.putInt("chocolateflavored:trim/bolt_hits", hits % 5);
         if (hits < 5 || !(p.level() instanceof ServerLevel level)) return;
+        // Every fifth hit: a fireless lightning strike in storms, otherwise a static discharge.
         if (storm(p)) {
             var bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
-            if (bolt != null) { bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"), true); bolt.setPos(e.getEntity().position()); if (p instanceof net.minecraft.server.level.ServerPlayer sp) bolt.setCause(sp); level.addFreshEntity(bolt); }
+            if (bolt != null) {
+                bolt.getPersistentData().putBoolean(TrimTriggers.key("fireless"), true);
+                bolt.setPos(e.getEntity().position());
+                if (p instanceof ServerPlayer sp) bolt.setCause(sp);
+                level.addFreshEntity(bolt);
+            }
         } else if (e.getEntity().isAlive()) {
             DISCHARGING.set(true);
-            try { e.getEntity().hurtServer(level, new DamageSource(level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.DAMAGE_TYPE).getOrThrow(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DAMAGE_TYPE,id("static_discharge"))),p), 2); } finally { DISCHARGING.remove(); }
+            try {
+                var discharge = level.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE)
+                        .getOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, id("static_discharge")));
+                e.getEntity().hurtServer(level, new DamageSource(discharge, p), 2);
+            } finally {
+                DISCHARGING.remove();
+            }
         }
     }
-    @SubscribeEvent public static void drops(LivingDropsEvent e) {
+    @SubscribeEvent
+    public static void drops(LivingDropsEvent e) {
         if (e.isCanceled() || !(e.getSource().getEntity() instanceof Player p)) return;
         var victim = e.getEntity();
         if (victim.getPersistentData().getBooleanOr("chocolateflavored:trim/kill_processed", false)) return;
         victim.getPersistentData().putBoolean("chocolateflavored:trim/kill_processed", true);
-        if (victim instanceof Mob && has(p, LEGS, "snout") && p.getRandom().nextFloat() < .1f) e.getDrops().add(new ItemEntity(p.level(), victim.getX(), victim.getY(), victim.getZ(), new ItemStack(Items.GOLD_NUGGET)));
-        if (hostile(victim) && has(p, LEGS, "silence") && p.getRandom().nextFloat() < (full(p, "silence") ? .2f : .1f)) p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false));
+        if (victim instanceof Mob && has(p, LEGS, "snout") && p.getRandom().nextFloat() < .1f)
+            e.getDrops().add(new ItemEntity(p.level(), victim.getX(), victim.getY(), victim.getZ(), new ItemStack(Items.GOLD_NUGGET)));
+        if (hostile(victim) && has(p, LEGS, "silence") && p.getRandom().nextFloat() < (full(p, "silence") ? .2f : .1f))
+            p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, false, false, false));
     }
     private TrimCombat() {}
 }
