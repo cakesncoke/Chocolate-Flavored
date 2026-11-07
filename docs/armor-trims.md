@@ -1,8 +1,8 @@
-# Intrinsic armor trim abilities (Minecraft 26.1.2)
+# Intrinsic armor trim abilities
 
 The pattern, not the armor or trim material, determines an ability. Each of the four humanoid equipment slots has an independent ability. Full sets require four matching pattern registry IDs; Wayfinder, Raiser, Shaper and Host are four distinct sets. Mixed vanilla/custom armor and mixed trim materials work through the native `TRIM` and `EQUIPPABLE` components. Gold trim additionally satisfies Piglin safe-armor checks without changing provocation or Brute hostility.
 
-The original specification (superseded by the refinements below for Rib, Tide, Eye and Bolt) is recorded in [armor-trims-spec.md](armor-trims-spec.md). This implementation adds no mandatory dependency, recipes, structures, or obtainable blocks/items. Its internal temporary basalt has no item or loot table.
+The original specification (superseded by the refinements below for Rib, Tide, Eye and Bolt) is recorded in [armor-trims-design.md](armor-trims-design.md). This implementation adds no mandatory dependency, recipes, structures, or obtainable blocks/items. Its internal temporary basalt has no item or loot table.
 
 ## Implementation map
 

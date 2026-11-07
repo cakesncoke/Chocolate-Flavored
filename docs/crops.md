@@ -1,6 +1,6 @@
 # Standalone crops
 
-Minecraft 26.1.2 / NeoForge 26.1.2.122. No Farmer's Delight, Extra Delight, Rustic Delight, or other runtime dependency is added.
+No Farmer's Delight, Extra Delight, Rustic Delight, or other runtime dependency is added.
 
 | Source | Cultivated crop | Planting material | Raw harvest |
 | --- | --- | --- | --- |

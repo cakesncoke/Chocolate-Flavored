@@ -1,6 +1,6 @@
 # Pastel wood and dyeing cauldrons
 
-Minecraft 26.1.2 / NeoForge 26.1.2.122. Standalone, with no new dependencies.
+Standalone, with no new dependencies.
 
 Every vanilla dye has planks, oak-pattern doors and trapdoors, stairs, slabs, pressure plates, fences, gates, signs, hanging signs, buttons, boats and shelves. These use native block/item/entity classes. Signs support normal editing, two-sided text, ink and wax; shelves retain their native inventory/redstone behavior. Boats use native models, rowing animations, leashes and drops. Items appear in the mod creative tab; the Chocolate Cake icon remains unchanged.
 

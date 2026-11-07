@@ -1,18 +1,18 @@
 # Modern baby texture audit
 
-Checked 2026-10-21. The mod remains Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Newer asset sources do not change those targets or introduce runtime dependencies.
+Checked 2026-10-21, when the mod targeted Minecraft 26.1.2. The baby models named below are vanilla model classes that still exist in 26.3. Newer asset sources do not introduce runtime dependencies.
 
 | Installed variant | Verified modern texture source | Result |
 | --- | --- | --- |
-| Dairy Cow | MintRefresh / Earth Animals v1.2.1 (MC 26.2), `cow/cow_dairy_baby.png` (64×64) | Imported unchanged; native 26.1.2 BabyCowModel |
-| Pale Pig | Same pack, `pig/pig_pale_baby.png` (32×32) | Imported unchanged; native 26.1.2 BabyPigModel |
-| Bronzed Chicken | Same pack, `chicken/chicken_bronzed_baby.png` (16×16) | Imported unchanged; native 26.1.2 BabyChickenModel |
+| Dairy Cow | MintRefresh / Earth Animals v1.2.1 (MC 26.2), `cow/cow_dairy_baby.png` (64×64) | Imported unchanged; native BabyCowModel |
+| Pale Pig | Same pack, `pig/pig_pale_baby.png` (32×32) | Imported unchanged; native BabyPigModel |
+| Bronzed Chicken | Same pack, `chicken/chicken_bronzed_baby.png` (16×16) | Imported unchanged; native BabyChickenModel |
 | Moobloom, Moolip | EarthMobs `textures/entity/moobloom/{moobloom,moolip}_baby.png` | Already installed; newer branch hashes match |
 | Fancy Chicken | EarthMobs `textures/entity/fancy_chicken/fancy_chicken_baby.png` | Already installed; newer branch hash matches |
 | Horned Sheep | EarthMobs `textures/entity/horned_sheep/horned_sheep_baby{,_hornless}.png` | Already installed; newer branch hashes match |
 | Jumbo Rabbit | EarthMobs `textures/entity/jumbo_rabbit/jumbo_rabbit_baby.png` | Already installed; newer branch hash matches |
 | Muddy Pig (pig state) | EarthMobs `textures/entity/muddypig/muddy_pig_baby.png` | Already installed; newer branch hash matches |
-| Fuzzy Sheep | TheFancyFedora / Ultimate Earth & Dungeons Variants 26.1.x: `sheep_baby3.png`, `sheep_wool_baby3.png` | Imported unchanged; native 26.1.2 BabySheepModel, matching source base geometry |
+| Fuzzy Sheep | TheFancyFedora / Ultimate Earth & Dungeons Variants 26.1.x: `sheep_baby3.png`, `sheep_wool_baby3.png` | Imported unchanged; native BabySheepModel, matching source base geometry |
 | Long Nose Sheep | Same pack: `sheep_baby5.png`, `sheep_wool_baby5.png` | Imported unchanged; native BabySheepModel; Long Nose uses vanilla white baby wool |
 | Patched Sheep | Same pack: `sheep_baby6.png`, `sheep_wool_baby6.png` | Imported unchanged; native BabySheepModel body/wool geometry |
 

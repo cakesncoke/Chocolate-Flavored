@@ -1,6 +1,6 @@
-# Tuff Golem restart
+# Tuff Golem
 
-Target: Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Standalone, no required external mods. PR #8 was reverted in full before this implementation.
+Standalone, no required external mods. This is an independent implementation; none of the earlier reverted Tuff Golem code is used.
 
 ## Appearance
 

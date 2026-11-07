@@ -1,23 +1,23 @@
-# MudKiln and cooking pot
+# Mud Kiln and cooking pot
 
-Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. Both blocks are standalone; Farmer's Delight, KubeJS and recipe-viewer mods are not required. Assets, layout and steam behavior are attributed to Farmer's Delight in `THIRD_PARTY_NOTICES.md`, with its MIT notice included in the release JAR.
+Both blocks are standalone; Farmer's Delight, KubeJS and recipe-viewer mods are not required. Assets, layout and steam behavior are attributed to Farmer's Delight in `THIRD_PARTY_NOTICES.md`, with its MIT notice included in the release JAR.
 
-## MudKiln
+## Mud Kiln
 
-ID: `chocolateflavored:mud_kiln`. It is named **MudKiln** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its five-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior. Adding food to the mud_kiln plays the vanilla mud-brick placement sound.
+ID: `chocolateflavored:mud_kiln`. It is named **Mud Kiln** throughout the mod and is placed **unlit**. Flint and steel and fire charges light it immediately with vanilla item consumption. The fire starter uses its five-second hold and consumes one durability on successful ignition. A shovel or water bucket extinguishes it. Once lit, it burns indefinitely, following Farmer's Delight's cooking-block behavior. Adding food to the Mud Kiln plays the vanilla mud-brick placement sound.
 
-Right-click the uncovered top/block with a matching ingredient to place a batch. Six batches cook independently, with visible items on top. A batch can require multiple items (for example, three wheat). Cooked items appear above the mud_kiln. Unlit batches cool toward zero progress. Covering the top, including placing a cooking pot on it, returns the raw ingredients; the mud_kiln can then heat the pot. Breaking the mud_kiln returns its uncooked inventory. Cooking progress and inventory survive saving/loading. Standing on the hot mud_kiln causes campfire damage unless sneaking.
+Right-click the uncovered top/block with a matching ingredient to place a batch. Six batches cook independently, with visible items on top. A batch can require multiple items (for example, three wheat). Cooked items appear above the Mud Kiln. Unlit batches cool toward zero progress. Covering the top, including placing a cooking pot on it, returns the raw ingredients; the Mud Kiln can then heat the pot. Breaking the Mud Kiln returns its uncooked inventory. Cooking progress and inventory survive saving/loading. Standing on the hot Mud Kiln causes campfire damage unless sneaking.
 
-The mud_kiln first searches `chocolateflavored:mud_kiln` recipes. If no custom recipe matches, it uses vanilla `minecraft:campfire_cooking` recipes. Recipe reloads use the current recipe manager and never retain a cached output after a recipe is removed. If a recipe's input count is reduced while a larger batch is already placed, unused ingredients are returned.
+The Mud Kiln first searches `chocolateflavored:mud_kiln` recipes. If no custom recipe matches, it uses vanilla `minecraft:campfire_cooking` recipes. Recipe reloads use the current recipe manager and never retain a cached output after a recipe is removed. If a recipe's input count is reduced while a larger batch is already placed, unused ingredients are returned.
 
 Default processing recipes:
 
-| MudKiln input | Output | Time at 20 TPS |
+| Mud Kiln input | Output | Time at 20 TPS |
 | --- | --- | --- |
 | 3 wheat | 1 bread | 10 seconds |
 | 1 potato | 1 baked potato | 10 seconds |
 
-Campfire fallback recipes retain their own cooking times. No crafting recipes for the mud_kiln or pot are added.
+Campfire fallback recipes retain their own cooking times. No crafting recipes for the Mud Kiln or pot are added.
 
 ## Cooking pot
 
@@ -29,7 +29,7 @@ Every batch takes **200 simulation ticks (10 seconds at 20 TPS)**, the vanilla f
 
 The GUI retains the 176×166 panel and player inventory at (8,84), without a recipe book. Input item positions are (7,19), (25,19), (43,19), (7,37), (25,37), (43,37). Outputs use (115,19), (133,19), (151,19), (115,37), (133,37), (151,37). The visible progress arrow is anchored at (76,29), heat at (79,55); atlas padding is excluded and icons retain native pixel scale. The arrow has 22 visible columns, used consistently for empty and filled layers. The pot/custom name uses the vanilla top-left title position (8,6).
 
-The pot requires heat below it. Default heat sources are a **lit mud_kiln**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
+The pot requires heat below it. Default heat sources are a **lit Mud Kiln**, magma blocks, lava cauldrons, lava, lit campfires and fire. A hopper conducts heat from one block further below. These sources and conductors are datapack tags: `chocolateflavored:heat_sources`, `chocolateflavored:tray_heat_sources` and `chocolateflavored:heat_conductors`. This system does not change biome or seasonal mechanics.
 
 Pot support changes between the regular, tray and hanging-handle models. Placement against a block's underside selects the handle; shift-right-click with an empty hand toggles it. Waterlogging is supported. Heated pots produce the supplied boiling sounds and steam particles.
 
@@ -41,7 +41,7 @@ Default mushroom stew now takes one red mushroom, one brown mushroom and one bow
 
 ## Datapack recipes
 
-Place recipes under `data/<namespace>/recipe/<name>.json`. Current 26.1 ingredient syntax uses item strings, item arrays, or `#namespace:tag` strings. Results use `id`, `count` and optional `components`.
+Place recipes under `data/<namespace>/recipe/<name>.json`. Current ingredient syntax uses item strings, item arrays, or `#namespace:tag` strings. Results use `id`, `count` and optional `components`.
 
 ```json
 {
@@ -68,7 +68,7 @@ Place recipes under `data/<namespace>/recipe/<name>.json`. Current 26.1 ingredie
 }
 ```
 
-Pot recipes accept one to six `ingredients` objects (`ingredient`: native item/array/tag syntax, `count`: 1–64, default 1) and one to six `results` item stacks (`id`, `count`, optional `components`). Overlapping item/tag requirements use counted backtracking rather than greedy assignment. `experience` remains optional. Native item components and stack limits are preserved. The previous `result`/`container` pot format must be updated to this schema; old `cookingtime` fields have no effect. No change is required for mud kiln recipes.
+Pot recipes accept one to six `ingredients` objects (`ingredient`: native item/array/tag syntax, `count`: 1–64, default 1) and one to six `results` item stacks (`id`, `count`, optional `components`). Overlapping item/tag requirements use counted backtracking rather than greedy assignment. `experience` remains optional. Native item components and stack limits are preserved. The previous `result`/`container` pot format must be updated to this schema; old `cookingtime` fields have no effect. No change is required for Mud Kiln recipes.
 
 ## KubeJS
 
@@ -98,7 +98,7 @@ ServerEvents.recipes(event => {
 })
 ```
 
-Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration pins KubeJS `26.1.2-8.0.7`, Rhino `2101.2.8-build.91` and Better Advanced Tooltips `2601.1.0-build.9` for development testing only. The standard build and mod metadata require neither.
+Recipes are loaded through vanilla's recipe manager, so normal datapack/KubeJS recipe reloads apply. The optional compatibility configuration (`-PverifyKubeJS=true`) still pins the 26.1.2-era KubeJS `26.1.2-8.0.7`, Rhino `2101.2.8-build.91` and Better Advanced Tooltips `2601.1.0-build.9`. These builds predate Minecraft 26.3, so KubeJS compatibility is **not verified on 26.3** until the pins are updated to 26.3 releases and the job passes. The standard build and mod metadata require neither.
 
 ## Verification
 

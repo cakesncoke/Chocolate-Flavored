@@ -1,6 +1,6 @@
 # Wandering traders
 
-Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. Standalone.
+Standalone.
 
 ## Five-day fallback
 

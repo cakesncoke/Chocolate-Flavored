@@ -1,4 +1,4 @@
-# Earth animals (Minecraft 26.1.2)
+# Earth animals
 
 The mod adds eleven entity types and EarthMobs-style muddy state to vanilla and Pale Pigs. Buttercup and Pink Daisy are placeable small flowers. Moobloom, Moolip, Fancy Chicken, Horned Sheep, Jumbo Rabbit and Muddy Pig have spawn eggs in the vanilla Spawn Eggs and Chocolate Flavored tabs, including a state-bearing egg for Muddy Pig. Dairy Cow, Pale Pig, Bronzed Chicken, Fuzzy Sheep, Long Nose Sheep and Patched Sheep have no spawn eggs. No extra equipment, required mod dependencies, or crafting recipes are added. Modern baby texture coverage and licenses are listed in [the baby texture audit](baby-texture-audit.md).
 
@@ -20,7 +20,7 @@ Replacements apply only to natural and chunk-generation spawns, after vanilla de
 | Horned Sheep | 3% of otherwise eligible sheep in biomes tagged `c:is_mountain`, taking priority over climate replacements |
 | Jumbo Rabbit | 0.25% of Flower Forest rabbits |
 
-Overlapping Dairy/flower-cow and Fancy/Bronzed rolls are disjoint, preserving each listed unconditional percentage. Sheep climate follows vanilla's `spawns_cold_variant_farm_animals` and `spawns_warm_variant_farm_animals` biome tags. Vanilla 26.1.2 has climate-specific sheep color rules rather than a sheep-variant registry.
+Overlapping Dairy/flower-cow and Fancy/Bronzed rolls are disjoint, preserving each listed unconditional percentage. Sheep climate follows vanilla's `spawns_cold_variant_farm_animals` and `spawns_warm_variant_farm_animals` biome tags. Vanilla (26.1.2 through 26.3, `SheepColorSpawnRules`) has climate-specific sheep color rules rather than a sheep-variant registry.
 
 Natural wool colors are white except vanilla's rare pink roll (0.164%). Wool dyeing, shearing, regrowth, and vanilla wool loot are retained. Simple sheep variants inherit parental dye genetics. Long Nose Sheep use tintable white wool instead of Earth2Java's fixed brown wool. Entity species checks recognize the custom animals so vanilla predator AI still works.
 
@@ -34,7 +34,7 @@ Natural wool colors are white except vanilla's rare pink roll (0.164%). Wool dye
 
 These are explicit adaptations required by the standalone/item constraints; EarthMobs, Earth2Java and Bagus Lib are not required or bundled as mods. Serene Seasons is not directly integrated: climate selection uses biome tags, without changing seasonal systems. No Serene Seasons compatibility claim is made.
 
-## Prmud_kilnance and verification
+## Provenance and verification
 
 Reference: EarthMobs `26.1.x`, commit `d5acab9846bd3400ac5f093bfec7439351a1bd61`. The six simple-variant textures come from MIT-licensed Earth2Java because they are absent from EarthMobs' current branch. Adapted EarthMobs Java and assets retain LGPL-3.0 licensing; Chocolate Flavored's own code remains MIT. See `THIRD_PARTY_NOTICES.md` and the licenses shipped in the JAR.
 

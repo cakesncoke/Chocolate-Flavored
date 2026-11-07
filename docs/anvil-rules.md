@@ -1,6 +1,6 @@
 # Anvil rules
 
-Target: Minecraft 26.1.2, NeoForge 26.1.2.122, Java 25. No recipes or dependencies added.
+No recipes or dependencies are added.
 
 Anvils charge **3 experience levels per operation** when the output gains an enchantment or an enchantment level. This includes enchanted books, transferring enchantments between tools, and combined repair/name/enchantment operations. The price remains three levels after any number of previous anvil uses. Survival players need three levels to take an enchanting result; creative mode retains vanilla's exemption.
 

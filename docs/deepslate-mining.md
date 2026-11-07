@@ -1,6 +1,6 @@
 # Deepslate Hammer and consumable flint
 
-Minecraft 26.1.2 / NeoForge 26.1.2.122. No added recipes or dependencies.
+No added recipes or dependencies.
 
 Iron Hammer is replaced by **Deepslate Hammer**, using the newly supplied texture. Its existing 500 durability, 12 total attack damage, 0.7 attacks/second, enchantability and repair materials are retained. A registry alias loads saved `chocolateflavored:iron_hammer` stacks as `chocolateflavored:deepslate_hammer`, preserving their component patches.
 

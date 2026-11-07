@@ -1,6 +1,6 @@
 # Equipment and early survival
 
-Target: Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. No required external mods and no new recipes.
+No required external mods and no new recipes.
 
 ## Equipment
 
@@ -47,7 +47,7 @@ Special conversions run at the lowest break-event priority, skip canceled/protec
 
 The block groups are editable under `data/chocolateflavored/tags/block/`; knives and repair materials have item tags. The global loot modifier at `data/chocolateflavored/loot_modifiers/survival.json` exposes fiber chance and the extra leaves-stick chance. Gravel uses the pinned vanilla loot table with the flint probabilities changed to `[0.5, 0.5, 0.5, 1.0]` under `data/minecraft/loot_table/blocks/gravel.json`. These probabilities can be changed without recompiling. Item recipe filtering runs on reload and examines recipe outputs rather than filenames.
 
-No seasons, crop growth, climate or calendar systems are modified. Serene Seasons and KubeJS remain optional future integration/testing targets; compatibility with their 26.1.2 builds has not been tested.
+No seasons, crop growth, climate or calendar systems are modified. Serene Seasons and KubeJS remain optional future integration/testing targets; compatibility has not been tested.
 
 ## Verification
 
@@ -57,7 +57,7 @@ CI also launches the development client and captures a screenshot and logs. This
 
 ## Implementation references
 
-Vanilla behavior was inspected in the official unobfuscated 26.1.2 client: `Items`, `Item.Properties`, `ToolMaterial`, `Tool`, `Player`, `ServerPlayerGameMode`, `RecipeManager`, `AbstractVillager`, trim metadata, and loot/item-model/atlas resources. NeoForge APIs were checked against the published 26.1.2.122 sources and their matching block-break/drop patches.
+Vanilla behavior was originally inspected in the unobfuscated 26.1.2 client; APIs that changed were re-checked during the 26.2 and 26.3 ports (see [port-26.3.md](port-26.3.md)): `Items`, `Item.Properties`, `ToolMaterial`, `Tool`, `Player`, `ServerPlayerGameMode`, `RecipeManager`, `AbstractVillager`, trim metadata, and loot/item-model/atlas resources. NeoForge APIs were checked against the pinned NeoForge sources and their matching block-break/drop patches.
 
 Knife statistics reference [Farmer's Delight ModMaterials](https://github.com/vectorwing/FarmersDelight/blob/1.21/src/main/java/vectorwing/farmersdelight/common/registry/ModMaterials.java) and [ModItems](https://github.com/vectorwing/FarmersDelight/blob/1.21/src/main/java/vectorwing/farmersdelight/common/registry/ModItems.java). Its Java implementation was not ported.
 

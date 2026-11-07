@@ -1,6 +1,6 @@
 # Day length and sleeping
 
-Minecraft 26.1.2 / NeoForge 26.1.2.122 / Java 25. No additional mod required.
+No additional mod required.
 
 ## Day and night
 
