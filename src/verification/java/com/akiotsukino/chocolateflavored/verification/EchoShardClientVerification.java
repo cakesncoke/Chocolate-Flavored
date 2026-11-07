@@ -28,7 +28,7 @@ public final class EchoShardClientVerification {
     private static UUID oldId;
     private static volatile boolean ready;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event){
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||!HornClientVerification.completed||phase==6||++ticks<100)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client")||!HornClientVerification.completed||phase==6||++ticks<100)return;
         var mc=Minecraft.getInstance();if(mc.player==null||mc.level==null||mc.getSingleplayerServer()==null)return;
         var server=mc.getSingleplayerServer();var playerId=mc.player.getUUID();
         if(phase==0){

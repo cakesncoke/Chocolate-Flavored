@@ -16,7 +16,7 @@ public final class HornClientVerification {
  public static boolean completed;
  private static int ticks;private static boolean opened;
  @SubscribeEvent public static void tick(ClientTickEvent.Post e){
-  if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!SteelTrimClientVerification.completed||++ticks<100)return;
+  if(!Boolean.getBoolean("chocolateflavored.verify.client")||opened||!SteelTrimClientVerification.completed||++ticks<100)return;
   opened=true;Minecraft.getInstance().gui.setScreen(new Gallery());
  }
  private static final class Gallery extends Screen {

@@ -21,7 +21,7 @@ public final class CakeClientVerification {
     public static boolean completed;
     private static boolean opened;private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || opened || !CropClientVerification.completed || ++ticks<180) return;
+        if (!Boolean.getBoolean("chocolateflavored.verify.client") || opened || !CropClientVerification.completed || ++ticks<180) return;
         var mc=Minecraft.getInstance();if(mc.level==null)return;
         opened=true;
         var models=mc.getModelManager().getBlockStateModelSet();

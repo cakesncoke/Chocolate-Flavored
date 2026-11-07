@@ -21,7 +21,7 @@ public final class TrimClientVerification {
     public static boolean completed;
     private static final String[] PATTERNS={"wild","wayfinder","raiser","shaper","host","ward","vex","tide","spire","snout","silence","sentry","rib","flow","eye","dune","coast","bolt"};
     @SubscribeEvent public static void tick(ClientTickEvent.Post e){
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!SteelClientVerification.completed||++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client")||opened||!SteelClientVerification.completed||++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;mc.gui.setScreen(new Gallery());
     }
     private static final class Gallery extends Screen {

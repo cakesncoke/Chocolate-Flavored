@@ -17,7 +17,7 @@ public final class DuneOutlineClientVerification {
     private static int ticks;
     public static boolean completed;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) throws ReflectiveOperationException {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TrimOutlineClientVerification.completed || ++ticks<60)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client") || !TrimOutlineClientVerification.completed || ++ticks<60)return;
         var mc=Minecraft.getInstance();if(mc.player==null || mc.getSingleplayerServer()==null)return;
         if(ticks==60)mc.getSingleplayerServer().execute(()->{
             var p=mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());var level=p.level();

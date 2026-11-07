@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Run inside xvfb-run. Verify startup plus a real cooking-pot menu in the saved verification world.
 set -euo pipefail
-mkdir -p build/client-smoke run/saves/CookingVerification
-cp -a run-verification/world/. run/saves/CookingVerification/
+mkdir -p build/client-smoke run/saves/ClientVerification
+cp -a run-verification/world/. run/saves/ClientVerification/
 printf 'onboardAccessibility:false\nguiScale:2\ntutorialStep:none\nrenderDistance:3\nsimulationDistance:5\nmaxFps:60\nenableVsync:false\n' > run/options.txt
-bash ./gradlew runClient -PverifyCookingClient=true --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
+bash ./gradlew runClient -PverifyClient=true --no-daemon --console=plain > build/client-smoke/console.log 2>&1 &
 client_pid=$!
 trap 'kill "$client_pid" 2>/dev/null || true' EXIT
 

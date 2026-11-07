@@ -24,7 +24,7 @@ public final class CopperOxidationClientVerification {
     private static final List<String> NAMES=List.of("sword", "pickaxe", "axe", "shovel", "hoe");
 
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || opened
+        if (!Boolean.getBoolean("chocolateflavored.verify.client") || opened
                 || !EchoShardClientVerification.completed || ++ticks<100) return;
         var mc=Minecraft.getInstance();
         if (mc.level==null) return;

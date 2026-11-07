@@ -19,7 +19,7 @@ public final class TrimOutlineClientVerification {
     public static boolean completed;
     private static long received = -1;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client") || !TideJumpClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
             setup=true;mc.gui.setScreen(null);

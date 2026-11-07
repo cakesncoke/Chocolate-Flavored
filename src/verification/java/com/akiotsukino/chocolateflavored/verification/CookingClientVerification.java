@@ -17,7 +17,7 @@ public final class CookingClientVerification {
     private static volatile net.minecraft.core.BlockPos unlitKilnPos;
     private static int worldTicks, screenTicks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || completed) return;
+        if (!Boolean.getBoolean("chocolateflavored.verify.client") || completed) return;
         var minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null || minecraft.getSingleplayerServer() == null) return;
         if (!prepared && ++worldTicks > 40) {

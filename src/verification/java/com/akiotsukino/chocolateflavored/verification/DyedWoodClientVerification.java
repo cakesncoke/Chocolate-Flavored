@@ -22,7 +22,7 @@ public final class DyedWoodClientVerification {
     public static boolean completed;
     private static int ticks;private static boolean opened;
     @SubscribeEvent public static void tick(ClientTickEvent.Post e) {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!CakeClientVerification.completed||++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client")||opened||!CakeClientVerification.completed||++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.level==null)return;opened=true;
         var models=mc.getModelManager().getBlockStateModelSet();
         for(var f:DyedWood.FAMILIES.values())for(var b:f.blocks.values())for(var s:b.get().getStateDefinition().getPossibleStates())

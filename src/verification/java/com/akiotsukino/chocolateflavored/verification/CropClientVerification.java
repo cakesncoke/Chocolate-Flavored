@@ -21,7 +21,7 @@ public final class CropClientVerification {
     private static boolean opened;
     private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if (!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || opened || !SunkenClientVerification.completed || ++ticks < 180) return;
+        if (!Boolean.getBoolean("chocolateflavored.verify.client") || opened || !SunkenClientVerification.completed || ++ticks < 180) return;
         var minecraft = Minecraft.getInstance();
         if (minecraft.level == null) return;
         opened = true;

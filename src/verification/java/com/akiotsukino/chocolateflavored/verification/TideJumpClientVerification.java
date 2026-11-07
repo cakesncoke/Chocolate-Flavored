@@ -20,7 +20,7 @@ public final class TideJumpClientVerification {
     private static int ticks, jumpTicks;
     private static boolean setup, jumping;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event) {
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client") || completed || !TrimClientVerification.completed || ++ticks<180)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client") || completed || !TrimClientVerification.completed || ++ticks<180)return;
         var mc=Minecraft.getInstance();if(mc.player==null || mc.level==null || mc.getSingleplayerServer()==null)return;
         if(!setup){
             setup=true;mc.gui.setScreen(null);

@@ -20,7 +20,7 @@ import java.util.*;
 public final class SunkenClientVerification {
     public static boolean completed; private static boolean opened;private static int ticks;
     @SubscribeEvent public static void tick(ClientTickEvent.Post event){
-        if(!Boolean.getBoolean("chocolateflavored.verify.cooking.client")||opened||!TuffGolemClientVerification.completed||++ticks<160||Minecraft.getInstance().level==null)return;
+        if(!Boolean.getBoolean("chocolateflavored.verify.client")||opened||!TuffGolemClientVerification.completed||++ticks<160||Minecraft.getInstance().level==null)return;
         opened=true;verifyModel();Minecraft.getInstance().gui.setScreen(new Gallery());
     }
     private static void verifyModel(){
