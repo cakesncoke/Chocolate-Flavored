@@ -18,5 +18,10 @@
   "item.minecraft.iron_horse_armor": "Steel Horse Armor",
   "item.minecraft.iron_nautilus_armor": "Steel Nautilus Armor",
   "item.minecraft.goat_horn": "Horn",
-  "item.minecraft.wooden_sword": "Wooden Club"
+  "item.minecraft.wooden_sword": "Wooden Club",
+  "block.minecraft.packed_mud": "Packed Earth",
+  "block.minecraft.mud_bricks": "Earth Bricks",
+  "block.minecraft.mud_brick_slab": "Earth Brick Slab",
+  "block.minecraft.mud_brick_stairs": "Earth Brick Stairs",
+  "block.minecraft.mud_brick_wall": "Earth Brick Wall"
 }
