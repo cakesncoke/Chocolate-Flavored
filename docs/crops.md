@@ -21,7 +21,7 @@ Rice grows four submerged stages, then four panicle stages above the water. Harv
 
 ## Wild generation
 
-The first placement filter has **four times the upstream rarity denominator**, reducing patch attempts to one quarter. This changes new-chunk generation only; existing plants remain. Cluster sizes and attempts inside a patch remain at the pinned source defaults. Actual visible density also depends on biome, soil, water, and terrain suitability.
+The first placement filter has **four times the upstream rarity denominator**, reducing patch attempts to one quarter. Upstream and applied rarity values per patch are listed in [asset-manifests/crop-wild-rarity.json](asset-manifests/crop-wild-rarity.json). This changes new-chunk generation only; existing plants remain. Cluster sizes and attempts inside a patch remain at the pinned source defaults. Actual visible density also depends on biome, soil, water, and terrain suitability.
 
 | Wild plant | Source denominator | New denominator |
 | --- | ---: | ---: |
@@ -43,7 +43,7 @@ Worldgen, biome filters, loot, and `c:crops` / `c:seeds` tags are datapack drive
 
 ## Sources and verification
 
-Pinned sources, exact copied paths, source/bundled SHA-256 hashes and asset licenses are recorded in [crop-assets.json](crop-assets.json). Models/textures are reused; Java behavior is implemented against the exact native crop/vegetation/water-plant APIs. The MIT crop patch configuration/feature and biome-filter implementation are adapted from Farmer's Delight with attribution. Soybean/chili artwork remains CC BY-NC-SA 4.0 and is excluded from the repository's MIT grant.
+Pinned sources, exact copied paths, source/bundled SHA-256 hashes and asset licenses are recorded in [asset-manifests/crop-assets.json](asset-manifests/crop-assets.json). Models/textures are reused; Java behavior is implemented against the exact native crop/vegetation/water-plant APIs. The MIT crop patch configuration/feature and biome-filter implementation are adapted from Farmer's Delight with attribution. Soybean/chili artwork remains CC BY-NC-SA 4.0 and is excluded from the repository's MIT grant.
 
 The CI-only crop suite exercises actual seed placement/consumption, random and bonemeal growth, support loss, crop loot, tomato picking/regrowth, water-root/panicle rice and knife harvests, wild-plant shearing, configured land patch placement, encoded rarity values, and optional seasonal tags. The client resource gallery checks all crop-stage particle sprites and renders all new item/wild-plant icons. These checks do not replace exploratory farming, biome-distribution or multiplayer testing.
 

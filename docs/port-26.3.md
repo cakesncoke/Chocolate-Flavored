@@ -1,6 +1,6 @@
-# Minecraft 26.3 compatibility
+# Minecraft 26.3 port record
 
-Target: Minecraft 26.3, NeoForge 26.3.0.99, Java 25, branch `port/26.3`.
+Record of the 26.2 → 26.3 migration (Minecraft 26.3, NeoForge 26.3.0.99, Java 25), kept as a reference for the next version bump. Validation results describe the state at the time of the port. Later features (bundles, Nether ice, horse Frost Walker, beacon tags) and the clean-up are covered by the current verification suites.
 Comparison baseline: working 26.2 commit `332671ca3fefee8fc6c8cd15296c7f6bd241963e`; starting branch head `cd6b9ac927038a1e4b245c80c5ec47357a1bb4e3`.
 
 Reference: [official NeoForged 26.2 → 26.3 migration primer](https://docs.neoforged.net/primer/docs/26.3/), checked against the pinned vanilla and NeoForge patched sources. The primer is non-exhaustive; patched sources matter, notably for water conversion.
@@ -33,12 +33,12 @@ Verification-only failures were corrected separately: use the server's reloadabl
 
 Command-parser ambiguity messages are vanilla development diagnostics. Gradle deprecation notices do not prevent this pinned build. This sandbox also lacks normal OS process/mount metadata, audio hardware and access to Minecraft service discovery; those warnings do not establish a mod defect. Offline authentication and unavailable LAN broadcast are test-environment settings. The obsolete data-map warnings were **not** harmless and are fixed as described above.
 
-## Validation and remaining checks
+## Validation at port time
 
 - `build`: passed with Java 25 and the pinned dependencies, including a fresh export of the exact staged tree.
 - Full dedicated-server verification: passed, including the final compost/fuel regression checks and live sleep timing (approximately 20 seconds for 1,050 simulated ticks). A fresh staged-tree export also passed, without the obsolete data-map warnings.
-- Client: all 18 smoke-test markers passed, including the previously failing animated slime, all entity galleries, 208 dyed-wood item models, all 18 trim patterns, Eye/Dune outlines, steel trim palettes, Echo Shards and copper wear models. No client ERROR/FATAL messages occurred in the successful run.
+- Client: all 18 smoke-test markers then present passed, including the previously failing animated slime, all entity galleries, 208 dyed-wood item models, all 18 trim patterns, Eye/Dune outlines, steel trim palettes, Echo Shards and copper wear models. No client ERROR/FATAL messages occurred in the successful run.
 - Existing save/load, legacy cooking migration and saved hammer-alias checks are retained. No real user-provided 26.2 world was available, so a full existing-world upgrade is not yet certified.
-- Optional KubeJS/Serene Seasons compatibility is not claimed. No external mod dependency was added; the optional KubeJS CI configuration still targets its previously pinned version.
+- Optional KubeJS/Serene Seasons compatibility is not claimed. No external mod dependency was added. The optional KubeJS CI configuration still targets its 26.1.2-era pins and needs 26.3 builds (open item).
 
 Implementation stages: (1) registry/resource migration, (2) exact Mixin/API adaptation, (3) client pipeline/palette/shader validation, (4) restored fuel/compost components and regression checks, (5) clean build plus fresh-world server/client smoke tests, followed by a real 26.2 save upgrade check before release.

@@ -4,7 +4,7 @@ Standalone, no required external mods. This is an independent implementation; no
 
 ## Appearance
 
-The actual Friends & Foes Blockbench asset is bundled unchanged, including its nine model cubes, original UVs and eleven animation clips. The native loader reads it directly; there is no custom replacement geometry or hand-authored replacement animation. Original base skin, sixteen colored cloth skins, closed eyes, sounds and modern egg are also unchanged. The [asset manifest](tuff-golem-assets.json) gives source paths, revision and byte hashes; [notices](../THIRD_PARTY_NOTICES.md) preserve credits and licensing.
+The actual Friends & Foes Blockbench asset is bundled unchanged, including its nine model cubes, original UVs and eleven animation clips. The native loader reads it directly; there is no custom replacement geometry or hand-authored replacement animation. Original base skin, sixteen colored cloth skins, closed eyes, sounds and modern egg are also unchanged. The [asset manifest](asset-manifests/tuff-golem-assets.json) gives source paths, revision and byte hashes; [notices](../THIRD_PARTY_NOTICES.md) preserve credits and licensing.
 
 ## Behavior
 

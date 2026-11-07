@@ -10,6 +10,8 @@ A placed lit torch burns for 42,000 game ticks (35 minutes at 20 TPS). Its absol
 
 Breaking a lit standing or wall torch drops a lit torch item with its exact remaining burn time. Its inventory durability bar and tooltip show the saved fuel; inventory storage pauses the timer and placement resumes it. Lit torches stack to one. Fuel uses a persistent item component rather than repairable tool damage. Unlit torches drop unlit torches. Creative mode exposes both item variants. Vanilla torches are left unchanged.
 
+Right-clicking a campfire (normal or soul, lit or unlit), a vanilla torch, a lit timed torch or a Mud Kiln with unlit torches converts **exactly one** of them into a fully fueled lit torch item, whether or not the player is sneaking. The clicked block is not changed. The lit torch replaces the held stack if it was the last torch, otherwise it goes to a free inventory slot or is dropped. Interaction protection applies, and the flint-and-steel sound plays.
+
 ## Fire starter
 
 `chocolateflavored:fire_starter` has exactly two durability and a continuous 100-tick (5-second) use action. Hold use while aiming at an unlit mod torch or dry, unlit campfire. Both normal and extinguished soul campfires, and unlit Mud Kilns, are supported. Both block-use and normal right-click entry points start the action. Equivalent inventory stack copies do not interrupt the hold.

@@ -15,6 +15,6 @@ Behavior follows [Variants & Ventures' Murk](https://github.com/Faboslav/variant
 - Skeleton, Stray, Bogged, Wither Skeleton and Parched convert after 600 submerged-eye ticks plus a 300-tick conversion countdown. Leaving water before the countdown resets exposure; committed conversion continues on land. Timers survive saving; no-AI/dead mobs are skipped. Native conversion preserves equipment, names, persistence, passengers and teams; NeoForge hooks support cancellation. Sunken never reconverts.
 - No natural spawn entries, structures, recipes or designed death loot are added. Normal equipment-drop rules still apply.
 
-Resources and credits: [Recrafted manifest](sunken-assets.json), [Murk sound manifest](sunken-murk-assets.json), [third-party notices](../THIRD_PARTY_NOTICES.md). No OptiFine/EMF/ETF or other mod dependency.
+Resources and credits: [Recrafted manifest](asset-manifests/sunken-assets.json), [Murk sound manifest](asset-manifests/sunken-murk-assets.json), [third-party notices](../THIRD_PARTY_NOTICES.md). No OptiFine/EMF/ETF or other mod dependency.
 
 Verification exercises attributes, daylight burning, freeze immunity, bow-equipped spawns, coral drops and persistence, five vanilla skeleton conversions, water steering, day/night player targeting, and actual bow AI firing. Client verification checks skeleton bow/melee poses, coral visibility and rendering of all three variants. Extended multiplayer and ocean navigation remain manual playtests.

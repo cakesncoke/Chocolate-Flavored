@@ -25,3 +25,13 @@ Remaining originally supplied item texture files whose individual provenance is 
 The supplied `textures/block/rose_gold_block.png` likewise has no source record. These files are not all asserted to come from Modern Better Than Wolves: some may be original project artwork or adaptations. Confirming that distinction requires the project owner's original source files or links. Attribution in this repository does not change an unknown or reserved upstream license.
 
 The removed dirt/sand/red-sand/gravel pile PNGs are no longer bundled. Modern baby sheep textures retain CC BY-NC 3.0 and are distributed for this noncommercial mod; other third-party portions keep their separate licenses.
+
+## Other project-owner-supplied textures
+
+These were added directly by the project owner without an upstream source record. No external author or license is inferred, and they are not asserted to be original project artwork either:
+
+- Vanilla overrides under `assets/minecraft/textures/`: `block/crafting_table_{front,side,top}.png`, `block/smoker_{bottom,front,front_on,side,top}.png` (with `smoker_front_on.png.mcmeta`), `item/echo_shard.png`, and the Steel equipment overrides (listed in [asset-manifests/steel-assets.json](asset-manifests/steel-assets.json)).
+- The fifteen copper tool oxidation-stage textures. The idea is credited to Vanilla Tweaks, but no Vanilla Tweaks files are included.
+- Cake textures (see [asset-manifests/cake-assets.json](asset-manifests/cake-assets.json)).
+
+Unused bundled files: the Earth2Java `*_blink.png` textures for Dairy Cow, Pale Pig, Bronzed Chicken, Fuzzy Sheep, Long Nosed Sheep and Patched Sheep are not referenced by any renderer. They keep their MIT attribution while bundled.

@@ -1,6 +1,6 @@
-# Implement Intrinsic Armor Trim Abilities
+# Armor trim abilities: design specification
 
-Implement the following armor trim ability system in my Minecraft NeoForge mod. First inspect the existing project structure, Minecraft version, armor trim implementation, and relevant custom mechanics. Integrate the system with existing code rather than duplicating functionality.
+This is the original design brief for the trim system. It records the intended abilities, values and requirements. Where the implementation deliberately deviates, [armor-trims.md](armor-trims.md) (*Explicit behavior decisions*) is authoritative and describes the shipped behavior.
 
 Every armor trim pattern grants an intrinsic ability to each corresponding armor piece, plus an additional bonus when all four equipped pieces share the same trim pattern.
 
@@ -306,41 +306,16 @@ Add informative tooltips without excessive clutter.
 
 Descriptions should accurately reflect implemented behavior and update appropriately for custom armor.
 
-## 5. Implementation and Compatibility Requirements
+## 5. Implementation requirements
 
-- Inspect and reuse existing registries, event handlers, item components, tags, loot tables, and utility classes.
-- Use the appropriate NeoForge APIs for the project's actual Minecraft version.
-- Prefer data-driven configuration, tags, and loot tables over hardcoded block or entity lists.
-- Use persistent player data where necessary for cooldowns and attack counters.
-- Avoid applying permanent potion effects when attribute modifiers or direct mechanics are more appropriate.
-- Prevent effects from persisting after equipment removal.
-- Ensure custom tools, weapons, armor, mounts, ores, and blocks participate appropriately.
-- Preserve the mod's existing mining progression and custom harvesting mechanics.
-- Avoid unnecessary per-tick scans, particularly for mob detection, ore highlighting, and equipment checks.
-- Ensure rendering and collision mechanics remain stable in multiplayer.
-- Handle player death, equipment breakage, dimension changes, disconnections, and world reloads.
-- Ensure all new loot tables and other data-driven resources can be overridden through datapacks.
-- Do not introduce mandatory dependencies on other mods.
+- Reuse existing registries, event handlers, item components, tags, loot tables and utilities; prefer data-driven configuration over hardcoded block or entity lists.
+- Use persistent player data for cooldowns and attack counters; never leave effects active after equipment is removed.
+- Prefer attribute modifiers or direct mechanics over permanent potion effects.
+- Custom tools, weapons, armor, mounts, ores and blocks participate; the mod's mining progression and custom harvesting stay intact.
+- Avoid unnecessary per-tick scans (mob detection, ore highlighting, equipment checks).
+- Rendering and collision must stay stable in multiplayer, across death, equipment breakage, dimension changes, disconnections and world reloads.
+- New loot tables and data resources are datapack-overridable. No mandatory mod dependencies.
 
-## 6. Validation
+## 6. Validation targets
 
-After implementation:
-
-1. Verify every individual trim ability independently.
-2. Verify every full-set ability.
-3. Verify mixed armor materials and mixed trim materials.
-4. Verify that different trim patterns do not incorrectly activate full-set bonuses.
-5. Test interactions with enchantments, durability, and equipment swapping.
-6. Test cooldown persistence and prevention of repeated activation exploits.
-7. Test resurrection, levitation, gliding, wind charges, and lightning interactions.
-8. Test vein mining against existing custom ore and tool mechanics.
-9. Test archaeological preservation and Ocean Salvage loot generation.
-10. Test Piglin neutrality from gold trims.
-11. Verify multiplayer synchronization and server performance.
-12. Build the project and resolve compilation errors.
-
-Preserve existing unrelated functionality.
-
-Do not silently omit features or substitute simpler mechanics for the specified behavior. If a mechanic is technically problematic, explain the issue and implement the closest reliable equivalent, documenting any deviation.
-
-When finished, provide a concise summary of implemented features, relevant files changed, validation performed, and any remaining limitations.
+Every individual and full-set ability; mixed armor and trim materials; mismatched patterns never activating full-set bonuses; interactions with enchantments, durability and equipment swapping; cooldown persistence and repeat-activation exploits; resurrection, levitation, gliding, wind charges and lightning; vein mining against the custom ore/tool rules; archaeology preservation and Ocean Salvage loot; Piglin neutrality from gold trims; multiplayer synchronization and server performance. What is actually automated is listed in [armor-trims.md](armor-trims.md#verification-scope).
