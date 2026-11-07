@@ -55,7 +55,10 @@
     "TrimLightningMixin",
     "TrimCollisionContextMixin",
     "EchoShardItemMixin",
-    "EchoLodestoneRemovalMixin"
+    "EchoLodestoneRemovalMixin",
+    "BundleContentsMixin",
+    "IceBlockMeltMixin",
+    "AbstractHorseFrostWalkerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
