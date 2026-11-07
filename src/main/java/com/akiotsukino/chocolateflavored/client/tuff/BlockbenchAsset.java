@@ -11,36 +11,64 @@ import net.minecraft.client.animation.*;
 /** Reads original, unmodified Blockbench box-UV assets; no handwritten model geometry/keyframes. */
 final class BlockbenchAsset {
     private final JsonObject source;
-    private final Map<String,JsonObject> cubes=new HashMap<>();
-    private final Map<String,JsonObject> animations=new HashMap<>();
-    BlockbenchAsset(String path){
-        try(var input=Objects.requireNonNull(BlockbenchAsset.class.getResourceAsStream(path),path);var reader=new InputStreamReader(input,StandardCharsets.UTF_8)){source=JsonParser.parseReader(reader).getAsJsonObject();}
-        catch(IOException e){throw new IllegalStateException("Cannot read Blockbench asset "+path,e);}
-        for(var element:source.getAsJsonArray("elements")){var cube=element.getAsJsonObject();cubes.put(cube.get("uuid").getAsString(),cube);}
-        for(var element:source.getAsJsonArray("animations")){var animation=element.getAsJsonObject();animations.put(animation.get("name").getAsString(),animation);}
-    }
-    private static float v(JsonObject object,String name,int axis){return object.getAsJsonArray(name).get(axis).getAsFloat();}
-    LayerDefinition layer(){
-        var mesh=new MeshDefinition();
-        for(var entry:source.getAsJsonArray("outliner"))bone(mesh.getRoot(),entry.getAsJsonObject(),null);
-        var resolution=source.getAsJsonObject("resolution");
-        return LayerDefinition.create(mesh,resolution.get("width").getAsInt(),resolution.get("height").getAsInt());
-    }
-    private void bone(PartDefinition parent,JsonObject bone,JsonObject parentBone){
-        var builder=CubeListBuilder.create();
-        for(var child:bone.getAsJsonArray("children"))if(child.isJsonPrimitive()){
-            var cube=cubes.get(child.getAsString());
-            float dx=v(cube,"to",0)-v(cube,"from",0),dy=v(cube,"to",1)-v(cube,"from",1),dz=v(cube,"to",2)-v(cube,"from",2);
-            int u=0,w=0;
-            if(cube.has("uv_offset")){u=cube.getAsJsonArray("uv_offset").get(0).getAsInt();w=cube.getAsJsonArray("uv_offset").get(1).getAsInt();}
-            else {var uv=cube.getAsJsonObject("faces").getAsJsonObject("east").getAsJsonArray("uv");u=Math.round(uv.get(0).getAsFloat());w=Math.round(uv.get(1).getAsFloat()-dz);}
-            boolean mirror=cube.has("mirror_uv")&&cube.get("mirror_uv").getAsBoolean();
-            builder.texOffs(u,w).mirror(mirror).addBox(v(bone,"origin",0)-v(cube,"to",0),v(bone,"origin",1)-v(cube,"to",1),v(cube,"from",2)-v(bone,"origin",2),dx,dy,dz,new CubeDeformation(cube.has("inflate")?cube.get("inflate").getAsFloat():0));
+    private final Map<String, JsonObject> cubes = new HashMap<>();
+    private final Map<String, JsonObject> animations = new HashMap<>();
+
+    BlockbenchAsset(String path) {
+        try (var input = Objects.requireNonNull(BlockbenchAsset.class.getResourceAsStream(path), path);
+             var reader = new InputStreamReader(input, StandardCharsets.UTF_8)) {
+            source = JsonParser.parseReader(reader).getAsJsonObject();
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot read Blockbench asset " + path, e);
         }
-        float px=parentBone==null?0:v(parentBone,"origin",0),py=parentBone==null?24:v(parentBone,"origin",1),pz=parentBone==null?0:v(parentBone,"origin",2);
-        var part=parent.addOrReplaceChild(bone.get("name").getAsString(),builder,PartPose.offset(px-v(bone,"origin",0),py-v(bone,"origin",1),v(bone,"origin",2)-pz));
-        for(var child:bone.getAsJsonArray("children"))if(child.isJsonObject())bone(part,child.getAsJsonObject(),bone);
+        for (var element : source.getAsJsonArray("elements")) {
+            var cube = element.getAsJsonObject();
+            cubes.put(cube.get("uuid").getAsString(), cube);
+        }
+        for (var element : source.getAsJsonArray("animations")) {
+            var animation = element.getAsJsonObject();
+            animations.put(animation.get("name").getAsString(), animation);
+        }
     }
+
+    private static float v(JsonObject object, String name, int axis) { return object.getAsJsonArray(name).get(axis).getAsFloat(); }
+
+    LayerDefinition layer() {
+        var mesh = new MeshDefinition();
+        for (var entry : source.getAsJsonArray("outliner")) bone(mesh.getRoot(), entry.getAsJsonObject(), null);
+        var resolution = source.getAsJsonObject("resolution");
+        return LayerDefinition.create(mesh, resolution.get("width").getAsInt(), resolution.get("height").getAsInt());
+    }
+
+    /** Converts one Blockbench bone (and its cubes) from Blockbench space into Minecraft's model space. */
+    private void bone(PartDefinition parent, JsonObject bone, JsonObject parentBone) {
+        var builder = CubeListBuilder.create();
+        for (var child : bone.getAsJsonArray("children")) if (child.isJsonPrimitive()) {
+            var cube = cubes.get(child.getAsString());
+            float dx = v(cube, "to", 0) - v(cube, "from", 0), dy = v(cube, "to", 1) - v(cube, "from", 1), dz = v(cube, "to", 2) - v(cube, "from", 2);
+            int u = 0, w = 0;
+            if (cube.has("uv_offset")) {
+                u = cube.getAsJsonArray("uv_offset").get(0).getAsInt();
+                w = cube.getAsJsonArray("uv_offset").get(1).getAsInt();
+            } else {
+                // Box UV without an explicit offset: derive it from the east face.
+                var uv = cube.getAsJsonObject("faces").getAsJsonObject("east").getAsJsonArray("uv");
+                u = Math.round(uv.get(0).getAsFloat());
+                w = Math.round(uv.get(1).getAsFloat() - dz);
+            }
+            boolean mirror = cube.has("mirror_uv") && cube.get("mirror_uv").getAsBoolean();
+            builder.texOffs(u, w).mirror(mirror).addBox(
+                    v(bone, "origin", 0) - v(cube, "to", 0), v(bone, "origin", 1) - v(cube, "to", 1), v(cube, "from", 2) - v(bone, "origin", 2),
+                    dx, dy, dz, new CubeDeformation(cube.has("inflate") ? cube.get("inflate").getAsFloat() : 0));
+        }
+        float px = parentBone == null ? 0 : v(parentBone, "origin", 0),
+                py = parentBone == null ? 24 : v(parentBone, "origin", 1),
+                pz = parentBone == null ? 0 : v(parentBone, "origin", 2);
+        var part = parent.addOrReplaceChild(bone.get("name").getAsString(), builder,
+                PartPose.offset(px - v(bone, "origin", 0), py - v(bone, "origin", 1), v(bone, "origin", 2) - pz));
+        for (var child : bone.getAsJsonArray("children")) if (child.isJsonObject()) bone(part, child.getAsJsonObject(), bone);
+    }
+
     Map<String,KeyframeAnimation> bakeAnimations(ModelPart root) {
         Map<String,KeyframeAnimation> result=new HashMap<>();
         for(var entry:animations.entrySet()) {

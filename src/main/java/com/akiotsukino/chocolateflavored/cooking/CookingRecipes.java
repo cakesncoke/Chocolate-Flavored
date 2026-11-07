@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
@@ -28,7 +29,13 @@ public final class CookingRecipes {
     });
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<MudKilnRecipe>> MUD_KILN_SERIALIZER = SERIALIZERS.register("mud_kiln", () -> new RecipeSerializer<>(MudKilnRecipe.CODEC, ByteBufCodecs.fromCodecWithRegistries(MudKilnRecipe.CODEC.codec())));
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<PotRecipe>> POT_SERIALIZER = SERIALIZERS.register("cooking_pot", () -> new RecipeSerializer<>(PotRecipe.CODEC, ByteBufCodecs.fromCodecWithRegistries(PotRecipe.CODEC.codec())));
-    public static void register(IEventBus bus) { TYPES.addAlias(net.minecraft.resources.Identifier.parse("chocolateflavored:oven"), MUD_KILN.getId()); SERIALIZERS.addAlias(net.minecraft.resources.Identifier.parse("chocolateflavored:oven"), MUD_KILN_SERIALIZER.getId()); TYPES.register(bus); SERIALIZERS.register(bus); }
+    public static void register(IEventBus bus) {
+        // Recipes written for the pre-rename "oven" type still load.
+        TYPES.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN.getId());
+        SERIALIZERS.addAlias(Identifier.parse("chocolateflavored:oven"), MUD_KILN_SERIALIZER.getId());
+        TYPES.register(bus);
+        SERIALIZERS.register(bus);
+    }
 
     private interface ProcessingRecipe<I extends RecipeInput> extends Recipe<I> {
         @Override default boolean isSpecial() { return true; }
