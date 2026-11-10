@@ -1,4 +1,4 @@
-package com.akiotsukino;
+package com.akiotsukino.chocolateflavored;
 
 import org.slf4j.Logger;
 

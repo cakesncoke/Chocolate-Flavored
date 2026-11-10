@@ -12,7 +12,7 @@ displayName="${mod_name}" #mandatory
 authors="Akio Tsukino"
 
 description='''
-Example mod description.
+hocolate Flavored is a Minecraft "Vanill+" Mod that aims to do take Minecraft in a parallel direction to Vanilla.
 '''
 
 [[mixins]]
