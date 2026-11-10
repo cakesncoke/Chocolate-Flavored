@@ -29,7 +29,6 @@ bin/
 
 run/
 !**/src/**/run/
-run-verification/
-run-kubejs-verification/
-verification.log
-kubejs-verification.log
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/

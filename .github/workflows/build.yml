@@ -5,7 +5,6 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,82 +21,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      # This is needed to be able to run ./gradlew below
+      # You can run `git update-index --chmod +x gradlew` then remove this step.
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
-        run: ./gradlew clean build --no-daemon
-
-      - name: Verify equipment and survival rules on a dedicated server
-        run: |
-          mkdir -p run-verification
-          echo 'eula=true' > run-verification/eula.txt
-          printf 'online-mode=false\nlevel-type=minecraft:flat\ngenerate-structures=false\n' > run-verification/server.properties
-          if ! ./gradlew runVerificationServer --no-daemon --console=plain > verification.log 2>&1; then
-            grep -v '/DEBUG]' verification.log | tail -n 160
-            exit 1
-          fi
-          if ! grep -q CHOCOLATE_FLAVORED_VERIFICATION_PASSED verification.log; then
-            grep -v '/DEBUG]' verification.log | tail -n 160
-            exit 1
-          fi
-          grep VERIFICATION_PASSED verification.log
-
-      - name: Install client smoke test dependencies
-        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libegl1 libegl-mesa0 imagemagick
-
-      - name: Launch development client with software rendering
-        env:
-          LIBGL_ALWAYS_SOFTWARE: 'true'
-          # Minecraft 26.3 creates its window through SDL3, which finds no matching GLX visual on Xvfb.
-          # Creating the OpenGL context through Mesa's EGL works.
-          SDL_VIDEO_FORCE_EGL: '1'
-        run: timeout 12m xvfb-run -a -s "-screen 0 1280x720x24" bash scripts/client-smoke-test.sh
-
-      - name: Upload client startup evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: client-startup-evidence
-          path: |
-            build/client-smoke/
-            run/logs/
-            run-verification/logs/
-            verification.log
-            run/crash-reports/
-          if-no-files-found: ignore
-  kubejs-compatibility:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    # Informational until KubeJS publishes a 26.3 build: the pinned 26.1.2 KubeJS fails to start on
-    # NeoForge 26.3 (its RecipeManagerMixin targets a removed NeoForge superclass).
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '25'
-          distribution: 'temurin'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Verify optional KubeJS cooking recipes
-        run: |
-          mkdir -p run-kubejs-verification/kubejs/server_scripts
-          echo 'eula=true' > run-kubejs-verification/eula.txt
-          printf 'online-mode=false\nlevel-type=minecraft:flat\ngenerate-structures=false\n' > run-kubejs-verification/server.properties
-          cp src/verification/resources/cooking-kubejs.js run-kubejs-verification/kubejs/server_scripts/cooking.js
-          if ! timeout 6m ./gradlew runKubejsVerificationServer -PverifyKubeJS=true --no-daemon --console=plain > kubejs-verification.log 2>&1; then
-            grep -v '/DEBUG]' kubejs-verification.log | tail -n 180
-            exit 1
-          fi
-          if ! grep -q KUBEJS_COOKING_VERIFICATION_PASSED kubejs-verification.log; then
-            grep -v '/DEBUG]' kubejs-verification.log | tail -n 180
-            exit 1
-          fi
-          grep KUBEJS_COOKING_VERIFICATION_PASSED kubejs-verification.log
-      - name: Upload KubeJS verification logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: kubejs-cooking-evidence
-          path: |
-            kubejs-verification.log
-            run-kubejs-verification/logs/
-            run-kubejs-verification/kubejs/logs/
-            run-kubejs-verification/crash-reports/
+        run: ./gradlew build

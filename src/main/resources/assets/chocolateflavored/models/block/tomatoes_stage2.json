@@ -1,7 +1,0 @@
-{
-  "parent": "chocolateflavored:block/template_crop_cross",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "cross": "chocolateflavored:block/tomatoes_stage2"
-  }
-}

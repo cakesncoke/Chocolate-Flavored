@@ -1,7 +1,0 @@
-{
-  "parent": "chocolateflavored:block/hearth_crop_cross",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "cross": "chocolateflavored:block/blueberry_bush_stage0"
-  }
-}

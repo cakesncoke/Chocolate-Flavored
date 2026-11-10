@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "chocolateflavored:item/iron_ore_pile"
-  }
-}
