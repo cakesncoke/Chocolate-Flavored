@@ -1,17 +1,18 @@
+# Chocolate Flavored
 
-Chocolate Flavored
-=======
+Chocolate Flavored is a vanilla-inspired Minecraft modification that takes the game in a parallel gameplay direction.
+It draws inspiration from projects such as Matcha Flavored, Better Than Wolves, Better Than Adventure and Raspberry Flavored,
+with the goal of creating a unique Minecraft experience rather than competing for the title of the "best" version of the game.
 
-Chocolate Flavored is a Minecraft "Vanill+" Mod that aims to do take Minecraft in a parallel direction to Vanilla.
-The mod takes heavy inspiration from projects like Matcha Flavored, Better than Wolves, Better than Adventure, Raspberry Flavored
-and many more. The goal here is to create a unique and new Minecraft experience, not necessarily to compete with or claim the
-title of the "Best" Minecraft version!
+## Compatibility
 
-Version:
-============
-Minecraft: 26.3
-Neoforge: 26.3.0.102
+- Minecraft: 26.3
+- NeoForge: 26.3.0.102
 
-Wiki Documents: 
-==========
+## Wiki
 
+A player-facing wiki will be added in the `wiki` directory once there is content to document.
+
+## License
+
+Released under the [MIT License](LICENSE).
