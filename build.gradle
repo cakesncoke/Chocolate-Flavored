@@ -56,6 +56,9 @@ neoForge {
         }
 
         configureEach {
+            // IDE run configurations fail if the working directory is missing.
+            gameDirectory.get().asFile.mkdirs()
+
             systemProperty 'forge.logging.markers', 'REGISTRIES'
 
             logLevel = org.slf4j.event.Level.DEBUG
