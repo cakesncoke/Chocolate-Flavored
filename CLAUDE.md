@@ -389,15 +389,12 @@ Do not introduce unnecessary asset-management systems.
 
 Keep development organized and changes easy to review.
 
-- Work on the designated development branch.
+- Work on the main branch.
 - Use focused commits with descriptive messages.
-- Avoid combining unrelated features into one commit.
 - Do not commit temporary testing files, generated build outputs, or unnecessary development artifacts.
 - Preserve useful project history and reusable resources.
 - Do not delete existing resources without checking whether they are needed.
 - Never overwrite or discard user work without authorization.
-
-Do not directly push unreviewed changes to the main branch.
 
 When completing a feature, provide a concise summary of:
 1. What was implemented.
