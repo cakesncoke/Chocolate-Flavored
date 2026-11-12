@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:steel_block"
+  ],
+  "result": {
+    "id": "chocolateflavored:steel_ingot",
+    "count": 9
+  }
+}

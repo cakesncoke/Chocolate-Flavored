@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:gravelly_granite",
+    "chocolateflavored:gravelly_diorite",
+    "chocolateflavored:gravelly_andesite",
+    "chocolateflavored:gravelly_basalt",
+    "chocolateflavored:gravelly_deepslate"
+  ]
+}
