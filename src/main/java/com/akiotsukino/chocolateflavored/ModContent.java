@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -29,6 +34,11 @@ public final class ModContent {
     public static final TagKey<Item> ROSE_GOLD_TOOL_MATERIALS = itemTag("rose_gold_tool_materials");
     public static final TagKey<Block> STONE_HAMMER_MINEABLE = blockTag("mineable/stone_hammer");
     public static final TagKey<Block> HEAVY_HAMMER_MINEABLE = blockTag("mineable/heavy_hammer");
+
+    public static final ResourceKey<TrimMaterial> STEEL_TRIM = ResourceKey.create(Registries.TRIM_MATERIAL,
+            Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "steel"));
+    public static final ResourceKey<TrimMaterial> ROSE_GOLD_TRIM = ResourceKey.create(Registries.TRIM_MATERIAL,
+            Identifier.fromNamespaceAndPath(ChocolateFlavored.MODID, "rose_gold"));
 
     // ---- Tool materials ---------------------------------------------------------------------
     // Rose gold: iron's stats (steel durability 625 after the x2.5 change) + 350 durability, mining speed 7, enchantability 18.
@@ -83,10 +93,10 @@ public final class ModContent {
     public static final DeferredItem<Item> IRON_ORE_PILE = ITEMS.registerSimpleItem("iron_ore_pile");
     public static final DeferredItem<Item> GOLD_ORE_PILE = ITEMS.registerSimpleItem("gold_ore_pile");
     public static final DeferredItem<Item> IRON_BLOOM = ITEMS.registerSimpleItem("iron_bloom");
-    public static final DeferredItem<Item> STEEL_INGOT = ITEMS.registerSimpleItem("steel_ingot");
+    public static final DeferredItem<Item> STEEL_INGOT = ITEMS.registerSimpleItem("steel_ingot", p -> p.trimMaterial(STEEL_TRIM));
     public static final DeferredItem<Item> STEEL_NUGGET = ITEMS.registerSimpleItem("steel_nugget");
     public static final DeferredItem<Item> STEEL_PLATE = ITEMS.registerSimpleItem("steel_plate");
-    public static final DeferredItem<Item> ROSE_GOLD_INGOT = ITEMS.registerSimpleItem("rose_gold_ingot");
+    public static final DeferredItem<Item> ROSE_GOLD_INGOT = ITEMS.registerSimpleItem("rose_gold_ingot", p -> p.trimMaterial(ROSE_GOLD_TRIM));
     public static final DeferredItem<Item> ROSE_GOLD_NUGGET = ITEMS.registerSimpleItem("rose_gold_nugget");
     public static final DeferredItem<Item> ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerSimpleItem("rose_gold_upgrade_smithing_template");
     public static final DeferredItem<Item> DIAMOND_INGOT = ITEMS.registerSimpleItem("diamond_ingot");
@@ -112,11 +122,30 @@ public final class ModContent {
     public static final DeferredItem<Item> IRON_KNIFE = ITEMS.registerSimpleItem("iron_knife",
             p -> p.sword(IRON_KNIFE_MATERIAL, 3.5F - 1.0F, 2.0F - 4.0F));
 
+    /** A cobbled block with its stairs, slab and wall. */
+    public record Family(DeferredBlock<Block> base, DeferredBlock<StairBlock> stairs, DeferredBlock<SlabBlock> slab, DeferredBlock<WallBlock> wall) {
+    }
+
+    public static final List<Family> COBBLED_FAMILIES = List.of(
+            family("cobbled_granite", COBBLED_GRANITE), family("cobbled_diorite", COBBLED_DIORITE),
+            family("cobbled_andesite", COBBLED_ANDESITE), family("cobbled_basalt", COBBLED_BASALT));
+
     /** Block items for every block above, registered in the same order. */
     public static final List<DeferredItem<?>> BLOCK_ITEMS = List.of(
             blockItem(COBBLED_GRANITE), blockItem(COBBLED_DIORITE), blockItem(COBBLED_ANDESITE), blockItem(COBBLED_BASALT),
             blockItem(GRAVELLY_GRANITE), blockItem(GRAVELLY_DIORITE), blockItem(GRAVELLY_ANDESITE),
             blockItem(GRAVELLY_BASALT), blockItem(GRAVELLY_DEEPSLATE), blockItem(STEEL_BLOCK), blockItem(ROSE_GOLD_BLOCK));
+
+    private static Family family(String name, DeferredBlock<Block> base) {
+        var stairs = BLOCKS.registerBlock(name + "_stairs", p -> new StairBlock(base.get().defaultBlockState(), p),
+                () -> BlockBehaviour.Properties.ofLegacyCopy(base.get()));
+        var slab = BLOCKS.registerBlock(name + "_slab", SlabBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(base.get()));
+        var wall = BLOCKS.registerBlock(name + "_wall", WallBlock::new, () -> BlockBehaviour.Properties.ofLegacyCopy(base.get()).forceSolidOn());
+        ITEMS.registerSimpleBlockItem(stairs);
+        ITEMS.registerSimpleBlockItem(slab);
+        ITEMS.registerSimpleBlockItem(wall);
+        return new Family(base, stairs, slab, wall);
+    }
 
     private static DeferredBlock<Block> block(String name, BlockBehaviour.Properties properties) {
         return BLOCKS.registerSimpleBlock(name, (Supplier<BlockBehaviour.Properties>) () -> properties);

@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:gravel",
+              "condition": "minecraft:tool/can_silk_touch"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:gravel",
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "#minecraft:shovels"
+                }
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:flint",
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:survives_explosion"
+                  },
+                  {
+                    "type": "minecraft:random_chance",
+                    "chance": 0.5
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:gravel",
+              "condition": {
+                "type": "minecraft:survives_explosion"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:blocks/gravel"
+}

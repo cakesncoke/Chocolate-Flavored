@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "chocolateflavored:cobbled_diorite",
+  "result": {
+    "id": "chocolateflavored:cobbled_diorite_wall",
+    "count": 1
+  }
+}

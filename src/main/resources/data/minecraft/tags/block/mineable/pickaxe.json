@@ -6,6 +6,18 @@
     "chocolateflavored:cobbled_andesite",
     "chocolateflavored:cobbled_basalt",
     "chocolateflavored:steel_block",
-    "chocolateflavored:rose_gold_block"
+    "chocolateflavored:rose_gold_block",
+    "chocolateflavored:cobbled_granite_stairs",
+    "chocolateflavored:cobbled_granite_slab",
+    "chocolateflavored:cobbled_granite_wall",
+    "chocolateflavored:cobbled_diorite_stairs",
+    "chocolateflavored:cobbled_diorite_slab",
+    "chocolateflavored:cobbled_diorite_wall",
+    "chocolateflavored:cobbled_andesite_stairs",
+    "chocolateflavored:cobbled_andesite_slab",
+    "chocolateflavored:cobbled_andesite_wall",
+    "chocolateflavored:cobbled_basalt_stairs",
+    "chocolateflavored:cobbled_basalt_slab",
+    "chocolateflavored:cobbled_basalt_wall"
   ]
 }

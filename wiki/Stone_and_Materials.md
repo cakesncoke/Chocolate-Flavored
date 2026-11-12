@@ -44,10 +44,14 @@ Blackstone is mined normally.
 
 | Block | Notes |
 |---|---|
-| Cobbled Granite / Diorite / Andesite / Basalt | Mined with a pickaxe. |
+| Cobbled Granite / Diorite / Andesite / Basalt | Mined with a pickaxe. Each has stairs, slabs and walls, crafted like their cobblestone versions or made at a stonecutter. |
 | Gravelly Granite / Diorite / Andesite / Basalt / Deepslate | Mined with a shovel or hammer. |
 | Steel Block | Needs a stone pickaxe tier (copper or better). |
 | Rose Gold Block | Needs an iron (steel) pickaxe tier or better. |
+
+## Gravel and flint
+
+Gravel and all gravelly stones drop **flint 50% of the time when broken without a shovel** (by hand, with a pickaxe or with a hammer), and otherwise drop themselves. Broken with a shovel, or with any Silk Touch tool, they never drop flint.
 
 ## Renamed blocks
 
@@ -60,4 +64,14 @@ Blackstone is mined normally.
 
 ## New materials
 
-Pebbles (stone, andesite, diorite, granite, basalt, deepslate), coal dust, copper/iron/gold ore piles, plant fiber, iron bloom, steel ingot/nugget/plate, rose gold ingot/nugget, diamond ingot/plate, creeper oysters and a rose gold upgrade smithing template. Steel and rose gold ingots, nuggets and blocks convert between each other; most other materials do not have uses yet.
+Pebbles (stone, andesite, diorite, granite, basalt, deepslate), coal dust, copper/iron/gold ore piles, plant fiber, iron bloom, steel ingot/nugget/plate, rose gold ingot/nugget, diamond ingot/plate, creeper oysters and a rose gold upgrade smithing template. Steel and rose gold ingots, nuggets and blocks convert between each other.
+
+| Item | Recipe |
+|---|---|
+| Cobblestone, cobbled granite / diorite / andesite / basalt / deepslate | 4 of the matching pebble in a 2×2 square |
+| Raw copper / iron / gold | 2 of the matching ore pile |
+| Coal | 4 coal dust |
+| Iron bloom | 1 iron ingot surrounded by 8 coal or charcoal |
+| Diamond ingot | 1 diamond, 1 steel ingot and 1 creeper oyster |
+
+Plant fiber, creeper oysters, steel plates and diamond plates do not have other uses yet.

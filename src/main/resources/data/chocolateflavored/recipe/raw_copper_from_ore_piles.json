@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:copper_ore_pile",
+    "chocolateflavored:copper_ore_pile"
+  ],
+  "result": {
+    "id": "minecraft:raw_copper",
+    "count": 1
+  }
+}

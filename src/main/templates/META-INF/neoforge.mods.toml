@@ -13,7 +13,8 @@ Chocolate Flavored is a vanilla-inspired modification that takes Minecraft in a 
     modId="neoforge"
     type="required"
     versionRange="[${neo_version},)"
-    ordering="NONE"
+    # Load after NeoForge so our data overrides of vanilla recipes win over NeoForge's own recipe changes.
+    ordering="AFTER"
     side="BOTH"
 
 [[dependencies.${mod_id}]]

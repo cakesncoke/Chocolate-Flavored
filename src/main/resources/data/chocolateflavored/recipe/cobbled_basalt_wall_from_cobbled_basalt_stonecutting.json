@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "chocolateflavored:cobbled_basalt",
+  "result": {
+    "id": "chocolateflavored:cobbled_basalt_wall",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "chocolateflavored:cobbled_andesite",
+  "result": {
+    "id": "chocolateflavored:cobbled_andesite_slab",
+    "count": 2
+  }
+}

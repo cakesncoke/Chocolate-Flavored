@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:diamond",
+    "chocolateflavored:steel_ingot",
+    "chocolateflavored:creeper_oysters"
+  ],
+  "result": {
+    "id": "chocolateflavored:diamond_ingot",
+    "count": 1
+  }
+}

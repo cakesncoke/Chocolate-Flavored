@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "chocolateflavored:cobbled_diorite"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "id": "chocolateflavored:cobbled_diorite_stairs",
+    "count": 4
+  }
+}

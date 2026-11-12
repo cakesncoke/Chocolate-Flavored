@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:gold_ore_pile",
+    "chocolateflavored:gold_ore_pile"
+  ],
+  "result": {
+    "id": "minecraft:raw_gold",
+    "count": 1
+  }
+}

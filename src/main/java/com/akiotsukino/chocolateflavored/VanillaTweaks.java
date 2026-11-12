@@ -180,8 +180,11 @@ public final class VanillaTweaks {
         if (tab == CreativeModeTabs.BUILDING_BLOCKS) {
             after(event, Items.IRON_BLOCK, ModContent.STEEL_BLOCK.asItem());
             after(event, Items.GOLD_BLOCK, ModContent.ROSE_GOLD_BLOCK.asItem());
-            after(event, Items.COBBLESTONE, ModContent.COBBLED_GRANITE.asItem(), ModContent.COBBLED_DIORITE.asItem(),
-                    ModContent.COBBLED_ANDESITE.asItem(), ModContent.COBBLED_BASALT.asItem());
+            List<Item> cobbled = new ArrayList<>();
+            for (ModContent.Family family : ModContent.COBBLED_FAMILIES) {
+                cobbled.addAll(List.of(family.base().asItem(), family.stairs().asItem(), family.slab().asItem(), family.wall().asItem()));
+            }
+            after(event, Items.COBBLESTONE_WALL, cobbled.toArray(Item[]::new));
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             after(event, Items.GRAVEL, ModContent.GRAVELLY_GRANITE.asItem(), ModContent.GRAVELLY_DIORITE.asItem(),
                     ModContent.GRAVELLY_ANDESITE.asItem(), ModContent.GRAVELLY_BASALT.asItem(), ModContent.GRAVELLY_DEEPSLATE.asItem());
