@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:stone",
+    "minecraft:granite",
+    "minecraft:diorite",
+    "minecraft:andesite",
+    "minecraft:cobblestone",
+    "chocolateflavored:cobbled_granite",
+    "chocolateflavored:cobbled_diorite",
+    "chocolateflavored:cobbled_andesite",
+    "minecraft:gravel",
+    "chocolateflavored:gravelly_granite",
+    "chocolateflavored:gravelly_diorite",
+    "chocolateflavored:gravelly_andesite",
+    "minecraft:mossy_cobblestone",
+    "minecraft:calcite",
+    "minecraft:tuff",
+    "minecraft:coal_ore",
+    "minecraft:copper_ore",
+    "minecraft:stone_bricks"
+  ]
+}

@@ -11,7 +11,7 @@ with the goal of creating a unique Minecraft experience rather than competing fo
 
 ## Wiki
 
-A player-facing wiki will be added in the `wiki` directory once there is content to document.
+The player-facing wiki lives in the [`wiki`](wiki) directory: [Equipment](wiki/Equipment.md) and [Stone and Materials](wiki/Stone_and_Materials.md).
 
 ## License
 

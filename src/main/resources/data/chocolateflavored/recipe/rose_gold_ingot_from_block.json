@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:rose_gold_block"
+  ],
+  "result": {
+    "id": "chocolateflavored:rose_gold_ingot",
+    "count": 9
+  }
+}
