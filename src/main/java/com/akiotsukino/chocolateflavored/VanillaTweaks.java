@@ -173,9 +173,7 @@ public final class VanillaTweaks {
 
     private static void buildCreativeTabs(BuildCreativeModeTabContentsEvent event) {
         for (Item removed : REMOVED) {
-            ItemStack stack = removed.getDefaultInstance();
-            event.getParentEntries().remove(stack);
-            event.getSearchEntries().remove(stack);
+            event.remove(removed.getDefaultInstance(), TabVisibility.PARENT_AND_SEARCH_TABS);
         }
 
         var tab = event.getTabKey();
@@ -211,6 +209,7 @@ public final class VanillaTweaks {
             after(event, Items.FLINT, ModContent.STONE_PEBBLE.get(), ModContent.ANDESITE_PEBBLE.get(), ModContent.DIORITE_PEBBLE.get(),
                     ModContent.GRANITE_PEBBLE.get(), ModContent.BASALT_PEBBLE.get(), ModContent.DEEPSLATE_PEBBLE.get());
             after(event, Items.STICK, ModContent.PLANT_FIBER.get());
+            after(event, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModContent.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.get());
             after(event, Items.PHANTOM_MEMBRANE, ModContent.CREEPER_OYSTERS.get());
         }
     }
@@ -218,9 +217,13 @@ public final class VanillaTweaks {
     /** Inserts {@code items} in order directly after {@code anchor}, or at the end of the tab if the anchor is not shown. */
     private static void after(BuildCreativeModeTabContentsEvent event, Item anchor, Item... items) {
         ItemStack previous = anchor.getDefaultInstance();
-        boolean anchored = event.getParentEntries().contains(previous);
+        boolean anchored = event.getParentEntries().contains(previous) && event.getSearchEntries().contains(previous);
         for (Item item : items) {
             ItemStack stack = item.getDefaultInstance();
+            if (event.getParentEntries().contains(stack) || event.getSearchEntries().contains(stack)) {
+                previous = stack;
+                continue;
+            }
             if (anchored) {
                 event.insertAfter(previous, stack, TabVisibility.PARENT_AND_SEARCH_TABS);
             } else {
