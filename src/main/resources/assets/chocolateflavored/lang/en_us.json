@@ -30,6 +30,7 @@
   "item.chocolateflavored.heavy_hammer": "Heavy Hammer",
   "item.chocolateflavored.flint_knife": "Flint Knife",
   "item.chocolateflavored.iron_knife": "Iron Knife",
+  "item.chocolateflavored.fire_starter": "Fire Starter",
   "block.chocolateflavored.cobbled_granite": "Cobbled Granite",
   "block.chocolateflavored.cobbled_diorite": "Cobbled Diorite",
   "block.chocolateflavored.cobbled_andesite": "Cobbled Andesite",
@@ -74,5 +75,6 @@
   "block.chocolateflavored.cobbled_basalt_slab": "Cobbled Basalt Slab",
   "block.chocolateflavored.cobbled_basalt_wall": "Cobbled Basalt Wall",
   "trim_material.chocolateflavored.steel": "Steel Material",
-  "trim_material.chocolateflavored.rose_gold": "Rose Gold Material"
+  "trim_material.chocolateflavored.rose_gold": "Rose Gold Material",
+  "block.chocolateflavored.earthen_kiln": "Earthen Kiln"
 }

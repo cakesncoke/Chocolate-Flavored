@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:mud_bricks",
+    "B": "minecraft:campfire"
+  },
+  "pattern": [
+    "AAA",
+    "A A",
+    "ABA"
+  ],
+  "result": {
+    "id": "chocolateflavored:earthen_kiln"
+  }
+}

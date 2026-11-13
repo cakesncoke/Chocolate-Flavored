@@ -1,6 +1,7 @@
 package com.akiotsukino.chocolateflavored;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import net.minecraft.core.HolderGetter;
@@ -26,7 +27,10 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -80,6 +84,12 @@ public final class ModContent {
     public static final DeferredBlock<Block> GRAVELLY_BASALT = block("gravelly_basalt", gravelly(MapColor.COLOR_BLACK));
     public static final DeferredBlock<Block> GRAVELLY_DEEPSLATE = block("gravelly_deepslate", gravelly(MapColor.DEEPSLATE));
 
+    public static final DeferredBlock<EarthenKilnBlock> EARTHEN_KILN = BLOCKS.registerBlock("earthen_kiln", EarthenKilnBlock::new,
+            () -> BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).strength(3.5F).lightLevel(s -> s.getValue(EarthenKilnBlock.LIT) ? 13 : 0));
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ChocolateFlavored.MODID);
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EarthenKilnBlockEntity>> EARTHEN_KILN_ENTITY =
+            BLOCK_ENTITIES.register("earthen_kiln", () -> new BlockEntityType<>(EarthenKilnBlockEntity::new, Set.of(EARTHEN_KILN.get())));
+
     public static final DeferredBlock<Block> STEEL_BLOCK = block("steel_block", BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE)
             .requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.IRON));
@@ -126,6 +136,7 @@ public final class ModContent {
             p -> p.tool(HEAVY_HAMMER_MATERIAL, HEAVY_HAMMER_MINEABLE, 10.0F - 1.0F, 0.5F - 4.0F, 0.0F));
     public static final DeferredItem<Item> FLINT_KNIFE = ITEMS.registerSimpleItem("flint_knife",
             p -> p.sword(FLINT_KNIFE_MATERIAL, 2.5F - 1.0F, 2.0F - 4.0F).repairable(Items.FLINT));
+    public static final DeferredItem<Item> FIRE_STARTER = ITEMS.registerItem("fire_starter", FireStarterItem::new, p -> p.durability(2));
     public static final DeferredItem<Item> IRON_KNIFE = ITEMS.registerSimpleItem("iron_knife",
             p -> p.sword(IRON_KNIFE_MATERIAL, 3.5F - 1.0F, 2.0F - 4.0F));
 
@@ -141,7 +152,8 @@ public final class ModContent {
     public static final List<DeferredItem<?>> BLOCK_ITEMS = List.of(
             blockItem(COBBLED_GRANITE), blockItem(COBBLED_DIORITE), blockItem(COBBLED_ANDESITE), blockItem(COBBLED_BASALT),
             blockItem(GRAVELLY_GRANITE), blockItem(GRAVELLY_DIORITE), blockItem(GRAVELLY_ANDESITE),
-            blockItem(GRAVELLY_BASALT), blockItem(GRAVELLY_DEEPSLATE), blockItem(STEEL_BLOCK), blockItem(ROSE_GOLD_BLOCK));
+            blockItem(GRAVELLY_BASALT), blockItem(GRAVELLY_DEEPSLATE), blockItem(STEEL_BLOCK), blockItem(ROSE_GOLD_BLOCK),
+            ITEMS.registerSimpleBlockItem(EARTHEN_KILN));
 
     private static Family family(String name, DeferredBlock<Block> base) {
         var stairs = BLOCKS.registerBlock(name + "_stairs", p -> new StairBlock(base.get().defaultBlockState(), p),
