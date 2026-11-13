@@ -2,9 +2,18 @@
 
 ## Hammers
 
-Hammers only mine the blocks listed here; they are slow or useless on anything else. Mining a block with a hammer **turns it into the next stage** and drops a pebble instead of breaking it normally. Hammers do not convert blocks in Creative mode.
+Hammers mine stone-type blocks. Some blocks are **converted** to the next stage instead of breaking, and drop a pebble. Hammers do not convert blocks in Creative mode.
 
-### Stone Hammer and Heavy Hammer
+### Stone Hammer
+
+Mines these blocks at mining speed 3, breaking them normally (stairs, slabs, walls and chiseled/polished variants included):
+
+- Cobblestone, mossy cobblestone, cobbled granite/diorite/andesite/basalt and cobbled deepslate families
+- Stone, smooth stone, stone bricks and mossy stone bricks families
+- Granite, diorite, andesite, tuff, bricks, packed earth / earthen bricks, resin bricks, sandstone, red sandstone, cinnabar and sulfur families
+- Calcite, gravel and the gravelly stones (granite, diorite, andesite)
+
+It mines **deepslate and cobbled deepslate** a little more slowly (speed 2).
 
 | Mined block | Becomes | Drops |
 |---|---|---|
@@ -12,27 +21,28 @@ Hammers only mine the blocks listed here; they are slow or useless on anything e
 | Granite / Diorite / Andesite | Cobbled granite / diorite / andesite | Matching pebble |
 | Cobblestone | Gravel | Stone pebble |
 | Cobbled granite / diorite / andesite | Gravelly granite / diorite / andesite | Matching pebble |
+| Deepslate | Cobbled deepslate | Deepslate pebble |
+| Cobbled deepslate | Gravelly deepslate | Deepslate pebble |
 | Coal ore | Cobblestone | 3 coal dust |
 | Copper ore | Cobblestone | Copper ore pile |
 | Stone bricks | Cracked stone bricks | nothing |
 
-Mossy cobblestone, calcite, tuff, gravel and the gravelly stones are mined normally.
+### Heavy Hammer
 
-### Heavy Hammer only
+Mines everything the stone hammer does, plus **any block a pickaxe can mine**, at mining speed 5. It harvests blocks up to the stone tier, like a stone-tier pickaxe, so ores such as diamond still need a better tool. The ore rules below are the exception.
 
 | Mined block | Becomes | Drops |
 |---|---|---|
 | Basalt | Cobbled basalt | Basalt pebble |
 | Cobbled basalt | Gravelly basalt | Basalt pebble |
-| Deepslate | Cobbled deepslate | Deepslate pebble |
-| Cobbled deepslate | Gravelly deepslate | Deepslate pebble |
 | Iron ore | Cobblestone | Iron ore pile |
+| Gold ore | Cobblestone | Gold ore pile |
+| Lapis ore | Cobblestone | 2-6 lapis lazuli |
 | Deepslate coal ore | Cobbled deepslate | 3 coal dust |
-| Deepslate copper ore / iron ore | Cobbled deepslate | Copper / iron ore pile |
+| Deepslate copper / iron / gold ore | Cobbled deepslate | Copper / iron / gold ore pile |
+| Deepslate lapis ore | Cobbled deepslate | 2-6 lapis lazuli |
 | Deepslate tiles / bricks | Cracked version | nothing |
 | Nether bricks | Cracked nether bricks | nothing |
-
-Blackstone is mined normally.
 
 ## Knives
 
