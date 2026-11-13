@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "chocolateflavored:block/stones/cobbled_andesite"
+  }
+}

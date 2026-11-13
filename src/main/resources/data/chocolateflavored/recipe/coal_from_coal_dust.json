@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:coal_dust",
+    "chocolateflavored:coal_dust",
+    "chocolateflavored:coal_dust",
+    "chocolateflavored:coal_dust"
+  ],
+  "result": {
+    "id": "minecraft:coal",
+    "count": 1
+  }
+}

@@ -43,7 +43,7 @@ Sword, shovel, pickaxe, axe and hoe. They match steel tools, except:
 | Mining speed | 7 |
 | Enchantability | 18 |
 
-They are repaired with rose gold ingots. Rose gold ingots can currently only be crafted from rose gold nuggets or blocks; there is no way to obtain them in survival yet.
+They are repaired with rose gold ingots. A copper tool becomes its rose gold counterpart at a smithing table with a **rose gold upgrade smithing template** and a **rose gold ingot**. Rose gold ingots can currently only be crafted from rose gold nuggets or blocks; there is no way to obtain them in survival yet.
 
 ## Hammers
 
@@ -71,4 +71,16 @@ Knives gather **plant fiber** from plants and make leaves drop sticks more often
 | Iron Knife | iron ingot above a stick |
 | Stone Hammer | 5 cobblestone-type blocks (cobblestone, blackstone, cobbled deepslate) and 2 sticks, in the shape of a T-hammer |
 | Heavy Hammer | 5 iron ingots and 2 sticks, same shape |
-| Rose gold tools | the usual vanilla shapes using rose gold ingots |
+| Rose gold tools | smithing table: copper tool + rose gold ingot + rose gold upgrade smithing template |
+| Steel tools and weapons | the usual vanilla shapes using **steel ingots** instead of iron |
+| Diamond tools and weapons | the usual vanilla shapes using **diamond ingots** instead of diamonds |
+
+**Gold equipment can no longer be crafted** (tools, weapons and armor).
+
+## Armor trims
+
+Steel ingots and rose gold ingots can be used as trim materials at a smithing table. Steel trims on steel (former iron) armor use a darker shade, like iron trims did.
+
+## Beacons
+
+Diamond ingots, steel ingots and rose gold ingots can be used as beacon payment. Steel blocks and rose gold blocks can be used as beacon bases.

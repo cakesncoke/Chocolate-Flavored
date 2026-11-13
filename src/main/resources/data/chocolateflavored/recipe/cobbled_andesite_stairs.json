@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "chocolateflavored:cobbled_andesite"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "id": "chocolateflavored:cobbled_andesite_stairs",
+    "count": 4
+  }
+}

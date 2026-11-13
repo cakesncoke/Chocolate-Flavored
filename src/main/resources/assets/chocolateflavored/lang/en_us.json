@@ -59,5 +59,19 @@
   "block.minecraft.mud_bricks": "Earthen Bricks",
   "block.minecraft.mud_brick_slab": "Earthen Brick Slab",
   "block.minecraft.mud_brick_stairs": "Earthen Brick Stairs",
-  "block.minecraft.mud_brick_wall": "Earthen Brick Wall"
+  "block.minecraft.mud_brick_wall": "Earthen Brick Wall",
+  "block.chocolateflavored.cobbled_granite_stairs": "Cobbled Granite Stairs",
+  "block.chocolateflavored.cobbled_granite_slab": "Cobbled Granite Slab",
+  "block.chocolateflavored.cobbled_granite_wall": "Cobbled Granite Wall",
+  "block.chocolateflavored.cobbled_diorite_stairs": "Cobbled Diorite Stairs",
+  "block.chocolateflavored.cobbled_diorite_slab": "Cobbled Diorite Slab",
+  "block.chocolateflavored.cobbled_diorite_wall": "Cobbled Diorite Wall",
+  "block.chocolateflavored.cobbled_andesite_stairs": "Cobbled Andesite Stairs",
+  "block.chocolateflavored.cobbled_andesite_slab": "Cobbled Andesite Slab",
+  "block.chocolateflavored.cobbled_andesite_wall": "Cobbled Andesite Wall",
+  "block.chocolateflavored.cobbled_basalt_stairs": "Cobbled Basalt Stairs",
+  "block.chocolateflavored.cobbled_basalt_slab": "Cobbled Basalt Slab",
+  "block.chocolateflavored.cobbled_basalt_wall": "Cobbled Basalt Wall",
+  "trim_material.chocolateflavored.steel": "Steel Material",
+  "trim_material.chocolateflavored.rose_gold": "Rose Gold Material"
 }

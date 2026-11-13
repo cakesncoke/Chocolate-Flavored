@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "chocolateflavored:block/cobbled_diorite_slab"
+    },
+    "type=double": {
+      "model": "chocolateflavored:block/cobbled_diorite"
+    },
+    "type=top": {
+      "model": "chocolateflavored:block/cobbled_diorite_slab_slab_top"
+    }
+  }
+}

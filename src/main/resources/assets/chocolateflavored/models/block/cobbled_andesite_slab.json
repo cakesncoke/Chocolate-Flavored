@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "chocolateflavored:block/stones/cobbled_andesite",
+    "side": "chocolateflavored:block/stones/cobbled_andesite",
+    "top": "chocolateflavored:block/stones/cobbled_andesite"
+  }
+}

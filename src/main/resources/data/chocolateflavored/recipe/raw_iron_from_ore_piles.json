@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "chocolateflavored:iron_ore_pile",
+    "chocolateflavored:iron_ore_pile"
+  ],
+  "result": {
+    "id": "minecraft:raw_iron",
+    "count": 1
+  }
+}

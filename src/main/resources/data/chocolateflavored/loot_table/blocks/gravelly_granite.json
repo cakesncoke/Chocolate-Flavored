@@ -3,16 +3,49 @@
   "pools": [
     {
       "rolls": 1.0,
-      "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "chocolateflavored:gravelly_granite"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "chocolateflavored:gravelly_granite",
+              "condition": "minecraft:tool/can_silk_touch"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "chocolateflavored:gravelly_granite",
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "#minecraft:shovels"
+                }
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:flint",
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:survives_explosion"
+                  },
+                  {
+                    "type": "minecraft:random_chance",
+                    "chance": 0.5
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:item",
+              "name": "chocolateflavored:gravelly_granite",
+              "condition": {
+                "type": "minecraft:survives_explosion"
+              }
+            }
+          ]
         }
       ]
     }

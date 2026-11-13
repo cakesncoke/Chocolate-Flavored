@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "chocolateflavored:block/stones/cobbled_granite",
+    "side": "chocolateflavored:block/stones/cobbled_granite",
+    "top": "chocolateflavored:block/stones/cobbled_granite"
+  }
+}

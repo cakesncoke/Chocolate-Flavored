@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "chocolateflavored:block/cobbled_basalt_slab"
+    },
+    "type=double": {
+      "model": "chocolateflavored:block/cobbled_basalt"
+    },
+    "type=top": {
+      "model": "chocolateflavored:block/cobbled_basalt_slab_slab_top"
+    }
+  }
+}

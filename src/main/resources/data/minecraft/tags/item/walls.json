@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:cobbled_granite_wall",
+    "chocolateflavored:cobbled_diorite_wall",
+    "chocolateflavored:cobbled_andesite_wall",
+    "chocolateflavored:cobbled_basalt_wall"
+  ]
+}
