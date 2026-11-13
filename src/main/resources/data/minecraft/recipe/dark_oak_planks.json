@@ -1,0 +1,13 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#minecraft:axes",
+    "#minecraft:dark_oak_logs"
+  ],
+  "result": {
+    "id": "minecraft:dark_oak_planks",
+    "count": 4
+  },
+  "group": "planks"
+}

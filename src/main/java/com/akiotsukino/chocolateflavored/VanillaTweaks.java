@@ -211,7 +211,7 @@ public final class VanillaTweaks {
             after(event, Items.RAW_GOLD, ModContent.GOLD_ORE_PILE.get());
             after(event, Items.FLINT, ModContent.STONE_PEBBLE.get(), ModContent.ANDESITE_PEBBLE.get(), ModContent.DIORITE_PEBBLE.get(),
                     ModContent.GRANITE_PEBBLE.get(), ModContent.BASALT_PEBBLE.get(), ModContent.DEEPSLATE_PEBBLE.get());
-            after(event, Items.STICK, ModContent.PLANT_FIBER.get());
+            after(event, Items.STICK, ModContent.PLANT_FIBER.get(), ModContent.PLANT_STRING.get());
             after(event, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModContent.ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE.get());
             after(event, Items.PHANTOM_MEMBRANE, ModContent.CREEPER_OYSTERS.get());
         }

@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "I": "minecraft:iron_ingot",
-    "S": "minecraft:stick"
+    "A": "#chocolateflavored:heavy_pebbles",
+    "B": "minecraft:stick"
   },
   "pattern": [
-    "III",
-    "ISI",
-    " S "
+    "AAA",
+    "ABA",
+    " B "
   ],
   "result": {
     "id": "chocolateflavored:heavy_hammer",

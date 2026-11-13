@@ -1,0 +1,13 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#minecraft:axes",
+    "#minecraft:mangrove_logs"
+  ],
+  "result": {
+    "id": "minecraft:mangrove_planks",
+    "count": 4
+  },
+  "group": "planks"
+}

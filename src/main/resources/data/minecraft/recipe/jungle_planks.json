@@ -1,0 +1,13 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#minecraft:axes",
+    "#minecraft:jungle_logs"
+  ],
+  "result": {
+    "id": "minecraft:jungle_planks",
+    "count": 4
+  },
+  "group": "planks"
+}
