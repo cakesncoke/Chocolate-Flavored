@@ -11,7 +11,7 @@ with the goal of creating a unique Minecraft experience rather than competing fo
 
 ## Wiki
 
-The player-facing wiki lives in the [`wiki`](wiki) directory: [Equipment](wiki/Equipment.md) [Stone and Materials](wiki/Stone_and_Materials.md) and [Fire and Cooking](wiki/Fire_and_Cooking.md).
+The player-facing wiki lives in the [`wiki`](wiki) directory: [Equipment](wiki/Equipment.md), [Stone and Materials](wiki/Stone_and_Materials.md) and [Fire and Cooking](wiki/Fire_and_Cooking.md).
 
 ## License
 
