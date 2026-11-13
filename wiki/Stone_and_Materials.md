@@ -1,5 +1,9 @@
 # Stone and Materials
 
+## Flint
+
+Mining **stone, granite, diorite or andesite** while holding **flint** chips the block into its cobbled form (stone becomes cobblestone) and drops the matching pebble. The flint is used up: one flint is removed from the stack each time. It does not work in Creative mode.
+
 ## Hammers
 
 Hammers mine stone-type blocks. Some blocks are **converted** to the next stage instead of breaking, and drop a pebble. Hammers do not convert blocks in Creative mode.

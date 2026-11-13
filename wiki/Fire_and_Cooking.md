@@ -8,7 +8,7 @@ A **campfire** is placed **unlit** (soul campfires are still placed lit). Light 
 
 ## Fire Starter
 
-A primitive tool with **2 uses**. Hold use on an unlit campfire (normal or soul) or an unlit Earthen Kiln for **5 seconds** to light it. Letting go early, looking away, moving out of reach or switching items cancels it without using up durability.
+A primitive tool with **2 uses**. Hold use on an unlit campfire (normal or soul) or an unlit Earthen Kiln for **5 seconds** to light it. While you hold it, your hand rubs back and forth. Letting go early, looking away, moving out of reach or switching items cancels it without using up durability.
 
 **Crafting:** a stick and a plant string on each diagonal (stick top-left and bottom-right, plant string top-right and bottom-left).
 

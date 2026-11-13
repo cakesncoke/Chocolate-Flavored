@@ -1,0 +1,23 @@
+package com.akiotsukino.chocolateflavored.mixin;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+/** A normal campfire is placed unlit straight away (on both client and server, so it never flickers lit). */
+@Mixin(CampfireBlock.class)
+abstract class CampfirePlacementMixin {
+    @Inject(method = "getStateForPlacement", at = @At("RETURN"), cancellable = true)
+    private void chocolateflavored$placeUnlit(BlockPlaceContext context, CallbackInfoReturnable<BlockState> callback) {
+        BlockState state = callback.getReturnValue();
+        if (state != null && state.is(Blocks.CAMPFIRE)) {
+            callback.setReturnValue(state.setValue(CampfireBlock.LIT, false));
+        }
+    }
+}

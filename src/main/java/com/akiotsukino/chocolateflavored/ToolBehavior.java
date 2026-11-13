@@ -2,6 +2,7 @@ package com.akiotsukino.chocolateflavored;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -26,6 +27,7 @@ public final class ToolBehavior {
     }
 
     private static final Map<Block, Conversion> CONVERSIONS = new HashMap<>();
+    private static final Set<Block> FLINT_BLOCKS = Set.of(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
 
     private static void convert(Block from, Block to, Item drop, int count, boolean heavyOnly) {
         CONVERSIONS.put(from, new Conversion(to, drop, count, count, heavyOnly, false));
@@ -96,7 +98,8 @@ public final class ToolBehavior {
         ItemStack tool = player.getMainHandItem();
         boolean stoneHammer = tool.is(ModContent.STONE_HAMMER.get());
         boolean heavyHammer = tool.is(ModContent.HEAVY_HAMMER.get());
-        if (!stoneHammer && !heavyHammer) {
+        boolean flint = tool.is(Items.FLINT);
+        if (!stoneHammer && !heavyHammer && !flint) {
             return;
         }
         BlockState state = event.getState();
@@ -104,7 +107,13 @@ public final class ToolBehavior {
             initConversions();
         }
         Conversion conversion = CONVERSIONS.get(state.getBlock());
-        if (conversion == null || (conversion.heavyOnly() && !heavyHammer) || (!conversion.ignoreTier() && !tool.isCorrectToolForDrops(state))) {
+        if (flint) {
+            // A flint chips stone, granite, diorite and andesite into their cobbled form and is used up.
+            if (!FLINT_BLOCKS.contains(state.getBlock()) || conversion == null) {
+                return;
+            }
+        } else if (conversion == null || (conversion.heavyOnly() && !heavyHammer)
+                || (!conversion.ignoreTier() && !tool.isCorrectToolForDrops(state))) {
             return;
         }
 
@@ -119,7 +128,11 @@ public final class ToolBehavior {
             Block.popResource(level, pos, new ItemStack(conversion.drop(), count));
         }
         player.causeFoodExhaustion(0.005F);
-        tool.hurtAndBreak(1, player, InteractionHand.MAIN_HAND);
+        if (flint) {
+            tool.shrink(1);
+        } else {
+            tool.hurtAndBreak(1, player, InteractionHand.MAIN_HAND);
+        }
     }
 
     // ---- Knives -----------------------------------------------------------------------------
