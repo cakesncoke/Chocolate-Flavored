@@ -2,19 +2,9 @@
   "replace": false,
   "values": [
     "#chocolateflavored:mineable/stone_hammer",
-    "minecraft:smooth_basalt",
-    "chocolateflavored:cobbled_basalt",
+    "#chocolateflavored:mineable/stone_hammer_slow",
+    "#minecraft:mineable/pickaxe",
     "chocolateflavored:gravelly_basalt",
-    "minecraft:deepslate",
-    "minecraft:cobbled_deepslate",
-    "chocolateflavored:gravelly_deepslate",
-    "minecraft:iron_ore",
-    "minecraft:deepslate_coal_ore",
-    "minecraft:deepslate_copper_ore",
-    "minecraft:deepslate_iron_ore",
-    "minecraft:deepslate_tiles",
-    "minecraft:deepslate_bricks",
-    "minecraft:blackstone",
-    "minecraft:nether_bricks"
+    "chocolateflavored:gravelly_deepslate"
   ]
 }

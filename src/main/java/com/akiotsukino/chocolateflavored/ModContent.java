@@ -3,7 +3,11 @@ package com.akiotsukino.chocolateflavored;
 import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.level.block.SlabBlock;
@@ -33,6 +37,7 @@ public final class ModContent {
     // ---- Tags -------------------------------------------------------------------------------
     public static final TagKey<Item> ROSE_GOLD_TOOL_MATERIALS = itemTag("rose_gold_tool_materials");
     public static final TagKey<Block> STONE_HAMMER_MINEABLE = blockTag("mineable/stone_hammer");
+    public static final TagKey<Block> STONE_HAMMER_SLOW_MINEABLE = blockTag("mineable/stone_hammer_slow");
     public static final TagKey<Block> HEAVY_HAMMER_MINEABLE = blockTag("mineable/heavy_hammer");
 
     public static final ResourceKey<TrimMaterial> STEEL_TRIM = ResourceKey.create(Registries.TRIM_MATERIAL,
@@ -114,7 +119,7 @@ public final class ModContent {
 
     // Attack damage / speed below are the values shown in the tooltip (the player's base 1.0 / 4.0 included).
     public static final DeferredItem<Item> STONE_HAMMER = ITEMS.registerSimpleItem("stone_hammer",
-            p -> p.tool(STONE_HAMMER_MATERIAL, STONE_HAMMER_MINEABLE, 10.0F - 1.0F, 0.3F - 4.0F, 0.0F));
+            p -> stoneHammerRules(p.tool(STONE_HAMMER_MATERIAL, STONE_HAMMER_MINEABLE, 10.0F - 1.0F, 0.3F - 4.0F, 0.0F)));
     public static final DeferredItem<Item> HEAVY_HAMMER = ITEMS.registerSimpleItem("heavy_hammer",
             p -> p.tool(HEAVY_HAMMER_MATERIAL, HEAVY_HAMMER_MINEABLE, 10.0F - 1.0F, 0.5F - 4.0F, 0.0F));
     public static final DeferredItem<Item> FLINT_KNIFE = ITEMS.registerSimpleItem("flint_knife",
@@ -145,6 +150,15 @@ public final class ModContent {
         ITEMS.registerSimpleBlockItem(slab);
         ITEMS.registerSimpleBlockItem(wall);
         return new Family(base, stairs, slab, wall);
+    }
+
+    /** The stone hammer also breaks deepslate and cobbled deepslate, slightly slower than its other blocks. */
+    private static Item.Properties stoneHammerRules(Item.Properties properties) {
+        HolderGetter<Block> blocks = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return properties.component(DataComponents.TOOL, new Tool(List.of(
+                Tool.Rule.deniesDrops(blocks.getOrThrow(BlockTags.INCORRECT_FOR_STONE_TOOL)),
+                Tool.Rule.minesAndDrops(blocks.getOrThrow(STONE_HAMMER_SLOW_MINEABLE), 2.0F),
+                Tool.Rule.minesAndDrops(blocks.getOrThrow(STONE_HAMMER_MINEABLE), 3.0F)), 1.0F, 1, true));
     }
 
     private static DeferredBlock<Block> block(String name, BlockBehaviour.Properties properties) {

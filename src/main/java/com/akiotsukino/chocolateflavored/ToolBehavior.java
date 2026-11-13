@@ -22,13 +22,18 @@ import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 /** Stone/heavy hammer block conversion and knife plant drops. */
 public final class ToolBehavior {
     /** What a hammer turns a block into, and what it drops. */
-    private record Conversion(Block result, Item drop, int count, boolean heavyOnly) {
+    private record Conversion(Block result, Item drop, int minCount, int maxCount, boolean heavyOnly, boolean ignoreTier) {
     }
 
     private static final Map<Block, Conversion> CONVERSIONS = new HashMap<>();
 
     private static void convert(Block from, Block to, Item drop, int count, boolean heavyOnly) {
-        CONVERSIONS.put(from, new Conversion(to, drop, count, heavyOnly));
+        CONVERSIONS.put(from, new Conversion(to, drop, count, count, heavyOnly, false));
+    }
+
+    /** Heavy hammer ore: drops {@code min..max} items and works regardless of the ore's harvest tier. */
+    private static void convertOre(Block from, Block to, Item drop, int min, int max) {
+        CONVERSIONS.put(from, new Conversion(to, drop, min, max, true, true));
     }
 
     private static void convert(Block from, Block to, Item drop) {
@@ -53,19 +58,23 @@ public final class ToolBehavior {
         // Overworld (non-deepslate) ores crush into cobblestone.
         convert(Blocks.COAL_ORE, Blocks.COBBLESTONE, ModContent.COAL_DUST.get(), 3, false);
         convert(Blocks.COPPER_ORE, Blocks.COBBLESTONE, ModContent.COPPER_ORE_PILE.get());
+        convert(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE, ModContent.DEEPSLATE_PEBBLE.get());
+        convert(Blocks.COBBLED_DEEPSLATE, ModContent.GRAVELLY_DEEPSLATE.get(), ModContent.DEEPSLATE_PEBBLE.get());
         convert(Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS, null);
 
         // Heavy hammer only.
         convertHeavy(Blocks.SMOOTH_BASALT, ModContent.COBBLED_BASALT.get(), ModContent.BASALT_PEBBLE.get(), 1);
         convertHeavy(ModContent.COBBLED_BASALT.get(), ModContent.GRAVELLY_BASALT.get(), ModContent.BASALT_PEBBLE.get(), 1);
-        convertHeavy(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE, ModContent.DEEPSLATE_PEBBLE.get(), 1);
-        convertHeavy(Blocks.COBBLED_DEEPSLATE, ModContent.GRAVELLY_DEEPSLATE.get(), ModContent.DEEPSLATE_PEBBLE.get(), 1);
         convertHeavy(Blocks.IRON_ORE, Blocks.COBBLESTONE, ModContent.IRON_ORE_PILE.get(), 1);
         convertHeavy(Blocks.DEEPSLATE_COAL_ORE, Blocks.COBBLED_DEEPSLATE, ModContent.COAL_DUST.get(), 3);
         convertHeavy(Blocks.DEEPSLATE_COPPER_ORE, Blocks.COBBLED_DEEPSLATE, ModContent.COPPER_ORE_PILE.get(), 1);
         convertHeavy(Blocks.DEEPSLATE_IRON_ORE, Blocks.COBBLED_DEEPSLATE, ModContent.IRON_ORE_PILE.get(), 1);
         convertHeavy(Blocks.DEEPSLATE_TILES, Blocks.CRACKED_DEEPSLATE_TILES, null, 0);
         convertHeavy(Blocks.DEEPSLATE_BRICKS, Blocks.CRACKED_DEEPSLATE_BRICKS, null, 0);
+        convertOre(Blocks.GOLD_ORE, Blocks.COBBLESTONE, ModContent.GOLD_ORE_PILE.get(), 1, 1);
+        convertOre(Blocks.DEEPSLATE_GOLD_ORE, Blocks.COBBLED_DEEPSLATE, ModContent.GOLD_ORE_PILE.get(), 1, 1);
+        convertOre(Blocks.LAPIS_ORE, Blocks.COBBLESTONE, Items.LAPIS_LAZULI, 2, 6);
+        convertOre(Blocks.DEEPSLATE_LAPIS_ORE, Blocks.COBBLED_DEEPSLATE, Items.LAPIS_LAZULI, 2, 6);
         convertHeavy(Blocks.NETHER_BRICKS, Blocks.CRACKED_NETHER_BRICKS, null, 0);
     }
 
@@ -92,7 +101,7 @@ public final class ToolBehavior {
             initConversions();
         }
         Conversion conversion = CONVERSIONS.get(state.getBlock());
-        if (conversion == null || (conversion.heavyOnly() && !heavyHammer) || !tool.isCorrectToolForDrops(state)) {
+        if (conversion == null || (conversion.heavyOnly() && !heavyHammer) || (!conversion.ignoreTier() && !tool.isCorrectToolForDrops(state))) {
             return;
         }
 
@@ -103,7 +112,8 @@ public final class ToolBehavior {
         level.levelEvent(2001, pos, Block.getId(state));
         level.setBlock(pos, conversion.result().defaultBlockState(), Block.UPDATE_ALL);
         if (conversion.drop() != null) {
-            Block.popResource(level, pos, new ItemStack(conversion.drop(), conversion.count()));
+            int count = level.getRandom().nextIntBetweenInclusive(conversion.minCount(), conversion.maxCount());
+            Block.popResource(level, pos, new ItemStack(conversion.drop(), count));
         }
         player.causeFoodExhaustion(0.005F);
         tool.hurtAndBreak(1, player, InteractionHand.MAIN_HAND);
