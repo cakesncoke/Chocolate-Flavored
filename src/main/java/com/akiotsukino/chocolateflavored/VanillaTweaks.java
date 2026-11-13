@@ -24,6 +24,11 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 
 /**
@@ -74,6 +79,7 @@ public final class VanillaTweaks {
         modEventBus.addListener(VanillaTweaks::buildCreativeTabs);
         NeoForge.EVENT_BUS.addListener(VanillaTweaks::innateSilkTouch);
         NeoForge.EVENT_BUS.addListener(VanillaTweaks::tooltip);
+        NeoForge.EVENT_BUS.addListener(VanillaTweaks::placeCampfireUnlit);
     }
 
     // ---- Stats ------------------------------------------------------------------------------
@@ -163,6 +169,14 @@ public final class VanillaTweaks {
         }
     }
 
+    /** A campfire is placed unlit. Soul campfires keep vanilla placement. */
+    private static void placeCampfireUnlit(BlockEvent.EntityPlaceEvent event) {
+        BlockState state = event.getPlacedBlock();
+        if (state.is(Blocks.CAMPFIRE) && state.getValue(CampfireBlock.LIT)) {
+            event.getLevel().setBlock(event.getPos(), state.setValue(CampfireBlock.LIT, false), Block.UPDATE_ALL);
+        }
+    }
+
     private static void tooltip(ItemTooltipEvent event) {
         if (GOLD_TOOLS.contains(event.getItemStack().getItem())) {
             event.getToolTip().add(Component.translatable("tooltip.chocolateflavored.innate_silk_touch").withStyle(ChatFormatting.GRAY));
@@ -185,10 +199,13 @@ public final class VanillaTweaks {
                 cobbled.addAll(List.of(family.base().asItem(), family.stairs().asItem(), family.slab().asItem(), family.wall().asItem()));
             }
             after(event, Items.COBBLESTONE_WALL, cobbled.toArray(Item[]::new));
+        } else if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            after(event, Items.CAMPFIRE, ModContent.EARTHEN_KILN.asItem());
         } else if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
             after(event, Items.GRAVEL, ModContent.GRAVELLY_GRANITE.asItem(), ModContent.GRAVELLY_DIORITE.asItem(),
                     ModContent.GRAVELLY_ANDESITE.asItem(), ModContent.GRAVELLY_BASALT.asItem(), ModContent.GRAVELLY_DEEPSLATE.asItem());
         } else if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            after(event, Items.FLINT_AND_STEEL, ModContent.FIRE_STARTER.get());
             after(event, Items.STONE_AXE, ModContent.FLINT_KNIFE.get(), ModContent.STONE_HAMMER.get(), ModContent.HEAVY_HAMMER.get());
             after(event, Items.IRON_HOE, ModContent.IRON_KNIFE.get());
             after(event, Items.GOLDEN_HOE, ModContent.ROSE_GOLD_SHOVEL.get(), ModContent.ROSE_GOLD_PICKAXE.get(),

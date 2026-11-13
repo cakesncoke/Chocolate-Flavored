@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "blocks",
+  "ingredient": "minecraft:packed_mud",
+  "result": {
+    "id": "minecraft:mud_bricks"
+  },
+  "cookingtime": 600,
+  "experience": 0.1
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:mud",
+    "#chocolateflavored:plant_binders"
+  ],
+  "result": {
+    "id": "minecraft:packed_mud"
+  }
+}
