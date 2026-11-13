@@ -24,11 +24,6 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.enchanting.GetEnchantmentLevelEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 
 /**
@@ -79,7 +74,6 @@ public final class VanillaTweaks {
         modEventBus.addListener(VanillaTweaks::buildCreativeTabs);
         NeoForge.EVENT_BUS.addListener(VanillaTweaks::innateSilkTouch);
         NeoForge.EVENT_BUS.addListener(VanillaTweaks::tooltip);
-        NeoForge.EVENT_BUS.addListener(VanillaTweaks::placeCampfireUnlit);
     }
 
     // ---- Stats ------------------------------------------------------------------------------
@@ -166,14 +160,6 @@ public final class VanillaTweaks {
     private static void innateSilkTouch(GetEnchantmentLevelEvent event) {
         if (event.isTargetting(Enchantments.SILK_TOUCH) && GOLD_TOOLS.contains(event.getStack().typeHolder().value())) {
             event.getHolder(Enchantments.SILK_TOUCH).ifPresent(silkTouch -> event.getEnchantments().upgrade(silkTouch, 1));
-        }
-    }
-
-    /** A campfire is placed unlit. Soul campfires keep vanilla placement. */
-    private static void placeCampfireUnlit(BlockEvent.EntityPlaceEvent event) {
-        BlockState state = event.getPlacedBlock();
-        if (state.is(Blocks.CAMPFIRE) && state.getValue(CampfireBlock.LIT)) {
-            event.getLevel().setBlock(event.getPos(), state.setValue(CampfireBlock.LIT, false), Block.UPDATE_ALL);
         }
     }
 

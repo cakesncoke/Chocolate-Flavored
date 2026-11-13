@@ -7,7 +7,7 @@
       "model": "chocolateflavored:block/cobbled_granite"
     },
     "type=top": {
-      "model": "chocolateflavored:block/cobbled_granite_slab_slab_top"
+      "model": "chocolateflavored:block/cobbled_granite_slab_top"
     }
   }
 }

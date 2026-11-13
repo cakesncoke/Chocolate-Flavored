@@ -7,7 +7,7 @@
       "model": "chocolateflavored:block/cobbled_diorite"
     },
     "type=top": {
-      "model": "chocolateflavored:block/cobbled_diorite_slab_slab_top"
+      "model": "chocolateflavored:block/cobbled_diorite_slab_top"
     }
   }
 }

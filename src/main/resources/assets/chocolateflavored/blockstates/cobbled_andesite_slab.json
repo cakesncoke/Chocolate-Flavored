@@ -7,7 +7,7 @@
       "model": "chocolateflavored:block/cobbled_andesite"
     },
     "type=top": {
-      "model": "chocolateflavored:block/cobbled_andesite_slab_slab_top"
+      "model": "chocolateflavored:block/cobbled_andesite_slab_top"
     }
   }
 }
