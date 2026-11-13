@@ -43,7 +43,7 @@ Sword, shovel, pickaxe, axe and hoe. They match steel tools, except:
 | Mining speed | 7 |
 | Enchantability | 18 |
 
-They are repaired with rose gold ingots. A copper tool becomes its rose gold counterpart at a smithing table with a **rose gold upgrade smithing template** and a **rose gold ingot**. Rose gold ingots can currently only be crafted from rose gold nuggets or blocks; there is no way to obtain them in survival yet.
+They are repaired with rose gold ingots. A copper tool becomes its rose gold counterpart at a smithing table with a **rose gold upgrade smithing template** and a **rose gold ingot**. Rose gold ingots are crafted from 1 gold ingot and 4 copper ingots.
 
 ## Hammers
 
@@ -69,8 +69,9 @@ Knives gather **plant fiber** from plants and make leaves drop sticks more often
 |---|---|
 | Flint Knife | flint above a stick |
 | Iron Knife | iron ingot above a stick |
-| Stone Hammer | 5 cobblestone-type blocks (cobblestone, blackstone, cobbled deepslate) and 2 sticks, in the shape of a T-hammer |
-| Heavy Hammer | 5 iron ingots and 2 sticks, same shape |
+| Stone Hammer | top row: pebble, string; bottom row: stick, pebble (any stone, granite, andesite or diorite pebbles; string or plant string) |
+| Heavy Hammer | 5 pebbles (deepslate or basalt, mixed freely) in a "U" shape with 1 stick in the middle and 1 stick below it |
+| Stone Axe | top row: 2 pebbles (stone, granite, andesite, diorite); bottom row: stick, string or plant string |
 | Rose gold tools | smithing table: copper tool + rose gold ingot + rose gold upgrade smithing template |
 | Steel tools and weapons | the usual vanilla shapes using **steel ingots** instead of iron |
 | Diamond tools and weapons | the usual vanilla shapes using **diamond ingots** instead of diamonds |
@@ -79,7 +80,7 @@ Knives gather **plant fiber** from plants and make leaves drop sticks more often
 
 ## Armor trims
 
-Steel ingots and rose gold ingots can be used as trim materials at a smithing table. Steel trims on steel (former iron) armor use a darker shade, like iron trims did.
+Steel ingots, rose gold ingots and diamond ingots can be used as trim materials (diamond ingots use the diamond colors) at a smithing table. Steel trims on steel (former iron) armor use a darker shade, like iron trims did.
 
 ## Beacons
 

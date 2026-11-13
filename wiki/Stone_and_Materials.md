@@ -25,6 +25,7 @@ It mines **deepslate and cobbled deepslate** a little more slowly (speed 2).
 | Cobbled deepslate | Gravelly deepslate | Deepslate pebble |
 | Coal ore | Cobblestone | 3 coal dust |
 | Copper ore | Cobblestone | Copper ore pile |
+| Sandstone / Red sandstone | Sand / Red sand | nothing |
 | Stone bricks | Cracked stone bricks | nothing |
 
 ### Heavy Hammer
@@ -49,6 +50,7 @@ Mines everything the stone hammer does, plus **any block a pickaxe can mine**, a
 
 - Breaking **short grass, fern, bush or red shrub** drops 1 plant fiber.
 - Breaking **tall grass or large fern** drops 2 plant fiber.
+- A knife held in the crafting grid with **plant fiber** makes **2 plant string**. The knife loses 1 durability instead of being used up.
 - Breaking **leaves** gives a 33% chance of dropping sticks.
 
 ## New blocks
@@ -82,7 +84,10 @@ Pebbles (stone, andesite, diorite, granite, basalt, deepslate), coal dust, coppe
 | Cobblestone, cobbled granite / diorite / andesite / basalt / deepslate | 4 of the matching pebble in a 2×2 square |
 | Raw copper / iron / gold | 2 of the matching ore pile |
 | Coal | 4 coal dust |
+| Planks | any axe + a log of the matching wood. The axe loses 1 durability instead of being used up. Logs can no longer be crafted into planks by hand |
+| Rose gold ingot | 1 gold ingot + 4 copper ingots |
+| Ingots from nuggets | 4 nuggets in a 2×2 square (iron, gold, copper, steel, rose gold). An ingot now makes 4 nuggets |
 | Iron bloom | 1 iron ingot surrounded by 8 coal or charcoal |
-| Diamond ingot | 1 diamond, 1 steel ingot and 1 creeper oyster |
+| Diamond ingot | 1 diamond, 1 iron ingot and 1 creeper oyster |
 
-Plant fiber, creeper oysters, steel plates and diamond plates do not have other uses yet.
+Plant string is used in place of string in the stone hammer and stone axe recipes. Plant fiber, creeper oysters, steel plates and diamond plates do not have other uses yet.

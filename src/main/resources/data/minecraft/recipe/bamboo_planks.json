@@ -1,0 +1,13 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#minecraft:axes",
+    "#minecraft:bamboo_blocks"
+  ],
+  "result": {
+    "id": "minecraft:bamboo_planks",
+    "count": 2
+  },
+  "group": "planks"
+}

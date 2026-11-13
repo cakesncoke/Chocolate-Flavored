@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "#minecraft:stone_tool_materials",
-    "S": "minecraft:stick"
+    "A": "#chocolateflavored:stone_pebbles",
+    "B": "minecraft:stick",
+    "C": "#chocolateflavored:strings"
   },
   "pattern": [
-    "CCC",
-    "CSC",
-    " S "
+    "AC",
+    "BA"
   ],
   "result": {
     "id": "chocolateflavored:stone_hammer",

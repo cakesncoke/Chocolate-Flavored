@@ -10,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.item.equipment.trim.TrimMaterials;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -104,10 +105,11 @@ public final class ModContent {
     public static final DeferredItem<Item> ROSE_GOLD_INGOT = ITEMS.registerSimpleItem("rose_gold_ingot", p -> p.trimMaterial(ROSE_GOLD_TRIM));
     public static final DeferredItem<Item> ROSE_GOLD_NUGGET = ITEMS.registerSimpleItem("rose_gold_nugget");
     public static final DeferredItem<Item> ROSE_GOLD_UPGRADE_SMITHING_TEMPLATE = ITEMS.registerSimpleItem("rose_gold_upgrade_smithing_template");
-    public static final DeferredItem<Item> DIAMOND_INGOT = ITEMS.registerSimpleItem("diamond_ingot");
+    public static final DeferredItem<Item> DIAMOND_INGOT = ITEMS.registerSimpleItem("diamond_ingot", p -> p.trimMaterial(TrimMaterials.DIAMOND));
     public static final DeferredItem<Item> DIAMOND_PLATE = ITEMS.registerSimpleItem("diamond_plate");
     public static final DeferredItem<Item> CREEPER_OYSTERS = ITEMS.registerSimpleItem("creeper_oysters");
     public static final DeferredItem<Item> PLANT_FIBER = ITEMS.registerSimpleItem("plant_fiber");
+    public static final DeferredItem<Item> PLANT_STRING = ITEMS.registerSimpleItem("plant_string");
 
     // ---- Tools ------------------------------------------------------------------------------
     // Rose gold uses iron's baselines. The hoe's damage is its pickaxe's minus 0.5 (see VanillaTweaks).

@@ -60,6 +60,8 @@ public final class ToolBehavior {
         convert(Blocks.COPPER_ORE, Blocks.COBBLESTONE, ModContent.COPPER_ORE_PILE.get());
         convert(Blocks.DEEPSLATE, Blocks.COBBLED_DEEPSLATE, ModContent.DEEPSLATE_PEBBLE.get());
         convert(Blocks.COBBLED_DEEPSLATE, ModContent.GRAVELLY_DEEPSLATE.get(), ModContent.DEEPSLATE_PEBBLE.get());
+        convert(Blocks.SANDSTONE, Blocks.SAND, null);
+        convert(Blocks.RED_SANDSTONE, Blocks.RED_SAND, null);
         convert(Blocks.STONE_BRICKS, Blocks.CRACKED_STONE_BRICKS, null);
 
         // Heavy hammer only.

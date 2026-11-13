@@ -1,0 +1,13 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#minecraft:axes",
+    "#minecraft:warped_stems"
+  ],
+  "result": {
+    "id": "minecraft:warped_planks",
+    "count": 4
+  },
+  "group": "planks"
+}

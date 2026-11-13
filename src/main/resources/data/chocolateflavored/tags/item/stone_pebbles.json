@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "chocolateflavored:stone_pebble",
+    "chocolateflavored:granite_pebble",
+    "chocolateflavored:andesite_pebble",
+    "chocolateflavored:diorite_pebble"
+  ]
+}

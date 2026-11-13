@@ -1,0 +1,12 @@
+{
+  "type": "chocolateflavored:tool_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#chocolateflavored:knives",
+    "chocolateflavored:plant_fiber"
+  ],
+  "result": {
+    "id": "chocolateflavored:plant_string",
+    "count": 2
+  }
+}

@@ -5,9 +5,8 @@
     "N": "chocolateflavored:rose_gold_nugget"
   },
   "pattern": [
-    "NNN",
-    "NNN",
-    "NNN"
+    "NN",
+    "NN"
   ],
   "result": {
     "id": "chocolateflavored:rose_gold_ingot",
