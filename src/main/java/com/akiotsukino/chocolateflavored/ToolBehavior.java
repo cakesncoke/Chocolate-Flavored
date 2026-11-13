@@ -75,6 +75,7 @@ public final class ToolBehavior {
         convertOre(Blocks.DEEPSLATE_GOLD_ORE, Blocks.COBBLED_DEEPSLATE, ModContent.GOLD_ORE_PILE.get(), 1, 1);
         convertOre(Blocks.LAPIS_ORE, Blocks.COBBLESTONE, Items.LAPIS_LAZULI, 2, 6);
         convertOre(Blocks.DEEPSLATE_LAPIS_ORE, Blocks.COBBLED_DEEPSLATE, Items.LAPIS_LAZULI, 2, 6);
+        convertHeavy(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.CRACKED_POLISHED_BLACKSTONE_BRICKS, null, 0);
         convertHeavy(Blocks.NETHER_BRICKS, Blocks.CRACKED_NETHER_BRICKS, null, 0);
     }
 

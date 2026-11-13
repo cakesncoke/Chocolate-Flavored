@@ -8,7 +8,7 @@ Hammers mine stone-type blocks. Some blocks are **converted** to the next stage 
 
 Mines these blocks at mining speed 3, breaking them normally (stairs, slabs, walls and chiseled/polished variants included):
 
-- Cobblestone, mossy cobblestone, cobbled granite/diorite/andesite/basalt and cobbled deepslate families
+- Cobblestone, mossy cobblestone, cobbled granite/diorite/andesite and cobbled deepslate families
 - Stone, smooth stone, stone bricks and mossy stone bricks families
 - Granite, diorite, andesite, tuff, bricks, packed earth / earthen bricks, resin bricks, sandstone, red sandstone, cinnabar and sulfur families
 - Calcite, gravel and the gravelly stones (granite, diorite, andesite)
@@ -42,6 +42,7 @@ Mines everything the stone hammer does, plus **any block a pickaxe can mine**, a
 | Deepslate copper / iron / gold ore | Cobbled deepslate | Copper / iron / gold ore pile |
 | Deepslate lapis ore | Cobbled deepslate | 2-6 lapis lazuli |
 | Deepslate tiles / bricks | Cracked version | nothing |
+| Polished blackstone bricks | Cracked polished blackstone bricks | nothing |
 | Nether bricks | Cracked nether bricks | nothing |
 
 ## Knives
