@@ -30,3 +30,4 @@ A campfire-like block that cooks up to **six items** at once.
 - It also cooks in batches: **3 wheat make 1 bread**, and potatoes bake faster than on a campfire.
 - Nothing solid may sit on top of it. If you cover a kiln, the items pop out.
 - A lit kiln gives off light and burns anyone who walks on it, like a campfire.
+- It smelts primitive metals (20 seconds each): **raw copper** makes 1 copper ingot, **raw iron** makes 1 iron ingot, **copper ore piles** make 2 copper nuggets each and **iron ore piles** make 2 iron nuggets each.

@@ -1,6 +1,7 @@
 package com.akiotsukino.chocolateflavored;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,7 +28,8 @@ public final class ToolBehavior {
     }
 
     private static final Map<Block, Conversion> CONVERSIONS = new HashMap<>();
-    private static final Set<Block> FLINT_BLOCKS = Set.of(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE);
+    /** Blocks a flint can chip: stone-type blocks into their cobbled form, cobbled blocks into their gravel form. */
+    private static final Set<Block> FLINT_BLOCKS = new HashSet<>();
 
     private static void convert(Block from, Block to, Item drop, int count, boolean heavyOnly) {
         CONVERSIONS.put(from, new Conversion(to, drop, count, count, heavyOnly, false));
@@ -48,6 +50,8 @@ public final class ToolBehavior {
 
     /** Built on first use: registry objects cannot be resolved before registration finishes. */
     private static void initConversions() {
+        FLINT_BLOCKS.addAll(Set.of(Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE, Blocks.COBBLESTONE,
+                ModContent.COBBLED_GRANITE.get(), ModContent.COBBLED_DIORITE.get(), ModContent.COBBLED_ANDESITE.get()));
         // Stone hammer and heavy hammer: stone -> cobbled -> gravelly, one pebble per swing.
         convert(Blocks.STONE, Blocks.COBBLESTONE, ModContent.STONE_PEBBLE.get());
         convert(Blocks.GRANITE, ModContent.COBBLED_GRANITE.get(), ModContent.GRANITE_PEBBLE.get());
@@ -108,7 +112,7 @@ public final class ToolBehavior {
         }
         Conversion conversion = CONVERSIONS.get(state.getBlock());
         if (flint) {
-            // A flint chips stone, granite, diorite and andesite into their cobbled form and is used up.
+            // A flint chips stone-type blocks into their cobbled form, and cobbled blocks into gravel, and is used up.
             if (!FLINT_BLOCKS.contains(state.getBlock()) || conversion == null) {
                 return;
             }
@@ -139,16 +143,20 @@ public final class ToolBehavior {
 
     private static void onBlockDrops(BlockDropsEvent event) {
         ItemStack tool = event.getTool();
-        if (!(event.getBreaker() instanceof Player) || !(tool.is(ModContent.FLINT_KNIFE.get()) || tool.is(ModContent.IRON_KNIFE.get()))) {
+        if (!(event.getBreaker() instanceof Player player) || !(tool.is(ModContent.FLINT_KNIFE.get()) || tool.is(ModContent.IRON_KNIFE.get()))) {
             return;
         }
         BlockState state = event.getState();
         ServerLevel level = event.getLevel();
 
-        if (state.is(Blocks.SHORT_GRASS) || state.is(Blocks.FERN) || state.is(Blocks.BUSH) || state.is(Blocks.RED_SHRUB)) {
-            addDrop(event, new ItemStack(ModContent.PLANT_FIBER.get(), 1));
-        } else if (state.is(Blocks.TALL_GRASS) || state.is(Blocks.LARGE_FERN)) {
-            addDrop(event, new ItemStack(ModContent.PLANT_FIBER.get(), 2));
+        if (state.is(Blocks.SHORT_GRASS) || state.is(Blocks.FERN) || state.is(Blocks.BUSH) || state.is(Blocks.RED_SHRUB)
+                || state.is(Blocks.TALL_GRASS) || state.is(Blocks.LARGE_FERN)) {
+            // 0-3 plant fiber. These plants break instantly, so vanilla would not wear the knife: do it here.
+            int fiber = level.getRandom().nextInt(4);
+            if (fiber > 0) {
+                addDrop(event, new ItemStack(ModContent.PLANT_FIBER.get(), fiber));
+            }
+            tool.hurtAndBreak(1, player, InteractionHand.MAIN_HAND);
         } else if (state.is(BlockTags.LEAVES)) {
             // Sticks drop 33% of the time (instead of vanilla's low chance), 1-2 at a time like vanilla.
             event.getDrops().removeIf(drop -> drop.getItem().is(Items.STICK));

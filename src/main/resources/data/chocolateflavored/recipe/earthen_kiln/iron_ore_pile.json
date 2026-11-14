@@ -1,0 +1,10 @@
+{
+  "type": "chocolateflavored:earthen_kiln",
+  "ingredient": "chocolateflavored:iron_ore_pile",
+  "result": {
+    "id": "minecraft:iron_nugget",
+    "count": 2
+  },
+  "cookingtime": 400,
+  "experience": 0.35
+}
